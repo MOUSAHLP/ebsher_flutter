@@ -1,5 +1,6 @@
 import 'package:absher/presentation/resources/assets_manager.dart';
 import 'package:absher/presentation/screens/auth_screen/sign_in_screen.dart';
+import 'package:absher/presentation/screens/auth_screen/sign_up_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../resources/color_manager.dart';
@@ -41,6 +42,13 @@ class AccountScreen extends StatelessWidget {
                   labelColor: Colors.white,
                   isFilled: false,
                   label: 'إنشاء حساب',
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const SignUpScreen(),
+                      ),
+                    );
+                  },
                 ),
               ],
             ),

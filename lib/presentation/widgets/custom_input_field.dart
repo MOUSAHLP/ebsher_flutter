@@ -81,7 +81,7 @@ class CustomInputField extends StatelessWidget {
                     onChanged: onChange,
                     inputFormatters: inputFormatters,
                     decoration: InputDecoration(
-                      fillColor: Colors.white,
+                      fillColor: Color(0xFFEEF6F6),
                       hintText: withLabel ? null : hintText,
                       label: withLabel
                           ? Text(

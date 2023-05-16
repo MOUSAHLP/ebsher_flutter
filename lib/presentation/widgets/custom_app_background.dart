@@ -25,8 +25,10 @@ class CustomAppBackGround extends StatelessWidget {
                   begin: Alignment.center,
                   end: Alignment.bottomCenter,
                   colors: <Color>[
-                    ColorManager.backgroundStartColor,
-                    ColorManager.backgroundEndColor,
+                    Color(0xFF257679),
+                    Color(0xFF2C8E91),
+                    Color(0xFF33A5A8),
+                    Color(0xFF3ABABD),
                   ],
                 ),
               ),
@@ -52,7 +54,10 @@ class CustomAppBackGround extends StatelessWidget {
               ),
           ],
         ),
-        child
+        SizedBox(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            child: child)
       ],
     );
   }

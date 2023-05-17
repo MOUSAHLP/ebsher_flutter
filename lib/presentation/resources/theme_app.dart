@@ -1,5 +1,5 @@
-import 'package:absher/core/colors_app.dart';
-import 'package:absher/core/style_app.dart';
+
+import 'style_app.dart';
 import 'package:flutter/material.dart';
 
 
@@ -35,10 +35,10 @@ ThemeData getThemeApp() {
 //      )
 //    )
     ///text theme
-    textTheme: TextTheme(
-//titleLarge: ,
-      titleMedium: getBoldStyle(color: ColorsApp.white,fontSize: 12)
-    )
+//    textTheme: TextTheme(
+////titleLarge: ,
+//      titleMedium: getBoldStyle(color: ColorsApp.white,fontSize: 12)
+//    )
 
     ///input decoration theme(text form field)
 //inputDecorationTheme: const InputDecorationTheme(

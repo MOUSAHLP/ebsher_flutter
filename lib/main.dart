@@ -1,3 +1,4 @@
+import 'package:absher/presentation/screens/home_screen/basic_screen.dart';
 import 'package:absher/presentation/screens/splash_screen/splash_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -17,11 +18,12 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const SplashScreen(),
+      home:  BasicScreen(),
     );
   }
 }

@@ -12,6 +12,8 @@ dependencies:
   cupertino_icons: ^1.0.2
 
   fluro: ^2.0.5
+  flutter_svg:
+  carousel_slider: ^4.2.1
 
 dev_dependencies:
   flutter_test:
@@ -23,6 +25,7 @@ flutter:
 
   assets:
     - assets/images/
+    - assets/icons/
 #  assets:
 #    - assets/
   fonts:

@@ -20,13 +20,14 @@ class CustomAppBackGround extends StatelessWidget {
             Container(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
-              decoration: const BoxDecoration(
+              decoration:  BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.center,
                   end: Alignment.bottomCenter,
                   colors: <Color>[
-                    ColorManager.backgroundStartColor,
+
                     ColorManager.backgroundEndColor,
+                    ColorManager.backgroundStartColor,
                   ],
                 ),
               ),

@@ -1,6 +1,6 @@
-import 'package:absher/core/font_app.dart';
-import 'package:absher/core/style_app.dart';
 import 'package:absher/presentation/resources/assets_manager.dart';
+import 'package:absher/presentation/resources/font_app.dart';
+import 'package:absher/presentation/resources/style_app.dart';
 import 'package:absher/presentation/widgets/custom_input_field.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';

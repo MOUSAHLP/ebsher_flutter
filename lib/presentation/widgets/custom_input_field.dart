@@ -1,4 +1,4 @@
-import 'package:absher/core/style_app.dart';
+import 'package:absher/presentation/resources/style_app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 

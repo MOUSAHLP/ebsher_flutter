@@ -1,3 +1,4 @@
+import 'package:absher/presentation/resources/font_app.dart';
 import 'package:absher/presentation/resources/style_app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -117,13 +118,12 @@ class CustomInputField extends StatelessWidget {
         ),
         if (errorMessage != null)
           Padding(
-            padding: const EdgeInsets.only(top: 4.0),
+            padding: const EdgeInsets.only(top: 4.0, right: 18, left: 18),
             child: Text(
               errorMessage ?? '',
-              // style: getRegularStyle(
-              //   fontSize: FontSize.s14,
-              //   color: ColorManager.rejectedRed,
-              // ),
+              style: TextStyle(
+                color: Colors.red,
+              ),
             ),
           ),
       ],

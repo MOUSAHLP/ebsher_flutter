@@ -1,8 +1,8 @@
+import 'package:absher/core/api_const.dart';
+import 'package:absher/data/data_resource/local_resource/data_store.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/foundation.dart';
 import 'package:dio/dio.dart';
-import '../../local_resource/data_store.dart';
-import '../links.dart';
 import 'dio_errors_handler.dart';
 import 'interceptors_handler.dart';
 
@@ -17,14 +17,14 @@ class BaseApiClient {
       //     requestHeader: true, responseHeader: true, request: true));
     }
     client.interceptors.add(ClientInterceptor());
-    client.options.baseUrl = Links.baseUrl;
+    client.options.baseUrl = ApiConst.baseUrl;
   }
 
-  static Future<Either<String, dynamic>> post(
+  static Future<Either<String, T>> post<T>(
       {required String url,
       FormData? formData,
       Map<String, dynamic>? queryParameters,
-      required Function(dynamic) converter,
+      required T Function(dynamic) converter,
       dynamic returnOnError}) async {
     try {
       var response = await client.post(
@@ -44,12 +44,11 @@ class BaseApiClient {
           },
         ),
       );
-      if (response.statusCode! >= 200 || response.statusCode! <= 205) {
+      if (((response.statusCode! >= 200 || response.statusCode! <= 205)) &&
+          (response.data['error'].toString() != 'true')) {
         if (kDebugMode) {
           print(response.data);
         }
-
-        // toast(response.data['message']);
         return right(converter(response.data));
       } else {
         return left(response.data['message']);

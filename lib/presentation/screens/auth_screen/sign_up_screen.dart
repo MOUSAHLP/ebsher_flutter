@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import '../../resources/color_manager.dart';
 import '../../widgets/custom_app_background.dart';
 import '../../widgets/custom_button.dart';
+import '../../widgets/custom_loader.dart';
 
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -60,17 +61,9 @@ class SignUpScreen extends StatelessWidget {
                   height: 8,
                 ),
                 const CustomInputField(
-                  hintText: '00 - 00 - 0000',
+                  hintText: 'أدخل بريدك الإلكتروني',
                   withLabel: true,
-                  icon: Icons.date_range,
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                const CustomInputField(
-                  hintText: 'جنس',
-                  withLabel: true,
-                  icon: Icons.person,
+                  icon: Icons.email,
                 ),
                 const SizedBox(
                   height: 8,
@@ -81,9 +74,22 @@ class SignUpScreen extends StatelessWidget {
                   icon: Icons.lock_open_rounded,
                 ),
                 const SizedBox(
+                  height: 8,
+                ),
+                const CustomInputField(
+                  hintText: 'تأكيد كلمة المرور',
+                  withLabel: true,
+                  icon: Icons.lock_open_rounded,
+                ),
+                const SizedBox(
                   height: 16,
                 ),
-                const CustomButton(label: 'تسجيل'),
+                CustomButton(
+                  label: 'تسجيل',
+                  onTap: () {
+                    LoadingDialog().openDialog(context);
+                  },
+                ),
                 const SizedBox(
                   height: 8,
                 ),

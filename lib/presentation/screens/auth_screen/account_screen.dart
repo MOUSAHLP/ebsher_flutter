@@ -1,4 +1,8 @@
+import 'package:absher/bloc/sign_up_bloc/sign_up_bloc.dart';
+import 'package:absher/bloc/sign_up_bloc/sign_up_event.dart';
+import 'package:absher/core/services/services_locator.dart';
 import 'package:absher/presentation/resources/assets_manager.dart';
+import 'package:absher/presentation/screens/auth_screen/phone_number_screen.dart';
 import 'package:absher/presentation/screens/auth_screen/sign_in_screen.dart';
 import 'package:absher/presentation/screens/auth_screen/sign_up_screen.dart';
 import 'package:flutter/material.dart';
@@ -45,7 +49,7 @@ class AccountScreen extends StatelessWidget {
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => const SignUpScreen(),
+                        builder: (context) => RequestOtpScreen(),
                       ),
                     );
                   },

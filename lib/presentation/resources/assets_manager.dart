@@ -18,6 +18,18 @@ class ImageManager {
   static const String resetPasswordAsset3 =
       "$imagePath/reset_password_asset_3.png";
   static const String signUpAsset = "$imagePath/signup_asset.png";
+  static const String test = "$imagePath/test.png";
+  static const String test1 = "$imagePath/test1.png";
 }
 
-class IconsManager {}
+class IconsManager {
+  static const String iconNotification = "$iconPath/notification.svg";
+  static const String iconMenu = "$iconPath/menu.svg";
+  static const String iconAppAbsher = "$iconPath/appAbsher.svg";
+  static const String iconDoctor = "$iconPath/doctor.svg";
+  static const String iconUser = "$iconPath/user.svg";
+  static const String iconHome = "$iconPath/home.svg";
+  static const String iconSearch = "$iconPath/search.svg";
+  static const String iconVideo = "$iconPath/video.svg";
+  static const String iconStars = "$iconPath/stars.svg";
+}

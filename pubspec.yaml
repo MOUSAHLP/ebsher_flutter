@@ -20,6 +20,10 @@ dependencies:
   dio: ^5.1.2
   dartz: ^0.10.1
 
+  fluro: ^2.0.5
+  flutter_svg:
+  carousel_slider: ^4.2.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -33,6 +37,7 @@ flutter:
 
   assets:
     - assets/images/
+    - assets/icons/
 #  assets:
 #    - assets/
   fonts:

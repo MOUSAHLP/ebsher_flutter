@@ -1,6 +1,7 @@
 import 'package:absher/bloc/authentication_bloc/authentication_event.dart';
 import 'package:absher/bloc/authentication_bloc/authentication_state.dart';
 import 'package:absher/data/data_resource/local_resource/data_store.dart';
+import 'package:absher/presentation/screens/auth_screen/sign_up_screen.dart';
 import 'package:absher/presentation/screens/on_boarding_screen/on_boarding_screen.dart';
 import 'package:absher/presentation/screens/splash_screen/splash_screen.dart';
 import 'package:absher/translations.dart';

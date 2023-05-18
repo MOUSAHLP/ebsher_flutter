@@ -10,6 +10,7 @@ import 'package:absher/presentation/screens/auth_screen/otp_confirmation_screen.
 import 'package:absher/presentation/widgets/custom_app_background.dart';
 import 'package:absher/presentation/widgets/custom_button.dart';
 import 'package:absher/presentation/widgets/custom_input_field.dart';
+import 'package:absher/presentation/widgets/dialogs/error_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:overlay_support/overlay_support.dart';
@@ -29,7 +30,7 @@ class RequestOtpScreen extends StatelessWidget {
             LoadingDialog().closeDialog(context);
           }
           if (state is SignUpError) {
-            toast('error');
+            ErrorDialog.openDialog(context, null);
           }
           if (state is SignUpOtpRequested) {
             Navigator.of(context).pushReplacement(

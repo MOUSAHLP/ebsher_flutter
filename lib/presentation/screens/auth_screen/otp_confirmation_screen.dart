@@ -10,6 +10,7 @@ import 'package:absher/presentation/screens/auth_screen/sign_up_screen.dart';
 import 'package:absher/presentation/widgets/custom_app_background.dart';
 import 'package:absher/presentation/widgets/custom_button.dart';
 import 'package:absher/presentation/widgets/custom_input_field.dart';
+import 'package:absher/presentation/widgets/dialogs/error_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:overlay_support/overlay_support.dart';
@@ -30,7 +31,7 @@ class OtpConfirmationScreen extends StatelessWidget {
             LoadingDialog().closeDialog(context);
           }
           if (state is SignUpError) {
-            toast('error');
+            ErrorDialog.openDialog(context, state.error);
           }
           if (state is SignUpOtpConfirmed) {
             Navigator.of(context).pushReplacement(

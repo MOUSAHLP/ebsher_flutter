@@ -1,4 +1,7 @@
+import 'package:absher/core/app_regex.dart';
+import 'package:absher/core/app_validators.dart';
 import 'package:absher/data/repos/user_repository.dart';
+import 'package:absher/models/params/sign_up_params.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../models/otp_verify_response.dart';
@@ -10,6 +13,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   final UserRepository userRepository;
   OtpVerifyResponse? otpVerifyResponse;
   OtpConfirmParams otpConfirmParams = OtpConfirmParams();
+  SignUpParams signUpParams = SignUpParams();
 
   SignUpBloc(
     this.userRepository,
@@ -20,7 +24,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
         var response =
             await userRepository.signUpPhoneNumber(event.phoneNumber);
         response.fold((l) {
-          emit(SignUpError());
+          emit(SignUpError(error: l));
         }, (r) {
           otpVerifyResponse = r;
           emit(SignUpOtpRequested());
@@ -33,21 +37,28 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
         otpConfirmParams.code = event.code;
         var response = await userRepository.confirmOtp(otpConfirmParams);
         response.fold((l) {
-          emit(SignUpError());
+          emit(SignUpError(error: l));
         }, (r) {
+          signUpParams.phone = otpConfirmParams.phone;
           emit(SignUpOtpConfirmed());
         });
       }
 
       if (event is SignUp) {
         emit(SignUpLoading());
-
-        var response = await userRepository.signUp(event.signUpParams);
-        response.fold((l) {
-          emit(SignUpError());
-        }, (r) {
-          emit(SignUpOtpConfirmed());
-        });
+        print(signUpParams.toJson().toString());
+        String? validationError =
+            AppValidators.validateSignUpFields(signUpParams);
+        if (validationError == null) {
+          var response = await userRepository.signUp(signUpParams);
+          response.fold((l) {
+            emit(SignUpError(error: l));
+          }, (r) {
+            emit(SignUpCompleted());
+          });
+        } else {
+          emit(SignUpFieldsValidationFailed(validationError: validationError));
+        }
       }
     });
   }

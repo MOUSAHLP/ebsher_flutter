@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:absher/bloc/authentication_bloc/authentication_event.dart';
 import 'package:absher/bloc/authentication_bloc/authentication_state.dart';
 import 'package:absher/bloc/login_bloc/login_event.dart';
@@ -20,7 +22,17 @@ import 'bloc/sign_up_bloc/sign_up_bloc.dart';
 import 'core/services/services_locator.dart';
 import 'data/data_resource/remote_resource/api_handler/base_api_client.dart';
 
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+  }
+}
+
 void main() async {
+  HttpOverrides.global = MyHttpOverrides();
   WidgetsFlutterBinding.ensureInitialized();
   ServicesLocator().init();
   BaseApiClient();
@@ -52,46 +64,58 @@ class _MyAppState extends State<MyApp> {
         ),
       ],
       child: OverlaySupport.global(
-        child: MaterialApp(
-          title: 'Flutter Demo',
-          locale: Locale('ar'),
-          supportedLocales: AppLocalizations.supportedLocales,
-          localizationsDelegates: const [
-            AppLocalizations.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-          ],
-          theme: ThemeData(
-            primarySwatch: Colors.blue,
-          ),
-          home: WillPopScope(
-            onWillPop: () async {
-              print('will 2');
-              return false;
-            },
-            child: BlocConsumer<AuthenticationBloc, AuthenticationState>(
-              bloc: sl<AuthenticationBloc>()..add(AppStarted()),
-              listener: (context, state) {
-                // if (state is AuthenticationUninitialized) return SplashScreen();
-                // if (state is AuthenticationAuthenticated)
-                //   // TODO: Return HomeScreen
-                //   return Container();
-                // if (state is AuthenticationUnauthenticated)
-                //   return OnBoardingScreen();
-                // // TODO: Return Loading Screen
-              },
-              builder: (context, state) {
-                if (state is AuthenticationUninitialized) return SplashScreen();
-                if (state is AuthenticationAuthenticated) return BasicScreen();
-                if (state is AuthenticationUnauthenticated)
-                  return OnBoardingScreen();
-                if (state is AuthenticationLoggedOut) return AccountScreen();
-                return SplashScreen();
-              },
+        child: GestureDetector(
+          onTap: () {
+            final FocusScopeNode currentFocus = FocusScope.of(context);
+            if (!currentFocus.hasPrimaryFocus &&
+                currentFocus.focusedChild != null) {
+              currentFocus.focusedChild?.unfocus();
+              currentFocus.unfocus();
+            }
+          },
+          child: MaterialApp(
+            title: 'Flutter Demo',
+            locale: Locale('ar'),
+            supportedLocales: AppLocalizations.supportedLocales,
+            localizationsDelegates: const [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+            ],
+            theme: ThemeData(
+              primarySwatch: Colors.blue,
             ),
+            home: WillPopScope(
+              onWillPop: () async {
+                print('will 2');
+                return false;
+              },
+              child: BlocConsumer<AuthenticationBloc, AuthenticationState>(
+                bloc: sl<AuthenticationBloc>()..add(AppStarted()),
+                listener: (context, state) {
+                  // if (state is AuthenticationUninitialized) return SplashScreen();
+                  // if (state is AuthenticationAuthenticated)
+                  //   // TODO: Return HomeScreen
+                  //   return Container();
+                  // if (state is AuthenticationUnauthenticated)
+                  //   return OnBoardingScreen();
+                  // // TODO: Return Loading Screen
+                },
+                builder: (context, state) {
+                  if (state is AuthenticationUninitialized)
+                    return SplashScreen();
+                  if (state is AuthenticationAuthenticated)
+                    return BasicScreen();
+                  if (state is AuthenticationUnauthenticated)
+                    return OnBoardingScreen();
+                  if (state is AuthenticationLoggedOut) return AccountScreen();
+                  return SplashScreen();
+                },
+              ),
+            ),
+            // home: const SplashScreen(),
           ),
-          // home: const SplashScreen(),
         ),
       ),
     );

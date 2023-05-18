@@ -25,7 +25,7 @@ class HomeScreen extends StatelessWidget {
   ];
 
   HomeScreen({super.key});
-
+  bool isBlue = false;
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -113,35 +113,38 @@ class HomeScreen extends StatelessWidget {
                         physics: const NeverScrollableScrollPhysics(),
                         itemCount: state.lisCategory.length,
                         shrinkWrap: true,
-                        itemBuilder: (context, index) => Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: PaddingApp.p14,
-                              vertical: PaddingApp.p8),
-                          child: Container(
-                            decoration: BoxDecoration(
-                                color: index % 2 == 0
-                                    ? ColorManager.lightYellowColor
-                                    : ColorManager.lightBlueColor,
-                                borderRadius:
-                                    BorderRadius.circular(RadiusApp.r8)),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Image.network(state.lisCategory[index].logo!,
-                                    height: SizeApp.s56, width: SizeApp.s56),
-                                const SizedBox(height: 2),
-                                Text(
-                                  state.lisCategory[index].name!,
-                                  style: getBoldStyle(
-                                      color: ColorManager.whiteColor,
-                                      fontSize: 14),
-                                  textAlign: TextAlign.center,
-                                )
-                              ],
+                        itemBuilder: (context, index) {
+                          if (index.isOdd) isBlue = !isBlue;
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: PaddingApp.p14,
+                                vertical: PaddingApp.p8),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  color: !isBlue
+                                      ? ColorManager.lightYellowColor
+                                      : ColorManager.lightBlueColor,
+                                  borderRadius:
+                                      BorderRadius.circular(RadiusApp.r8)),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Image.network(state.lisCategory[index].logo!,
+                                      height: SizeApp.s56, width: SizeApp.s56),
+                                  const SizedBox(height: 2),
+                                  Text(
+                                    state.lisCategory[index].name!,
+                                    style: getBoldStyle(
+                                        color: ColorManager.whiteColor,
+                                        fontSize: 14),
+                                    textAlign: TextAlign.center,
+                                  )
+                                ],
+                              ),
                             ),
-                          ),
-                        ),
+                          );
+                        },
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,

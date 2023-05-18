@@ -1,5 +1,8 @@
+import 'package:absher/core/extensions.dart';
 import 'package:absher/presentation/resources/assets_manager.dart';
 import 'package:absher/presentation/resources/color_manager.dart';
+import 'package:absher/presentation/resources/font_app.dart';
+import 'package:absher/presentation/resources/style_app.dart';
 import 'package:absher/presentation/screens/auth_screen/account_screen.dart';
 import 'package:absher/presentation/widgets/custom_app_background.dart';
 import 'package:flutter/material.dart';
@@ -19,14 +22,12 @@ class OnBoardingScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  '!مرحبا\n أبشر',
-                  style: TextStyle(
+                Text(
+                  'مرحبا!\n أبشر',
+                  style: getBoldStyle(
                     color: Colors.white,
-                    fontSize: 26,
-                    height: 1,
-                    fontWeight: FontWeight.bold,
-                  ),
+                    fontSize: FontSizeApp.s66,
+                  )?.copyWith(height: 1.4),
                 ),
                 const SizedBox(
                   height: 20,
@@ -40,6 +41,8 @@ class OnBoardingScreen extends StatelessWidget {
                     );
                   },
                   child: Container(
+                    height: 54,
+                    width: 200,
                     decoration: const BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.all(
@@ -57,31 +60,31 @@ class OnBoardingScreen extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Container(
-                            width: 34,
-                            height: 34,
+                            width: 47,
+                            height: 47,
                             decoration: const BoxDecoration(
                               shape: BoxShape.circle,
                               color: ColorManager.primaryColor,
                             ),
-                            child: const Padding(
+                            child: Padding(
                               padding: EdgeInsets.all(4.0),
                               child: Center(
-                                child: Icon(
+                                child: const Icon(
                                   Icons.arrow_forward_rounded,
                                   color: Colors.white,
                                   size: 18,
-                                ),
+                                ).handleRotation(context),
                               ),
                             ),
                           ),
-                          const Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 30.0),
-                            child: Text(
-                              'التالي',
-                              style: TextStyle(
-                                color: ColorManager.primaryColor,
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
+                          Expanded(
+                            child: Center(
+                              child: Text(
+                                'التالي',
+                                style: getRegularStyle(
+                                  color: ColorManager.primaryColor,
+                                  fontSize: FontSizeApp.s26,
+                                )?.copyWith(height: 1),
                               ),
                             ),
                           ),

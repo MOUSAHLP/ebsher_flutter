@@ -21,3 +21,5 @@ class SignUpFieldsValidationFailed extends SignUpState {
 
   SignUpFieldsValidationFailed({this.validationError});
 }
+
+class ResetPasswordCompleted extends SignUpState {}

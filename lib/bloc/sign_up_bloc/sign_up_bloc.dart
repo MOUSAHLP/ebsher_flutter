@@ -1,6 +1,7 @@
 import 'package:absher/core/app_regex.dart';
 import 'package:absher/core/app_validators.dart';
 import 'package:absher/data/repos/user_repository.dart';
+import 'package:absher/models/params/reset_password_params.dart';
 import 'package:absher/models/params/sign_up_params.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -59,6 +60,32 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
         } else {
           emit(SignUpFieldsValidationFailed(validationError: validationError));
         }
+      }
+
+      if (event is ForgetPassword) {
+        emit(SignUpLoading());
+        var response = await userRepository.forgetPassword(event.phoneNumber);
+        response.fold((l) {
+          emit(SignUpError(error: l));
+        }, (r) {
+          otpVerifyResponse = r;
+          emit(SignUpOtpRequested());
+        });
+      }
+
+      if (event is ResetPassword) {
+        emit(SignUpLoading());
+        ResetPasswordParams resetPasswordParams = ResetPasswordParams(
+          phone: otpVerifyResponse?.phone,
+          password: event.password,
+          repeatPassword: event.repeatPassword,
+        );
+        var response = await userRepository.resetPassword(resetPasswordParams);
+        response.fold((l) {
+          emit(SignUpError(error: l));
+        }, (r) {
+          emit(ResetPasswordCompleted());
+        });
       }
     });
   }

@@ -2,25 +2,24 @@ import 'package:absher/bloc/sign_up_bloc/sign_up_bloc.dart';
 import 'package:absher/bloc/sign_up_bloc/sign_up_event.dart';
 import 'package:absher/bloc/sign_up_bloc/sign_up_state.dart';
 import 'package:absher/core/services/services_locator.dart';
-import 'package:absher/presentation/resources/assets_manager.dart';
 import 'package:absher/presentation/resources/color_manager.dart';
 import 'package:absher/presentation/resources/font_app.dart';
 import 'package:absher/presentation/resources/style_app.dart';
+import 'package:absher/presentation/screens/auth_screen/reset_password_screen.dart';
 import 'package:absher/presentation/screens/auth_screen/sign_up_screen.dart';
-import 'package:absher/presentation/widgets/custom_app_background.dart';
+import 'package:absher/presentation/screens/auth_screen/widgets/otp_screen_background.dart';
 import 'package:absher/presentation/widgets/custom_button.dart';
-import 'package:absher/presentation/widgets/custom_input_field.dart';
 import 'package:absher/presentation/widgets/dialogs/error_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:overlay_support/overlay_support.dart';
 import 'package:sms_autofill/sms_autofill.dart';
 
 import '../../widgets/custom_loader.dart';
 
 class OtpConfirmationScreen extends StatelessWidget {
-  const OtpConfirmationScreen({Key? key}) : super(key: key);
-
+  const OtpConfirmationScreen({Key? key, required this.resetPassword})
+      : super(key: key);
+  final bool resetPassword;
   @override
   Widget build(BuildContext context) {
     return BlocListener<SignUpBloc, SignUpState>(
@@ -34,30 +33,40 @@ class OtpConfirmationScreen extends StatelessWidget {
             ErrorDialog.openDialog(context, state.error);
           }
           if (state is SignUpOtpConfirmed) {
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute(
-                builder: (context) => SignUpScreen(),
-              ),
-            );
+            resetPassword
+                ? Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(
+                      builder: (context) => ResetPasswordScreen(),
+                    ),
+                  )
+                : Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(
+                      builder: (context) => SignUpScreen(),
+                    ),
+                  );
           }
         },
-        child: _OtpConfirmationScreenContent());
+        child: _OtpConfirmationScreenContent(
+          resetPassword: resetPassword,
+        ));
   }
 }
 
 class _OtpConfirmationScreenContent extends StatelessWidget {
-  _OtpConfirmationScreenContent({Key? key}) : super(key: key);
+  _OtpConfirmationScreenContent({Key? key, required this.resetPassword})
+      : super(key: key);
   final TextEditingController textEditingController = TextEditingController();
+  final bool resetPassword;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Stack(
       children: [
-        const PhoneNumberScreenBackGround(),
+        const OtpScreenBackground(),
         SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 350,
               ),
               Text(
@@ -67,11 +76,16 @@ class _OtpConfirmationScreenContent extends StatelessWidget {
                   fontSize: FontSizeApp.s22,
                 ),
               ),
-              Text(
-                'يرجى التحقق من رقم هاتفك المحمول 071 ***** 12 استمر في إعادة تعيين كلمة المرور الخاصة بك',
-                textAlign: TextAlign.center,
-                style: getBoldStyle(
-                  color: ColorManager.softYellow,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 32.0),
+                child: Text(
+                  !resetPassword
+                      ? 'يرجى التحقق من رقم هاتفك المحمول  ${encodePhoneNumber(context.read<SignUpBloc>().otpVerifyResponse?.phone)} للاستمرار في انشاء الحساب الخاص بك'
+                      : 'يرجى التحقق من رقم هاتفك المحمول  ${encodePhoneNumber(context.read<SignUpBloc>().otpVerifyResponse?.phone)} استمر في إعادة تعيين كلمة المرور الخاصة بك',
+                  textAlign: TextAlign.center,
+                  style: getBoldStyle(
+                    color: ColorManager.softYellow,
+                  ),
                 ),
               ),
               Text(
@@ -81,13 +95,13 @@ class _OtpConfirmationScreenContent extends StatelessWidget {
                   color: ColorManager.softYellow,
                 ),
               ),
-              Container(
-                  child: Padding(
+              Padding(
                 padding: const EdgeInsets.all(32.0),
                 child: PinFieldAutoFill(
                   decoration: UnderlineDecoration(
-                    textStyle: TextStyle(fontSize: 20, color: Colors.white),
-                    colorBuilder: FixedColorBuilder(Colors.white),
+                    textStyle:
+                        const TextStyle(fontSize: 20, color: Colors.white),
+                    colorBuilder: const FixedColorBuilder(Colors.white),
                   ),
                   currentCode: textEditingController.text,
                   codeLength: 6,
@@ -101,7 +115,7 @@ class _OtpConfirmationScreenContent extends StatelessWidget {
                     }
                   },
                 ),
-              )),
+              ),
               CustomButton(
                 label: 'أرسال',
                 onTap: () {
@@ -115,75 +129,9 @@ class _OtpConfirmationScreenContent extends StatelessWidget {
       ],
     ));
   }
-}
 
-class PhoneNumberScreenBackGround extends StatelessWidget {
-  const PhoneNumberScreenBackGround({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        CustomAppBackGround(
-          child: SizedBox(),
-        ),
-        Stack(
-          children: [
-            Positioned(
-              top: -50,
-              right: -60,
-              child: Container(
-                width: 280,
-                height: 280,
-                decoration: const BoxDecoration(
-                  color: ColorManager.softYellow,
-                  shape: BoxShape.circle,
-                  boxShadow: [
-                    BoxShadow(
-                      blurRadius: 1,
-                      color: ColorManager.shadowGrey,
-                    )
-                  ],
-                ),
-              ),
-            ),
-            Positioned(
-              top: -70,
-              right: -50,
-              child: Image.asset(
-                ImageManager.otpAsset,
-                width: 280,
-              ),
-            ),
-            Positioned(
-              top: -60,
-              left: -55,
-              child: Container(
-                width: 280,
-                height: 280,
-                decoration: const BoxDecoration(
-                  color: ColorManager.softYellow,
-                  shape: BoxShape.circle,
-                  boxShadow: [
-                    BoxShadow(
-                      blurRadius: 1,
-                      color: ColorManager.shadowGrey,
-                    )
-                  ],
-                ),
-              ),
-            ),
-            Positioned(
-              top: -80,
-              left: -60,
-              child: Image.asset(
-                ImageManager.otpAsset2,
-                width: 280,
-              ),
-            ),
-          ],
-        ),
-      ],
-    );
+  String encodePhoneNumber(String? phone) {
+    if (phone == null || phone.length < 3) return '***';
+    return ' ${phone.substring(phone.length - 2)} ***';
   }
 }

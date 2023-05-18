@@ -1,7 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.peaklink.absher">
+    <uses-permission android:name="android.permission.INTERNET" />
    <application
-        android:label="absher"
+        android:label="أبشر"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

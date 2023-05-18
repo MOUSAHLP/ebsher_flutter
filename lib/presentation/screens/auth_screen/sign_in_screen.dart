@@ -1,9 +1,13 @@
 import 'package:absher/bloc/login_bloc/login_event.dart';
+import 'package:absher/bloc/sign_up_bloc/sign_up_event.dart';
 import 'package:absher/models/params/login_params.dart';
 import 'package:absher/presentation/resources/assets_manager.dart';
+import 'package:absher/presentation/resources/style_app.dart';
+import 'package:absher/presentation/screens/auth_screen/phone_number_signup_screen.dart';
 import 'package:absher/presentation/screens/home_screen/basic_screen.dart';
 import 'package:absher/presentation/widgets/custom_input_field.dart';
 import 'package:absher/presentation/widgets/custom_loader.dart';
+import 'package:absher/presentation/widgets/custom_password_input_field.dart';
 import 'package:absher/translations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,7 +19,7 @@ import '../../../core/services/services_locator.dart';
 import '../../resources/color_manager.dart';
 import '../../widgets/custom_app_background.dart';
 import '../../widgets/custom_button.dart';
-
+import '../../widgets/dialogs/error_dialog.dart';
 
 class SignInConfirmationScreen extends StatelessWidget {
   const SignInConfirmationScreen({Key? key}) : super(key: key);
@@ -30,22 +34,22 @@ class SignInConfirmationScreen extends StatelessWidget {
             LoadingDialog().closeDialog(context);
           }
           if (state is LoginError) {
-            toast(state.error);
+            ErrorDialog.openDialog(context, state.error);
           }
-          if(state is LoginConfirmed)
-          { Navigator.of(context).pushReplacement(
-              MaterialPageRoute(
-                builder: (context) => BasicScreen(),
-              ),
-            );}
-
+          if (state is LoginConfirmed) {
+            Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(
+                  builder: (context) => BasicScreen(),
+                ),
+                (Route<dynamic> route) => false);
+          }
         },
         child: _SignInScreen());
   }
 }
 
 class _SignInScreen extends StatelessWidget {
-   _SignInScreen({Key? key}) : super(key: key);
+  _SignInScreen({Key? key}) : super(key: key);
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   @override
@@ -66,6 +70,7 @@ class _SignInScreen extends StatelessWidget {
                 ),
                 CustomInputField(
                   controller: phoneController,
+                  keyboardType: TextInputType.phone,
                   hintText: 'أضف رقمك',
                   withLabel: true,
                   icon: Icons.phone_android,
@@ -73,28 +78,49 @@ class _SignInScreen extends StatelessWidget {
                 SizedBox(
                   height: 8,
                 ),
-                CustomInputField(
-                  controller: passwordController ,
+                CustomPasswordInputField(
+                  controller: passwordController,
                   hintText: AppLocalizations.of(context)!.password,
                   withLabel: true,
                   icon: Icons.lock_open_rounded,
                 ),
-                SizedBox(
-                  height: 8,
+                GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (context) => PhoneNumberSignUpScreen(
+                          resetPassword: true,
+                        ),
+                      ),
+                    );
+                  },
+                  child: Text(
+                    'هل نسيت كلمة المرور؟',
+                    style: getSemiBoldStyle(
+                      color: ColorManager.softYellow,
+                    ),
+                  ),
                 ),
-                CustomButton(label: 'تسجيل ',onTap: (){
-                  sl<LoginBloc>()
-                      .add(Login(loginParams: LoginParams(phone: phoneController.text,password: passwordController.text)));
-                }),
+                SizedBox(
+                  height: 16,
+                ),
+                CustomButton(
+                    label: 'تسجيل ',
+                    onTap: () {
+                      sl<LoginBloc>().add(Login(
+                          loginParams: LoginParams(
+                              phone: phoneController.text,
+                              password: passwordController.text)));
+                    }),
               ],
             ),
           ),
         ),
-
       ],
     ));
   }
 }
+
 class LoginScreenBackGround extends StatelessWidget {
   const LoginScreenBackGround({Key? key}) : super(key: key);
 

@@ -164,7 +164,13 @@ class SignUpScreen extends StatelessWidget {
                               fontSize: FontSizeApp.s14,
                             ),
                             recognizer: TapGestureRecognizer()
-                              ..onTap = () => print('Tap Here onTap'),
+                              ..onTap =
+                                  () => Navigator.of(context).pushReplacement(
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              SignInConfirmationScreen(),
+                                        ),
+                                      ),
                           ),
                         ],
                       ),

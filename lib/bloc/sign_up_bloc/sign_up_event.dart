@@ -15,3 +15,15 @@ class ConfirmOtp extends SignUpEvent {
 }
 
 class SignUp extends SignUpEvent {}
+
+class ForgetPassword extends SignUpEvent {
+  final String phoneNumber;
+  ForgetPassword({required this.phoneNumber}) : super([phoneNumber]);
+}
+
+class ResetPassword extends SignUpEvent {
+  final String password;
+  final String repeatPassword;
+  ResetPassword({required this.password, required this.repeatPassword})
+      : super([password, repeatPassword]);
+}

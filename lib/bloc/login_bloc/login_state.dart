@@ -1,4 +1,3 @@
-
 abstract class LoginState {}
 
 class LoginInit extends LoginState {}
@@ -12,3 +11,4 @@ class LoginError extends LoginState {
 
 class LoginConfirmed extends LoginState {}
 
+class ForgetPassword extends LoginState {}

@@ -36,7 +36,6 @@ class DataStore {
   }
 
   Future<void> setToken(String value) => box.put("token", value);
-  void deleteCertificates() {
-    box.deleteAll({"token"});
-  }
+
+  void deleteToken() => box.deleteAll({"token"});
 }

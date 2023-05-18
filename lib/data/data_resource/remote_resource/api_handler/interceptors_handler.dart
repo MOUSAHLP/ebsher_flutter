@@ -5,10 +5,10 @@ class ClientInterceptor extends Interceptor {
   @override
   void onRequest(options, handler) {
     options.headers = {
-      "Accept-Language": DataStore.instance.lang,
+//      "Accept-Language": DataStore.instance.lang,
       // "Content-Type": Headers.jsonContentType,
       // "Content-Type":"text/html",
-      "token": DataStore.instance.token,
+      "Authorization": "Bearer 191|Zybr7Q9AhFDTWVI60mmRNN6Vjv6AGEXumBcu9DsY",
       // "Accept": Headers.jsonContentType,
       "Accept": '*/*',
       // "AcceptApplication/json": Headers.jsonContentType,

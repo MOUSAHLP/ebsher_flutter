@@ -1,3 +1,4 @@
+import 'package:absher/core/extensions.dart';
 import 'package:absher/presentation/resources/assets_manager.dart';
 import 'package:absher/presentation/resources/color_manager.dart';
 import 'package:absher/presentation/resources/font_app.dart';
@@ -65,14 +66,14 @@ class OnBoardingScreen extends StatelessWidget {
                               shape: BoxShape.circle,
                               color: ColorManager.primaryColor,
                             ),
-                            child: const Padding(
+                            child: Padding(
                               padding: EdgeInsets.all(4.0),
                               child: Center(
-                                child: Icon(
+                                child: const Icon(
                                   Icons.arrow_forward_rounded,
                                   color: Colors.white,
                                   size: 18,
-                                ),
+                                ).handleRotation(context),
                               ),
                             ),
                           ),

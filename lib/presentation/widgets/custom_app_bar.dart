@@ -16,16 +16,27 @@ class CustomAppBar extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          GestureDetector(
-            onTap: () {
-              sl<AuthenticationBloc>().add(LoggedOut());
-              Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(
-                    builder: (context) => AccountScreen(),
-                  ),
-                  (Route<dynamic> route) => false);
-            },
-            child: SvgPicture.asset(IconsManager.iconNotification),
+          Row(
+            children: [
+              GestureDetector(
+                onTap: () {
+                  sl<AuthenticationBloc>().add(LoggedOut());
+                  Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(
+                        builder: (context) => AccountScreen(),
+                      ),
+                      (Route<dynamic> route) => false);
+                },
+                child: Icon(
+                  Icons.logout,
+                  color: Colors.white,
+                ),
+              ),
+              SizedBox(
+                width: 16,
+              ),
+              SvgPicture.asset(IconsManager.iconNotification),
+            ],
           ),
           SvgPicture.asset(IconsManager.iconAppAbsher),
           SvgPicture.asset(IconsManager.iconMenu),

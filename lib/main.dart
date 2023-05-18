@@ -65,7 +65,6 @@ class _MyAppState extends State<MyApp> {
         ),
         BlocProvider(
           create: (BuildContext context) => sl<CategoryBloc>(),
-
         ),
       ],
       child: OverlaySupport.global(
@@ -79,7 +78,7 @@ class _MyAppState extends State<MyApp> {
             }
           },
           child: MaterialApp(
-            title: 'Flutter Demo',
+            title: 'أبشر',
             locale: Locale('ar'),
             supportedLocales: AppLocalizations.supportedLocales,
             localizationsDelegates: const [

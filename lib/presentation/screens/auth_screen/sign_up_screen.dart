@@ -6,6 +6,7 @@ import 'package:absher/presentation/resources/style_app.dart';
 import 'package:absher/presentation/screens/auth_screen/sign_in_screen.dart';
 import 'package:absher/presentation/screens/auth_screen/widgets/sign_up_background_decoration.dart';
 import 'package:absher/presentation/widgets/custom_input_field.dart';
+import 'package:absher/presentation/widgets/custom_password_input_field.dart';
 import 'package:absher/presentation/widgets/dialogs/error_dialog.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -111,7 +112,7 @@ class SignUpScreen extends StatelessWidget {
                     const SizedBox(
                       height: 8,
                     ),
-                    CustomInputField(
+                    CustomPasswordInputField(
                       hintText: 'كلمة المرور',
                       withLabel: true,
                       icon: Icons.lock_open_rounded,
@@ -123,7 +124,7 @@ class SignUpScreen extends StatelessWidget {
                     const SizedBox(
                       height: 8,
                     ),
-                    CustomInputField(
+                    CustomPasswordInputField(
                       hintText: 'تأكيد كلمة المرور',
                       withLabel: true,
                       icon: Icons.lock_open_rounded,

@@ -5,15 +5,21 @@ import 'package:absher/models/params/sign_up_params.dart';
 import 'package:absher/models/sign_up_response.dart';
 import 'package:dartz/dartz.dart';
 
+import '../../models/login_response.dart';
 import '../../models/otp_verify_response.dart';
+import '../../models/params/login_params.dart';
 
 class UserRepository {
-  Future<String> authenticate({
-    required String phoneNumber,
-    required String password,
+  Future<Either<String, LoginResponse>> authenticate({
+    LoginParams? loginParams
   }) async {
-    await Future.delayed(const Duration(seconds: 1));
-    return 'token';
+  return  BaseApiClient.post<LoginResponse>(
+        url: ApiConst.login,
+        queryParameters: {"phone": loginParams?.phone
+        ,"password":loginParams?.password},
+        converter: (e) {
+          return LoginResponse.fromJson(e['data']);
+        });
   }
 
   Future<void> deleteToken() async {

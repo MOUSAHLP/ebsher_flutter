@@ -1,4 +1,15 @@
 {
   "title": "Absher",
-  "password" : "Password"
+  "password" : "Password",
+  "next":"Next",
+  "signUp":"Sign up",
+  "signIn":"Sign in",
+  "addNumber":"Add your number",
+  "register":"Register",
+  "addDetails":"Add your details to register an account",
+  "fullName":"Full name",
+  "haveAccount":"do you have an account?",
+  "gender":"Gender"
+
+
 }

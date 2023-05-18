@@ -55,12 +55,10 @@ class BaseApiClient {
       }
     } on DioError catch (e) {
       Map dioError = DioErrorsHandler.onError(e);
-      // toast(dioError['message']);
-
       if (kDebugMode) {
         print(e);
       }
-      return left(returnOnError ?? e.response?.data['message'] ?? '');
+      return left(returnOnError ?? dioError["message"] ?? '');
     } catch (e) {
       if (kDebugMode) {
         print(e);

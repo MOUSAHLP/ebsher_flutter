@@ -1,5 +1,6 @@
 import 'package:absher/bloc/authentication_bloc/authentication_event.dart';
 import 'package:absher/bloc/authentication_bloc/authentication_state.dart';
+import 'package:absher/bloc/login_bloc/login_event.dart';
 import 'package:absher/data/data_resource/local_resource/data_store.dart';
 import 'package:absher/presentation/screens/auth_screen/sign_up_screen.dart';
 import 'package:absher/presentation/screens/on_boarding_screen/on_boarding_screen.dart';
@@ -12,6 +13,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:overlay_support/overlay_support.dart';
 
 import 'bloc/authentication_bloc/authertication_bloc.dart';
+import 'bloc/login_bloc/login_bloc.dart';
 import 'bloc/sign_up_bloc/sign_up_bloc.dart';
 import 'core/services/services_locator.dart';
 import 'data/data_resource/remote_resource/api_handler/base_api_client.dart';
@@ -40,6 +42,10 @@ class _MyAppState extends State<MyApp> {
             create: (BuildContext context) => sl<AuthenticationBloc>()),
         BlocProvider(
           create: (BuildContext context) => sl<SignUpBloc>(),
+          lazy: false,
+        ),
+        BlocProvider(
+          create: (BuildContext context) => sl<LoginBloc>(),
           lazy: false,
         ),
       ],

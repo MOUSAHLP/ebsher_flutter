@@ -14,7 +14,4 @@ class ConfirmOtp extends SignUpEvent {
   ConfirmOtp({required this.code}) : super([code]);
 }
 
-class SignUp extends SignUpEvent {
-  final SignUpParams signUpParams;
-  SignUp({required this.signUpParams}) : super([signUpParams]);
-}
+class SignUp extends SignUpEvent {}

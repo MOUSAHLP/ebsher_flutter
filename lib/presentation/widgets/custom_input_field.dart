@@ -6,28 +6,29 @@ import 'package:flutter/services.dart';
 import '../resources/color_manager.dart';
 
 class CustomInputField extends StatelessWidget {
-  const CustomInputField({
-    this.fillColor,
-    this.hintText,
-    this.keyboardType,
-    this.textStyle,
-    this.suffixIcon,
-    Key? key,
-    this.controller,
-    this.readOnly = false,
-    this.textAlign = TextAlign.start,
-    this.onTab,
-    this.errorMessage,
-    this.onChange,
-    this.minLines,
-    this.maxLines,
-    this.contentPadding = const EdgeInsets.symmetric(horizontal: 4),
-    this.height = 40,
-    this.initValue,
-    this.withLabel = false,
-    this.inputFormatters,
-    this.icon,
-  }) : super(key: key);
+  const CustomInputField(
+      {this.fillColor,
+      this.hintText,
+      this.keyboardType,
+      this.textStyle,
+      this.suffixIcon,
+      Key? key,
+      this.controller,
+      this.readOnly = false,
+      this.textAlign = TextAlign.start,
+      this.onTab,
+      this.errorMessage,
+      this.onChange,
+      this.minLines,
+      this.maxLines,
+      this.contentPadding = const EdgeInsets.symmetric(horizontal: 4),
+      this.height = 50,
+      this.initValue,
+      this.withLabel = false,
+      this.inputFormatters,
+      this.icon,
+      this.validator})
+      : super(key: key);
 
   final String? hintText;
   final TextInputType? keyboardType;
@@ -48,6 +49,7 @@ class CustomInputField extends StatelessWidget {
   final bool withLabel;
   final List<TextInputFormatter>? inputFormatters;
   final IconData? icon;
+  final String? Function(String?)? validator;
 
   @override
   Widget build(BuildContext context) {
@@ -58,15 +60,18 @@ class CustomInputField extends StatelessWidget {
           height: height,
           decoration: BoxDecoration(
             borderRadius: const BorderRadius.all(Radius.circular(28.0)),
-            color: Colors.white,
+            color: readOnly ? Colors.grey[400] : Color(0xFFEEF6F6),
           ),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: Row(
               children: [
-                Icon(
-                  icon,
-                  color: ColorManager.primaryColor,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Icon(
+                    icon,
+                    color: ColorManager.primaryColor,
+                  ),
                 ),
                 Expanded(
                   child: TextFormField(
@@ -80,9 +85,10 @@ class CustomInputField extends StatelessWidget {
                     maxLines: maxLines,
                     textAlign: textAlign,
                     onChanged: onChange,
+                    validator: validator,
                     inputFormatters: inputFormatters,
                     decoration: InputDecoration(
-                      fillColor: Color(0xFFEEF6F6),
+                      fillColor: readOnly ? Colors.grey : Color(0xFFEEF6F6),
                       hintText: withLabel ? null : hintText,
                       label: withLabel
                           ? Text(

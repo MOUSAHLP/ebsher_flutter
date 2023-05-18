@@ -41,7 +41,6 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
 
       if (event is SignUp) {
         emit(SignUpLoading());
-
         var response = await userRepository.signUp(event.signUpParams);
         response.fold((l) {
           emit(SignUpError());

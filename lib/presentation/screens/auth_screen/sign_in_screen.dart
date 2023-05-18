@@ -79,7 +79,7 @@ class _SignInScreen extends StatelessWidget {
                   withLabel: true,
                   icon: Icons.lock_open_rounded,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 8,
                 ),
                 CustomButton(label: 'تسجيل ',onTap: (){

@@ -63,7 +63,7 @@ class BaseApiClient {
       if (kDebugMode) {
         print(e);
       }
-      return left(e.toString());
+      return left("");
     }
   }
 
@@ -111,10 +111,12 @@ class BaseApiClient {
     }
   }
 
-  static Future get(
+  static Future<Either<String, T>> get<T>(
       {required String url,
       Map<String, dynamic>? queryParameters,
-      required Function(dynamic) converter}) async {
+        required T Function(dynamic) converter,}) async {
+    print(DataStore.instance.token);
+    String token="181|WHKDeshgXzLH2WsUIKK9dbYHEDZG6a6VxqK1zunG";
     try {
       var response = await client.get(
         url,
@@ -122,26 +124,36 @@ class BaseApiClient {
         options: Options(
           headers: {
             'accept': _acceptHeader,
-            'authorization': 'Bearer ${DataStore.instance.token ?? ''}',
+            'Authorization': 'Bearer ${token ?? ''}',
+//            'authorization': 'Bearer ${DataStore.instance.token ?? ''}',
           },
         ),
       );
       if (response.statusCode! >= 200 || response.statusCode! <= 205) {
+
         if (kDebugMode) {
           print(response.data);
+          print(response);
+
         }
-        return converter(response.data);
+        return  right(converter(response.data));
       }
+      else{
+        return left(response.data['message']);
+      }
+
     } on DioError catch (e) {
       Map dioError = DioErrorsHandler.onError(e);
       // toast(dioError['message']);
       if (kDebugMode) {
         print(e);
       }
+      return left(dioError['message']);
     } catch (e) {
       if (kDebugMode) {
         print(e);
       }
+     return left("");
     }
   }
 

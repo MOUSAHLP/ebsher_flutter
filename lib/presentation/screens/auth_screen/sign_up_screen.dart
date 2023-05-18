@@ -34,7 +34,7 @@ class SignUpScreen extends StatelessWidget {
         if (state is SignUpCompleted) {
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(
-              builder: (context) => SignInScreen(),
+              builder: (context) => SignInConfirmationScreen(),
             ),
           );
         }

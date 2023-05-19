@@ -9,6 +9,7 @@ import 'package:absher/presentation/screens/auth_screen/sign_up_screen.dart';
 import 'package:absher/presentation/screens/home_screen/basic_screen.dart';
 import 'package:absher/presentation/screens/on_boarding_screen/on_boarding_screen.dart';
 import 'package:absher/presentation/screens/splash_screen/splash_screen.dart';
+import 'package:absher/presentation/widgets/dialogs/will_pop_scope_handler.dart';
 import 'package:absher/translations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -90,33 +91,19 @@ class _MyAppState extends State<MyApp> {
             theme: ThemeData(
               primarySwatch: Colors.blue,
             ),
-            home: WillPopScope(
-              onWillPop: () async {
-                print('will 2');
-                return false;
+            home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+              bloc: sl<AuthenticationBloc>()..add(AppStarted()),
+              builder: (context, state) {
+                if (state is AuthenticationAuthenticated) {
+                  return const BasicScreen();
+                }
+                if (state is AuthenticationUnauthenticated) {
+                  return const OnBoardingScreen();
+                }
+                if (state is AuthenticationLoggedOut)
+                  return const AccountScreen();
+                return const SplashScreen();
               },
-              child: BlocConsumer<AuthenticationBloc, AuthenticationState>(
-                bloc: sl<AuthenticationBloc>()..add(AppStarted()),
-                listener: (context, state) {
-                  // if (state is AuthenticationUninitialized) return SplashScreen();
-                  // if (state is AuthenticationAuthenticated)
-                  //   // TODO: Return HomeScreen
-                  //   return Container();
-                  // if (state is AuthenticationUnauthenticated)
-                  //   return OnBoardingScreen();
-                  // // TODO: Return Loading Screen
-                },
-                builder: (context, state) {
-                  if (state is AuthenticationUninitialized)
-                    return SplashScreen();
-                  if (state is AuthenticationAuthenticated)
-                    return BasicScreen();
-                  if (state is AuthenticationUnauthenticated)
-                    return OnBoardingScreen();
-                  if (state is AuthenticationLoggedOut) return AccountScreen();
-                  return SplashScreen();
-                },
-              ),
             ),
             // home: const SplashScreen(),
           ),

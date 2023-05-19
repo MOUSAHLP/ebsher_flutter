@@ -1,3 +1,5 @@
+import 'package:absher/core/app_router/app_router.dart';
+import 'package:absher/core/app_router/dialog_transition_builder.dart';
 import 'package:absher/presentation/resources/color_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -9,62 +11,63 @@ import 'custom_dialog.dart';
 
 class WillPopScopeHandler {
   static Future<bool> handle(BuildContext context) async {
-    openDialog(context);
+    dialogTransitionBuilder(context, const _ExitAppDialog());
     return false;
   }
+}
 
-  static void openDialog(BuildContext context) {
-    showDialog(
-        context: context,
-        builder: (context) {
-          return CustomDialog(
-            icon: Icons.exit_to_app_rounded,
-            content: Column(
+class _ExitAppDialog extends StatelessWidget {
+  const _ExitAppDialog({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomDialog(
+      icon: Icons.exit_to_app_rounded,
+      content: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 8.0,
+              vertical: 60,
+            ),
+            child: Text(
+              "سوف يتم أغلاق أبشر, هل انت متأكد؟",
+              style: getBoldStyle(
+                color: Colors.black,
+                fontSize: FontSizeApp.s14,
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Row(
               children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 8.0,
-                    vertical: 60,
-                  ),
-                  child: Text(
-                    "سوف يتم أغلاق أبشر, هل انت متأكد؟",
-                    style: getBoldStyle(
-                      color: Colors.black,
-                      fontSize: FontSizeApp.s14,
-                    ),
+                Expanded(
+                  child: CustomButton(
+                    label: 'البقاء',
+                    fillColor: ColorManager.softYellow,
+                    onTap: () {
+                      AppRouter.pop(context);
+                    },
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: CustomButton(
-                          label: 'البقاء',
-                          fillColor: ColorManager.softYellow,
-                          onTap: () {
-                            Navigator.of(context).pop();
-                          },
-                        ),
-                      ),
-                      SizedBox(
-                        width: 16,
-                      ),
-                      Expanded(
-                        child: CustomButton(
-                          label: 'خروج',
-                          fillColor: Colors.redAccent,
-                          onTap: () {
-                            SystemNavigator.pop();
-                          },
-                        ),
-                      ),
-                    ],
+                SizedBox(
+                  width: 16,
+                ),
+                Expanded(
+                  child: CustomButton(
+                    label: 'خروج',
+                    fillColor: Colors.redAccent,
+                    onTap: () {
+                      SystemNavigator.pop();
+                    },
                   ),
                 ),
               ],
             ),
-          );
-        });
+          ),
+        ],
+      ),
+    );
   }
 }

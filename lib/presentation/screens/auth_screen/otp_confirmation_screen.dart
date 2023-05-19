@@ -1,6 +1,7 @@
 import 'package:absher/bloc/sign_up_bloc/sign_up_bloc.dart';
 import 'package:absher/bloc/sign_up_bloc/sign_up_event.dart';
 import 'package:absher/bloc/sign_up_bloc/sign_up_state.dart';
+import 'package:absher/core/app_router/app_router.dart';
 import 'package:absher/core/services/services_locator.dart';
 import 'package:absher/presentation/resources/color_manager.dart';
 import 'package:absher/presentation/resources/font_app.dart';
@@ -14,7 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sms_autofill/sms_autofill.dart';
 
-import '../../widgets/custom_loader.dart';
+import '../../widgets/dialogs/loading_dialog.dart';
 
 class OtpConfirmationScreen extends StatelessWidget {
   const OtpConfirmationScreen({Key? key, required this.resetPassword})
@@ -34,16 +35,9 @@ class OtpConfirmationScreen extends StatelessWidget {
           }
           if (state is SignUpOtpConfirmed) {
             resetPassword
-                ? Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(
-                      builder: (context) => ResetPasswordScreen(),
-                    ),
-                  )
-                : Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(
-                      builder: (context) => SignUpScreen(),
-                    ),
-                  );
+                ? AppRouter.pushReplacement(
+                    context, const ResetPasswordScreen())
+                : AppRouter.pushReplacement(context, SignUpScreen());
           }
         },
         child: _OtpConfirmationScreenContent(

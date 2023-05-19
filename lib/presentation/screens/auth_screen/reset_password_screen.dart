@@ -1,6 +1,7 @@
 import 'package:absher/bloc/sign_up_bloc/sign_up_bloc.dart';
 import 'package:absher/bloc/sign_up_bloc/sign_up_event.dart';
 import 'package:absher/bloc/sign_up_bloc/sign_up_state.dart';
+import 'package:absher/core/app_router/app_router.dart';
 import 'package:absher/core/services/services_locator.dart';
 import 'package:absher/presentation/resources/color_manager.dart';
 import 'package:absher/presentation/resources/font_app.dart';
@@ -17,7 +18,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../translations.dart';
-import '../../widgets/custom_loader.dart';
+import '../../widgets/dialogs/loading_dialog.dart';
 
 class ResetPasswordScreen extends StatelessWidget {
   const ResetPasswordScreen({
@@ -36,11 +37,7 @@ class ResetPasswordScreen extends StatelessWidget {
             ErrorDialog.openDialog(context, null);
           }
           if (state is ResetPasswordCompleted) {
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute(
-                builder: (context) => SignInConfirmationScreen(),
-              ),
-            );
+            AppRouter.pushReplacement(context, SignInConfirmationScreen());
           }
         },
         child: _PhoneNumberSignUpScreenContent());

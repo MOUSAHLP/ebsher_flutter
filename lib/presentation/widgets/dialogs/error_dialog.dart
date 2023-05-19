@@ -1,3 +1,5 @@
+import 'package:absher/core/app_router/app_router.dart';
+import 'package:absher/core/app_router/dialog_transition_builder.dart';
 import 'package:flutter/material.dart';
 
 import '../../resources/font_app.dart';
@@ -7,41 +9,49 @@ import 'custom_dialog.dart';
 
 class ErrorDialog {
   static void openDialog(BuildContext context, String? message) {
-    if (message == null || message.isEmpty) {}
-    showDialog(
-        context: context,
-        builder: (context) {
-          return CustomDialog(
-            content: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 8.0,
-                    vertical: 60,
-                  ),
-                  child: Text(
-                    (message == null || message.isEmpty)
-                        ? 'حدث خطأ ما الرجاء المحاولة لاحقا'
-                        : message,
-                    style: getBoldStyle(
-                      color: Colors.black,
-                      fontSize: FontSizeApp.s14,
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: CustomButton(
-                    label: 'Close',
-                    fillColor: Colors.redAccent,
-                    onTap: () {
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                ),
-              ],
+    dialogTransitionBuilder(
+        context,
+        _ErrorDialogBody(
+          message: message,
+        ));
+  }
+}
+
+class _ErrorDialogBody extends StatelessWidget {
+  const _ErrorDialogBody({Key? key, this.message}) : super(key: key);
+  final String? message;
+  @override
+  Widget build(BuildContext context) {
+    return CustomDialog(
+      content: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 8.0,
+              vertical: 60,
             ),
-          );
-        });
+            child: Text(
+              (message == null || message!.isEmpty)
+                  ? 'حدث خطأ ما الرجاء المحاولة لاحقا'
+                  : message!,
+              style: getBoldStyle(
+                color: Colors.black,
+                fontSize: FontSizeApp.s14,
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: CustomButton(
+              label: 'Close',
+              fillColor: Colors.redAccent,
+              onTap: () {
+                AppRouter.pop(context);
+              },
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

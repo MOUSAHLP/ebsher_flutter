@@ -1,5 +1,6 @@
 import 'package:absher/bloc/authentication_bloc/authentication_event.dart';
 import 'package:absher/bloc/authentication_bloc/authertication_bloc.dart';
+import 'package:absher/core/app_router/app_router.dart';
 import 'package:absher/core/services/services_locator.dart';
 import 'package:absher/presentation/screens/auth_screen/account_screen.dart';
 
@@ -21,11 +22,7 @@ class CustomAppBar extends StatelessWidget {
               GestureDetector(
                 onTap: () {
                   sl<AuthenticationBloc>().add(LoggedOut());
-                  Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(
-                        builder: (context) => AccountScreen(),
-                      ),
-                      (Route<dynamic> route) => false);
+                  AppRouter.pushAndRemoveAllStack(context, AccountScreen());
                 },
                 child: Icon(
                   Icons.logout,

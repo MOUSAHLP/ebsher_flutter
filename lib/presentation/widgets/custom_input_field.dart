@@ -90,6 +90,7 @@ class CustomInputField extends StatelessWidget {
                     decoration: InputDecoration(
                       fillColor: readOnly ? Colors.grey : Color(0xFFEEF6F6),
                       hintText: withLabel ? null : hintText,
+                      floatingLabelBehavior: FloatingLabelBehavior.never,
                       label: withLabel
                           ? Text(
                               hintText!,

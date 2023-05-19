@@ -1,6 +1,7 @@
 import 'package:absher/bloc/sign_up_bloc/sign_up_bloc.dart';
 import 'package:absher/bloc/sign_up_bloc/sign_up_event.dart';
 import 'package:absher/bloc/sign_up_bloc/sign_up_state.dart';
+import 'package:absher/core/app_router/app_router.dart';
 import 'package:absher/presentation/resources/font_app.dart';
 import 'package:absher/presentation/resources/style_app.dart';
 import 'package:absher/presentation/screens/auth_screen/sign_in_screen.dart';
@@ -15,7 +16,7 @@ import 'package:overlay_support/overlay_support.dart';
 
 import '../../resources/color_manager.dart';
 import '../../widgets/custom_button.dart';
-import '../../widgets/custom_loader.dart';
+import '../../widgets/dialogs/loading_dialog.dart';
 
 class SignUpScreen extends StatelessWidget {
   SignUpScreen({Key? key}) : super(key: key);
@@ -33,11 +34,7 @@ class SignUpScreen extends StatelessWidget {
           ErrorDialog.openDialog(context, state.error);
         }
         if (state is SignUpCompleted) {
-          Navigator.of(context).pushReplacement(
-            MaterialPageRoute(
-              builder: (context) => SignInConfirmationScreen(),
-            ),
-          );
+          AppRouter.pushReplacement(context, SignInConfirmationScreen());
         }
         if (state is SignUpFieldsValidationFailed) {
           if (state.validationError != null) {
@@ -165,13 +162,8 @@ class SignUpScreen extends StatelessWidget {
                               fontSize: FontSizeApp.s14,
                             ),
                             recognizer: TapGestureRecognizer()
-                              ..onTap =
-                                  () => Navigator.of(context).pushReplacement(
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              SignInConfirmationScreen(),
-                                        ),
-                                      ),
+                              ..onTap = () => AppRouter.pushReplacement(
+                                  context, SignInConfirmationScreen()),
                           ),
                         ],
                       ),

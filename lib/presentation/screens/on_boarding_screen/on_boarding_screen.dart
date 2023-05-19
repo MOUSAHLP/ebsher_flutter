@@ -1,3 +1,4 @@
+import 'package:absher/core/app_router/app_router.dart';
 import 'package:absher/core/extensions.dart';
 import 'package:absher/presentation/resources/assets_manager.dart';
 import 'package:absher/presentation/resources/color_manager.dart';
@@ -34,11 +35,7 @@ class OnBoardingScreen extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(
-                        builder: (context) => const AccountScreen(),
-                      ),
-                    );
+                    AppRouter.pushReplacement(context, AccountScreen());
                   },
                   child: Container(
                     height: 54,

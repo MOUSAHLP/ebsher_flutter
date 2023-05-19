@@ -1,10 +1,7 @@
-import 'package:absher/bloc/sign_up_bloc/sign_up_bloc.dart';
-import 'package:absher/bloc/sign_up_bloc/sign_up_event.dart';
-import 'package:absher/core/services/services_locator.dart';
+import 'package:absher/core/app_router/app_router.dart';
 import 'package:absher/presentation/resources/assets_manager.dart';
 import 'package:absher/presentation/screens/auth_screen/phone_number_signup_screen.dart';
 import 'package:absher/presentation/screens/auth_screen/sign_in_screen.dart';
-import 'package:absher/presentation/screens/auth_screen/sign_up_screen.dart';
 import 'package:absher/presentation/widgets/dialogs/will_pop_scope_handler.dart';
 import 'package:flutter/material.dart';
 
@@ -44,12 +41,7 @@ class AccountScreen extends StatelessWidget {
                     labelColor: ColorManager.primaryColor,
                     label: 'تسجيل الدخول',
                     onTap: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              const SignInConfirmationScreen(),
-                        ),
-                      );
+                      AppRouter.push(context, SignInConfirmationScreen());
                     },
                   ),
                   SizedBox(
@@ -61,11 +53,11 @@ class AccountScreen extends StatelessWidget {
                     isFilled: false,
                     label: 'إنشاء حساب',
                     onTap: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => PhoneNumberSignUpScreen(resetPassword:  false,),
-                        ),
-                      );
+                      AppRouter.push(
+                          context,
+                          const PhoneNumberSignUpScreen(
+                            resetPassword: false,
+                          ));
                     },
                   ),
                 ],

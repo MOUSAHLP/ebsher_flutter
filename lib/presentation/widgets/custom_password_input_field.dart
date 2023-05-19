@@ -75,6 +75,7 @@ class _CustomPasswordInputFieldState extends State<CustomPasswordInputField> {
                     obscureText: obscure,
                     decoration: InputDecoration(
                       fillColor: Color(0xFFEEF6F6),
+                      floatingLabelBehavior: FloatingLabelBehavior.never,
                       hintText: widget.withLabel ? null : widget.hintText,
                       label: widget.withLabel
                           ? Text(

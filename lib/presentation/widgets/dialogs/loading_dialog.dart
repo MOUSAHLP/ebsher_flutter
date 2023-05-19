@@ -1,3 +1,5 @@
+import 'package:absher/core/app_router/app_router.dart';
+import 'package:absher/core/app_router/dialog_transition_builder.dart';
 import 'package:absher/presentation/resources/assets_manager.dart';
 import 'package:absher/presentation/resources/color_manager.dart';
 import 'package:flutter/material.dart';
@@ -16,25 +18,20 @@ class LoadingDialog {
 
   void closeDialog(BuildContext context) {
     if (_isShown) {
-      Navigator.of(context).pop();
+      AppRouter.pop(context);
       _isShown = false;
     }
   }
 
   void openDialog(BuildContext context) {
     _isShown = true;
-    showGeneralDialog(
-      context: context,
-      barrierColor: Colors.black.withOpacity(0.5),
-      pageBuilder: (_, __, ___) {
-        return CustomLoader();
-      },
-    ).whenComplete(() => _isShown = false);
+    dialogTransitionBuilder(context, const _LoadingDialogBody())
+        .whenComplete(() => _isShown = false);
   }
 }
 
-class CustomLoader extends StatelessWidget {
-  const CustomLoader({Key? key}) : super(key: key);
+class _LoadingDialogBody extends StatelessWidget {
+  const _LoadingDialogBody({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

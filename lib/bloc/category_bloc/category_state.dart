@@ -1,20 +1,20 @@
 import '../../models/advertisement_response.dart';
 import '../../models/category_response.dart';
 
-abstract class CategoryState {}
+abstract class HomeState {}
 
 
 
-class CategoryLoading extends CategoryState {}
-class NewIndex extends CategoryState {}
+class CategoryLoading extends HomeState {}
+class NewIndex extends HomeState {}
 
-class CategoryError extends CategoryState {
+class CategoryError extends HomeState {
   String error;
 
   CategoryError(this.error);
 }
 
-class CategorySuccess extends CategoryState
+class CategorySuccess extends HomeState
 {
   int index;
   List<CategoyResponse> lisCategory;

@@ -3,15 +3,15 @@ import 'package:absher/bloc/category_bloc/category_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../data/repos/category_repository.dart';
 
-class CategoryBloc extends Bloc <CategoryEvent,CategoryState>{
+class HomeBloc extends Bloc <HomeEvent,HomeState>{
   int index=0;
   setIndex(int newIndex){
 
   }
-  CategoryBloc():super(CategoryLoading()) {
-    on<CategoryEvent>((event, emit) async {
+  HomeBloc():super(CategoryLoading()) {
+    on<HomeEvent>((event, emit) async {
       // ignore: unnecessary_type_check
-      if (event is Category) {
+      if (event is Home) {
         emit(CategoryLoading());
         final response = await CategoryRepository.getCategory();
         response.fold((l) {

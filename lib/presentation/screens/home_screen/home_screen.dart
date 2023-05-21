@@ -29,8 +29,8 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: BlocBuilder<CategoryBloc, CategoryState>(
-          bloc: sl<CategoryBloc>()..add(Category()),
+      child: BlocBuilder<HomeBloc, HomeState>(
+          bloc: sl<HomeBloc>()..add(Home()),
           builder: (context, state) {
             if (state is CategoryLoading) {
               return shimmerNotification();
@@ -50,7 +50,7 @@ class HomeScreen extends StatelessWidget {
                           autoPlay: true,
                           height: SizeApp.s140,
                           onPageChanged: (index, reason) {
-                            sl<CategoryBloc>().add(SetIndex(
+                            sl<HomeBloc>().add(SetIndex(
                                 indexNew: index,
                                 lisCategory: state.lisCategory,
                                 lisAdvertisment: state.lisAdvertisment));
@@ -82,7 +82,7 @@ class HomeScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         for (int i = 0; i < state.lisAdvertisment.length; i++)
-                          context.read<CategoryBloc>().index == i
+                          context.read<HomeBloc>().index == i
                               ? Container(
                                   height: SizeApp.s14,
                                   width: SizeApp.s14,

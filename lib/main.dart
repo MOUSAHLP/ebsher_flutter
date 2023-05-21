@@ -65,7 +65,7 @@ class _MyAppState extends State<MyApp> {
           lazy: false,
         ),
         BlocProvider(
-          create: (BuildContext context) => sl<CategoryBloc>(),
+          create: (BuildContext context) => sl<HomeBloc>(),
         ),
       ],
       child: OverlaySupport.global(

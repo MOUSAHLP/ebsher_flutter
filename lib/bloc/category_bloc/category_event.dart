@@ -1,13 +1,13 @@
 import 'package:absher/models/advertisement_response.dart';
 import 'package:absher/models/category_response.dart';
 
-abstract class CategoryEvent {
-  CategoryEvent([List props = const []]) : super();
+abstract class HomeEvent {
+  HomeEvent([List props = const []]) : super();
 }
-class Category extends CategoryEvent {
+class Home extends HomeEvent {
 }
 
-class SetIndex extends CategoryEvent {
+class SetIndex extends HomeEvent {
   final int? indexNew;
   List<CategoyResponse>? lisCategory;
   List<AdvertisementsResponse>? lisAdvertisment;

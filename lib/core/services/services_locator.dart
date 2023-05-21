@@ -14,7 +14,7 @@ class ServicesLocator {
     sl.registerLazySingleton(() => AuthenticationBloc(sl()));
     sl.registerLazySingleton(() => SignUpBloc(sl()));
     sl.registerLazySingleton(() => LoginBloc(sl(),sl()));
-    sl.registerLazySingleton(() => CategoryBloc());
+    sl.registerLazySingleton(() => HomeBloc());
 
     /// Repository
     sl.registerLazySingleton<UserRepository>(() => UserRepository());

@@ -26,9 +26,9 @@ dependencies:
   flutter_spinkit: ^5.2.0
   shimmer:
   package_info_plus: ^4.0.0
+  dismissible_page: ^1.0.2
+  extended_image: ^7.0.2
   lottie:
-  extended_image:
-
 
 dev_dependencies:
   flutter_test:

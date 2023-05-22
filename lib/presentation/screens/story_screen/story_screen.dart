@@ -70,6 +70,7 @@ class _StoryScreenBodyState extends State<StoryScreenBody> {
                 controller: storiesBloc.pageController,
                 itemCount: storiesBloc.stories!.length,
                 onPageChanged: (newPageIndex) {
+                  print('pageChanged');
                   context
                       .read<StoriesBloc>()
                       .add(OnStoryPageChanged(index: newPageIndex));

@@ -107,7 +107,7 @@ class _StoryItemState extends State<StoryItem> {
           padding: const EdgeInsets.only(top: 44, left: 8),
           child: GestureDetector(
             onTap: () {
-              storiesBloc.navigateToStoryRestaurant();
+              // storiesBloc.navigateToStoryRestaurant();
             },
             child: Row(
               children: [

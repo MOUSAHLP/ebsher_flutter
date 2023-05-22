@@ -28,7 +28,7 @@ class Gestures extends StatelessWidget {
               child: GestureDetector(
                 onTap: () {
                   // storiesBloc.add(OnAnimationChange(isForward: true));
-                  storiesBloc.add(CurrentStackIncrement());
+                  storiesBloc.add(CurrentStackDecrement());
                 },
                 onLongPress: () {
                   storiesBloc.add(OnAnimationChange(isStop: true));
@@ -51,18 +51,23 @@ class Gestures extends StatelessWidget {
                   //     .add(OnAnimationChange(isForward: true, forwardFrom: 1));
                 },
                 onTapDown: (details) {
+                  log('onTapDown');
                   storiesBloc.add(OnAnimationChange(isStop: true));
                 },
                 onTapCancel: () {
+                  log('onTapCancel');
                   storiesBloc.add(OnAnimationChange(isForward: true));
                 },
                 onLongPressStart: (_) {
+                  log('onLongPressStart');
                   storiesBloc.add(OnAnimationChange(isStop: true));
                 },
                 onLongPress: () {
+                  log('onLongPress');
                   storiesBloc.add(OnAnimationChange(isStop: true));
                 },
                 onLongPressUp: () {
+                  log('onLongPressUp');
                   storiesBloc.add(OnAnimationChange(isForward: true));
                 },
               ),

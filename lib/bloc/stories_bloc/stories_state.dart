@@ -5,9 +5,8 @@ class StoriesState extends Equatable {
     this.currentPageIndex = 0,
     this.currentPageValue = 0.0,
     this.currentStackIndex = 0,
-    this.descExpanded = false,
-    this.descHeight = 0.0,
-    this.indicatorAnimationValue = 0.0,
+    // this.descExpanded = false,
+    // this.descHeight = 0.0,
     // this.storiesAnimationUpdate = const StoriesAnimationUpdate(),
     this.isForward = false,
     this.isStop = false,
@@ -18,9 +17,8 @@ class StoriesState extends Equatable {
   final double currentPageValue;
   final int currentStackIndex;
   final int currentPageIndex;
-  final double indicatorAnimationValue;
-  final double descHeight;
-  final bool descExpanded;
+  // final double descHeight;
+  // final bool descExpanded;
   final double? value;
   final bool isStop;
   final bool isForward;
@@ -30,7 +28,6 @@ class StoriesState extends Equatable {
     double? currentPageValue,
     int? currentStackIndex,
     int? currentPageIndex,
-    double? indicatorAnimationValue,
     double? descHeight,
     bool? descExpanded,
     double? value,
@@ -42,10 +39,8 @@ class StoriesState extends Equatable {
       currentPageValue: currentPageValue ?? this.currentPageValue,
       currentStackIndex: currentStackIndex ?? this.currentStackIndex,
       currentPageIndex: currentPageIndex ?? this.currentPageIndex,
-      indicatorAnimationValue:
-          indicatorAnimationValue ?? this.indicatorAnimationValue,
-      descHeight: descHeight ?? this.descHeight,
-      descExpanded: descExpanded ?? this.descExpanded,
+      // descHeight: descHeight ?? this.descHeight,
+      // descExpanded: descExpanded ?? this.descExpanded,
       isForward: isForward ?? false,
       isStop: isStop ?? false,
       value: value,
@@ -58,9 +53,8 @@ class StoriesState extends Equatable {
         currentPageValue,
         currentStackIndex,
         currentPageIndex,
-        indicatorAnimationValue,
-        descHeight,
-        descExpanded,
+        // descHeight,
+        // descExpanded,
         isForward,
         isStop,
         value,

@@ -15,6 +15,11 @@ class StoriesBloc extends Bloc<StoriesEvent, StoriesState> {
 
   bool _controllerDisposed = false;
 
+  late AnimationController animationController;
+  late VoidCallback listener;
+  late Animation<double> indicatorAnimation;
+  double indicatorAnimationValue = 0;
+
   PageController? pageController;
 
   List<StoryModelDto>? stories = dummyStories;
@@ -69,30 +74,37 @@ class StoriesBloc extends Bloc<StoriesEvent, StoriesState> {
         }
         log('after ${state.currentPageIndex} , ${state.currentStackIndex}');
       }
-      // if (event is CurrentStackDecrement) {
-      //   // descExpanded = false;
-      //   if (state.currentStackIndex == 0) {
-      //     if (state.currentPageIndex != 0) {
-      //       int newValue = state.currentPageIndex - 1;
-      //       emit(state.copyWith(
-      //         currentPageIndex: newValue,
-      //       ));
-      //       pageController!.animateToPage(
-      //         newValue,
-      //         duration: const Duration(milliseconds: 500),
-      //         curve: Curves.ease,
-      //       );
-      //     }
-      //     emit(state.copyWith(
-      //       currentStackIndex: 0,
-      //     ));
-      //   } else {
-      //     int newValue = state.currentPageIndex - 1;
-      //     emit(state.copyWith(
-      //       currentStackIndex: newValue,
-      //     ));
-      //   }
-      // }
+      if (event is CurrentStackDecrement) {
+        // descExpanded = false;
+        if (state.currentStackIndex == 0) {
+          if (state.currentPageIndex != 0) {
+            int newValue = state.currentPageIndex - 1;
+            emit(state.copyWith(
+              currentPageIndex: newValue,
+              currentStackIndex: 0,
+              value: 0,
+              isForward: true,
+            ));
+            pageController!.animateToPage(
+              newValue,
+              duration: const Duration(milliseconds: 500),
+              curve: Curves.ease,
+            );
+          } else {
+            emit(state.copyWith(
+              currentStackIndex: 0,
+            ));
+          }
+        } else {
+          int newValue = state.currentStackIndex - 1;
+          emit(state.copyWith(
+            // forwardFrom: 0,
+            value: 0,
+            // isForward: true,
+            currentStackIndex: newValue,
+          ));
+        }
+      }
       if (event is OnAnimationChange) {
         emit(state.copyWith(
           isForward: event.isForward,
@@ -107,62 +119,20 @@ class StoriesBloc extends Bloc<StoriesEvent, StoriesState> {
           currentPageIndex: event.index,
           // value: 0,
           isForward: true,
-          forwardFrom: 0,
         ));
       }
     });
   }
 
-  void currentStackDecrement() {}
-
-  void getPreferedDescHeight() {
-    // final double textHeight = getTextHeight(
-    //   stories![currentPageIndex.value]
-    //       .stories![currentStackIndex.value]
-    //       .description!,
-    //   const TextStyle(color: Colors.white, fontSize: 14),
-    //   maxWidth: Get.width - 16,
-    // );
-    // if (textHeight < (Get.height / 3)) {
-    //   descHeight = textHeight;
-    // } else {
-    //   descHeight = Get.height / 3;
-    // }
-  }
-
-  void storyAnimationResume() {
-    if (_controllerDisposed) return;
-    // if (!descExpanded) {
-    // animationController.forward();
-    // }
-  }
-
-  void storyAnimationStop() {
-    if (_controllerDisposed) return;
-    // animationController.stop();
-  }
-
-  void navigateToStoryRestaurant() {
-    // Get.back();
-
-    // navigationController.toRestaurantScreen(
-    //   restaurantId: stories![currentPageIndex.value].restaurantId,
-    // );
-  }
-
   void init() {
-    log('init Called');
     stories = dummyStories;
     initIndex = 0;
     pageController = PageController(initialPage: initIndex);
-    // currentPageIndex = 0;
-    // currentPageValue = initIndex.toDouble();
     emit(state.copyWith(
       currentPageValue: 0.0,
     ));
     pageController!.addListener(() {
       emit(state.copyWith(
-        // descExpanded: false,
         currentPageValue: pageController!.page!,
       ));
     });

@@ -24,29 +24,26 @@ class Indicators extends StatefulWidget {
 
 class _IndicatorsState extends State<Indicators> with TickerProviderStateMixin {
   late ValueNotifier<IndicatorAnimationCommand> indicatorAnimationController;
-  late AnimationController animationController;
+  // late AnimationController animationController;
   late VoidCallback listener;
   late Animation<double> indicatorAnimation;
-
   double indicatorAnimationValue = 0;
+
+  late StoriesBloc storiesBloc;
+
   @override
   void initState() {
-    animationController = AnimationController(
+    storiesBloc = context.read<StoriesBloc>();
+    storiesBloc.animationController = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 5),
-    )
-      ..addStatusListener(
+    )..addStatusListener(
         (status) {
           if (status == AnimationStatus.completed) {
-            log('animation Compl');
-            log(animationController.value.toString());
             context.read<StoriesBloc>().add(CurrentStackIncrement());
           }
         },
-      )
-      ..addListener(() {
-        if (animationController.value == 1) {}
-      });
+      );
 
     indicatorAnimationController = ValueNotifier<IndicatorAnimationCommand>(
       IndicatorAnimationCommand.resume,
@@ -55,11 +52,11 @@ class _IndicatorsState extends State<Indicators> with TickerProviderStateMixin {
     listener = () {
       switch (indicatorAnimationController.value) {
         case IndicatorAnimationCommand.pause:
-          animationController.stop();
+          storiesBloc.animationController.stop();
           break;
         case IndicatorAnimationCommand.resume:
         default:
-          animationController.forward();
+          storiesBloc.animationController.forward();
           break;
       }
     };
@@ -67,7 +64,7 @@ class _IndicatorsState extends State<Indicators> with TickerProviderStateMixin {
     indicatorAnimationController.addListener(listener);
 
     indicatorAnimation =
-        Tween(begin: 0.0, end: 1.0).animate(animationController)
+        Tween(begin: 0.0, end: 1.0).animate(storiesBloc.animationController)
           ..addListener(() {
             setState(() {
               indicatorAnimationValue = indicatorAnimation.value;
@@ -79,7 +76,7 @@ class _IndicatorsState extends State<Indicators> with TickerProviderStateMixin {
 
   @override
   void dispose() {
-    animationController.dispose();
+    storiesBloc.animationController.dispose();
 
     super.dispose();
   }
@@ -89,13 +86,13 @@ class _IndicatorsState extends State<Indicators> with TickerProviderStateMixin {
     return BlocConsumer<StoriesBloc, StoriesState>(
       listener: (context, state) {
         if (state.isForward) {
-          animationController.forward(from: state.forwardFrom);
+          storiesBloc.animationController.forward(from: state.forwardFrom);
         }
         if (state.isStop) {
-          animationController.stop();
+          storiesBloc.animationController.stop();
         }
         if (state.value != null) {
-          animationController.value = state.value!;
+          storiesBloc.animationController.value = state.value!;
         }
       },
       listenWhen: (p, c) {
@@ -107,7 +104,7 @@ class _IndicatorsState extends State<Indicators> with TickerProviderStateMixin {
       },
       builder: (context, state) {
         if (!widget.isCurrentPage && widget.isPaging) {
-          context.read<StoriesBloc>().add(OnAnimationChange(isStop: true));
+          storiesBloc.animationController.stop();
         }
         return Padding(
           padding: const EdgeInsets.symmetric(

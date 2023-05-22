@@ -40,7 +40,7 @@ class StoryModelDto {
 List<StoryModelDto> dummyStories = [
   StoryModelDto(
     vendorId: 1,
-    vendorName: 'test1',
+    vendorName: 'test 1 - 3',
     vendorLogo:
         'http://clickgo.peaklinkdemo.com/storage/160/7IXqWxeAUTZFx0nEAwOYlhoOEu4OzJ-metaZG93bmxvYWQgKDcpLnBuZw==-.png',
     stories: [
@@ -66,7 +66,7 @@ List<StoryModelDto> dummyStories = [
   ),
   StoryModelDto(
     vendorId: 1,
-    vendorName: 'test3',
+    vendorName: 'test 2 - 2',
     vendorLogo:
         'http://clickgo.peaklinkdemo.com/storage/160/7IXqWxeAUTZFx0nEAwOYlhoOEu4OzJ-metaZG93bmxvYWQgKDcpLnBuZw==-.png',
     stories: [
@@ -86,13 +86,103 @@ List<StoryModelDto> dummyStories = [
   ),
   StoryModelDto(
     vendorId: 1,
-    vendorName: 'test3',
+    vendorName: 'test 3 - 1',
     vendorLogo:
         'http://clickgo.peaklinkdemo.com/storage/160/7IXqWxeAUTZFx0nEAwOYlhoOEu4OzJ-metaZG93bmxvYWQgKDcpLnBuZw==-.png',
     stories: [
       StoryItemModel(
         image:
             'http://clickgo.peaklinkdemo.com/storage/76/5dXrgeUiZIH0eF3EiqpOzlyB9Cau5M-metaZG93bmxvYWQuamZpZg==-.jpg',
+        description: 'test desc',
+        creationTime: DateTime.now(),
+      ),
+    ],
+  ),
+  StoryModelDto(
+    vendorId: 1,
+    vendorName: 'test 4 - 2',
+    vendorLogo:
+        'http://clickgo.peaklinkdemo.com/storage/160/7IXqWxeAUTZFx0nEAwOYlhoOEu4OzJ-metaZG93bmxvYWQgKDcpLnBuZw==-.png',
+    stories: [
+      StoryItemModel(
+        image:
+            'http://clickgo.peaklinkdemo.com/storage/76/5dXrgeUiZIH0eF3EiqpOzlyB9Cau5M-metaZG93bmxvYWQuamZpZg==-.jpg',
+        description: 'test desc',
+        creationTime: DateTime.now(),
+      ),
+      StoryItemModel(
+        image:
+            'http://clickgo.peaklinkdemo.com/storage/160/7IXqWxeAUTZFx0nEAwOYlhoOEu4OzJ-metaZG93bmxvYWQgKDcpLnBuZw==-.png',
+        description: 'test desc',
+        creationTime: DateTime.now(),
+      ),
+    ],
+  ),
+  StoryModelDto(
+    vendorId: 1,
+    vendorName: 'test 5 - 4',
+    vendorLogo:
+        'http://clickgo.peaklinkdemo.com/storage/160/7IXqWxeAUTZFx0nEAwOYlhoOEu4OzJ-metaZG93bmxvYWQgKDcpLnBuZw==-.png',
+    stories: [
+      StoryItemModel(
+        image:
+            'http://clickgo.peaklinkdemo.com/storage/76/5dXrgeUiZIH0eF3EiqpOzlyB9Cau5M-metaZG93bmxvYWQuamZpZg==-.jpg',
+        description: 'test desc',
+        creationTime: DateTime.now(),
+      ),
+      StoryItemModel(
+        image:
+            'http://clickgo.peaklinkdemo.com/storage/76/5dXrgeUiZIH0eF3EiqpOzlyB9Cau5M-metaZG93bmxvYWQuamZpZg==-.jpg',
+        description: 'test desc',
+        creationTime: DateTime.now(),
+      ),
+      StoryItemModel(
+        image:
+            'http://clickgo.peaklinkdemo.com/storage/160/7IXqWxeAUTZFx0nEAwOYlhoOEu4OzJ-metaZG93bmxvYWQgKDcpLnBuZw==-.png',
+        description: 'test desc',
+        creationTime: DateTime.now(),
+      ),
+      StoryItemModel(
+        image:
+            'http://clickgo.peaklinkdemo.com/storage/160/7IXqWxeAUTZFx0nEAwOYlhoOEu4OzJ-metaZG93bmxvYWQgKDcpLnBuZw==-.png',
+        description: 'test desc',
+        creationTime: DateTime.now(),
+      ),
+    ],
+  ),
+  StoryModelDto(
+    vendorId: 1,
+    vendorName: 'test 6 - 5',
+    vendorLogo:
+        'http://clickgo.peaklinkdemo.com/storage/160/7IXqWxeAUTZFx0nEAwOYlhoOEu4OzJ-metaZG93bmxvYWQgKDcpLnBuZw==-.png',
+    stories: [
+      StoryItemModel(
+        image:
+            'http://clickgo.peaklinkdemo.com/storage/76/5dXrgeUiZIH0eF3EiqpOzlyB9Cau5M-metaZG93bmxvYWQuamZpZg==-.jpg',
+        description: 'test desc',
+        creationTime: DateTime.now(),
+      ),
+      StoryItemModel(
+        image:
+            'http://clickgo.peaklinkdemo.com/storage/76/5dXrgeUiZIH0eF3EiqpOzlyB9Cau5M-metaZG93bmxvYWQuamZpZg==-.jpg',
+        description: 'test desc',
+        creationTime: DateTime.now(),
+      ),
+      StoryItemModel(
+        image:
+            'http://clickgo.peaklinkdemo.com/storage/76/5dXrgeUiZIH0eF3EiqpOzlyB9Cau5M-metaZG93bmxvYWQuamZpZg==-.jpg',
+        description: 'test desc',
+        creationTime: DateTime.now(),
+      ),
+      StoryItemModel(
+        image:
+            'http://clickgo.peaklinkdemo.com/storage/160/7IXqWxeAUTZFx0nEAwOYlhoOEu4OzJ-metaZG93bmxvYWQgKDcpLnBuZw==-.png',
+        description: 'test desc',
+        creationTime: DateTime.now(),
+      ),
+      StoryItemModel(
+        image:
+            'http://clickgo.peaklinkdemo.com/storage/160/7IXqWxeAUTZFx0nEAwOYlhoOEu4OzJ-metaZG93bmxvYWQgKDcpLnBuZw==-.png',
         description: 'test desc',
         creationTime: DateTime.now(),
       ),

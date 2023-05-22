@@ -32,4 +32,5 @@ class IconsManager {
   static const String iconSearch = "$iconPath/search.svg";
   static const String iconVideo = "$iconPath/video.svg";
   static const String iconStars = "$iconPath/stars.svg";
+  static const String iconNoResult = "$iconPath/noResult.json";
 }

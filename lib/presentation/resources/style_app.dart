@@ -7,7 +7,9 @@ TextStyle? _getTextStyle(double fontSize, FontWeight fontWeight, Color color) {
       fontSize: fontSize,
       fontFamily: FontConstant.fontFamily,
       color: color,
-      fontWeight: fontWeight);
+      fontWeight: fontWeight,
+  decoration: TextDecoration.none
+  );
 }
 // regular style
 TextStyle? getRegularStyle(

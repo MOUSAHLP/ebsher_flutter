@@ -18,8 +18,9 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:overlay_support/overlay_support.dart';
 
 import 'bloc/authentication_bloc/authertication_bloc.dart';
-import 'bloc/category_bloc/category_bloc.dart';
+import 'bloc/home_bloc/home_bloc.dart';
 import 'bloc/login_bloc/login_bloc.dart';
+import 'bloc/search_bloc/search_bloc.dart';
 import 'bloc/sign_up_bloc/sign_up_bloc.dart';
 import 'core/services/services_locator.dart';
 import 'data/data_resource/remote_resource/api_handler/base_api_client.dart';
@@ -65,7 +66,10 @@ class _MyAppState extends State<MyApp> {
           lazy: false,
         ),
         BlocProvider(
-          create: (BuildContext context) => sl<CategoryBloc>(),
+          create: (BuildContext context) => sl<HomeBloc>(),
+        ),
+        BlocProvider(
+          create: (BuildContext context) => sl<SearchBloc>(),
         ),
       ],
       child: OverlaySupport.global(

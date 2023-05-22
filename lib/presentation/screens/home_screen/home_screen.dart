@@ -1,39 +1,33 @@
+import 'package:absher/presentation/screens/home_screen/home_widget/build_shimmer_widget.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shimmer/shimmer.dart';
 
-import '../../../bloc/category_bloc/category_bloc.dart';
-import '../../../bloc/category_bloc/category_event.dart';
-import '../../../bloc/category_bloc/category_state.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../bloc/home_bloc/home_bloc.dart';
+import '../../../bloc/home_bloc/home_event.dart';
+import '../../../bloc/home_bloc/home_state.dart';
+import '../../../core/localization_string.dart';
 import '../../../core/services/services_locator.dart';
 import '../../resources/values_app.dart';
-import 'package:absher/presentation/resources/assets_manager.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-
 import '../../resources/style_app.dart';
 import '../../resources/color_manager.dart';
-import 'home_widget/build_search_widget.dart';
+import '../../widgets/custom_cach_image.dart';
 import 'home_widget/build_store_widget.dart';
+import 'home_widget/search_result_screen.dart';
 
 // ignore: must_be_immutable
 class HomeScreen extends StatelessWidget {
-  List image = [
-    ImageManager.test1,
-    ImageManager.test1,
-    ImageManager.test1,
-  ];
-
   HomeScreen({super.key});
   bool isBlue = false;
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: BlocBuilder<CategoryBloc, CategoryState>(
-          bloc: sl<CategoryBloc>()..add(Category()),
+      child: BlocBuilder<HomeBloc, HomeState>(
+          bloc: sl<HomeBloc>()..add(Home()),
           builder: (context, state) {
             if (state is CategoryLoading) {
-              return shimmerNotification();
+              return const BuildShimmerWidget();
             } else if (state is CategoryError) {
               return Text(state.error);
             } else if (state is CategorySuccess) {
@@ -50,7 +44,7 @@ class HomeScreen extends StatelessWidget {
                           autoPlay: true,
                           height: SizeApp.s140,
                           onPageChanged: (index, reason) {
-                            sl<CategoryBloc>().add(SetIndex(
+                            sl<HomeBloc>().add(SetIndex(
                                 indexNew: index,
                                 lisCategory: state.lisCategory,
                                 lisAdvertisment: state.lisAdvertisment));
@@ -69,10 +63,13 @@ class HomeScreen extends StatelessWidget {
                                 child: ClipRRect(
                                     borderRadius:
                                         BorderRadius.circular(RadiusApp.r27),
-                                    child: Image.network(
+                                    child:
+
+                                    Image.network(
                                       advertisment.photo!,
                                       fit: BoxFit.fill,
-                                    )));
+                                    )
+                                ));
                           },
                         );
                       }).toList(),
@@ -82,7 +79,7 @@ class HomeScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         for (int i = 0; i < state.lisAdvertisment.length; i++)
-                          context.read<CategoryBloc>().index == i
+                          context.read<HomeBloc>().index == i
                               ? Container(
                                   height: SizeApp.s14,
                                   width: SizeApp.s14,
@@ -104,7 +101,28 @@ class HomeScreen extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: SizeApp.s16),
-                    const BuildSearchWidget(),
+                    InkWell(
+                      onTap: (){
+                        showSearch(context: context, delegate: CustomSearchDelegate(state.lisCategory));
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal:PaddingApp.p55),
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: SizeApp.s10),
+                          height: 45,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(RadiusApp.r50)
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: const [
+                              Icon(Icons.search),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
                     const SizedBox(height: SizeApp.s16),
                     Padding(
                       padding:
@@ -115,6 +133,7 @@ class HomeScreen extends StatelessWidget {
                         shrinkWrap: true,
                         itemBuilder: (context, index) {
                           if (index.isOdd) isBlue = !isBlue;
+
                           return Padding(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: PaddingApp.p14,
@@ -132,9 +151,10 @@ class HomeScreen extends StatelessWidget {
                                 children: [
                                   Image.network(state.lisCategory[index].logo!,
                                       height: SizeApp.s56, width: SizeApp.s56),
-                                  const SizedBox(height: 2),
+                                 const SizedBox(height: 2),
                                   Text(
-                                    state.lisCategory[index].name!,
+                                    LocalixationString(context,state.lisCategory[index].name)??""
+                                    ,
                                     style: getBoldStyle(
                                         color: ColorManager.whiteColor,
                                         fontSize: 14),
@@ -155,105 +175,12 @@ class HomeScreen extends StatelessWidget {
                   ],
                 ),
               );
-            } else
-              return Text("");
+            } else {
+              return const Text("");
+            }
           }),
     );
   }
 
-  Widget shimmerNotification() {
-    return Padding(
-      padding: const EdgeInsets.only(left: 18.0, right: 18.0, top: 10),
-      child: SizedBox(
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 10),
-              Row(
-                children: [
-                  shimmerCircle(),
-                  shimmerCircle(),
-                  shimmerCircle(),
-                  shimmerCircle(),
-                ],
-              ),
-              SizedBox(height: 10),
-              Shimmer.fromColors(
-                baseColor: const Color(0xFFd3d7de),
-                highlightColor: const Color(0xFFe2e4e9),
-                child: const Card(
-                  elevation: 0.0,
-                  color: Color.fromRGBO(45, 45, 45, 1.0),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(10),
-                    ),
-                  ),
-                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                  child: SizedBox(
-                    width: 350,
-                    height: 100,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 20),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: SizeApp.s16),
-                child: GridView.builder(
-                  itemCount: 4,
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemBuilder: (context, index) => shimmerCategory(),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2),
-                ),
-              )
-            ],
-          ),
-        ),
-      ),
-    );
-  }
 
-  Widget shimmerCircle() {
-    return Shimmer.fromColors(
-      baseColor: const Color(0xFFd3d7de),
-      highlightColor: const Color(0xFFe2e4e9),
-      child: Card(
-        elevation: 0.0,
-        color: Color.fromRGBO(45, 45, 45, 1.0),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(50),
-        ),
-        clipBehavior: Clip.antiAliasWithSaveLayer,
-        child: SizedBox(
-          width: 80,
-          height: 80,
-        ),
-      ),
-    );
-  }
-
-  Widget shimmerCategory() {
-    return Shimmer.fromColors(
-      baseColor: const Color(0xFFd3d7de),
-      highlightColor: const Color(0xFFe2e4e9),
-      child: const Card(
-        elevation: 0.0,
-        color: Color.fromRGBO(45, 45, 45, 1.0),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(10),
-          ),
-        ),
-        clipBehavior: Clip.antiAliasWithSaveLayer,
-        child: SizedBox(
-          width: 50,
-          height: 100,
-        ),
-      ),
-    );
-  }
 }

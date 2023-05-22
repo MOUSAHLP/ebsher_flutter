@@ -9,7 +9,8 @@
   "addDetails":"Add your details to register an account",
   "fullName":"Full name",
   "haveAccount":"do you have an account?",
-  "gender":"Gender"
+  "gender":"Gender",
+  "noResult":"Sorry no results found"
 
 
 }

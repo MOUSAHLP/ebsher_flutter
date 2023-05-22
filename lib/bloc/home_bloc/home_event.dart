@@ -14,3 +14,4 @@ class SetIndex extends HomeEvent {
   SetIndex({ this.indexNew,this.lisCategory,this.lisAdvertisment}) : super([indexNew]);
 
 }
+

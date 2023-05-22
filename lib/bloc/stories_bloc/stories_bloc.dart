@@ -1,16 +1,11 @@
-import 'dart:developer';
-
 import 'package:absher/bloc/stories_bloc/stories_event.dart';
 import 'package:absher/bloc/stories_bloc/stories_state.dart';
-import 'package:absher/data/repos/user_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../models/story_model.dart';
 
 class StoriesBloc extends Bloc<StoriesEvent, StoriesState> {
-  final UserRepository userRepository;
-
   late AnimationController animationController;
 
   PageController? pageController;
@@ -18,23 +13,20 @@ class StoriesBloc extends Bloc<StoriesEvent, StoriesState> {
   List<StoryModelDto>? stories = dummyStories;
   int initIndex = 0;
 
-  StoriesBloc(
-    this.userRepository,
-  ) : super(const StoriesState()) {
+  StoriesBloc() : super(const StoriesState()) {
     on<StoriesEvent>((event, emit) async {
-      if (event is InitBloc) {}
       if (event is CurrentStackIncrement) {
         if (state.currentStackIndex ==
             (stories![state.currentPageIndex].stories!.length - 1)) {
           if (state.currentPageIndex == stories!.length - 1) {
-            // Get.back();
+            emit(ExitStories());
           } else {
             int s = state.currentPageIndex + 1;
             emit(state.copyWith(
               currentPageIndex: s,
               currentStackIndex: 0,
-              value: 0,
             ));
+            animationController.value = 0;
             pageController!.animateToPage(
               state.currentPageIndex,
               duration: const Duration(milliseconds: 500),
@@ -46,10 +38,9 @@ class StoriesBloc extends Bloc<StoriesEvent, StoriesState> {
           emit(
             state.copyWith(
               currentStackIndex: s,
-              isForward: true,
-              forwardFrom: 0,
             ),
           );
+          animationController.forward(from: 0);
         }
       }
       if (event is CurrentStackDecrement) {
@@ -59,9 +50,8 @@ class StoriesBloc extends Bloc<StoriesEvent, StoriesState> {
             emit(state.copyWith(
               currentPageIndex: newValue,
               currentStackIndex: 0,
-              value: 0,
-              isForward: true,
             ));
+            animationController.forward(from: 0);
             pageController!.animateToPage(
               newValue,
               duration: const Duration(milliseconds: 500),
@@ -75,26 +65,17 @@ class StoriesBloc extends Bloc<StoriesEvent, StoriesState> {
         } else {
           int newValue = state.currentStackIndex - 1;
           emit(state.copyWith(
-            value: 0,
             currentStackIndex: newValue,
           ));
+          animationController.value = 0;
         }
-      }
-      if (event is OnAnimationChange) {
-        log('called');
-        emit(state.copyWith(
-          isForward: event.isForward,
-          isStop: event.isStop,
-          value: event.value,
-          forwardFrom: event.forwardFrom,
-        ));
       }
       if (event is OnStoryPageChanged) {
         emit(state.copyWith(
           currentStackIndex: 0,
           currentPageIndex: event.index,
-          isForward: true,
         ));
+        animationController.forward(from: 0);
       }
     });
   }
@@ -106,13 +87,10 @@ class StoriesBloc extends Bloc<StoriesEvent, StoriesState> {
     emit(state.copyWith(
       currentPageValue: 0.0,
       currentStackIndex: 0,
-      value: 0,
     ));
     pageController!.addListener(() {
       emit(state.copyWith(
         currentPageValue: pageController!.page!,
-        currentStackIndex: 0,
-        value: 0,
       ));
     });
   }

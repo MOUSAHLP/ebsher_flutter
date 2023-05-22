@@ -21,35 +21,17 @@ class Indicators extends StatefulWidget {
 }
 
 class _IndicatorsState extends State<Indicators> {
-  late StoriesBloc storiesBloc;
 
   @override
   void initState() {
-    storiesBloc = context.read<StoriesBloc>();
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<StoriesBloc, StoriesState>(
-      listener: (context, state) {
-        if (state.isForward) {
-          storiesBloc.animationController.forward(from: state.forwardFrom);
-        }
-        if (state.isStop) {
-          storiesBloc.animationController.stop();
-        }
-        if (state.value != null) {
-          storiesBloc.animationController.value = state.value!;
-        }
-      },
-      listenWhen: (p, c) {
-        if (p.forwardFrom != c.forwardFrom) return true;
-        if (p.isForward != c.isForward) return true;
-        if (p.value != c.value) return true;
-        if (p.isStop != c.isStop) return true;
-        return false;
-      },
+    StoriesBloc storiesBloc = context.read<StoriesBloc>();
+    return BlocBuilder<StoriesBloc, StoriesState>(
       builder: (context, state) {
         if (!widget.isCurrentPage && widget.isPaging) {
           storiesBloc.animationController.stop();

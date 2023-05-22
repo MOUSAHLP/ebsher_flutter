@@ -17,7 +17,6 @@ class Gestures extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.only(
         bottom: 40,
-        // bottom: 40 + (storiesBloc.descExpanded ? storiesBloc.descHeight : 0),
         top: 80,
       ),
       child: Row(
@@ -28,14 +27,13 @@ class Gestures extends StatelessWidget {
               child: GestureDetector(
                 behavior: HitTestBehavior.translucent,
                 onTap: () {
-                  // storiesBloc.add(OnAnimationChange(isForward: true));
                   storiesBloc.add(CurrentStackDecrement());
                 },
                 onLongPress: () {
                   storiesBloc.animationController.stop();
                 },
                 onLongPressUp: () {
-                  storiesBloc.add(OnAnimationChange(isForward: true));
+                  storiesBloc.animationController.forward();
                 },
               ),
             ),
@@ -46,30 +44,21 @@ class Gestures extends StatelessWidget {
               child: GestureDetector(
                 behavior: HitTestBehavior.translucent,
                 onTap: () {
-                  log('pressed');
-                  // storiesBloc.add(OnAnimationChange(isForward: true));
                   storiesBloc.add(CurrentStackIncrement());
-                  // storiesBloc
-                  //     .add(OnAnimationChange(isForward: true, forwardFrom: 1));
                 },
                 onTapDown: (details) {
-                  log('onTapDown');
                   storiesBloc.animationController.stop();
                 },
                 onTapCancel: () {
-                  log('onTapCancel');
                   storiesBloc.animationController.forward();
                 },
                 onLongPressStart: (_) {
-                  log('onLongPressStart');
                   storiesBloc.animationController.stop();
                 },
                 onLongPress: () {
-                  log('onLongPress');
                   storiesBloc.animationController.stop();
                 },
                 onLongPressUp: () {
-                  log('onLongPressUp');
                   storiesBloc.animationController.forward();
                 },
               ),

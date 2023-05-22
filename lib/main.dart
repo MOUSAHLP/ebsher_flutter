@@ -80,7 +80,7 @@ class _MyAppState extends State<MyApp> {
           },
           child: MaterialApp(
             title: 'أبشر',
-            locale: Locale('ar'),
+            locale: Locale('en'),
             supportedLocales: AppLocalizations.supportedLocales,
             localizationsDelegates: const [
               AppLocalizations.delegate,

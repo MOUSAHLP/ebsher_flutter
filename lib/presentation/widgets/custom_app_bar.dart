@@ -9,6 +9,8 @@ import 'package:absher/presentation/resources/assets_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../screens/notification/notification_screen.dart';
+
 class CustomAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -32,7 +34,11 @@ class CustomAppBar extends StatelessWidget {
               SizedBox(
                 width: 16,
               ),
-              SvgPicture.asset(IconsManager.iconNotification),
+              GestureDetector(
+                  onTap: (){
+                    AppRouter.push(context, NotificationScreen());
+                  },
+                  child: SvgPicture.asset(IconsManager.iconNotification)),
             ],
           ),
           SvgPicture.asset(IconsManager.iconAppAbsher),

@@ -115,17 +115,15 @@ class BaseApiClient {
       {required String url,
       Map<String, dynamic>? queryParameters,
         required T Function(dynamic) converter,}) async {
-    print(DataStore.instance.token);
-    String token="181|WHKDeshgXzLH2WsUIKK9dbYHEDZG6a6VxqK1zunG";
     try {
+
       var response = await client.get(
         url,
         queryParameters: queryParameters,
         options: Options(
           headers: {
             'accept': _acceptHeader,
-            'Authorization': 'Bearer ${token ?? ''}',
-//            'authorization': 'Bearer ${DataStore.instance.token ?? ''}',
+            'authorization': 'Bearer ${DataStore.instance.token ?? ''}',
           },
         ),
       );
@@ -144,7 +142,6 @@ class BaseApiClient {
 
     } on DioError catch (e) {
       Map dioError = DioErrorsHandler.onError(e);
-      // toast(dioError['message']);
       if (kDebugMode) {
         print(e);
       }

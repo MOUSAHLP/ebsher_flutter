@@ -2,9 +2,7 @@ import 'dart:developer';
 
 import 'package:absher/bloc/stories_bloc/stories_event.dart';
 import 'package:absher/bloc/stories_bloc/stories_state.dart';
-import 'package:absher/core/services/services_locator.dart';
 import 'package:absher/data/repos/user_repository.dart';
-import 'package:absher/presentation/screens/story_screen/story_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -13,12 +11,7 @@ import '../../models/story_model.dart';
 class StoriesBloc extends Bloc<StoriesEvent, StoriesState> {
   final UserRepository userRepository;
 
-  bool _controllerDisposed = false;
-
   late AnimationController animationController;
-  late VoidCallback listener;
-  late Animation<double> indicatorAnimation;
-  double indicatorAnimationValue = 0;
 
   PageController? pageController;
 
@@ -29,24 +22,13 @@ class StoriesBloc extends Bloc<StoriesEvent, StoriesState> {
     this.userRepository,
   ) : super(const StoriesState()) {
     on<StoriesEvent>((event, emit) async {
-      if (event is InitBloc) {
-        // init(event.tickerProvider, emit);
-      }
+      if (event is InitBloc) {}
       if (event is CurrentStackIncrement) {
-        log('Current called');
-        // descExpanded = false;
         if (state.currentStackIndex ==
             (stories![state.currentPageIndex].stories!.length - 1)) {
-          log('current 1');
-          // emit(state.copyWith(
-          //   currentStackIndex: 0,
-          //   // value: 1,
-          // ));
           if (state.currentPageIndex == stories!.length - 1) {
-            log('finished');
             // Get.back();
           } else {
-            log('current 2');
             int s = state.currentPageIndex + 1;
             emit(state.copyWith(
               currentPageIndex: s,
@@ -60,8 +42,6 @@ class StoriesBloc extends Bloc<StoriesEvent, StoriesState> {
             );
           }
         } else {
-          log('current 3');
-          // log('before ${state.currentPageIndex} , ${state.currentStackIndex}');
           int s = state.currentStackIndex + 1;
           emit(
             state.copyWith(
@@ -70,12 +50,9 @@ class StoriesBloc extends Bloc<StoriesEvent, StoriesState> {
               forwardFrom: 0,
             ),
           );
-          // log('after ${state.currentPageIndex} , ${state.currentStackIndex}');
         }
-        log('after ${state.currentPageIndex} , ${state.currentStackIndex}');
       }
       if (event is CurrentStackDecrement) {
-        // descExpanded = false;
         if (state.currentStackIndex == 0) {
           if (state.currentPageIndex != 0) {
             int newValue = state.currentPageIndex - 1;
@@ -98,14 +75,13 @@ class StoriesBloc extends Bloc<StoriesEvent, StoriesState> {
         } else {
           int newValue = state.currentStackIndex - 1;
           emit(state.copyWith(
-            // forwardFrom: 0,
             value: 0,
-            // isForward: true,
             currentStackIndex: newValue,
           ));
         }
       }
       if (event is OnAnimationChange) {
+        log('called');
         emit(state.copyWith(
           isForward: event.isForward,
           isStop: event.isStop,
@@ -117,7 +93,6 @@ class StoriesBloc extends Bloc<StoriesEvent, StoriesState> {
         emit(state.copyWith(
           currentStackIndex: 0,
           currentPageIndex: event.index,
-          // value: 0,
           isForward: true,
         ));
       }
@@ -130,10 +105,14 @@ class StoriesBloc extends Bloc<StoriesEvent, StoriesState> {
     pageController = PageController(initialPage: initIndex);
     emit(state.copyWith(
       currentPageValue: 0.0,
+      currentStackIndex: 0,
+      value: 0,
     ));
     pageController!.addListener(() {
       emit(state.copyWith(
         currentPageValue: pageController!.page!,
+        currentStackIndex: 0,
+        value: 0,
       ));
     });
   }

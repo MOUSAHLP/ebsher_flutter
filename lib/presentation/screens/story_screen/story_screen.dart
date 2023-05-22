@@ -40,14 +40,59 @@ class StoryScreenBody extends StatefulWidget {
   State<StoryScreenBody> createState() => _StoryScreenBodyState();
 }
 
-class _StoryScreenBodyState extends State<StoryScreenBody> {
+class _StoryScreenBodyState extends State<StoryScreenBody>
+    with TickerProviderStateMixin {
   late StoriesBloc storiesBloc;
+
+  late ValueNotifier<IndicatorAnimationCommand> indicatorAnimationController;
+  late VoidCallback listener;
+  late Animation<double> indicatorAnimation;
+  double indicatorAnimationValue = 0;
 
   @override
   void initState() {
     storiesBloc = context.read<StoriesBloc>();
-    // storiesBloc.init();
+    indicatorAnimationController = ValueNotifier<IndicatorAnimationCommand>(
+      IndicatorAnimationCommand.resume,
+    );
+    storiesBloc.animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 5),
+    )..addStatusListener(
+        (status) {
+          if (status == AnimationStatus.completed) {
+            storiesBloc.add(CurrentStackIncrement());
+          }
+        },
+      );
+    listener = () {
+      switch (indicatorAnimationController.value) {
+        case IndicatorAnimationCommand.pause:
+          storiesBloc.animationController.stop();
+          break;
+        case IndicatorAnimationCommand.resume:
+        default:
+          storiesBloc.animationController.forward();
+          break;
+      }
+    };
+
+    indicatorAnimationController.addListener(listener);
+
+    indicatorAnimation =
+        Tween(begin: 0.0, end: 1.0).animate(storiesBloc.animationController)
+          ..addListener(() {
+            setState(() {
+              indicatorAnimationValue = indicatorAnimation.value;
+            });
+          });
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    storiesBloc.animationController.dispose();
+    super.dispose();
   }
 
   @override
@@ -115,6 +160,7 @@ class _StoryScreenBodyState extends State<StoryScreenBody> {
                               pageIndex: pageIndex,
                             );
                           },
+                          indicatorAnimationValue: indicatorAnimationValue,
                         ),
                         if (isPaging && !isLeaving)
                           Positioned.fill(
@@ -148,6 +194,7 @@ class _StoryPageFrame extends StatefulWidget {
     required this.itemBuilder,
     this.gestureItemBuilder,
     Key? key,
+    required this.indicatorAnimationValue,
   }) : super(key: key);
 
   final int pageIndex;
@@ -157,6 +204,7 @@ class _StoryPageFrame extends StatefulWidget {
   final bool isPaging;
   final StoryItemBuilder itemBuilder;
   final StoryItemBuilder? gestureItemBuilder;
+  final double indicatorAnimationValue;
 
   @override
   State<_StoryPageFrame> createState() => _StoryPageFrameState();
@@ -203,6 +251,7 @@ class _StoryPageFrameState extends State<_StoryPageFrame>
             storyLength: widget.storyLength,
             isCurrentPage: widget.isCurrentPage,
             isPaging: widget.isPaging,
+            indicatorAnimationValue: widget.indicatorAnimationValue,
           ),
           Gestures(),
           Positioned.fill(

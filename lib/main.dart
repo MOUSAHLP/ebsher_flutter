@@ -71,6 +71,7 @@ class _MyAppState extends State<MyApp> {
       child: OverlaySupport.global(
         child: GestureDetector(
           onTap: () {
+            print('Tapped');
             final FocusScopeNode currentFocus = FocusScope.of(context);
             if (!currentFocus.hasPrimaryFocus &&
                 currentFocus.focusedChild != null) {

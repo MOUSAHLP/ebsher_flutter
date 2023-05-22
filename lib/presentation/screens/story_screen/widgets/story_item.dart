@@ -63,7 +63,7 @@ class _StoryItemState extends State<StoryItem> {
                 // storyController.storyAnimationStop();
                 switch (state.extendedImageLoadState) {
                   case LoadState.loading:
-                    storiesBloc.add(OnAnimationChange(isStop: true));
+                    storiesBloc.animationController.stop();
                     return Stack(
                       alignment: Alignment.center,
                       clipBehavior: Clip.none,
@@ -83,10 +83,10 @@ class _StoryItemState extends State<StoryItem> {
                     );
 
                   case LoadState.completed:
-                    storiesBloc.add(OnAnimationChange(isForward: true));
+                    storiesBloc.animationController.forward();
                     return state.completedWidget;
                   case LoadState.failed:
-                    storiesBloc.add(OnAnimationChange(isForward: true));
+                    storiesBloc.animationController.forward();
                     return Container(
                       width: double.infinity,
                       height: double.infinity,

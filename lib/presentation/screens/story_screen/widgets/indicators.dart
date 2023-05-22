@@ -1,9 +1,5 @@
-import 'dart:developer';
-
 import 'package:absher/bloc/stories_bloc/stories_bloc.dart';
-import 'package:absher/bloc/stories_bloc/stories_event.dart';
 import 'package:absher/bloc/stories_bloc/stories_state.dart';
-import 'package:absher/presentation/screens/story_screen/story_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -13,72 +9,24 @@ class Indicators extends StatefulWidget {
     required this.storyLength,
     required this.isCurrentPage,
     required this.isPaging,
+    required this.indicatorAnimationValue,
   }) : super(key: key);
   final int storyLength;
   final bool isCurrentPage;
   final bool isPaging;
+  final double indicatorAnimationValue;
 
   @override
   _IndicatorsState createState() => _IndicatorsState();
 }
 
-class _IndicatorsState extends State<Indicators> with TickerProviderStateMixin {
-  late ValueNotifier<IndicatorAnimationCommand> indicatorAnimationController;
-  // late AnimationController animationController;
-  late VoidCallback listener;
-  late Animation<double> indicatorAnimation;
-  double indicatorAnimationValue = 0;
-
+class _IndicatorsState extends State<Indicators> {
   late StoriesBloc storiesBloc;
 
   @override
   void initState() {
     storiesBloc = context.read<StoriesBloc>();
-    storiesBloc.animationController = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 5),
-    )..addStatusListener(
-        (status) {
-          if (status == AnimationStatus.completed) {
-            context.read<StoriesBloc>().add(CurrentStackIncrement());
-          }
-        },
-      );
-
-    indicatorAnimationController = ValueNotifier<IndicatorAnimationCommand>(
-      IndicatorAnimationCommand.resume,
-    );
-
-    listener = () {
-      switch (indicatorAnimationController.value) {
-        case IndicatorAnimationCommand.pause:
-          storiesBloc.animationController.stop();
-          break;
-        case IndicatorAnimationCommand.resume:
-        default:
-          storiesBloc.animationController.forward();
-          break;
-      }
-    };
-
-    indicatorAnimationController.addListener(listener);
-
-    indicatorAnimation =
-        Tween(begin: 0.0, end: 1.0).animate(storiesBloc.animationController)
-          ..addListener(() {
-            setState(() {
-              indicatorAnimationValue = indicatorAnimation.value;
-            });
-          });
-
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    storiesBloc.animationController.dispose();
-
-    super.dispose();
   }
 
   @override
@@ -117,11 +65,11 @@ class _IndicatorsState extends State<Indicators> with TickerProviderStateMixin {
             children: List.generate(
               widget.storyLength,
               (index) {
-                if (indicatorAnimationValue < 2) {
+                if (widget.indicatorAnimationValue < 2) {
                   return _Indicator(
                     index: index,
                     value: (index == state.currentStackIndex)
-                        ? indicatorAnimationValue
+                        ? widget.indicatorAnimationValue
                         : (index > state.currentStackIndex)
                             ? 0
                             : 1,

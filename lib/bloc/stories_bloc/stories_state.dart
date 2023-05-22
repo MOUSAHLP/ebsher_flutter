@@ -12,6 +12,7 @@ class StoriesState extends Equatable {
     this.isStop = false,
     this.value,
     this.forwardFrom,
+    this.indicatorValue,
   });
 
   final double currentPageValue;
@@ -23,6 +24,7 @@ class StoriesState extends Equatable {
   final bool isStop;
   final bool isForward;
   final double? forwardFrom;
+  final double? indicatorValue;
 
   StoriesState copyWith({
     double? currentPageValue,
@@ -34,6 +36,7 @@ class StoriesState extends Equatable {
     bool? isStop,
     bool? isForward,
     double? forwardFrom,
+    double? indicatorValue,
   }) {
     return StoriesState(
       currentPageValue: currentPageValue ?? this.currentPageValue,
@@ -41,6 +44,7 @@ class StoriesState extends Equatable {
       currentPageIndex: currentPageIndex ?? this.currentPageIndex,
       // descHeight: descHeight ?? this.descHeight,
       // descExpanded: descExpanded ?? this.descExpanded,
+      indicatorValue: indicatorValue ?? this.indicatorValue,
       isForward: isForward ?? false,
       isStop: isStop ?? false,
       value: value,
@@ -52,6 +56,7 @@ class StoriesState extends Equatable {
   List<Object?> get props => [
         currentPageValue,
         currentStackIndex,
+        indicatorValue,
         currentPageIndex,
         // descHeight,
         // descExpanded,

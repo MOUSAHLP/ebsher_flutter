@@ -37,3 +37,8 @@ class OnAnimationChange extends StoriesEvent {
           value,
         ]);
 }
+
+// class IndicatorValueChanged extends StoriesEvent {
+//   final double index;
+//   IndicatorValueChanged({required this.index}) : super([index]);
+// }

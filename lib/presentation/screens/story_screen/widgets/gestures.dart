@@ -44,6 +44,7 @@ class Gestures extends StatelessWidget {
               child: GestureDetector(
                 behavior: HitTestBehavior.translucent,
                 onTap: () {
+                  log('Tapped INcress');
                   storiesBloc.add(CurrentStackIncrement());
                 },
                 onTapDown: (details) {

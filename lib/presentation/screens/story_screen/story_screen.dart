@@ -13,10 +13,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../bloc/stories_bloc/stories_state.dart';
+import '../../../models/story_model.dart';
 import 'widgets/story_item.dart';
 
 class StoryScreen extends StatefulWidget {
-  const StoryScreen({Key? key}) : super(key: key);
+  const StoryScreen(
+      {Key? key, required this.targetPageIndex, required this.stories})
+      : super(key: key);
+  final int targetPageIndex;
+  final List<StoryModelDto> stories;
 
   @override
   State<StoryScreen> createState() => _StoryScreenState();
@@ -26,7 +31,8 @@ class _StoryScreenState extends State<StoryScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<StoriesBloc>(
-      create: (BuildContext context) => StoriesBloc()..init(),
+      create: (BuildContext context) =>
+          StoriesBloc()..init(widget.stories, widget.targetPageIndex),
       lazy: false,
       child: StoryScreenBody(),
     );
@@ -91,6 +97,7 @@ class _StoryScreenBodyState extends State<StoryScreenBody>
 
   @override
   void dispose() {
+    storiesBloc.playerController?.dispose();
     storiesBloc.animationController.dispose();
     super.dispose();
   }
@@ -110,70 +117,58 @@ class _StoryScreenBodyState extends State<StoryScreenBody>
         },
         builder: (context, state) {
           return SafeArea(
-            child: Scaffold(
-              body: ColoredBox(
-                color: Colors.black,
-                child: PageView.builder(
-                  controller: storiesBloc.pageController,
-                  itemCount: storiesBloc.stories!.length,
-                  onPageChanged: (newPageIndex) {
-                    context
-                        .read<StoriesBloc>()
-                        .add(OnStoryPageChanged(index: newPageIndex));
-                  },
-                  itemBuilder: (context, index) {
-                    final isLeaving = (index - state.currentPageValue) <= 0;
-                    final t = index - state.currentPageValue;
-                    final rotationY = lerpDouble(0, 30, t)!;
-                    const maxOpacity = 0.8;
-                    final num opacity = lerpDouble(0, maxOpacity, t.abs())!
-                        .clamp(0.0, maxOpacity);
-                    final isPaging = opacity != maxOpacity;
-                    final transform = Matrix4.identity();
-                    transform.setEntry(3, 2, 0.003);
-                    transform.rotateY(-rotationY * (pi / 180.0));
-                    return Transform(
-                      alignment: isLeaving
-                          ? Alignment.centerRight
-                          : Alignment.centerLeft,
-                      transform: transform,
-                      child: Stack(
-                        children: [
-                          _StoryPageFrame(
-                            storyLength:
-                                storiesBloc.stories![index].stories!.length,
-                            pageIndex: index,
-                            animateToPage: (index) {
-                              storiesBloc.pageController!.animateToPage(
-                                index,
-                                duration: const Duration(milliseconds: 500),
-                                curve: Curves.ease,
-                              );
-                            },
-                            isCurrentPage: state.currentPageValue == index,
-                            isPaging: isPaging,
-                            itemBuilder: (context, pageIndex, storyIndex) {
-                              return StoryItem(
-                                storyIndex: storyIndex,
-                                pageIndex: pageIndex,
-                              );
-                            },
-                            indicatorAnimationValue: indicatorAnimationValue,
-                          ),
-                          if (isPaging && !isLeaving)
-                            Positioned.fill(
-                              child: Opacity(
-                                opacity: opacity as double,
-                                child: const ColoredBox(
-                                  color: Colors.black87,
-                                ),
-                              ),
-                            ),
-                        ],
-                      ),
-                    );
-                  },
-                ),
+            child: ColoredBox(
+              color: Colors.transparent,
+              child: PageView.builder(
+                controller: storiesBloc.pageController,
+                itemCount: storiesBloc.stories.length,
+                onPageChanged: (newPageIndex) {
+                  context
+                      .read<StoriesBloc>()
+                      .add(OnStoryPageChanged(index: newPageIndex));
+                },
+                itemBuilder: (context, index) {
+                  dev.log(index.toString());
+                  final isLeaving = (index - state.currentPageValue) <= 0;
+                  final t = index - state.currentPageValue;
+                  final rotationY =
+                      storiesBloc.pageController!.initialPage == index
+                          ? lerpDouble(0, 0, t)!
+                          : lerpDouble(0, 40, t)!;
+                  // const maxOpacity = 0.8;
+                  // final num opacity = lerpDouble(0, maxOpacity, t.abs())!
+                  //     .clamp(0.0, maxOpacity);
+                  final isPaging = false;
+                  final transform = Matrix4.identity();
+                  transform.setEntry(3, 2, 0.003);
+                  transform.rotateY(-rotationY * (pi / 180.0));
+                  return Transform(
+                    alignment: isLeaving
+                        ? Alignment.centerRight
+                        : Alignment.centerLeft,
+                    transform: transform,
+                    child: _StoryPageFrame(
+                      storyLength: storiesBloc.stories[index].stories!.length,
+                      pageIndex: index,
+                      animateToPage: (index) {
+                        storiesBloc.pageController!.animateToPage(
+                          index,
+                          duration: const Duration(milliseconds: 500),
+                          curve: Curves.ease,
+                        );
+                      },
+                      isCurrentPage: state.currentPageValue == index,
+                      isPaging: isPaging,
+                      itemBuilder: (context, pageIndex, storyIndex) {
+                        return StoryItem(
+                          storyIndex: storyIndex,
+                          pageIndex: pageIndex,
+                        );
+                      },
+                      indicatorAnimationValue: indicatorAnimationValue,
+                    ),
+                  );
+                },
               ),
             ),
           );
@@ -208,19 +203,20 @@ class _StoryPageFrame extends StatefulWidget {
 }
 
 class _StoryPageFrameState extends State<_StoryPageFrame>
-    with AutomaticKeepAliveClientMixin<_StoryPageFrame> {
+// with AutomaticKeepAliveClientMixin<_StoryPageFrame>
+{
   @override
   Widget build(BuildContext context) {
-    super.build(context);
+    // super.build(context);
     return BlocBuilder<StoriesBloc, StoriesState>(builder: (context, state) {
       return Stack(
         alignment: Alignment.topLeft,
         children: [
-          Positioned.fill(
-            child: ColoredBox(
-              color: Theme.of(context).scaffoldBackgroundColor,
-            ),
-          ),
+          // Positioned.fill(
+          //   child: ColoredBox(
+          //     color: Theme.of(context).scaffoldBackgroundColor,
+          //   ),
+          // ),
 
           //OBX
           Positioned.fill(

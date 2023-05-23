@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:absher/bloc/stories_bloc/stories_bloc.dart';
 import 'package:absher/bloc/stories_bloc/stories_event.dart';
 import 'package:absher/core/services/services_locator.dart';
+import 'package:absher/video_screen.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,11 +28,29 @@ class _StoryItemState extends State<StoryItem> {
         Positioned.fill(
           child: Container(color: Colors.black),
         ),
-        Positioned.fill(
-          child: Hero(
-            tag: DateTime.now().toString(),
+        if (storiesBloc
+                .stories[widget.pageIndex].stories![widget.storyIndex].video !=
+            null)
+          Positioned.fill(
+            child: VideoScreen(
+              videoUrl: storiesBloc
+                  .stories[widget.pageIndex].stories![widget.storyIndex].video!,
+              animationController: storiesBloc.animationController,
+              indicatorVideoValue: (value) {
+                // storiesBloc.animationController.animateTo(value);
+                storiesBloc.animationController.value = value;
+              },
+              isCurrentStory:
+                  storiesBloc.state.currentStackIndex == widget.storyIndex &&
+                      storiesBloc.state.currentPageIndex == widget.pageIndex,
+            ),
+          ),
+        if (storiesBloc
+                .stories[widget.pageIndex].stories![widget.storyIndex].video ==
+            null)
+          Positioned.fill(
             child: ExtendedImage.network(
-              storiesBloc.stories![widget.pageIndex].stories![widget.storyIndex]
+              storiesBloc.stories[widget.pageIndex].stories![widget.storyIndex]
                       .image ??
                   '',
               fit: BoxFit.contain,
@@ -82,7 +101,6 @@ class _StoryItemState extends State<StoryItem> {
               },
             ),
           ),
-        ),
         Padding(
           padding: const EdgeInsets.only(top: 44, left: 8),
           child: GestureDetector(

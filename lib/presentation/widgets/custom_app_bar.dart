@@ -4,6 +4,7 @@ import 'package:absher/core/app_router/app_router.dart';
 import 'package:absher/core/services/services_locator.dart';
 import 'package:absher/presentation/screens/auth_screen/account_screen.dart';
 
+import '../../video_screen.dart';
 import '../resources/values_app.dart';
 import 'package:absher/presentation/resources/assets_manager.dart';
 import 'package:flutter/material.dart';
@@ -23,8 +24,9 @@ class CustomAppBar extends StatelessWidget {
             children: [
               GestureDetector(
                 onTap: () {
-                  sl<AuthenticationBloc>().add(LoggedOut());
-                  AppRouter.pushAndRemoveAllStack(context, AccountScreen());
+                  // AppRouter.push(context, VideoScreen());
+                  // sl<AuthenticationBloc>().add(LoggedOut());
+                  // AppRouter.pushAndRemoveAllStack(context, AccountScreen());
                 },
                 child: Icon(
                   Icons.logout,
@@ -35,7 +37,7 @@ class CustomAppBar extends StatelessWidget {
                 width: 16,
               ),
               GestureDetector(
-                  onTap: (){
+                  onTap: () {
                     AppRouter.push(context, NotificationScreen());
                   },
                   child: SvgPicture.asset(IconsManager.iconNotification)),

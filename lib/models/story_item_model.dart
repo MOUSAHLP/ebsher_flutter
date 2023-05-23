@@ -2,6 +2,7 @@ class StoryItemModel {
   int? id;
   int? vendorId;
   String? image;
+  String? video;
   String? description;
   DateTime? creationTime;
 
@@ -9,6 +10,7 @@ class StoryItemModel {
       {this.id,
       this.vendorId,
       this.image,
+      this.video,
       this.description,
       this.creationTime});
 
@@ -21,6 +23,7 @@ class StoryItemModel {
         ? null
         : DateTime.parse(json['creationTime']);
     description = json['description'];
+    video = json['video'];
   }
 
   Map<String, dynamic> toJson() {

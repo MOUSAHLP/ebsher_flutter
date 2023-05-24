@@ -40,10 +40,6 @@ class _StoryItemState extends State<StoryItem> {
               videoUrl: storiesBloc
                   .stories[widget.pageIndex].stories![widget.storyIndex].video!,
               animationController: storiesBloc.animationController,
-              indicatorVideoValue: (value) {
-                // storiesBloc.animationController.animateTo(value);
-                storiesBloc.animationController.value = value;
-              },
               isCurrentStory:
                   storiesBloc.state.currentStackIndex == widget.storyIndex &&
                       storiesBloc.state.currentPageIndex == widget.pageIndex,
@@ -66,10 +62,18 @@ class _StoryItemState extends State<StoryItem> {
                 switch (state.extendedImageLoadState) {
                   case LoadState.loading:
                     storiesBloc.animationController.stop();
-                    // return const SpinKitFoldingCube(
-                    //   color: Colors.white,
-                    // );
-                    return Container();
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        SizedBox(
+                          height: 40,
+                          width: 40,
+                          child: CircularProgressIndicator(
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    );
                   case LoadState.completed:
                     storiesBloc.animationController.forward();
                     return state.completedWidget;

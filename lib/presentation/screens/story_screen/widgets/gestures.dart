@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:absher/bloc/stories_bloc/stories_bloc.dart';
 import 'package:absher/bloc/stories_bloc/stories_event.dart';
-import 'package:absher/core/services/services_locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -15,8 +14,7 @@ class Gestures extends StatelessWidget {
   Widget build(BuildContext context) {
     var storiesBloc = context.read<StoriesBloc>();
     return Padding(
-      padding: EdgeInsets.only(
-        bottom: 40,
+      padding: const EdgeInsets.only(
         top: 80,
       ),
       child: Row(
@@ -29,11 +27,25 @@ class Gestures extends StatelessWidget {
                 onTap: () {
                   storiesBloc.add(CurrentStackDecrement());
                 },
+                onTapDown: (details) {
+                  storiesBloc.animationController.stop();
+                  storiesBloc.playerController?.pause();
+                },
+                onTapCancel: () {
+                  storiesBloc.animationController.forward();
+                  storiesBloc.playerController?.play();
+                },
+                onLongPressStart: (_) {
+                  storiesBloc.animationController.stop();
+                  storiesBloc.playerController?.pause();
+                },
                 onLongPress: () {
                   storiesBloc.animationController.stop();
+                  storiesBloc.playerController?.pause();
                 },
                 onLongPressUp: () {
                   storiesBloc.animationController.forward();
+                  storiesBloc.playerController?.play();
                 },
               ),
             ),

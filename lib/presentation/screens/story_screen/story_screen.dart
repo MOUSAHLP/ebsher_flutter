@@ -171,7 +171,7 @@ class _StoryScreenBodyState extends State<StoryScreenBody>
                           curve: Curves.ease,
                         );
                       },
-                      isCurrentPage: state.currentPageValue == index,
+                      isCurrentPage: state.currentPageIndex == index,
                       isPaging: isPaging,
                       itemBuilder: (context, pageIndex, storyIndex) {
                         return StoryItem(
@@ -301,10 +301,12 @@ class _StoryPageFrameState extends State<_StoryPageFrame> {
                                         context
                                             .read<StoriesBloc>()
                                             .stories[widget.pageIndex]
-                                            .stories![context
-                                                .read<StoriesBloc>()
-                                                .state
-                                                .currentStackIndex]
+                                            .stories![widget.isCurrentPage
+                                                ? context
+                                                    .read<StoriesBloc>()
+                                                    .state
+                                                    .currentStackIndex
+                                                : 0]
                                             .creationTime),
                                     style: getBoldStyle(
                                       color: Colors.white,
@@ -331,10 +333,13 @@ class _StoryPageFrameState extends State<_StoryPageFrame> {
                                                 context
                                                     .read<StoriesBloc>()
                                                     .stories[widget.pageIndex]
-                                                    .stories![context
-                                                        .read<StoriesBloc>()
-                                                        .state
-                                                        .currentStackIndex]
+                                                    .stories![widget
+                                                            .isCurrentPage
+                                                        ? context
+                                                            .read<StoriesBloc>()
+                                                            .state
+                                                            .currentStackIndex
+                                                        : 0]
                                                     .totalViewsCount),
                                             style: getBoldStyle(
                                               color: ColorManager.softYellow,
@@ -376,11 +381,13 @@ class _StoryPageFrameState extends State<_StoryPageFrame> {
               ),
             ],
           ),
-          Gestures(),
+          const Gestures(),
           if (context
                   .read<StoriesBloc>()
                   .stories[widget.pageIndex]
-                  .stories![context.read<StoriesBloc>().state.currentStackIndex]
+                  .stories![widget.isCurrentPage
+                      ? context.read<StoriesBloc>().state.currentStackIndex
+                      : 0]
                   .description !=
               null)
             Positioned(
@@ -411,10 +418,12 @@ class _StoryPageFrameState extends State<_StoryPageFrame> {
                       context
                           .read<StoriesBloc>()
                           .stories[widget.pageIndex]
-                          .stories![context
-                              .read<StoriesBloc>()
-                              .state
-                              .currentStackIndex]
+                          .stories![widget.isCurrentPage
+                              ? context
+                                  .read<StoriesBloc>()
+                                  .state
+                                  .currentStackIndex
+                              : 0]
                           .description!,
                       maxLines: 10,
                       overflow: TextOverflow.ellipsis,
@@ -439,7 +448,5 @@ typedef StoryItemBuilder = Widget Function(
   int pageIndex,
   int storyIndex,
 );
-
-typedef StoryConfigFunction = int Function(int pageIndex);
 
 enum IndicatorAnimationCommand { pause, resume }

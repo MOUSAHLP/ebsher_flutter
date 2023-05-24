@@ -12,12 +12,10 @@ import '../../../resources/style_app.dart';
 class VideoScreen extends StatefulWidget {
   const VideoScreen({
     Key? key,
-    required this.indicatorVideoValue,
     required this.videoUrl,
     required this.animationController,
     required this.isCurrentStory,
   }) : super(key: key);
-  final Function(double value) indicatorVideoValue;
   final String videoUrl;
   final AnimationController animationController;
   final bool isCurrentStory;
@@ -69,18 +67,12 @@ class _VideoScreenState extends State<VideoScreen> {
     });
   }
 
-  // Future<void> _startVideoPlayer(String link) async {
-  //     _initController(link);
-  //
-  // }
-
   void resetPlayer() {
     widget.animationController.stop();
     final oldController = storiesBloc.playerController;
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await oldController?.dispose();
       _initController(widget.videoUrl);
-      // _startVideoPlayer(widget.videoUrl);
     });
   }
 
@@ -91,12 +83,6 @@ class _VideoScreenState extends State<VideoScreen> {
       resetPlayer();
     }
   }
-
-  // @override
-  // void dispose() {
-  //   // storiesBloc.playerController?.dispose();
-  //   super.dispose();
-  // }
 
   @override
   Widget build(BuildContext context) {

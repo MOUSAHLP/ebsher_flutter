@@ -49,11 +49,13 @@ class _IndicatorsState extends State<Indicators> {
                 if (widget.indicatorAnimationValue < 2) {
                   return _Indicator(
                     index: index,
-                    value: (index == state.currentStackIndex)
-                        ? widget.indicatorAnimationValue
-                        : (index > state.currentStackIndex)
-                            ? 0
-                            : 1,
+                    value: widget.isCurrentPage
+                        ? (index == state.currentStackIndex)
+                            ? widget.indicatorAnimationValue
+                            : (index > state.currentStackIndex)
+                                ? 0
+                                : 1
+                        : 0,
                   );
                 } else {
                   return Container();

@@ -1,3 +1,4 @@
+import 'package:absher/core/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:video_player/video_player.dart';
@@ -11,13 +12,21 @@ class VideoThumbImage extends StatefulWidget {
 
 class _VideoThumbImageState extends State<VideoThumbImage> {
   late VideoPlayerController _controller;
+  bool error = false;
   @override
   void initState() {
     super.initState();
     _controller = VideoPlayerController.network(widget.videoUrl)
       ..initialize().then((_) {
-        setState(() {}); //when your thumbnail will show.
+        setState(() {});
       });
+    _controller.addListener(() {
+      if (_controller.value.hasError) {
+        setState(() {
+          error = true;
+        });
+      }
+    });
   }
 
   @override
@@ -28,16 +37,21 @@ class _VideoThumbImageState extends State<VideoThumbImage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: _controller.value.isInitialized
-          ? SizedBox(
-              height: 60,
-              width: 60,
-              child: VideoPlayer(_controller),
-            )
-          : SpinKitCircle(
-              color: Colors.white,
-            ),
-    );
+    if (error) {
+      return const Icon(
+        Icons.error_outline,
+        color: Colors.white,
+        size: 34,
+      );
+    }
+    return _controller.value.isInitialized
+        ? SizedBox(
+            height: 60,
+            width: 60,
+            child: VideoPlayer(_controller),
+          )
+        : const CircularProgressIndicator(
+            color: Colors.white,
+          );
   }
 }

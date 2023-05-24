@@ -10,7 +10,64 @@
   "fullName":"Full name",
   "haveAccount":"do you have an account?",
   "gender":"Gender",
-  "noResult":"Sorry no results found"
+  "noResult":"Sorry no results found",
+
+
+  "justNow": "Just now",
+    "secondsAgo": "{number} Seconds ago",
+    "@secondsAgo": {
+      "placeholders": {
+        "number": {}
+      }
+    },
+    "secondsAgoPost": "{number}s",
+    "@secondsAgoPost": {
+      "placeholders": {
+        "number": {}
+      }
+    },
+    "aMinuteAgo": "A minute ago",
+    "minutesAgo": "{number} Minutes ago",
+    "@minutesAgo": {
+      "placeholders": {
+        "number": {}
+      }
+    },
+    "minutesAgoPost": "{number}m",
+    "@minutesAgoPost": {
+      "placeholders": {
+        "number": {}
+      }
+    },
+    "anHourAgo": "An hour ago",
+    "anHourAgoPost": "1h",
+    "hoursAgo": "{number} Hours ago",
+    "@hoursAgo": {
+      "placeholders": {
+        "number": {}
+      }
+    },
+    "hoursAgoPost": "{number}h",
+    "@hoursAgoPost": {
+      "placeholders": {
+        "number": {}
+      }
+    },
+    "yesterday": "Yesterday",
+    "daysAgo": "{number} Days ago",
+    "@daysAgo": {
+      "placeholders": {
+        "number": {}
+      }
+    },
+    "daysAgoPost": "{number}d",
+    "@daysAgoPost": {
+      "placeholders": {
+        "number": {}
+      }
+    },
+    "lastWeek": "Last week",
+    "oneMinuteAgo": "1 min ago"
 
 
 }

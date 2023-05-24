@@ -45,16 +45,6 @@ class StoriesBloc extends Bloc<StoriesEvent, StoriesState> {
           );
           animationController.forward(from: 0);
         }
-        // if (stories[state.currentPageIndex]
-        //         .stories![state.currentStackIndex]
-        //         .video !=
-        //     null) {
-        //   resetPlayer(stories[state.currentPageIndex]
-        //       .stories![state.currentStackIndex]
-        //       .video!);
-        // } else {
-        //   playerController?.dispose();
-        // }
       }
       if (event is CurrentStackDecrement) {
         if (state.currentStackIndex == 0) {
@@ -81,6 +71,12 @@ class StoriesBloc extends Bloc<StoriesEvent, StoriesState> {
             currentStackIndex: newValue,
           ));
           animationController.value = 0;
+        }
+        if (stories[state.currentPageIndex]
+                .stories![state.currentStackIndex]
+                .video ==
+            null) {
+          animationController.duration = Duration(seconds: 5);
         }
       }
       if (event is OnStoryPageChanged) {

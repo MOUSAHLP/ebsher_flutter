@@ -6,6 +6,8 @@ import 'package:absher/bloc/stories_bloc/stories_bloc.dart';
 import 'package:absher/bloc/stories_bloc/stories_event.dart';
 import 'package:absher/core/app_router/app_router.dart';
 import 'package:absher/core/services/services_locator.dart';
+import 'package:absher/presentation/resources/font_app.dart';
+import 'package:absher/presentation/resources/style_app.dart';
 import 'package:absher/presentation/screens/story_screen/widgets/gestures.dart';
 import 'package:absher/presentation/screens/story_screen/widgets/indicators.dart';
 import 'package:dismissible_page/dismissible_page.dart';
@@ -13,6 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../bloc/stories_bloc/stories_state.dart';
+import '../../../core/relative_time.dart';
 import '../../../models/story_model.dart';
 import 'widgets/story_item.dart';
 
@@ -128,24 +131,33 @@ class _StoryScreenBodyState extends State<StoryScreenBody>
                       .add(OnStoryPageChanged(index: newPageIndex));
                 },
                 itemBuilder: (context, index) {
-                  dev.log(index.toString());
                   final isLeaving = (index - state.currentPageValue) <= 0;
                   final t = index - state.currentPageValue;
-                  final rotationY =
-                      storiesBloc.pageController!.initialPage == index
-                          ? lerpDouble(0, 0, t)!
-                          : lerpDouble(0, 40, t)!;
-                  // const maxOpacity = 0.8;
-                  // final num opacity = lerpDouble(0, maxOpacity, t.abs())!
-                  //     .clamp(0.0, maxOpacity);
-                  final isPaging = false;
+                  final rotationY = storiesBloc.pageController!.initialPage ==
+                          index
+                      ? lerpDouble(0, 0, t)!
+                      : lerpDouble(
+                          0,
+                          Localizations.localeOf(context).languageCode == 'en'
+                              ? 40
+                              : -40,
+                          t)!;
+                  const maxOpacity = 0.8;
+                  final num opacity = lerpDouble(0, maxOpacity, t.abs())!
+                      .clamp(0.0, maxOpacity);
+                  final isPaging = opacity != maxOpacity;
                   final transform = Matrix4.identity();
                   transform.setEntry(3, 2, 0.003);
                   transform.rotateY(-rotationY * (pi / 180.0));
                   return Transform(
-                    alignment: isLeaving
-                        ? Alignment.centerRight
-                        : Alignment.centerLeft,
+                    alignment:
+                        Localizations.localeOf(context).languageCode == 'en'
+                            ? isLeaving
+                                ? Alignment.centerRight
+                                : Alignment.centerLeft
+                            : !isLeaving
+                                ? Alignment.centerRight
+                                : Alignment.centerLeft,
                     transform: transform,
                     child: _StoryPageFrame(
                       storyLength: storiesBloc.stories[index].stories!.length,
@@ -202,23 +214,13 @@ class _StoryPageFrame extends StatefulWidget {
   State<_StoryPageFrame> createState() => _StoryPageFrameState();
 }
 
-class _StoryPageFrameState extends State<_StoryPageFrame>
-// with AutomaticKeepAliveClientMixin<_StoryPageFrame>
-{
+class _StoryPageFrameState extends State<_StoryPageFrame> {
   @override
   Widget build(BuildContext context) {
-    // super.build(context);
     return BlocBuilder<StoriesBloc, StoriesState>(builder: (context, state) {
       return Stack(
         alignment: Alignment.topLeft,
         children: [
-          // Positioned.fill(
-          //   child: ColoredBox(
-          //     color: Theme.of(context).scaffoldBackgroundColor,
-          //   ),
-          // ),
-
-          //OBX
           Positioned.fill(
             child: widget.itemBuilder(
               context,
@@ -228,34 +230,89 @@ class _StoryPageFrameState extends State<_StoryPageFrame>
                   : 0,
             ),
           ),
-          Container(
-            height: 50,
-            decoration: BoxDecoration(
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.1),
-                  spreadRadius: 10,
-                  blurRadius: 20,
-                ),
-              ],
-            ),
-          ),
-          Indicators(
-            storyLength: widget.storyLength,
-            isCurrentPage: widget.isCurrentPage,
-            isPaging: widget.isPaging,
-            indicatorAnimationValue: widget.indicatorAnimationValue,
-          ),
-          Gestures(),
-          Positioned.fill(
-            child: Stack(
-              children: [
-                Align(
-                  alignment: !(Directionality.of(context) == TextDirection.rtl)
-                      ? Alignment.topRight
-                      : Alignment.topLeft,
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 32),
+          Column(
+            children: [
+              Indicators(
+                storyLength: widget.storyLength,
+                isCurrentPage: widget.isCurrentPage,
+                isPaging: widget.isPaging,
+                indicatorAnimationValue: widget.indicatorAnimationValue,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                    child: GestureDetector(
+                      onTap: () {
+                        // storiesBloc.navigateToStoryRestaurant();
+                      },
+                      child: Row(
+                        children: [
+                          Container(
+                            height: 42,
+                            width: 42,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: NetworkImage(
+                                  context
+                                      .read<StoriesBloc>()
+                                      .stories[widget.pageIndex]
+                                      .vendorLogo!,
+                                ),
+                                fit: BoxFit.cover,
+                              ),
+                              shape: BoxShape.circle,
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 8,
+                          ),
+                          Column(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                context
+                                    .read<StoriesBloc>()
+                                    .stories[widget.pageIndex]
+                                    .vendorName!,
+                                style: getBoldStyle(
+                                  color: Colors.white,
+                                  fontSize: FontSizeApp.s18,
+                                )!
+                                    .copyWith(height: 1.2),
+                              ),
+                              const SizedBox(
+                                height: 4,
+                              ),
+                              Text(
+                                RelativeTime.relativeTime(
+                                    context,
+                                    context
+                                        .read<StoriesBloc>()
+                                        .stories[widget.pageIndex]
+                                        .stories![context
+                                            .read<StoriesBloc>()
+                                            .state
+                                            .currentStackIndex]
+                                        .creationTime),
+                                style: getRegularStyle(
+                                  color: Colors.white,
+                                  fontSize: FontSizeApp.s12,
+                                )!
+                                    .copyWith(height: 1.6),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 0),
                     child: IconButton(
                       padding: EdgeInsets.zero,
                       color: Colors.white,
@@ -265,17 +322,15 @@ class _StoryPageFrameState extends State<_StoryPageFrame>
                       },
                     ),
                   ),
-                ),
-              ],
-            ),
+                ],
+              ),
+            ],
           ),
+          Gestures(),
         ],
       );
     });
   }
-
-  @override
-  bool get wantKeepAlive => true;
 }
 
 typedef StoryItemBuilder = Widget Function(

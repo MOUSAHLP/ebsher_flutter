@@ -49,18 +49,23 @@ class Gestures extends StatelessWidget {
                 },
                 onTapDown: (details) {
                   storiesBloc.animationController.stop();
+                  storiesBloc.playerController?.pause();
                 },
                 onTapCancel: () {
                   storiesBloc.animationController.forward();
+                  storiesBloc.playerController?.play();
                 },
                 onLongPressStart: (_) {
                   storiesBloc.animationController.stop();
+                  storiesBloc.playerController?.pause();
                 },
                 onLongPress: () {
                   storiesBloc.animationController.stop();
+                  storiesBloc.playerController?.pause();
                 },
                 onLongPressUp: () {
                   storiesBloc.animationController.forward();
+                  storiesBloc.playerController?.play();
                 },
               ),
             ),

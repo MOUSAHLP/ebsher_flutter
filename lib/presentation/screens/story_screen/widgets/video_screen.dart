@@ -6,6 +6,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:video_player/video_player.dart';
 
+import '../../../resources/font_app.dart';
+import '../../../resources/style_app.dart';
+
 class VideoScreen extends StatefulWidget {
   const VideoScreen({
     Key? key,
@@ -23,9 +26,10 @@ class VideoScreen extends StatefulWidget {
 }
 
 class _VideoScreenState extends State<VideoScreen> {
-  // VideoPlayerController? playerController;
   late StoriesBloc storiesBloc;
   bool isLoading = true;
+  bool error = false;
+
   @override
   void initState() {
     log('init Called');
@@ -35,25 +39,32 @@ class _VideoScreenState extends State<VideoScreen> {
   }
 
   void _initController(String link) {
+    setState(() {
+      isLoading = true;
+      error = false;
+    });
+    widget.animationController.stop();
+
     storiesBloc.playerController = VideoPlayerController.network(link)
       ..initialize().then((_) {
+        isLoading = false;
         if (widget.isCurrentStory) {
-          widget.animationController.stop();
-          storiesBloc.playerController!.addListener(() {
-            if (storiesBloc.playerController!.value.isBuffering) {
-              isLoading = true;
-              widget.animationController.stop();
-            } else {
-              isLoading = false;
-            }
-            widget.animationController.value =
-                storiesBloc.playerController!.value.position.inMilliseconds /
-                    storiesBloc.playerController!.value.duration.inMilliseconds;
-          });
+          widget.animationController.duration =
+              storiesBloc.playerController!.value.duration;
+          widget.animationController.forward();
           storiesBloc.playerController?.play();
           setState(() {});
         }
       });
+    storiesBloc.playerController!.addListener(() {
+      if (storiesBloc.playerController!.value.hasError) {
+        widget.animationController.duration = Duration(seconds: 5);
+        widget.animationController.forward();
+        setState(() {
+          error = true;
+        });
+      }
+    });
   }
 
   Future<void> _startVideoPlayer(String link) async {
@@ -73,7 +84,6 @@ class _VideoScreenState extends State<VideoScreen> {
 
   void resetPlayer() {
     widget.animationController.stop();
-    // widget.animationController.value = 0;
     final oldController = storiesBloc.playerController;
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await oldController?.dispose();
@@ -103,25 +113,46 @@ class _VideoScreenState extends State<VideoScreen> {
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         child: Center(
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              SizedBox(
-                width: double.infinity,
-                child: storiesBloc.playerController != null
-                    ? AspectRatio(
-                        aspectRatio:
-                            storiesBloc.playerController!.value.aspectRatio,
-                        child: VideoPlayer(storiesBloc.playerController!))
-                    : Container(),
-              ),
-              if (storiesBloc.playerController != null &&
-                  !storiesBloc.playerController!.value.isPlaying)
-                SpinKitCircle(
-                  color: Colors.white,
+          child: error
+              ? Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.error_outline,
+                      color: Colors.white,
+                      size: 32,
+                    ),
+                    SizedBox(
+                      height: 16,
+                    ),
+                    Text(
+                      'حدث خطأ ما.',
+                      style: getBoldStyle(
+                        color: Colors.white,
+                        fontSize: FontSizeApp.s16,
+                      ),
+                    )
+                  ],
+                )
+              : Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    SizedBox(
+                      width: double.infinity,
+                      child: storiesBloc.playerController != null
+                          ? AspectRatio(
+                              aspectRatio: storiesBloc
+                                  .playerController!.value.aspectRatio,
+                              child: VideoPlayer(storiesBloc.playerController!))
+                          : Container(),
+                    ),
+                    if (storiesBloc.playerController != null &&
+                        !storiesBloc.playerController!.value.isPlaying)
+                      const SpinKitFoldingCube(
+                        color: Colors.white,
+                      ),
+                  ],
                 ),
-            ],
-          ),
         ),
       ),
     );

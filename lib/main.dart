@@ -85,7 +85,7 @@ class _MyAppState extends State<MyApp> {
           },
           child: MaterialApp(
             title: 'أبشر',
-            locale: Locale('en'),
+            locale: Locale('ar'),
             supportedLocales: AppLocalizations.supportedLocales,
             localizationsDelegates: const [
               AppLocalizations.delegate,

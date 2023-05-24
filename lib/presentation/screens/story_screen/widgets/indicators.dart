@@ -21,10 +21,8 @@ class Indicators extends StatefulWidget {
 }
 
 class _IndicatorsState extends State<Indicators> {
-
   @override
   void initState() {
-
     super.initState();
   }
 
@@ -37,9 +35,10 @@ class _IndicatorsState extends State<Indicators> {
           storiesBloc.animationController.stop();
         }
         return Padding(
-          padding: const EdgeInsets.symmetric(
-            vertical: 32,
-            horizontal: 8,
+          padding: const EdgeInsets.only(
+            top: 16,
+            left: 8,
+            right: 8,
           ),
           child: Row(
             mainAxisSize: MainAxisSize.min,
@@ -86,11 +85,14 @@ class _Indicator extends StatelessWidget {
           left: (index == 0 || isRtl) ? 0 : 4,
           right: (index == 0 || !isRtl) ? 0 : 4,
         ),
-        child: LinearProgressIndicator(
-          value: value,
-          backgroundColor: Colors.grey[700],
-          valueColor: const AlwaysStoppedAnimation<Color>(Colors.white),
-          minHeight: 3,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(20),
+          child: LinearProgressIndicator(
+            value: value,
+            backgroundColor: Colors.grey[700],
+            valueColor: const AlwaysStoppedAnimation<Color>(Colors.white),
+            minHeight: 4,
+          ),
         ),
       ),
     );

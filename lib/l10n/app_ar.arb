@@ -9,6 +9,22 @@
   "addDetails":"أضف التفاصيل الخاصة بك لتسجيل حساب",
   "fullName":"الاسم بالكامل",
   "haveAccount":"هل لديك حساب؟",
-    "gender":"الجنس",
-  "noResult":"عذرا لم يتم العثور على نتائج"
+  "gender":"الجنس",
+  "noResult":"عذرا لم يتم العثور على نتائج",
+
+  "justNow": "الأن",
+    "secondsAgo": "منذ {number} ثانية ",
+    "secondsAgoPost": "منذ {number} ثانية ",
+    "aMinuteAgo": "منذ دقيقة",
+    "minutesAgo": "منذ {number} دقيقة",
+    "minutesAgoPost": "منذ {number} دقيقة",
+    "anHourAgo": "منذ ساعة",
+    "anHourAgoPost": "منذ ساعة",
+    "hoursAgo": "منذ {number} ساعات",
+    "hoursAgoPost": "منذ {number} ساعات",
+    "yesterday": "البارحة",
+    "daysAgo": "منذ {number} ايام",
+    "daysAgoPost": "منذ {number} ايام",
+    "lastWeek": "منذ اسبوع",
+    "oneMinuteAgo": "منذ دقيقة"
   }

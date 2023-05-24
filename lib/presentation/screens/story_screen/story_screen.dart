@@ -216,14 +216,12 @@ class _StoryPageFrame extends StatefulWidget {
   State<_StoryPageFrame> createState() => _StoryPageFrameState();
 }
 
-class _StoryPageFrameState extends State<_StoryPageFrame>
-    with AutomaticKeepAliveClientMixin<_StoryPageFrame> {
-  @override
-  bool get wantKeepAlive => true;
+class _StoryPageFrameState extends State<_StoryPageFrame> {
+  // @override
+  // bool get wantKeepAlive => true;
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
     return BlocBuilder<StoriesBloc, StoriesState>(builder: (context, state) {
       return Stack(
         alignment: Alignment.topLeft,

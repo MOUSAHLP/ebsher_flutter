@@ -34,7 +34,7 @@ class _VideoScreenState extends State<VideoScreen> {
   void initState() {
     log('init Called');
     storiesBloc = context.read<StoriesBloc>();
-    _startVideoPlayer(widget.videoUrl);
+    _initController(widget.videoUrl);
     super.initState();
   }
 
@@ -44,7 +44,7 @@ class _VideoScreenState extends State<VideoScreen> {
       isLoading = true;
       error = false;
     });
-    // widget.animationController.stop();
+    widget.animationController.stop();
 
     storiesBloc.playerController = VideoPlayerController.network(link);
     storiesBloc.playerController!.initialize().then((_) {
@@ -69,29 +69,18 @@ class _VideoScreenState extends State<VideoScreen> {
     });
   }
 
-  Future<void> _startVideoPlayer(String link) async {
-    if (storiesBloc.playerController == null) {
-      log('null video playercheck');
-      _initController(link);
-    } else {
-      log(' else null video playercheck');
-      final oldController = storiesBloc.playerController;
-      WidgetsBinding.instance.addPostFrameCallback((_) async {
-        await oldController?.dispose();
-        _initController(link);
-      });
-      setState(() {
-        storiesBloc.playerController = null;
-      });
-    }
-  }
+  // Future<void> _startVideoPlayer(String link) async {
+  //     _initController(link);
+  //
+  // }
 
   void resetPlayer() {
     widget.animationController.stop();
     final oldController = storiesBloc.playerController;
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await oldController?.dispose();
-      _startVideoPlayer(widget.videoUrl);
+      _initController(widget.videoUrl);
+      // _startVideoPlayer(widget.videoUrl);
     });
   }
 

@@ -66,9 +66,10 @@ class _StoryItemState extends State<StoryItem> {
                 switch (state.extendedImageLoadState) {
                   case LoadState.loading:
                     storiesBloc.animationController.stop();
-                    return const SpinKitFoldingCube(
-                      color: Colors.white,
-                    );
+                    // return const SpinKitFoldingCube(
+                    //   color: Colors.white,
+                    // );
+                    return Container();
                   case LoadState.completed:
                     storiesBloc.animationController.forward();
                     return state.completedWidget;

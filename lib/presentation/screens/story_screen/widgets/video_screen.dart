@@ -40,37 +40,41 @@ class _VideoScreenState extends State<VideoScreen> {
 
   void _initController(String link) {
     setState(() {
+      print('init state');
       isLoading = true;
       error = false;
     });
-    widget.animationController.stop();
+    // widget.animationController.stop();
 
-    storiesBloc.playerController = VideoPlayerController.network(link)
-      ..initialize().then((_) {
-        isLoading = false;
-        if (widget.isCurrentStory) {
-          widget.animationController.duration =
-              storiesBloc.playerController!.value.duration;
+    storiesBloc.playerController = VideoPlayerController.network(link);
+    storiesBloc.playerController!.initialize().then((_) {
+      print('initialized');
+      isLoading = false;
+      if (widget.isCurrentStory) {
+        widget.animationController.duration =
+            storiesBloc.playerController!.value.duration;
+        widget.animationController.forward();
+        storiesBloc.playerController?.play();
+        setState(() {});
+      }
+      storiesBloc.playerController!.addListener(() {
+        if (storiesBloc.playerController!.value.hasError) {
+          widget.animationController.duration = Duration(seconds: 5);
           widget.animationController.forward();
-          storiesBloc.playerController?.play();
-          setState(() {});
+          setState(() {
+            error = true;
+          });
         }
       });
-    storiesBloc.playerController!.addListener(() {
-      if (storiesBloc.playerController!.value.hasError) {
-        widget.animationController.duration = Duration(seconds: 5);
-        widget.animationController.forward();
-        setState(() {
-          error = true;
-        });
-      }
     });
   }
 
   Future<void> _startVideoPlayer(String link) async {
     if (storiesBloc.playerController == null) {
+      log('null video playercheck');
       _initController(link);
     } else {
+      log(' else null video playercheck');
       final oldController = storiesBloc.playerController;
       WidgetsBinding.instance.addPostFrameCallback((_) async {
         await oldController?.dispose();
@@ -99,61 +103,58 @@ class _VideoScreenState extends State<VideoScreen> {
     }
   }
 
-  @override
-  void dispose() {
-    storiesBloc.playerController?.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   // storiesBloc.playerController?.dispose();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black,
-      body: SizedBox(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        child: Center(
-          child: error
-              ? Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.error_outline,
+    return SizedBox(
+      height: MediaQuery.of(context).size.height,
+      width: MediaQuery.of(context).size.width,
+      child: Center(
+        child: error
+            ? Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.error_outline,
+                    color: Colors.white,
+                    size: 32,
+                  ),
+                  SizedBox(
+                    height: 16,
+                  ),
+                  Text(
+                    'حدث خطأ ما.',
+                    style: getBoldStyle(
                       color: Colors.white,
-                      size: 32,
+                      fontSize: FontSizeApp.s16,
                     ),
-                    SizedBox(
-                      height: 16,
-                    ),
-                    Text(
-                      'حدث خطأ ما.',
-                      style: getBoldStyle(
-                        color: Colors.white,
-                        fontSize: FontSizeApp.s16,
-                      ),
-                    )
-                  ],
-                )
-              : Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    SizedBox(
-                      width: double.infinity,
-                      child: storiesBloc.playerController != null
-                          ? AspectRatio(
-                              aspectRatio: storiesBloc
-                                  .playerController!.value.aspectRatio,
-                              child: VideoPlayer(storiesBloc.playerController!))
-                          : Container(),
-                    ),
-                    if (storiesBloc.playerController != null &&
-                        !storiesBloc.playerController!.value.isPlaying)
-                      const SpinKitFoldingCube(
-                        color: Colors.white,
-                      ),
-                  ],
-                ),
-        ),
+                  )
+                ],
+              )
+            : Stack(
+                alignment: Alignment.center,
+                children: [
+                  SizedBox(
+                    width: double.infinity,
+                    child: storiesBloc.playerController != null
+                        ? AspectRatio(
+                            aspectRatio:
+                                storiesBloc.playerController!.value.aspectRatio,
+                            child: VideoPlayer(storiesBloc.playerController!))
+                        : Container(),
+                  ),
+                  // if (storiesBloc.playerController != null &&
+                  //     !storiesBloc.playerController!.value.isPlaying)
+                  //   const SpinKitFoldingCube(
+                  //     color: Colors.white,
+                  //   ),
+                ],
+              ),
       ),
     );
   }

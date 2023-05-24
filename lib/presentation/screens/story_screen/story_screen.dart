@@ -6,6 +6,8 @@ import 'package:absher/bloc/stories_bloc/stories_bloc.dart';
 import 'package:absher/bloc/stories_bloc/stories_event.dart';
 import 'package:absher/core/app_router/app_router.dart';
 import 'package:absher/core/services/services_locator.dart';
+import 'package:intl/intl.dart' as intl;
+import 'package:absher/presentation/resources/color_manager.dart';
 import 'package:absher/presentation/resources/font_app.dart';
 import 'package:absher/presentation/resources/style_app.dart';
 import 'package:absher/presentation/screens/story_screen/widgets/gestures.dart';
@@ -100,8 +102,8 @@ class _StoryScreenBodyState extends State<StoryScreenBody>
 
   @override
   void dispose() {
-    storiesBloc.playerController?.dispose();
     storiesBloc.animationController.dispose();
+    storiesBloc.playerController?.dispose();
     super.dispose();
   }
 
@@ -214,9 +216,14 @@ class _StoryPageFrame extends StatefulWidget {
   State<_StoryPageFrame> createState() => _StoryPageFrameState();
 }
 
-class _StoryPageFrameState extends State<_StoryPageFrame> {
+class _StoryPageFrameState extends State<_StoryPageFrame>
+    with AutomaticKeepAliveClientMixin<_StoryPageFrame> {
+  @override
+  bool get wantKeepAlive => true;
+
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return BlocBuilder<StoriesBloc, StoriesState>(builder: (context, state) {
       return Stack(
         alignment: Alignment.topLeft,
@@ -288,22 +295,67 @@ class _StoryPageFrameState extends State<_StoryPageFrame> {
                               const SizedBox(
                                 height: 4,
                               ),
-                              Text(
-                                RelativeTime.relativeTime(
-                                    context,
-                                    context
-                                        .read<StoriesBloc>()
-                                        .stories[widget.pageIndex]
-                                        .stories![context
+                              Row(
+                                children: [
+                                  Text(
+                                    RelativeTime.relativeTime(
+                                        context,
+                                        context
                                             .read<StoriesBloc>()
-                                            .state
-                                            .currentStackIndex]
-                                        .creationTime),
-                                style: getRegularStyle(
-                                  color: Colors.white,
-                                  fontSize: FontSizeApp.s12,
-                                )!
-                                    .copyWith(height: 1.6),
+                                            .stories[widget.pageIndex]
+                                            .stories![context
+                                                .read<StoriesBloc>()
+                                                .state
+                                                .currentStackIndex]
+                                            .creationTime),
+                                    style: getBoldStyle(
+                                      color: Colors.white,
+                                      fontSize: FontSizeApp.s12,
+                                    )!
+                                        .copyWith(height: 1.6),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 8.0),
+                                    child: Container(
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: 4, horizontal: 8),
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(28),
+                                      ),
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.end,
+                                        children: [
+                                          Text(
+                                            intl.NumberFormat.compact().format(
+                                                context
+                                                    .read<StoriesBloc>()
+                                                    .stories[widget.pageIndex]
+                                                    .stories![context
+                                                        .read<StoriesBloc>()
+                                                        .state
+                                                        .currentStackIndex]
+                                                    .totalViewsCount),
+                                            style: getBoldStyle(
+                                              color: ColorManager.softYellow,
+                                            )!
+                                                .copyWith(height: 1),
+                                          ),
+                                          SizedBox(
+                                            width: 4,
+                                          ),
+                                          Icon(
+                                            Icons.remove_red_eye,
+                                            color: ColorManager.softYellow,
+                                            size: 16,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  )
+                                ],
                               ),
                             ],
                           ),
@@ -327,6 +379,57 @@ class _StoryPageFrameState extends State<_StoryPageFrame> {
             ],
           ),
           Gestures(),
+          if (context
+                  .read<StoriesBloc>()
+                  .stories[widget.pageIndex]
+                  .stories![context.read<StoriesBloc>().state.currentStackIndex]
+                  .description !=
+              null)
+            Positioned(
+              bottom: -1,
+              child: Container(
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: <Color>[
+                      Colors.black12,
+                      Colors.black38,
+                      Colors.black38,
+                      Colors.black54,
+                      Colors.black
+                    ],
+                  ),
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20),
+                  ),
+                ),
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Text(
+                      context
+                          .read<StoriesBloc>()
+                          .stories[widget.pageIndex]
+                          .stories![context
+                              .read<StoriesBloc>()
+                              .state
+                              .currentStackIndex]
+                          .description!,
+                      maxLines: 10,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 14,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
+              ),
+            ),
         ],
       );
     });

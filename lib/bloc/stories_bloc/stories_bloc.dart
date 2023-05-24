@@ -19,6 +19,8 @@ class StoriesBloc extends Bloc<StoriesEvent, StoriesState> {
   StoriesBloc() : super(const StoriesState()) {
     on<StoriesEvent>((event, emit) async {
       if (event is CurrentStackIncrement) {
+        animationController.duration = const Duration(seconds: 5);
+        animationController.stop();
         if (state.currentStackIndex ==
             (stories[state.currentPageIndex].stories!.length - 1)) {
           if (state.currentPageIndex == stories.length - 1) {
@@ -47,6 +49,8 @@ class StoriesBloc extends Bloc<StoriesEvent, StoriesState> {
         }
       }
       if (event is CurrentStackDecrement) {
+        animationController.duration = const Duration(seconds: 5);
+        animationController.stop();
         if (state.currentStackIndex == 0) {
           if (state.currentPageIndex != 0) {
             int newValue = state.currentPageIndex - 1;
@@ -71,12 +75,6 @@ class StoriesBloc extends Bloc<StoriesEvent, StoriesState> {
             currentStackIndex: newValue,
           ));
           animationController.value = 0;
-        }
-        if (stories[state.currentPageIndex]
-                .stories![state.currentStackIndex]
-                .video ==
-            null) {
-          animationController.duration = Duration(seconds: 5);
         }
       }
       if (event is OnStoryPageChanged) {

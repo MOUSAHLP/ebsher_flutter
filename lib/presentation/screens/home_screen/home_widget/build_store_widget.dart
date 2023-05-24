@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../resources/values_app.dart';
-import '../../../resources/assets_manager.dart';
 import '../../../widgets/animated_container.dart';
 import '../../story_screen/story_screen.dart';
 
@@ -60,6 +59,7 @@ class BuildStoreWidget extends StatelessWidget {
                                 .stories![index]
                                 .stories![0]
                                 .image,
+                            fit: BoxFit.cover,
                           )
                         : VideoThumbImage(
                             videoUrl: context

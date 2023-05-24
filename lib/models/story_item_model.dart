@@ -4,6 +4,7 @@ class StoryItemModel {
   String? image;
   String? video;
   String? description;
+  int? totalViewsCount;
   DateTime? creationTime;
 
   StoryItemModel(
@@ -12,6 +13,7 @@ class StoryItemModel {
       this.image,
       this.video,
       this.description,
+      this.totalViewsCount = 0,
       this.creationTime});
 
   StoryItemModel.fromJson(Map<String, dynamic>? json) {
@@ -24,17 +26,7 @@ class StoryItemModel {
         : DateTime.parse(json['creationTime']);
     description = json['description'];
     video = json['video'];
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'restaurantId': vendorId,
-      'image': image,
-      'creationTime':
-          creationTime == null ? '' : creationTime!.toUtc().toIso8601String(),
-      'description': description,
-    };
+    totalViewsCount = json['totalViewsCount'] ?? 0;
   }
 
   static List<StoryItemModel> listFromJson(List<dynamic>? json) {

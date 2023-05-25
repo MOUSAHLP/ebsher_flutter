@@ -10,7 +10,16 @@
   "fullName":"Full name",
   "haveAccount":"do you have an account?",
   "gender":"Gender",
-  "noResult":"Sorry no results found"
+  "noResult":"Sorry no results found",
+  "turnNotification":"Turn on notifications",
+  "notification":"Notifications",
+  "showNotication":"View all notifications",
+   "profile":"Profile personly",
+    "favorite":"Favorite",
+    "language":"Language",
+    "about":"About the application",
+    "privacy":"Privacy policy",
+    "logOut":"Log out"
 
 
 }

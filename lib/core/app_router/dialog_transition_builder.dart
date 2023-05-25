@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 Future dialogTransitionBuilder(BuildContext context, Widget child) {
  return showGeneralDialog(
+
     context: context,
     pageBuilder: (ctx, a1, a2) {
       return child;

@@ -6,6 +6,7 @@ import '../../bloc/authentication_bloc/authertication_bloc.dart';
 import '../../bloc/home_bloc/home_bloc.dart';
 import '../../bloc/login_bloc/login_bloc.dart';
 import '../../bloc/search_bloc/search_bloc.dart';
+import '../../bloc/sub_categories_bloc/sub_categories_bloc.dart';
 
 final sl = GetIt.instance;
 
@@ -17,6 +18,7 @@ class ServicesLocator {
     sl.registerLazySingleton(() => LoginBloc(sl(), sl()));
     sl.registerLazySingleton(() => HomeBloc());
     sl.registerLazySingleton(() => SearchBloc());
+    sl.registerLazySingleton(() => SubCategoriesBloc());
 
     /// Repository
     sl.registerLazySingleton<UserRepository>(() => UserRepository());

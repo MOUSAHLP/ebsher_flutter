@@ -21,10 +21,8 @@ class Indicators extends StatefulWidget {
 }
 
 class _IndicatorsState extends State<Indicators> {
-
   @override
   void initState() {
-
     super.initState();
   }
 
@@ -35,11 +33,13 @@ class _IndicatorsState extends State<Indicators> {
       builder: (context, state) {
         if (!widget.isCurrentPage && widget.isPaging) {
           storiesBloc.animationController.stop();
+          storiesBloc.playerController?.pause();
         }
         return Padding(
-          padding: const EdgeInsets.symmetric(
-            vertical: 32,
-            horizontal: 8,
+          padding: const EdgeInsets.only(
+            top: 16,
+            left: 8,
+            right: 8,
           ),
           child: Row(
             mainAxisSize: MainAxisSize.min,
@@ -50,11 +50,13 @@ class _IndicatorsState extends State<Indicators> {
                 if (widget.indicatorAnimationValue < 2) {
                   return _Indicator(
                     index: index,
-                    value: (index == state.currentStackIndex)
-                        ? widget.indicatorAnimationValue
-                        : (index > state.currentStackIndex)
-                            ? 0
-                            : 1,
+                    value: widget.isCurrentPage
+                        ? (index == state.currentStackIndex)
+                            ? widget.indicatorAnimationValue
+                            : (index > state.currentStackIndex)
+                                ? 0
+                                : 1
+                        : 0,
                   );
                 } else {
                   return Container();
@@ -86,11 +88,14 @@ class _Indicator extends StatelessWidget {
           left: (index == 0 || isRtl) ? 0 : 4,
           right: (index == 0 || !isRtl) ? 0 : 4,
         ),
-        child: LinearProgressIndicator(
-          value: value,
-          backgroundColor: Colors.grey[700],
-          valueColor: const AlwaysStoppedAnimation<Color>(Colors.white),
-          minHeight: 3,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(20),
+          child: LinearProgressIndicator(
+            value: value,
+            backgroundColor: Colors.grey[700],
+            valueColor: const AlwaysStoppedAnimation<Color>(Colors.white),
+            minHeight: 4,
+          ),
         ),
       ),
     );

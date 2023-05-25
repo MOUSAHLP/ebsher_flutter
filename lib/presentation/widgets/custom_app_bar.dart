@@ -1,4 +1,3 @@
-
 import 'dart:ui';
 
 import 'package:absher/core/app_router/app_router.dart';
@@ -13,7 +12,6 @@ import 'package:absher/presentation/resources/assets_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-
 class CustomAppBar extends StatelessWidget {
   GlobalKey<ScaffoldState> _scaffoldKey;
 
@@ -22,17 +20,22 @@ class CustomAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: PaddingApp.p22,vertical:PaddingApp.p10 ),
+      padding: const EdgeInsets.symmetric(
+          horizontal: PaddingApp.p22, vertical: PaddingApp.p10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(
             children: [
               GestureDetector(
-                  onTap: (){
+                  onTap: () {
                     _scaffoldKey.currentState?.openDrawer();
                   },
-                  child: SvgPicture.asset(IconsManager.iconMenu,width:35 ,height:22 ,)),
+                  child: SvgPicture.asset(
+                    IconsManager.iconMenu,
+                    width: 35,
+                    height: 22,
+                  )),
             ],
           ),
           SvgPicture.asset(IconsManager.iconAppAbsher),
@@ -43,64 +46,71 @@ class CustomAppBar extends StatelessWidget {
                     Stack(
                       children: [
                         BackdropFilter(
-                            filter: ImageFilter.blur(sigmaX: 5.0, sigmaY:5.0), //this is dependent on the import statment above
+                            filter: ImageFilter.blur(
+                                sigmaX: 5.0,
+                                sigmaY:
+                                    5.0), //this is dependent on the import statment above
                             child: Container(
-                                decoration: const BoxDecoration(color: Colors.transparent)
-                            )),
+                                decoration: const BoxDecoration(
+                                    color: Colors.transparent))),
                         Padding(
-                          padding: const EdgeInsets.only(top: 20,right: 10),
-                          child: AlertDialog
-                            (
+                          padding: const EdgeInsets.only(top: 20, right: 10),
+                          child: AlertDialog(
                             alignment: Alignment.topLeft,
                             content: SingleChildScrollView(
                                 child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    InkWell(
-                                        onTap: () {
-                                          AppRouter.pop(context);
-                                        },
-                                        child: const Icon(
-                                          Icons.clear,
-                                          color: ColorManager.primaryColor,
-                                        )),
-                                    const SizedBox(
-                                      height: 5,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                InkWell(
+                                    onTap: () {
+                                      AppRouter.pop(context);
+                                    },
+                                    child: const Icon(
+                                      Icons.clear,
+                                      color: ColorManager.primaryColor,
+                                    )),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        SizedBox(
-                                            width: 20,
-                                            child: SwitchListTile(
-                                              value: true,
-                                              onChanged: (v) {},
-                                              activeColor: ColorManager.primaryColor,
-                                            )),
-                                        Text( AppLocalizations.of(context)!.turnNotification,
-                                            style: getMediumStyle(
-                                                color: const Color(0xff707070),
-                                                fontSize: 15)),
-                                      ],
-                                    ),
-                                    const Center(
-                                        child: Divider(
-                                          color: Colors.black,
+                                  children: [
+                                    SizedBox(
+                                        width: 20,
+                                        child: SwitchListTile(
+                                          value: true,
+                                          onChanged: (v) {},
+                                          activeColor:
+                                              ColorManager.primaryColor,
                                         )),
-                                    Center(
-                                        child: GestureDetector(
-                                          onTap: () {
-                                            AppRouter.pushReplacement(context, NotificationScreen());
-                                          },
-                                          child: Text(
-                                            AppLocalizations.of(context)!.showNotication,
-                                            style: getBoldStyle(
-                                                color: ColorManager.primaryColor),
-                                          ),
-                                        ))
+                                    Text(
+                                        AppLocalizations.of(context)!
+                                            .turnNotification,
+                                        style: getMediumStyle(
+                                            color: const Color(0xff707070),
+                                            fontSize: 15)),
                                   ],
+                                ),
+                                const Center(
+                                    child: Divider(
+                                  color: Colors.black,
                                 )),
+                                Center(
+                                    child: GestureDetector(
+                                  onTap: () {
+                                    AppRouter.pushReplacement(
+                                        context, NotificationScreen());
+                                  },
+                                  child: Text(
+                                    AppLocalizations.of(context)!
+                                        .showNotication,
+                                    style: getBoldStyle(
+                                        color: ColorManager.primaryColor),
+                                  ),
+                                ))
+                              ],
+                            )),
                           ),
                         ),
                       ],
@@ -111,5 +121,4 @@ class CustomAppBar extends StatelessWidget {
       ),
     );
   }
-
 }

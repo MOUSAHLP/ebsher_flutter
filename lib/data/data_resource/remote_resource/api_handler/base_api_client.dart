@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:absher/core/api_const.dart';
 import 'package:absher/data/data_resource/local_resource/data_store.dart';
 import 'package:dartz/dartz.dart';
@@ -47,7 +49,7 @@ class BaseApiClient {
       if (((response.statusCode! >= 200 || response.statusCode! <= 205)) &&
           (response.data['error'].toString() != 'true')) {
         if (kDebugMode) {
-          print(response.data);
+          log(response.data.toString());
         }
         return right(converter(response.data));
       } else {
@@ -111,12 +113,12 @@ class BaseApiClient {
     }
   }
 
-  static Future<Either<String, T>> get<T>(
-      {required String url,
-      Map<String, dynamic>? queryParameters,
-        required T Function(dynamic) converter,}) async {
+  static Future<Either<String, T>> get<T>({
+    required String url,
+    Map<String, dynamic>? queryParameters,
+    required T Function(dynamic) converter,
+  }) async {
     try {
-
       var response = await client.get(
         url,
         queryParameters: queryParameters,
@@ -128,18 +130,14 @@ class BaseApiClient {
         ),
       );
       if (response.statusCode! >= 200 || response.statusCode! <= 205) {
-
         if (kDebugMode) {
-          print(response.data);
+          log(response.data.toString());
           print(response);
-
         }
-        return  right(converter(response.data));
-      }
-      else{
+        return right(converter(response.data));
+      } else {
         return left(response.data['message']);
       }
-
     } on DioError catch (e) {
       Map dioError = DioErrorsHandler.onError(e);
       if (kDebugMode) {
@@ -150,7 +148,7 @@ class BaseApiClient {
       if (kDebugMode) {
         print(e);
       }
-     return left("");
+      return left("");
     }
   }
 

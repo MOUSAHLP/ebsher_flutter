@@ -1,9 +1,14 @@
+import 'package:absher/bloc/home_bloc/home_bloc.dart';
+import 'package:absher/bloc/stories_bloc/stories_bloc.dart';
 import 'package:absher/core/app_router/app_router.dart';
 import 'package:absher/presentation/resources/color_manager.dart';
+import 'package:absher/presentation/widgets/accessories/cached_image.dart';
+import 'package:absher/presentation/widgets/accessories/video_thumb_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../resources/values_app.dart';
-import '../../../resources/assets_manager.dart';
+import '../../../widgets/animated_container.dart';
 import '../../story_screen/story_screen.dart';
 
 class BuildStoreWidget extends StatelessWidget {
@@ -11,28 +16,25 @@ class BuildStoreWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        // navigationController.toStoryScreen(
-        //   stories: stories,
-        //   storyIndex: index,
-        //   context: context,
-        // );
-        AppRouter.push(context, StoryScreen());
-      },
-      child: SizedBox(
-        height: 95,
-        child: ListView.builder(
-          itemCount: 9,
-          scrollDirection: Axis.horizontal,
-          itemBuilder: (context, index) {
-            return Padding(
+    return SizedBox(
+      height: 95,
+      child: ListView.builder(
+        physics: const BouncingScrollPhysics(),
+        itemCount: context.read<HomeBloc>().stories!.length,
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (context, index) {
+          return OpenContainerWithFade(
+            page: StoryScreen(
+              targetPageIndex: index,
+              stories: context.read<HomeBloc>().stories!,
+            ),
+            cardItem: Padding(
               padding: const EdgeInsets.all(PaddingApp.p8),
               child: Container(
-                height: 79,
-                width: 79,
+                height: 70,
+                width: 70,
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(RadiusApp.r50),
+                    shape: BoxShape.circle,
                     gradient: LinearGradient(
                       begin: Alignment.centerLeft,
                       end: Alignment.centerRight,
@@ -43,13 +45,35 @@ class BuildStoreWidget extends StatelessWidget {
                     )),
                 child: Center(
                   child: ClipRRect(
-                      borderRadius: BorderRadius.circular(RadiusApp.r50),
-                      child: Image.asset(ImageManager.test)),
+                    borderRadius: BorderRadius.circular(RadiusApp.r50),
+                    child: context
+                                .read<HomeBloc>()
+                                .stories![index]
+                                .stories![0]
+                                .video ==
+                            null
+                        ? CachedImage(
+                            height: 60,
+                            width: 60,
+                            imageUrl: context
+                                .read<HomeBloc>()
+                                .stories![index]
+                                .stories![0]
+                                .image,
+                            fit: BoxFit.cover,
+                          )
+                        : VideoThumbImage(
+                            videoUrl: context
+                                .read<HomeBloc>()
+                                .stories![index]
+                                .stories![0]
+                                .video!),
+                  ),
                 ),
               ),
-            );
-          },
-        ),
+            ),
+          );
+        },
       ),
     );
   }

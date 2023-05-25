@@ -1,8 +1,9 @@
 import 'dart:developer';
 
 import 'package:absher/bloc/stories_bloc/stories_bloc.dart';
-import 'package:absher/bloc/stories_bloc/stories_event.dart';
-import 'package:absher/core/services/services_locator.dart';
+import 'package:absher/presentation/resources/font_app.dart';
+import 'package:absher/presentation/resources/style_app.dart';
+import 'package:absher/presentation/screens/story_screen/widgets/video_screen.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,11 +28,27 @@ class _StoryItemState extends State<StoryItem> {
         Positioned.fill(
           child: Container(color: Colors.black),
         ),
-        Positioned.fill(
-          child: Hero(
-            tag: DateTime.now().toString(),
+        if (storiesBloc
+                .stories[widget.pageIndex].stories![widget.storyIndex].video !=
+            null)
+          Positioned.fill(
+            child: storiesBloc.state.currentPageIndex == widget.pageIndex
+                ? VideoScreen(
+                    videoUrl: storiesBloc.stories[widget.pageIndex]
+                        .stories![widget.storyIndex].video!,
+                    animationController: storiesBloc.animationController,
+                    isCurrentStory: storiesBloc.state.currentStackIndex ==
+                            widget.storyIndex &&
+                        storiesBloc.state.currentPageIndex == widget.pageIndex,
+                  )
+                : Container(),
+          ),
+        if (storiesBloc
+                .stories[widget.pageIndex].stories![widget.storyIndex].video ==
+            null)
+          Positioned.fill(
             child: ExtendedImage.network(
-              storiesBloc.stories![widget.pageIndex].stories![widget.storyIndex]
+              storiesBloc.stories[widget.pageIndex].stories![widget.storyIndex]
                       .image ??
                   '',
               fit: BoxFit.contain,
@@ -40,102 +57,50 @@ class _StoryItemState extends State<StoryItem> {
               handleLoadingProgress: true,
               cache: false,
               loadStateChanged: (ExtendedImageState state) {
-                // storyController.storyAnimationStop();
                 switch (state.extendedImageLoadState) {
                   case LoadState.loading:
                     storiesBloc.animationController.stop();
-                    return Stack(
-                      alignment: Alignment.center,
-                      clipBehavior: Clip.none,
-                      children: [
-                        if (state.loadingProgress != null &&
-                            state.loadingProgress!.expectedTotalBytes != null)
-                          Center(
-                            child: SizedBox(
-                              height: 30,
-                              width: 30,
-                              child: CircularProgressIndicator(
-                                backgroundColor: Colors.grey.withOpacity(0.3),
-                              ),
-                            ),
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        SizedBox(
+                          height: 40,
+                          width: 40,
+                          child: CircularProgressIndicator(
+                            color: Colors.white,
                           ),
+                        ),
                       ],
                     );
-
                   case LoadState.completed:
                     storiesBloc.animationController.forward();
                     return state.completedWidget;
                   case LoadState.failed:
                     storiesBloc.animationController.forward();
-                    return Container(
-                      width: double.infinity,
-                      height: double.infinity,
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topRight,
-                          end: Alignment.bottomLeft,
-                          colors: [Colors.white, Colors.grey[900]!],
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(
+                          Icons.error_outline,
+                          color: Colors.white,
+                          size: 32,
                         ),
-                      ),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        Text(
+                          'حدث خطأ ما.',
+                          style: getBoldStyle(
+                            color: Colors.white,
+                            fontSize: FontSizeApp.s16,
+                          ),
+                        )
+                      ],
                     );
                 }
               },
             ),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: 44, left: 8),
-          child: GestureDetector(
-            onTap: () {
-              // storiesBloc.navigateToStoryRestaurant();
-            },
-            child: Row(
-              children: [
-                Container(
-                  height: 35,
-                  width: 35,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: NetworkImage(
-                        storiesBloc.stories![widget.pageIndex].vendorLogo!,
-                      ),
-                      fit: BoxFit.cover,
-                    ),
-                    shape: BoxShape.circle,
-                  ),
-                ),
-                const SizedBox(
-                  width: 8,
-                ),
-                Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      storiesBloc.stories![widget.pageIndex].vendorName!,
-                      style: const TextStyle(
-                        fontSize: 17,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Text(
-                      'Creation Time',
-                      // PaprikaRelativeTime.timeAgoSinceDate(
-                      //   context,
-                      //   storyController.stories![widget.pageIndex]
-                      //       .stories![widget.storyIndex].creationTime,
-                      //   isPost: true,
-                      // ),
-                      style: const TextStyle(color: Colors.grey, height: 1),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ),
       ],
     );
   }

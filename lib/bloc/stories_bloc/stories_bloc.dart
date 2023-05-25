@@ -1,24 +1,29 @@
+import 'dart:developer';
+
 import 'package:absher/bloc/stories_bloc/stories_event.dart';
 import 'package:absher/bloc/stories_bloc/stories_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:video_player/video_player.dart';
 
 import '../../models/story_model.dart';
 
 class StoriesBloc extends Bloc<StoriesEvent, StoriesState> {
   late AnimationController animationController;
+  VideoPlayerController? playerController;
 
   PageController? pageController;
 
-  List<StoryModelDto>? stories = dummyStories;
-  int initIndex = 0;
+  List<StoryModelDto> stories = [];
 
   StoriesBloc() : super(const StoriesState()) {
     on<StoriesEvent>((event, emit) async {
       if (event is CurrentStackIncrement) {
+        animationController.duration = const Duration(seconds: 5);
+        animationController.stop();
         if (state.currentStackIndex ==
-            (stories![state.currentPageIndex].stories!.length - 1)) {
-          if (state.currentPageIndex == stories!.length - 1) {
+            (stories[state.currentPageIndex].stories!.length - 1)) {
+          if (state.currentPageIndex == stories.length - 1) {
             emit(ExitStories());
           } else {
             int s = state.currentPageIndex + 1;
@@ -44,6 +49,8 @@ class StoriesBloc extends Bloc<StoriesEvent, StoriesState> {
         }
       }
       if (event is CurrentStackDecrement) {
+        animationController.duration = const Duration(seconds: 5);
+        animationController.stop();
         if (state.currentStackIndex == 0) {
           if (state.currentPageIndex != 0) {
             int newValue = state.currentPageIndex - 1;
@@ -80,18 +87,21 @@ class StoriesBloc extends Bloc<StoriesEvent, StoriesState> {
     });
   }
 
-  void init() {
-    stories = dummyStories;
-    initIndex = 0;
+  void init(List<StoryModelDto>? stories, int initIndex) {
+    this.stories = stories ?? [];
     pageController = PageController(initialPage: initIndex);
     emit(state.copyWith(
-      currentPageValue: 0.0,
-      currentStackIndex: 0,
+      currentPageIndex: initIndex,
     ));
     pageController!.addListener(() {
+      log(pageController!.page.toString());
       emit(state.copyWith(
         currentPageValue: pageController!.page!,
       ));
+      if (pageController!.page == state.currentPageIndex.toDouble()) {
+        animationController.forward();
+        playerController?.play();
+      }
     });
   }
 }

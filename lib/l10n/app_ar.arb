@@ -19,5 +19,23 @@
   "language":"اللغة",
   "about":"حول التطبيق",
   "privacy":"سياسة الخصوصية",
-  "logOut":"تسجيل خروج"
+  "logOut":"تسجيل خروج",
+  "gender":"الجنس",
+  "noResult":"عذرا لم يتم العثور على نتائج",
+
+  "justNow": "الأن",
+    "secondsAgo": "منذ {number} ثانية ",
+    "secondsAgoPost": "منذ {number} ثانية ",
+    "aMinuteAgo": "منذ دقيقة",
+    "minutesAgo": "منذ {number} دقيقة",
+    "minutesAgoPost": "منذ {number} دقيقة",
+    "anHourAgo": "منذ ساعة",
+    "anHourAgoPost": "منذ ساعة",
+    "hoursAgo": "منذ {number} ساعات",
+    "hoursAgoPost": "منذ {number} ساعات",
+    "yesterday": "البارحة",
+    "daysAgo": "منذ {number} ايام",
+    "daysAgoPost": "منذ {number} ايام",
+    "lastWeek": "منذ اسبوع",
+    "oneMinuteAgo": "منذ دقيقة"
   }

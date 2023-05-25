@@ -94,9 +94,14 @@ class StoriesBloc extends Bloc<StoriesEvent, StoriesState> {
       currentPageIndex: initIndex,
     ));
     pageController!.addListener(() {
+      log(pageController!.page.toString());
       emit(state.copyWith(
         currentPageValue: pageController!.page!,
       ));
+      if (pageController!.page == state.currentPageIndex.toDouble()) {
+        animationController.forward();
+        playerController?.play();
+      }
     });
   }
 }

@@ -33,6 +33,7 @@ class _IndicatorsState extends State<Indicators> {
       builder: (context, state) {
         if (!widget.isCurrentPage && widget.isPaging) {
           storiesBloc.animationController.stop();
+          storiesBloc.playerController?.pause();
         }
         return Padding(
           padding: const EdgeInsets.only(

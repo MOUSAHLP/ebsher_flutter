@@ -2,12 +2,22 @@ import 'dart:developer';
 
 import 'package:absher/bloc/stories_bloc/stories_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:video_player/video_player.dart';
 
 import '../../../resources/font_app.dart';
 import '../../../resources/style_app.dart';
+
+class VideoStory extends StatelessWidget {
+  const VideoStory({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
+  }
+}
 
 class VideoScreen extends StatefulWidget {
   const VideoScreen({
@@ -31,6 +41,7 @@ class _VideoScreenState extends State<VideoScreen> {
   @override
   void initState() {
     log('init Called');
+    widget.animationController.stop();
     storiesBloc = context.read<StoriesBloc>();
     _initController(widget.videoUrl);
     super.initState();
@@ -42,27 +53,38 @@ class _VideoScreenState extends State<VideoScreen> {
       isLoading = true;
       error = false;
     });
-    widget.animationController.stop();
 
     storiesBloc.playerController = VideoPlayerController.network(link);
+
     storiesBloc.playerController!.initialize().then((_) {
       print('initialized');
-      isLoading = false;
+      setState(() {
+        isLoading = false;
+      });
       if (widget.isCurrentStory) {
+        log('in current if ');
         widget.animationController.duration =
             storiesBloc.playerController!.value.duration;
         widget.animationController.forward();
         storiesBloc.playerController?.play();
         setState(() {});
       }
+      log('after current if ');
       storiesBloc.playerController!.addListener(() {
         if (storiesBloc.playerController!.value.hasError) {
+          print('HasError');
           widget.animationController.duration = Duration(seconds: 5);
           widget.animationController.forward();
           setState(() {
             error = true;
           });
         }
+      });
+    }).catchError((onError) {
+      widget.animationController.duration = Duration(seconds: 5);
+      widget.animationController.forward();
+      setState(() {
+        error = true;
       });
     });
   }
@@ -86,6 +108,10 @@ class _VideoScreenState extends State<VideoScreen> {
 
   @override
   Widget build(BuildContext context) {
+    if (!storiesBloc.playerController!.value.isInitialized && !error) {
+      storiesBloc.animationController.stop();
+    }
+
     return SizedBox(
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
@@ -123,11 +149,20 @@ class _VideoScreenState extends State<VideoScreen> {
                             child: VideoPlayer(storiesBloc.playerController!))
                         : Container(),
                   ),
-                  // if (storiesBloc.playerController != null &&
-                  //     !storiesBloc.playerController!.value.isPlaying)
-                  //   const SpinKitFoldingCube(
-                  //     color: Colors.white,
-                  //   ),
+                  if (storiesBloc.playerController != null &&
+                      !storiesBloc.playerController!.value.isPlaying)
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        SizedBox(
+                          height: 40,
+                          width: 40,
+                          child: CircularProgressIndicator(
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
                 ],
               ),
       ),

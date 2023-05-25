@@ -65,7 +65,7 @@ List<StoryModelDto> dummyStories = [
       ),
       StoryItemModel(
         video:
-            'https://vod-progressive.akamaized.net/exp=1685011400~acl=%2Fvimeo-prod-skyfire-std-us%2F01%2F4710%2F7%2F198553511%2F668751288.mp4~hmac=f2851ef3406c7e43ad12729a6ae9ff2e0c9a9d2fcceb4c42214a4717131f9b5c/vimeo-prod-skyfire-std-us/01/4710/7/198553511/668751288.mp4?download=1&filename=soap_bubble_-_7101+%28360p%29.mp4',
+            "https://download.pexels.com/vimeo/314714772/pexels-alexander-lutkov-1860079.mp4?fps=25.0&width=1280",
         // image:
         //       'http://clickgo.peaklinkdemo.com/storage/76/5dXrgeUiZIH0eF3EiqpOzlyB9Cau5M-metaZG93bmxvYWQuamZpZg==-.jpg',
         description: null,
@@ -81,13 +81,8 @@ List<StoryModelDto> dummyStories = [
         'http://clickgo.peaklinkdemo.com/storage/160/7IXqWxeAUTZFx0nEAwOYlhoOEu4OzJ-metaZG93bmxvYWQgKDcpLnBuZw==-.png',
     stories: [
       StoryItemModel(
-        // video:
-        //     'https://vod-progressive.akamaized.net/exp=1684975299~acl=%2Fvimeo-prod-skyfire-std-us%2F01%2F3967%2F9%2F244835811%2F882240778.mp4~hmac=60e94dad0c2cb31cfaf370ff7748bbbba625b7bacba38ad556241d3834d1514f/vimeo-prod-skyfire-std-us/01/3967/9/244835811/882240778.mp4?download=1&filename=piano_-_13071+%28540p%29.mp4',
-        video:
-            'https://vod-progressive.akamaized.net/exp=1684998314~acl=%2Fvimeo-prod-skyfire-std-us%2F01%2F2361%2F5%2F136808389%2F405860900.mp4~hmac=0c7b82ecf5d38eb21e9542c902a85ef64f9453ff68bdf04e6eb5b18e2c2c7e6f/vimeo-prod-skyfire-std-us/01/2361/5/136808389/405860900.mp4?download=1&filename=success_-_468+%28360p%29.mp4',
-
-        // image:
-        //       'https://pixabay.com/get/ge0e5b4f08e8a2e16d50dd200d717e4def1a5b6658f39e6f547878ab121dd5e85523949d709a1b9680d0d204013622519edfdae94c66225b5fc194000507cd112e362890837f5867f6d806f21e5c9ca03_1280.jpg?attachment=',
+        image:
+            'https://pixabay.com/get/ge0e5b4f08e8a2e16d50dd200d717e4def1a5b6658f39e6f547878ab121dd5e85523949d709a1b9680d0d204013622519edfdae94c66225b5fc194000507cd112e362890837f5867f6d806f21e5c9ca03_1280.jpg?attachment=',
         description:
             'test desc test desc test desc test desc test desc test desc test desctest desctest desc test desctest desc test desc test desc test desc test desc test desc test desctest desctest desc test desctest desc test desc test desc test desc test desc test desc test desctest desctest desc test desc ',
         creationTime: DateTime.now().subtract(Duration(hours: 10)),
@@ -109,8 +104,11 @@ List<StoryModelDto> dummyStories = [
         'http://clickgo.peaklinkdemo.com/storage/160/7IXqWxeAUTZFx0nEAwOYlhoOEu4OzJ-metaZG93bmxvYWQgKDcpLnBuZw==-.png',
     stories: [
       StoryItemModel(
-        image:
-            'https://pixabay.com/get/g2292b6883a10367796728dfd0551f33de76f86bcbb81889c79f6e0588c9156826132f31a5cdaa73623b897d597f6f24dfef5aa1fc1aeca36dbe7e15e12da75d4b1c8aa6b35c7cabd2e8e0d4c9d7b6301_1280.jpg?attachment=',
+        video:
+            "https://vod-progressive.akamaized.net/exp=1685011825~acl=%2Fvimeo-prod-skyfire-std-us%2F01%2F1757%2F7%2F183788612%2F604924487.mp4~hmac=9231db57c86ccf99b8627fd61c483196dda8fd9b05160d2c9bbd8da4b3ee9c37/vimeo-prod-skyfire-std-us/01/1757/7/183788612/604924487.mp4?download=1&filename=science_-_5453+%28360p%29.mp4",
+
+        // image:
+        //     'https://pixabay.com/get/g2292b6883a10367796728dfd0551f33de76f86bcbb81889c79f6e0588c9156826132f31a5cdaa73623b897d597f6f24dfef5aa1fc1aeca36dbe7e15e12da75d4b1c8aa6b35c7cabd2e8e0d4c9d7b6301_1280.jpg?attachment=',
         description: 'test desc',
         creationTime: DateTime.now(),
       ),
@@ -123,10 +121,10 @@ List<StoryModelDto> dummyStories = [
         'http://clickgo.peaklinkdemo.com/storage/160/7IXqWxeAUTZFx0nEAwOYlhoOEu4OzJ-metaZG93bmxvYWQgKDcpLnBuZw==-.png',
     stories: [
       StoryItemModel(
-        // video:
-        //     'https://vod-progressive.akamaized.net/exp=1685011812~acl=%2Fvimeo-prod-skyfire-std-us%2F01%2F4484%2F17%2F447422877%2F1963648898.mp4~hmac=c1bc5db34546936c8150d323f1de44be18c7302e6768741cab3b51bd42b37c56/vimeo-prod-skyfire-std-us/01/4484/17/447422877/1963648898.mp4?download=1&filename=rocket_-_46241+%28360p%29.mp4',
-        image:
-            'https://pixabay.com/get/g8eafd1b721eafe461071b9fd05d89295f5ef5b6b698023ab62bcf40c59510878c77bec5b040539607258bb0fc8c3ae817ac5adcf587222ed69556974c7fc9423c12afbc155792506e4ca3ebbdd01a2cb_1280.jpg?attachment=',
+        video:
+            'https://vod-progressive.akamaized.net/exp=1685011812~acl=%2Fvimeo-prod-skyfire-std-us%2F01%2F4484%2F17%2F447422877%2F1963648898.mp4~hmac=c1bc5db34546936c8150d323f1de44be18c7302e6768741cab3b51bd42b37c56/vimeo-prod-skyfire-std-us/01/4484/17/447422877/1963648898.mp4?download=1&filename=rocket_-_46241+%28360p%29.mp4',
+        // image:
+        //     'https://pixabay.com/get/g8eafd1b721eafe461071b9fd05d89295f5ef5b6b698023ab62bcf40c59510878c77bec5b040539607258bb0fc8c3ae817ac5adcf587222ed69556974c7fc9423c12afbc155792506e4ca3ebbdd01a2cb_1280.jpg?attachment=',
         description: 'test desc',
         creationTime: DateTime.now(),
       ),
@@ -151,10 +149,10 @@ List<StoryModelDto> dummyStories = [
         creationTime: DateTime.now(),
       ),
       StoryItemModel(
-        // video:
-        //     "https://vod-progressive.akamaized.net/exp=1685011825~acl=%2Fvimeo-prod-skyfire-std-us%2F01%2F1757%2F7%2F183788612%2F604924487.mp4~hmac=9231db57c86ccf99b8627fd61c483196dda8fd9b05160d2c9bbd8da4b3ee9c37/vimeo-prod-skyfire-std-us/01/1757/7/183788612/604924487.mp4?download=1&filename=science_-_5453+%28360p%29.mp4",
-        image:
-            "https://pixabay.com/get/gbc836fcd5de2084599598bea1261c5fa4ff28fec69bd8a1a7d93be159c102fd4badaaef776e74979f096ce27658b1ef908738c6bdbac67a0d02f27c3426c82931df21fcde4dc51ef46714318a80ebbf3_1280.jpg?attachment=",
+        video:
+            'https://vod-progressive.akamaized.net/exp=1685011812~acl=%2Fvimeo-prod-skyfire-std-us%2F01%2F4484%2F17%2F447422877%2F1963648898.mp4~hmac=c1bc5db34546936c8150d323f1de44be18c7302e6768741cab3b51bd42b37c56/vimeo-prod-skyfire-std-us/01/4484/17/447422877/1963648898.mp4?download=1&filename=rocket_-_46241+%28360p%29.mp4',
+        // image:
+        //     "https://pixabay.com/get/gbc836fcd5de2084599598bea1261c5fa4ff28fec69bd8a1a7d93be159c102fd4badaaef776e74979f096ce27658b1ef908738c6bdbac67a0d02f27c3426c82931df21fcde4dc51ef46714318a80ebbf3_1280.jpg?attachment=",
         description: 'test desc',
         creationTime: DateTime.now(),
       ),

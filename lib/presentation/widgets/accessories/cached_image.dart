@@ -63,22 +63,6 @@ class CachedImage extends StatelessWidget {
                 color: color,
               ),
             );
-          //   Stack(
-          //   alignment: Alignment.center,
-          //   clipBehavior: Clip.none,
-          //   children: [
-          //     if (imageUrl != null)
-          //       GestureDetector(
-          //         child: const Icon(
-          //           Icons.refresh,
-          //           color: ColorManager.primaryColor,
-          //         ),
-          //         onTap: () {
-          //           state.reLoadImage();
-          //         },
-          //       )
-          //   ],
-          // );
         }
       },
     );

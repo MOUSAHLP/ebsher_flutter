@@ -32,14 +32,16 @@ class _StoryItemState extends State<StoryItem> {
                 .stories[widget.pageIndex].stories![widget.storyIndex].video !=
             null)
           Positioned.fill(
-            child: VideoScreen(
-              videoUrl: storiesBloc
-                  .stories[widget.pageIndex].stories![widget.storyIndex].video!,
-              animationController: storiesBloc.animationController,
-              isCurrentStory:
-                  storiesBloc.state.currentStackIndex == widget.storyIndex &&
-                      storiesBloc.state.currentPageIndex == widget.pageIndex,
-            ),
+            child: storiesBloc.state.currentPageIndex == widget.pageIndex
+                ? VideoScreen(
+                    videoUrl: storiesBloc.stories[widget.pageIndex]
+                        .stories![widget.storyIndex].video!,
+                    animationController: storiesBloc.animationController,
+                    isCurrentStory: storiesBloc.state.currentStackIndex ==
+                            widget.storyIndex &&
+                        storiesBloc.state.currentPageIndex == widget.pageIndex,
+                  )
+                : Container(),
           ),
         if (storiesBloc
                 .stories[widget.pageIndex].stories![widget.storyIndex].video ==

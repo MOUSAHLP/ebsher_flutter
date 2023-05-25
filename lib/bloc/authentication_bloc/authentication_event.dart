@@ -1,3 +1,5 @@
+import 'package:absher/models/login_response.dart';
+
 abstract class AuthenticationEvent {
   AuthenticationEvent([List props = const []]) : super();
 }
@@ -5,12 +7,12 @@ abstract class AuthenticationEvent {
 class AppStarted extends AuthenticationEvent {}
 
 class LoggedIn extends AuthenticationEvent {
-  final String token;
+  final LoginResponse loginResponse;
 
-  LoggedIn({required this.token}) : super([token]);
+  LoggedIn({required this.loginResponse}) : super([loginResponse]);
 
   @override
-  String toString() => 'LoggedIn { token: $token }';
+  String toString() => 'LoggedIn { token: $loginResponse }';
 }
 
 class LoggedOut extends AuthenticationEvent {}

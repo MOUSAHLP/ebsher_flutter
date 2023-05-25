@@ -21,7 +21,8 @@ class BuildCardCategories extends StatelessWidget {
         AppRouter.push(context, CategoriesScreen(title:  LocalixationString(
             context,
             category.name) ??
-            "" ,));
+            "" ,idCategory: category.id!),
+        );
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(

@@ -12,7 +12,7 @@ class SubCategoriesBloc extends Bloc <SubCategoriesEvent,SubCategoriesState>{
     on<SubCategoriesEvent>((event, emit) async {
       if (event is SubCategories) {
         emit(SubCategoriesLoading());
-        final response = await CategoryRepository.getSubCategories(idCategory: 10);
+        final response = await CategoryRepository.getSubCategories(idCategory: event.idCategory);
         response.fold((l) {
           emit(SubCategoriesError(l));
         }, (r) {

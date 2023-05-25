@@ -16,7 +16,8 @@ import '../../widgets/custom_app_background.dart';
 
 class CategoriesScreen extends StatelessWidget {
   String title;
-  CategoriesScreen({super.key, required this.title});
+  int idCategory;
+  CategoriesScreen({super.key, required this.title,required this.idCategory});
   @override
   Widget build(BuildContext context) {
     return CustomAppBackGround(
@@ -40,7 +41,7 @@ class CategoriesScreen extends StatelessWidget {
             ],
           ),
         BlocBuilder<SubCategoriesBloc, SubCategoriesState>(
-            bloc: sl<SubCategoriesBloc>()..add(SubCategories()),
+            bloc: sl<SubCategoriesBloc>()..add(SubCategories(idCategory)),
             builder: (context, state) {
               if (state is SubCategoriesLoading) {
                 return const BuildShimmerGategories();
@@ -51,7 +52,7 @@ class CategoriesScreen extends StatelessWidget {
                     CustomButton(
                       label: "اعادة المحاولة ",
                       onTap: () {
-                        sl<SubCategoriesBloc>().add(SubCategories());
+                        sl<SubCategoriesBloc>().add(SubCategories(idCategory));
                       },
                     )
                   ],

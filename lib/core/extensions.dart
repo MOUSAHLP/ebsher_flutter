@@ -8,4 +8,11 @@ extension Rotate on Widget {
       child: this,
     );
   }
+
+  Widget handleRotationOwn(BuildContext context) {
+    return RotatedBox(
+      quarterTurns:1 ,
+      child: this,
+    );
+  }
 }

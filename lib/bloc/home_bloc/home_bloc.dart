@@ -21,7 +21,6 @@ class HomeBloc extends Bloc <HomeEvent,HomeState>{
         index=event.indexNew!;
         emit(CategorySuccess(event.indexNew!,event.lisCategory!,event.lisAdvertisment!));
       }
-
     }
     );}
 }

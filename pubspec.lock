@@ -195,6 +195,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_shapes:
+    dependency: "direct main"
+    description:
+      name: flutter_shapes
+      sha256: "3606e23a6fbbb81c3d0492b78558979e8e4cac249d03d43e1d7bf35f5473ac73"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.3.0"
   flutter_spinkit:
     dependency: "direct main"
     description:

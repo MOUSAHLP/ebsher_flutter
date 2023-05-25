@@ -41,5 +41,5 @@ class IconsManager {
   static const String iconAbout = "$iconPath/about.svg";
   static const String iconNoResult = "$iconPath/noResult.json";
   static const String iconNoInternet = "$iconPath/noInternet.json";
-  static const String iconNoDate = "$iconPath/noData.json";
+  static const String iconNoDate = "$iconPath/noData.svg";
 }

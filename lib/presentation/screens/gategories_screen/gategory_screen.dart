@@ -82,7 +82,7 @@ class CategoriesScreen extends StatelessWidget {
                           physics: const NeverScrollableScrollPhysics(),
                           itemCount: state.lisSubCategory.length,
                           shrinkWrap: true,
-                        ):CustomNoDataScreen(),
+                        ):Center(child: CustomNoDataScreen()),
                       ),
                     ],
                   ),

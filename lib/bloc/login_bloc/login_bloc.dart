@@ -23,11 +23,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         response.fold((l) {
           emit(LoginError(l));
         }, (r) {
-          authenticationBloc.add(LoggedIn(token: r.token));
+          authenticationBloc.add(LoggedIn(loginResponse: r));
           emit(LoginConfirmed());
         });
       }
-
     });
   }
 }

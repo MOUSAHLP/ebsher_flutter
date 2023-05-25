@@ -52,10 +52,10 @@ class _StoryItemState extends State<StoryItem> {
                       .image ??
                   '',
               fit: BoxFit.contain,
-              // cacheMaxAge: const Duration(days: 2),
+              cacheMaxAge: const Duration(days: 2),
               clearMemoryCacheWhenDispose: true,
               handleLoadingProgress: true,
-              cache: false,
+              cache: true,
               loadStateChanged: (ExtendedImageState state) {
                 switch (state.extendedImageLoadState) {
                   case LoadState.loading:

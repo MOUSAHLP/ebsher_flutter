@@ -11,20 +11,20 @@ import '../../resources/style_app.dart';
 import '../custom_button.dart';
 import 'custom_dialog.dart';
 
-class ExiteDialog {
+class LogoutConfirmationDialog {
   static Future<bool> handle(BuildContext context) async {
-    dialogTransitionBuilder(context, const _ExitAppDialog());
+    dialogTransitionBuilder(context, const _LogoutConfirmationDialog());
     return false;
   }
 }
 
-class _ExitAppDialog extends StatelessWidget {
-  const _ExitAppDialog({Key? key}) : super(key: key);
+class _LogoutConfirmationDialog extends StatelessWidget {
+  const _LogoutConfirmationDialog({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return CustomDialog(
-      icon: Icons.exit_to_app_rounded,
+      icon: Icons.logout,
       content: Column(
         children: [
           Padding(
@@ -33,7 +33,7 @@ class _ExitAppDialog extends StatelessWidget {
               vertical: 60,
             ),
             child: Text(
-              "سوف يتم الخروج من  أبشر, هل انت متأكد؟",
+              "تأكيد تسجيل الخروج ؟",
               style: getBoldStyle(
                 color: Colors.black,
                 fontSize: FontSizeApp.s14,
@@ -58,12 +58,11 @@ class _ExitAppDialog extends StatelessWidget {
                 ),
                 Expanded(
                   child: CustomButton(
-                    label: 'خروج',
+                    label: 'تسجيل الخروج',
                     fillColor: Colors.redAccent,
                     onTap: () {
                       sl<AuthenticationBloc>().add(LoggedOut());
-                    AppRouter.pushAndRemoveAllStack(context, AccountScreen());
-
+                      AppRouter.pushAndRemoveAllStack(context, AccountScreen());
                     },
                   ),
                 ),

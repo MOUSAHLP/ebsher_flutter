@@ -67,7 +67,17 @@
       }
     },
     "lastWeek": "Last week",
-    "oneMinuteAgo": "1 min ago"
+    "oneMinuteAgo": "1 min ago",
+  "noResult":"Sorry no results found",
+  "turnNotification":"Turn on notifications",
+  "notification":"Notifications",
+  "showNotication":"View all notifications",
+   "profile":"Profile personly",
+    "favorite":"Favorite",
+    "language":"Language",
+    "about":"About the application",
+    "privacy":"Privacy policy",
+    "logOut":"Log out"
 
 
 }

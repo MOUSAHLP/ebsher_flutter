@@ -1,4 +1,5 @@
 import 'package:absher/models/category_response.dart';
+import 'package:absher/models/sub_category_response.dart';
 import 'package:dartz/dartz.dart';
 
 import '../../core/api_const.dart';
@@ -21,11 +22,20 @@ class CategoryRepository{
    return  BaseApiClient.get<List<SearchResponse>>(
        url: ApiConst.search+text,
        converter: (e) {
-         print("==================date");
-         print(e['vendors']);
          return   SearchResponse.listFromJson(e['vendors']);
        });
 
  }
+ static Future<Either<String,List<SubCategoriesResponse>>> getSubCategories({required int idCategory}
+     ){
 
+   return  BaseApiClient.get<List<SubCategoriesResponse>>(
+       url:"${ApiConst.subCategory}$idCategory",
+       converter: (e) {
+         print("==================date");
+         print(e['data']);
+         return   SubCategoriesResponse.listFromJson(e);
+       });
+
+ }
 }

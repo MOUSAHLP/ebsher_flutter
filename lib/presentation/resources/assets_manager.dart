@@ -20,6 +20,7 @@ class ImageManager {
   static const String signUpAsset = "$imagePath/signup_asset.png";
   static const String test = "$imagePath/test.png";
   static const String test1 = "$imagePath/test1.png";
+  static const String profile = "$imagePath/profile.png";
 }
 
 class IconsManager {
@@ -32,5 +33,11 @@ class IconsManager {
   static const String iconSearch = "$iconPath/search.svg";
   static const String iconVideo = "$iconPath/video.svg";
   static const String iconStars = "$iconPath/stars.svg";
+  static const String iconStar = "$iconPath/star.svg";
+  static const String iconSetting = "$iconPath/setting.svg";
+  static const String iconUserSetting = "$iconPath/userSetting.svg";
+  static const String iconWorld = "$iconPath/world.svg";
+  static const String iconCheckout = "$iconPath/checkout.svg";
+  static const String iconAbout = "$iconPath/about.svg";
   static const String iconNoResult = "$iconPath/noResult.json";
 }

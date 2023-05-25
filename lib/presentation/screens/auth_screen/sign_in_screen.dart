@@ -35,7 +35,7 @@ class SignInConfirmationScreen extends StatelessWidget {
             ErrorDialog.openDialog(context, state.error);
           }
           if (state is LoginConfirmed) {
-            AppRouter.pushAndRemoveAllStack(context, const BasicScreen());
+            AppRouter.pushAndRemoveAllStack(context,  BasicScreen());
           }
         },
         child: _SignInScreen());

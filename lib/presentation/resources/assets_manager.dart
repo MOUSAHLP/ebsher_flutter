@@ -40,4 +40,6 @@ class IconsManager {
   static const String iconCheckout = "$iconPath/checkout.svg";
   static const String iconAbout = "$iconPath/about.svg";
   static const String iconNoResult = "$iconPath/noResult.json";
+  static const String iconNoInternet = "$iconPath/noInternet.json";
+  static const String iconNoDate = "$iconPath/noData.svg";
 }

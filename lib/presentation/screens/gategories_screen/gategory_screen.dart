@@ -13,6 +13,8 @@ import '../../../bloc/sub_categories_bloc/sub_categories_event.dart';
 import '../../../bloc/sub_categories_bloc/sub_categories_state.dart';
 import '../../../core/services/services_locator.dart';
 import '../../widgets/custom_app_background.dart';
+import '../../widgets/custom_error_screen.dart';
+import '../../widgets/custom_no_data_screen.dart';
 
 class CategoriesScreen extends StatelessWidget {
   String title;
@@ -46,18 +48,12 @@ class CategoriesScreen extends StatelessWidget {
               if (state is SubCategoriesLoading) {
                 return const BuildShimmerGategories();
               } else if (state is SubCategoriesError) {
-                return Column(
-                  children: [
-                    Lottie.asset(IconsManager.iconNoResult),
-                    CustomButton(
-                      label: "اعادة المحاولة ",
-                      onTap: () {
-                        sl<SubCategoriesBloc>().add(SubCategories(idCategory));
-                      },
-                    )
-                  ],
-                );
-              } else if (state is SubCategoriesSuccess) {
+                return CustomErrorScreen(
+                  onTap: () {
+                    sl<SubCategoriesBloc>().add(SubCategories(idCategory));
+                  },
+                );}
+               else if (state is SubCategoriesSuccess) {
                 return SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -77,7 +73,7 @@ class CategoriesScreen extends StatelessWidget {
                       const SizedBox(height: 20),
                       Padding(
                         padding: EdgeInsets.only(left: 20),
-                        child: ListView.builder(
+                        child:state.lisSubCategory.isNotEmpty? ListView.builder(
                           itemBuilder: (context, index) {
                             return cardRandomWidget(
                               categories: state.lisSubCategory[index],
@@ -86,7 +82,7 @@ class CategoriesScreen extends StatelessWidget {
                           physics: const NeverScrollableScrollPhysics(),
                           itemCount: state.lisSubCategory.length,
                           shrinkWrap: true,
-                        ),
+                        ):Center(child: CustomNoDataScreen()),
                       ),
                     ],
                   ),

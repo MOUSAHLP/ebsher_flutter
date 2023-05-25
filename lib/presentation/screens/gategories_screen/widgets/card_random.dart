@@ -1,18 +1,13 @@
 import 'package:absher/presentation/resources/color_manager.dart';
 import 'package:absher/presentation/resources/style_app.dart';
-import 'package:absher/presentation/widgets/custom_cach_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import '../../../../core/localization_string.dart';
 import '../../../../models/sub_category_response.dart';
-import '../../../resources/assets_manager.dart';
-
+import '../../../widgets/accessories/cached_image.dart';
 class cardRandomWidget extends StatelessWidget {
   SubCategoriesResponse categories;
-
   cardRandomWidget({super.key, required this.categories});
-
   @override
   Widget build(BuildContext context) {
     List<Widget> card = [
@@ -95,7 +90,7 @@ class CircularCard extends StatelessWidget {
         shape: BoxShape.circle,boxShadow:ColorManager.boxShadow, ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(50),
-        child: CustomCachImage(width:70 ,height:70 ,url:image ,)
+        child: CachedImage(width:70 ,height:70 ,imageUrl:image ,)
 
       ),
     );
@@ -117,7 +112,7 @@ class RectangleCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(10), shape: BoxShape.rectangle,boxShadow:ColorManager.boxShadow,),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(10),
-        child:  CustomCachImage(width:70 ,height:70 ,url:image ,)
+        child:  CachedImage(width:70 ,height:70 ,imageUrl:image ,)
       ),
     );
   }

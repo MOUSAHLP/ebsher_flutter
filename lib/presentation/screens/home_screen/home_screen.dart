@@ -1,7 +1,7 @@
-
 import 'package:absher/presentation/screens/home_screen/home_widget/build_card_categories.dart';
 import 'package:absher/presentation/screens/home_screen/home_widget/build_shimmer_widget.dart';
 import 'package:absher/presentation/widgets/custom_button.dart';
+import 'package:absher/presentation/widgets/custom_error_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
@@ -20,7 +20,9 @@ import 'home_widget/search_result_screen.dart';
 // ignore: must_be_immutable
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
+
   bool isBlue = false;
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -30,13 +32,10 @@ class HomeScreen extends StatelessWidget {
             if (state is CategoryLoading) {
               return const BuildShimmerWidget();
             } else if (state is CategoryError) {
-              return Column(
-                children: [
-                  Lottie.asset(IconsManager.iconNoResult),
-                  CustomButton(label: "اعادة المحاولة ",onTap:(){
-                    sl<HomeBloc>().add(Home());
-                  } ,)
-                ],
+              return CustomErrorScreen(
+                onTap: () {
+                  sl<HomeBloc>().add(Home());
+                },
               );
             } else if (state is CategorySuccess) {
               return RefreshIndicator(
@@ -157,8 +156,9 @@ class HomeScreen extends StatelessWidget {
                             shrinkWrap: true,
                             itemBuilder: (context, index) {
                               if (index.isOdd) isBlue = !isBlue;
-                              return BuildCardCategories(category:state.lisCategory[index] , isBlue: isBlue)
-                              ;
+                              return BuildCardCategories(
+                                  category: state.lisCategory[index],
+                                  isBlue: isBlue);
                             },
                             gridDelegate:
                                 const SliverGridDelegateWithFixedCrossAxisCount(

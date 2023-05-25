@@ -1,16 +1,12 @@
 import 'dart:developer';
 
 import 'package:absher/bloc/stories_bloc/stories_bloc.dart';
-import 'package:absher/core/relative_time.dart';
 import 'package:absher/presentation/resources/font_app.dart';
 import 'package:absher/presentation/resources/style_app.dart';
 import 'package:absher/presentation/screens/story_screen/widgets/video_screen.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-
-import '../../../resources/assets_manager.dart';
 
 class StoryItem extends StatefulWidget {
   final int storyIndex;
@@ -82,12 +78,12 @@ class _StoryItemState extends State<StoryItem> {
                     return Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(
+                        const Icon(
                           Icons.error_outline,
                           color: Colors.white,
                           size: 32,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 16,
                         ),
                         Text(

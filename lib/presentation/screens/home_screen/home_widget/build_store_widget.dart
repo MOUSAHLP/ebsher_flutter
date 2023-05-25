@@ -19,6 +19,7 @@ class BuildStoreWidget extends StatelessWidget {
     return SizedBox(
       height: 95,
       child: ListView.builder(
+        physics: const BouncingScrollPhysics(),
         itemCount: context.read<HomeBloc>().stories!.length,
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {

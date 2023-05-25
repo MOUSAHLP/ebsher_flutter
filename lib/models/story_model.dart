@@ -64,8 +64,10 @@ List<StoryModelDto> dummyStories = [
         totalViewsCount: 61661,
       ),
       StoryItemModel(
-        image:
-            'http://clickgo.peaklinkdemo.com/storage/76/5dXrgeUiZIH0eF3EiqpOzlyB9Cau5M-metaZG93bmxvYWQuamZpZg==-.jpg',
+        video:
+            'https://vod-progressive.akamaized.net/exp=1685011400~acl=%2Fvimeo-prod-skyfire-std-us%2F01%2F4710%2F7%2F198553511%2F668751288.mp4~hmac=f2851ef3406c7e43ad12729a6ae9ff2e0c9a9d2fcceb4c42214a4717131f9b5c/vimeo-prod-skyfire-std-us/01/4710/7/198553511/668751288.mp4?download=1&filename=soap_bubble_-_7101+%28360p%29.mp4',
+        // image:
+        //       'http://clickgo.peaklinkdemo.com/storage/76/5dXrgeUiZIH0eF3EiqpOzlyB9Cau5M-metaZG93bmxvYWQuamZpZg==-.jpg',
         description: null,
         creationTime: DateTime.now().subtract(Duration(minutes: 4)),
         totalViewsCount: 8181915616,
@@ -81,8 +83,11 @@ List<StoryModelDto> dummyStories = [
       StoryItemModel(
         // video:
         //     'https://vod-progressive.akamaized.net/exp=1684975299~acl=%2Fvimeo-prod-skyfire-std-us%2F01%2F3967%2F9%2F244835811%2F882240778.mp4~hmac=60e94dad0c2cb31cfaf370ff7748bbbba625b7bacba38ad556241d3834d1514f/vimeo-prod-skyfire-std-us/01/3967/9/244835811/882240778.mp4?download=1&filename=piano_-_13071+%28540p%29.mp4',
-        image:
-            'https://pixabay.com/get/ge0e5b4f08e8a2e16d50dd200d717e4def1a5b6658f39e6f547878ab121dd5e85523949d709a1b9680d0d204013622519edfdae94c66225b5fc194000507cd112e362890837f5867f6d806f21e5c9ca03_1280.jpg?attachment=',
+        video:
+            'https://vod-progressive.akamaized.net/exp=1684998314~acl=%2Fvimeo-prod-skyfire-std-us%2F01%2F2361%2F5%2F136808389%2F405860900.mp4~hmac=0c7b82ecf5d38eb21e9542c902a85ef64f9453ff68bdf04e6eb5b18e2c2c7e6f/vimeo-prod-skyfire-std-us/01/2361/5/136808389/405860900.mp4?download=1&filename=success_-_468+%28360p%29.mp4',
+
+        // image:
+        //       'https://pixabay.com/get/ge0e5b4f08e8a2e16d50dd200d717e4def1a5b6658f39e6f547878ab121dd5e85523949d709a1b9680d0d204013622519edfdae94c66225b5fc194000507cd112e362890837f5867f6d806f21e5c9ca03_1280.jpg?attachment=',
         description:
             'test desc test desc test desc test desc test desc test desc test desctest desctest desc test desctest desc test desc test desc test desc test desc test desc test desctest desctest desc test desctest desc test desc test desc test desc test desc test desc test desctest desctest desc test desc ',
         creationTime: DateTime.now().subtract(Duration(hours: 10)),

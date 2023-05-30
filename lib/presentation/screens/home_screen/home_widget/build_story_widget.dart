@@ -11,8 +11,8 @@ import '../../../resources/values_app.dart';
 import '../../../widgets/animated_container.dart';
 import '../../story_screen/story_screen.dart';
 
-class BuildStoreWidget extends StatelessWidget {
-  const BuildStoreWidget({super.key});
+class BuildStoryWidget extends StatelessWidget {
+  const BuildStoryWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

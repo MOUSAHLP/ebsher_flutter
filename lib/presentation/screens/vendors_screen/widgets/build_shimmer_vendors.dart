@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../../resources/values_app.dart';
-class BuildShimmerGategories extends StatelessWidget {
-  const BuildShimmerGategories({super.key});
+
+class BuildShimmerVendors extends StatelessWidget {
+  const BuildShimmerVendors({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -31,9 +32,8 @@ class BuildShimmerGategories extends StatelessWidget {
                       color: Color.fromRGBO(45, 45, 45, 1.0),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadiusDirectional.only(
-                          topEnd:
-                          Radius.circular(50),
-                          bottomEnd:  Radius.circular(50),
+                          topEnd: Radius.circular(50),
+                          bottomEnd: Radius.circular(50),
                         ),
                       ),
                       clipBehavior: Clip.antiAliasWithSaveLayer,

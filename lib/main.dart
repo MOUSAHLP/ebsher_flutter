@@ -22,7 +22,6 @@ import 'bloc/home_bloc/home_bloc.dart';
 import 'bloc/login_bloc/login_bloc.dart';
 import 'bloc/search_bloc/search_bloc.dart';
 import 'bloc/sign_up_bloc/sign_up_bloc.dart';
-import 'bloc/sub_categories_bloc/sub_categories_bloc.dart';
 import 'core/services/services_locator.dart';
 import 'data/data_resource/remote_resource/api_handler/base_api_client.dart';
 
@@ -72,9 +71,6 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(
           create: (BuildContext context) => sl<SearchBloc>(),
         ),
-        BlocProvider(
-          create: (BuildContext context) => sl<SubCategoriesBloc>(),
-        ),
       ],
       child: OverlaySupport.global(
         child: GestureDetector(
@@ -104,7 +100,7 @@ class _MyAppState extends State<MyApp> {
               bloc: sl<AuthenticationBloc>()..add(AppStarted()),
               builder: (context, state) {
                 if (state is AuthenticationAuthenticated) {
-                  return  BasicScreen();
+                  return BasicScreen();
                 }
                 if (state is AuthenticationUnauthenticated) {
                   return const OnBoardingScreen();

@@ -10,52 +10,55 @@ class CustomAppBackGround extends StatelessWidget {
   }) : super(key: key);
   final bool showUpperHand;
   final Widget child;
+
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      alignment: AlignmentDirectional.topStart,
-      children: [
-        Stack(
-          children: [
-            Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.center,
-                  end: Alignment.bottomCenter,
-                  colors: <Color>[
-                    Color(0xFF257679),
-                    Color(0xFF2C8E91),
-                    Color(0xFF33A5A8),
-                    Color(0xFF3ABABD),
-                  ],
+    return Scaffold(
+      body: Stack(
+        alignment: AlignmentDirectional.topStart,
+        children: [
+          Stack(
+            children: [
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.center,
+                    end: Alignment.bottomCenter,
+                    colors: <Color>[
+                      Color(0xFF257679),
+                      Color(0xFF2C8E91),
+                      Color(0xFF33A5A8),
+                      Color(0xFF3ABABD),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            Positioned(
-              bottom: -120,
-              left: -160,
-              child: Image.asset(
-                ImageManager.appLogo,
-                color: Colors.white.withOpacity(0.3),
-                width: 340,
-              ),
-            ),
-            if (showUpperHand)
               Positioned(
-                top: -120,
-                right: -200,
+                bottom: -120,
+                left: -160,
                 child: Image.asset(
                   ImageManager.appLogo,
                   color: Colors.white.withOpacity(0.3),
                   width: 340,
                 ),
               ),
-          ],
-        ),
-        child
-      ],
+              if (showUpperHand)
+                Positioned(
+                  top: -120,
+                  right: -200,
+                  child: Image.asset(
+                    ImageManager.appLogo,
+                    color: Colors.white.withOpacity(0.3),
+                    width: 340,
+                  ),
+                ),
+            ],
+          ),
+          child
+        ],
+      ),
     );
   }
 }

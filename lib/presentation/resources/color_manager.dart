@@ -6,6 +6,7 @@ class ColorManager {
   static const Color shimmerHighlightColor = Color(0xffE0E0E0);
   static const Color backgroundStartColor = Color(0xFF3ABABD);
   static const Color backgroundEndColor = Color(0xFF257679);
+
 //  static const Color backgroundEndColor = Color(0xFF1D5D5F);
   static Color circleStartColor = const Color(0xffA3FEC7).withOpacity(1);
   static Color circleEndColor = const Color(0xff6AC6FC).withOpacity(1);
@@ -14,15 +15,17 @@ class ColorManager {
   static const Color lightBlueColor = const Color(0xff3ABABD);
   static const Color whiteColor = const Color(0xffffffff);
   static const Color softYellow = Color(0xFFF2D16A);
+  static const Color darkRed = Color(0xFFE6473D);
   static const Color shadowGrey = Color(0xFF707070);
-  static const List<BoxShadow> boxShadow=[
+  static const Color labelGrey = Color(0xFFB3B3B3);
+  static const List<BoxShadow> boxShadow = [
     BoxShadow(
       color: Colors.black45,
-      blurRadius: 4.0, // soften the shadow
-      spreadRadius: 1.0, //extend the shadow
+      blurRadius: 4.0,
+      spreadRadius: 1.0,
       offset: Offset(
-        1.0, // Move to right 5  horizontally
-        1.0, // Move to bottom 5 Vertically
+        1.0,
+        1.0,
       ),
     )
   ];

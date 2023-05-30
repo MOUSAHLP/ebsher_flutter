@@ -10,5 +10,8 @@ class ApiConst {
   static const String login = "/login";
   static const String home = "/home";
   static const String search = "/search?keyword=";
-  static const String subCategory = "/vendors_by_vendortype?category_id=";
+  // static const String vendorsList = "/vendors_by_vendortype?category_id=";
+  static String vendorsList(int categoryId) =>
+      '/vendors_by_vendortype?category_id=$categoryId';
+  static String getSubCategories(int id) => '/categories?id=$id';
 }

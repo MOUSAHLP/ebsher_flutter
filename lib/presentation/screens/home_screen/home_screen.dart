@@ -1,5 +1,6 @@
 import 'package:absher/presentation/screens/home_screen/home_widget/build_card_categories.dart';
 import 'package:absher/presentation/screens/home_screen/home_widget/build_shimmer_widget.dart';
+import 'package:absher/presentation/widgets/ads_carousel_slider.dart';
 import 'package:absher/presentation/widgets/custom_button.dart';
 import 'package:absher/presentation/widgets/custom_error_screen.dart';
 import 'package:flutter/cupertino.dart';
@@ -14,7 +15,7 @@ import '../../resources/values_app.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import '../../resources/color_manager.dart';
-import 'home_widget/build_store_widget.dart';
+import 'home_widget/build_story_widget.dart';
 import 'home_widget/search_result_screen.dart';
 
 // ignore: must_be_immutable
@@ -52,71 +53,10 @@ class HomeScreen extends StatelessWidget {
                     child: Column(
                       children: [
                         // const SizedBox(height: SizeApp.s23),
-                        const BuildStoreWidget(),
+                        const BuildStoryWidget(),
                         const SizedBox(height: SizeApp.s23),
-                        CarouselSlider(
-                          options: CarouselOptions(
-                              viewportFraction: 1,
-                              enlargeCenterPage: true,
-                              autoPlay: true,
-                              height: SizeApp.s140,
-                              onPageChanged: (index, reason) {
-                                sl<HomeBloc>().add(SetIndex(
-                                    indexNew: index,
-                                    lisCategory: state.lisCategory,
-                                    lisAdvertisment: state.lisAdvertisment));
-                              }),
-                          items: state.lisAdvertisment.map((advertisment) {
-                            return Builder(
-                              builder: (BuildContext context) {
-                                return Container(
-                                    width: MediaQuery.of(context).size.width,
-                                    margin: const EdgeInsets.symmetric(
-                                        horizontal: SizeApp.s16),
-                                    decoration: BoxDecoration(
-                                      borderRadius:
-                                          BorderRadius.circular(RadiusApp.r27),
-                                    ),
-                                    child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(
-                                            RadiusApp.r27),
-                                        child: Image.network(
-                                          advertisment.photo!,
-                                          fit: BoxFit.fill,
-                                        )));
-                              },
-                            );
-                          }).toList(),
-                        ),
-                        const SizedBox(height: 10),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            for (int i = 0;
-                                i < state.lisAdvertisment.length;
-                                i++)
-                              context.read<HomeBloc>().index == i
-                                  ? Container(
-                                      height: SizeApp.s14,
-                                      width: SizeApp.s14,
-                                      margin:
-                                          const EdgeInsets.all(PaddingApp.p5),
-                                      decoration: const BoxDecoration(
-                                        color: Colors.white,
-                                        shape: BoxShape.circle,
-                                      ),
-                                    )
-                                  : Container(
-                                      height: SizeApp.s14,
-                                      width: SizeApp.s14,
-                                      margin:
-                                          const EdgeInsets.all(PaddingApp.p5),
-                                      decoration: BoxDecoration(
-                                        border: Border.all(color: Colors.white),
-                                        shape: BoxShape.circle,
-                                      ),
-                                    )
-                          ],
+                        AdsCarouselSlider(
+                          ads: state.lisAdvertisment,
                         ),
                         const SizedBox(height: SizeApp.s16),
                         InkWell(
@@ -166,7 +106,6 @@ class HomeScreen extends StatelessWidget {
                             ),
                           ),
                         )
-                        ////////////
                       ],
                     ),
                   ),

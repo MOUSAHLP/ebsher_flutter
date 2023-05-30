@@ -35,7 +35,7 @@ class SignInConfirmationScreen extends StatelessWidget {
             ErrorDialog.openDialog(context, state.error);
           }
           if (state is LoginConfirmed) {
-            AppRouter.pushAndRemoveAllStack(context,  BasicScreen());
+            AppRouter.pushAndRemoveAllStack(context, BasicScreen());
           }
         },
         child: _SignInScreen());
@@ -46,6 +46,7 @@ class _SignInScreen extends StatelessWidget {
   _SignInScreen({Key? key}) : super(key: key);
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

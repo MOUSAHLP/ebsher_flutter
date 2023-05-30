@@ -42,4 +42,9 @@ class IconsManager {
   static const String iconNoResult = "$iconPath/noResult.json";
   static const String iconNoInternet = "$iconPath/noInternet.json";
   static const String iconNoDate = "$iconPath/noData.svg";
+  static const String iconLocation = "$iconPath/location_icon.svg";
+  static const String iconPhone = "$iconPath/phone_icon.svg";
+  static const String iconFavoriteFilled = "$iconPath/heart_filled.svg";
+  static const String iconFavoriteOutline = "$iconPath/heart_outline.svg";
+  static const String iconFilter = "$iconPath/filter_icon.svg";
 }

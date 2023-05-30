@@ -37,5 +37,7 @@
     "daysAgo": "منذ {number} ايام",
     "daysAgoPost": "منذ {number} ايام",
     "lastWeek": "منذ اسبوع",
-    "oneMinuteAgo": "منذ دقيقة"
+    "oneMinuteAgo": "منذ دقيقة",
+    "address":"العنوان",
+    "phone":"رقم الهاتف"
   }

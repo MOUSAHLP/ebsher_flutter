@@ -77,7 +77,10 @@
     "language":"Language",
     "about":"About the application",
     "privacy":"Privacy policy",
-    "logOut":"Log out"
+    "logOut":"Log out",
+    "address":"Address",
+    "phone":"Phone number"
+
 
 
 }

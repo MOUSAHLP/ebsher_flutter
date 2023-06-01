@@ -2,7 +2,7 @@ import 'package:absher/core/app_router/app_router.dart';
 import 'package:absher/presentation/resources/color_manager.dart';
 import 'package:absher/presentation/resources/font_app.dart';
 import 'package:absher/presentation/resources/style_app.dart';
-import 'package:absher/presentation/screens/vendor_details_screen/vendors_details_screen.dart';
+import 'package:absher/presentation/screens/vendor_details_screen/vendor_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../../../core/localization_string.dart';
@@ -349,4 +349,39 @@ class RectangleCard extends StatelessWidget {
 //       ],
 //     );
 //   }
+// }
+
+// class RPSCustomPainter extends CustomPainter{
+//
+//   @override
+//   void paint(Canvas canvas, Size size) {
+//
+//
+//
+//     Paint paint0 = Paint()
+//       ..color = const Color.fromARGB(255, 255, 255, 255)
+//       ..style = PaintingStyle.fill
+//       ..strokeWidth = 1.0;
+//
+//
+//     Path path0 = Path();
+//     path0.moveTo(size.width*0.0400000,size.height*0.2550000);
+//     path0.cubicTo(size.width*0.0400000,size.height*0.6262500,size.width*0.0400000,size.height*0.6262500,size.width*0.0400000,size.height*0.7500000);
+//     path0.cubicTo(size.width*0.0287500,size.height*1.0175000,size.width*0.2062500,size.height*1.0075000,size.width*0.2950000,size.height);
+//     path0.cubicTo(size.width*0.4575000,size.height*0.9387500,size.width*0.7425000,size.height*0.7362500,size.width*0.8450000,size.height*0.6550000);
+//     path0.cubicTo(size.width*0.9462500,size.height*0.5900000,size.width*1.1387500,size.height*0.5100000,size.width*0.8500000,size.height*0.3550000);
+//     path0.cubicTo(size.width*0.7287500,size.height*0.2587500,size.width*0.4762500,size.height*0.0762500,size.width*0.3050000,size.height*0.0100000);
+//     path0.cubicTo(size.width*0.1787500,size.height*0.0012500,size.width*0.0237500,size.height*-0.0337500,size.width*0.0400000,size.height*0.2550000);
+//     path0.close();
+//
+//     canvas.drawPath(path0, paint0);
+//
+//
+//   }
+//
+//   @override
+//   bool shouldRepaint(covariant CustomPainter oldDelegate) {
+//     return true;
+//   }
+//
 // }

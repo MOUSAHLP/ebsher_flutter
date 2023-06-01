@@ -15,6 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:overlay_support/overlay_support.dart';
 
 import 'bloc/authentication_bloc/authertication_bloc.dart';
@@ -53,67 +54,73 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-            create: (BuildContext context) => sl<AuthenticationBloc>()),
-        BlocProvider(
-          create: (BuildContext context) => sl<SignUpBloc>(),
-          lazy: false,
-        ),
-        BlocProvider(
-          create: (BuildContext context) => sl<LoginBloc>(),
-          lazy: false,
-        ),
-        BlocProvider(
-          create: (BuildContext context) => sl<HomeBloc>(),
-        ),
-        BlocProvider(
-          create: (BuildContext context) => sl<SearchBloc>(),
-        ),
-      ],
-      child: OverlaySupport.global(
-        child: GestureDetector(
-          onTap: () {
-            print('Tapped');
-            final FocusScopeNode currentFocus = FocusScope.of(context);
-            if (!currentFocus.hasPrimaryFocus &&
-                currentFocus.focusedChild != null) {
-              currentFocus.focusedChild?.unfocus();
-              currentFocus.unfocus();
-            }
-          },
-          child: MaterialApp(
-            title: 'أبشر',
-            locale: Locale('ar'),
-            supportedLocales: AppLocalizations.supportedLocales,
-            localizationsDelegates: const [
-              AppLocalizations.delegate,
-              GlobalMaterialLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-            ],
-            theme: ThemeData(
-              primarySwatch: Colors.blue,
+    return ScreenUtilInit(
+      minTextAdapt: true,
+      designSize: const Size(100, 100),
+      builder: (context, ctx) {
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider(
+                create: (BuildContext context) => sl<AuthenticationBloc>()),
+            BlocProvider(
+              create: (BuildContext context) => sl<SignUpBloc>(),
+              lazy: false,
             ),
-            home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
-              bloc: sl<AuthenticationBloc>()..add(AppStarted()),
-              builder: (context, state) {
-                if (state is AuthenticationAuthenticated) {
-                  return BasicScreen();
+            BlocProvider(
+              create: (BuildContext context) => sl<LoginBloc>(),
+              lazy: false,
+            ),
+            BlocProvider(
+              create: (BuildContext context) => sl<HomeBloc>(),
+            ),
+            BlocProvider(
+              create: (BuildContext context) => sl<SearchBloc>(),
+            ),
+          ],
+          child: OverlaySupport.global(
+            child: GestureDetector(
+              onTap: () {
+                print('Tapped');
+                final FocusScopeNode currentFocus = FocusScope.of(context);
+                if (!currentFocus.hasPrimaryFocus &&
+                    currentFocus.focusedChild != null) {
+                  currentFocus.focusedChild?.unfocus();
+                  currentFocus.unfocus();
                 }
-                if (state is AuthenticationUnauthenticated) {
-                  return const OnBoardingScreen();
-                }
-                if (state is AuthenticationLoggedOut)
-                  return const AccountScreen();
-                return const SplashScreen();
               },
+              child: MaterialApp(
+                title: 'أبشر',
+                locale: Locale('ar'),
+                supportedLocales: AppLocalizations.supportedLocales,
+                localizationsDelegates: const [
+                  AppLocalizations.delegate,
+                  GlobalMaterialLocalizations.delegate,
+                  GlobalCupertinoLocalizations.delegate,
+                  GlobalWidgetsLocalizations.delegate,
+                ],
+                theme: ThemeData(
+                  primarySwatch: Colors.blue,
+                ),
+                home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                  bloc: sl<AuthenticationBloc>()..add(AppStarted()),
+                  builder: (context, state) {
+                    if (state is AuthenticationAuthenticated) {
+                      return BasicScreen();
+                    }
+                    if (state is AuthenticationUnauthenticated) {
+                      return const OnBoardingScreen();
+                    }
+                    if (state is AuthenticationLoggedOut)
+                      return const AccountScreen();
+                    return const SplashScreen();
+                  },
+                ),
+                // home: const SplashScreen(),
+              ),
             ),
-            // home: const SplashScreen(),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

@@ -18,6 +18,7 @@ class ColorManager {
   static const Color darkRed = Color(0xFFE6473D);
   static const Color shadowGrey = Color(0xFF707070);
   static const Color labelGrey = Color(0xFFB3B3B3);
+  static const Color lightGrey = Color(0xFFECEDEE);
   static const List<BoxShadow> boxShadow = [
     BoxShadow(
       color: Colors.black45,

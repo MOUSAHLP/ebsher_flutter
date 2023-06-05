@@ -21,6 +21,7 @@ class ImageManager {
   static const String test = "$imagePath/test.png";
   static const String test1 = "$imagePath/test1.png";
   static const String profile = "$imagePath/profile.png";
+  static const String locationMap = "$imagePath/locationMap.png";
 }
 
 class IconsManager {
@@ -47,4 +48,7 @@ class IconsManager {
   static const String iconFavoriteFilled = "$iconPath/heart_filled.svg";
   static const String iconFavoriteOutline = "$iconPath/heart_outline.svg";
   static const String iconFilter = "$iconPath/filter_icon.svg";
+  static const String iconLeftArrow = "$iconPath/leftArrow.svg";
+  static const String iconRightArrow = "$iconPath/rightArrow.svg";
+
 }

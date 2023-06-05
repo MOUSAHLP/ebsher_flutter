@@ -8,6 +8,9 @@ import 'package:absher/translations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import '../../bloc/bottom_bloc/bottom_bloc.dart';
+import '../../bloc/bottom_bloc/bottom_event.dart';
+import '../../core/services/services_locator.dart';
 import '../resources/color_manager.dart';
 import '../resources/style_app.dart';
 import '../screens/favorites_screen/favorites_screen.dart';
@@ -101,9 +104,8 @@ class CustomAppDrawer extends StatelessWidget {
                             AppLocalizations.of(context)!.favorite,
                             IconsManager.iconStar,
                             () {
-
-                              AppRouter.push(context, FavoritesScreen());
-
+                              sl<BottomBloc>().add(NewBottomChange(1));
+                              AppRouter.pop(context);
                             }),
                         buildElevatedButton(
                             AppLocalizations.of(context)!.language,

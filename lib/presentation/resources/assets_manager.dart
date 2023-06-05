@@ -24,6 +24,7 @@ class ImageManager {
 
   static const String facebookLogo = "$imagePath/facebook_logo.png";
   static const String categoryCoverTest = "$imagePath/test_category_cover.png";
+  static const String locationMap = "$imagePath/locationMap.png";
 }
 
 class IconsManager {
@@ -50,6 +51,9 @@ class IconsManager {
   static const String iconFavoriteFilled = "$iconPath/heart_filled.svg";
   static const String iconFavoriteOutline = "$iconPath/heart_outline.svg";
   static const String iconFilter = "$iconPath/filter_icon.svg";
+  static const String iconLeftArrow = "$iconPath/leftArrow.svg";
+  static const String iconRightArrow = "$iconPath/rightArrow.svg";
+
 
   static const String iconDogs = "$iconPath/dogs_icon.svg";
   static const String iconEmail = "$iconPath/email_icon.svg";

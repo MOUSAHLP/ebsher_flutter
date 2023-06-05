@@ -17,8 +17,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:overlay_support/overlay_support.dart';
-
 import 'bloc/authentication_bloc/authertication_bloc.dart';
+import 'bloc/bottom_bloc/bottom_bloc.dart';
 import 'bloc/home_bloc/home_bloc.dart';
 import 'bloc/login_bloc/login_bloc.dart';
 import 'bloc/search_bloc/search_bloc.dart';
@@ -75,6 +75,9 @@ class _MyAppState extends State<MyApp> {
             ),
             BlocProvider(
               create: (BuildContext context) => sl<SearchBloc>(),
+            ),
+            BlocProvider(
+              create: (BuildContext context) => sl<BottomBloc>(),
             ),
           ],
           child: OverlaySupport.global(

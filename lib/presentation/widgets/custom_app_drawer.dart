@@ -1,14 +1,19 @@
 import 'dart:ui';
 
 import 'package:absher/bloc/authentication_bloc/authertication_bloc.dart';
+import 'package:absher/core/app_router/app_router.dart';
 import 'package:absher/presentation/resources/assets_manager.dart';
 import 'package:absher/presentation/resources/values_app.dart';
 import 'package:absher/translations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import '../../bloc/bottom_bloc/bottom_bloc.dart';
+import '../../bloc/bottom_bloc/bottom_event.dart';
+import '../../core/services/services_locator.dart';
 import '../resources/color_manager.dart';
 import '../resources/style_app.dart';
+import '../screens/favorites_screen/favorites_screen.dart';
 import 'dialogs/logout_confirmation_dialog.dart';
 
 class CustomAppDrawer extends StatelessWidget {
@@ -98,7 +103,10 @@ class CustomAppDrawer extends StatelessWidget {
                         buildElevatedButton(
                             AppLocalizations.of(context)!.favorite,
                             IconsManager.iconStar,
-                            () {}),
+                            () {
+                              sl<BottomBloc>().add(NewBottomChange(1));
+                              AppRouter.pop(context);
+                            }),
                         buildElevatedButton(
                             AppLocalizations.of(context)!.language,
                             IconsManager.iconWorld,
@@ -143,7 +151,9 @@ class CustomAppDrawer extends StatelessWidget {
 
   Widget buildElevatedButton(String title, String image, Function fun) {
     return ElevatedButton(
-      onPressed: () {},
+      onPressed:(){
+        fun();
+      },
       style: ButtonStyle(
         elevation: MaterialStateProperty.all(0),
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(

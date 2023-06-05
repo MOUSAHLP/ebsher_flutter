@@ -29,6 +29,7 @@ class VideoScreen extends StatefulWidget {
   final String videoUrl;
   final AnimationController animationController;
   final bool isCurrentStory;
+
   @override
   State<VideoScreen> createState() => _VideoScreenState();
 }

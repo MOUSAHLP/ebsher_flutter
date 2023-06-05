@@ -29,7 +29,6 @@ class VendorsScreen extends StatelessWidget {
     return BlocProvider<VendorsListBloc>(
       create: (BuildContext context) => sl<VendorsListBloc>()
         ..add(GetVendorsList(categoryId)
-            // SubCategoriesBloc()..add(SubCategories(categoryId),
             ),
       // lazy: false,
       child: VendorsScreenBody(

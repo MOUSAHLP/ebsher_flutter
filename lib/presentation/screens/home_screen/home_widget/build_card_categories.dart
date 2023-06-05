@@ -1,62 +1,191 @@
 import 'package:absher/presentation/resources/color_manager.dart';
 import 'package:absher/presentation/resources/style_app.dart';
 import 'package:absher/presentation/resources/values_app.dart';
+import 'package:absher/presentation/screens/categories_screen/categories_screen.dart';
 import 'package:absher/presentation/screens/sub_categories_screen/sub_categories_screen.dart';
 import 'package:absher/presentation/screens/vendors_screen/vendors_screen.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/app_router/app_router.dart';
 import '../../../../core/localization_string.dart';
 import '../../../../models/category_response.dart';
 import '../../../widgets/accessories/cached_image.dart';
 
-class BuildCardCategories extends StatelessWidget {
+class BuildCardCategories extends StatefulWidget {
   final CategoyResponse category;
   final bool isBlue;
+  final bool isEnd;
 
   const BuildCardCategories(
-      {super.key, required this.category, required this.isBlue});
+      {super.key,
+      required this.category,
+      required this.isBlue,
+      required this.isEnd});
+
+  @override
+  State<BuildCardCategories> createState() => _BuildCardCategoriesState();
+}
+
+class _BuildCardCategoriesState extends State<BuildCardCategories> {
+  double size = 13.2.h;
+  bool pressed = false;
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        AppRouter.push(
-          context,
-          VendorsScreen(
-              title: LocalixationString(context, category.name) ?? "",
-              categoryId: category.id!),
-        );
-      },
-      child: Padding(
-        padding: const EdgeInsets.symmetric(
-            horizontal: PaddingApp.p14, vertical: PaddingApp.p8),
-        child: Container(
-          decoration: BoxDecoration(
-              color: !isBlue
-                  ? ColorManager.lightYellowColor
-                  : ColorManager.lightBlueColor,
-              borderRadius: BorderRadius.circular(RadiusApp.r8)),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              CachedImage(
-                  imageUrl: category.logo!,
-                  width: SizeApp.s56,
-                  height: SizeApp.s56),
-              const SizedBox(height: 2),
-              Text(
-                LocalixationString(context, category.name) ?? "",
-                style:
-                    getBoldStyle(color: ColorManager.whiteColor, fontSize: 14),
-                textAlign: TextAlign.center,
-              )
-            ],
+    return Row(
+      mainAxisAlignment:
+          widget.isEnd ? MainAxisAlignment.end : MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        GestureDetector(
+          onTap: () {
+            setState(() {
+              // size = size + 20;
+              pressed = true;
+            });
+            Future.delayed(Duration(milliseconds: 300)).then((value) {
+              AppRouter.push(
+                context,
+                VendorsScreen(
+                    title:
+                        LocalixationString(context, widget.category.name) ?? "",
+                    categoryId: widget.category.id!),
+              );
+              setState(() {
+                pressed = false;
+                // size = 13.2.h;
+              });
+            });
+          },
+          child: AnimatedContainer(
+            height: !pressed ? 13.2.h : 13.2.h + 2.h,
+            width: !pressed ? 13.2.h : 13.2.h + 2.h,
+            decoration: BoxDecoration(
+                color: pressed
+                    ? Colors.grey
+                    : !widget.isBlue
+                        ? ColorManager.lightYellowColor
+                        : ColorManager.lightBlueColor,
+                borderRadius: BorderRadius.circular(RadiusApp.r8)),
+            duration: Duration(milliseconds: 300),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(2.0),
+                  child: CachedImage(
+                    imageUrl: widget.category.logo!,
+                    width: 6.6.h,
+                    height: 6.6.h,
+                  ),
+                ),
+                SizedBox(
+                  height: 2,
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 4),
+                  child: Text(
+                    LocalixationString(context, widget.category.name) ?? "",
+                    style: getBoldStyle(
+                            color: ColorManager.whiteColor, fontSize: 12)
+                        ?.copyWith(height: 1),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.center,
+                  ),
+                )
+              ],
+            ),
           ),
         ),
-      ),
+      ],
+    );
+  }
+}
+
+class MoreCategoryCard extends StatefulWidget {
+  final bool isBlue;
+  final bool isEnd;
+
+  const MoreCategoryCard(
+      {super.key, required this.isBlue, required this.isEnd});
+
+  @override
+  State<MoreCategoryCard> createState() => _MoreCategoryCardState();
+}
+
+class _MoreCategoryCardState extends State<MoreCategoryCard> {
+  double size = 13.2.h;
+  bool pressed = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment:
+          widget.isEnd ? MainAxisAlignment.end : MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        GestureDetector(
+          onTap: () {
+            setState(() {
+              pressed = true;
+            });
+            Future.delayed(Duration(milliseconds: 300)).then((value) {
+              AppRouter.push(
+                context,
+                CategoriesScreen(),
+              );
+              setState(() {
+                pressed = false;
+              });
+            });
+          },
+          child: AnimatedContainer(
+            height: !pressed ? 13.2.h : 13.2.h + 2.h,
+            width: !pressed ? 13.2.h : 13.2.h + 2.h,
+            decoration: BoxDecoration(
+                color: pressed
+                    ? Colors.grey
+                    : !widget.isBlue
+                        ? ColorManager.lightYellowColor
+                        : ColorManager.lightBlueColor,
+                borderRadius: BorderRadius.circular(RadiusApp.r8)),
+            duration: Duration(milliseconds: 300),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(2.0),
+                  child: Icon(
+                    Icons.more_horiz,
+                    size: 6.6.h,
+                    color: Colors.white,
+                  ),
+                ),
+                SizedBox(
+                  height: 2,
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 4),
+                  child: Text(
+                    'المزيد',
+                    style: getBoldStyle(
+                            color: ColorManager.whiteColor, fontSize: 12)
+                        ?.copyWith(height: 1),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.center,
+                  ),
+                )
+              ],
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

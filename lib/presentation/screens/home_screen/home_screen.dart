@@ -5,6 +5,7 @@ import 'package:absher/presentation/widgets/custom_button.dart';
 import 'package:absher/presentation/widgets/custom_error_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 import '../../../bloc/home_bloc/home_bloc.dart';
 import '../../../bloc/home_bloc/home_event.dart';
@@ -49,65 +50,172 @@ class HomeScreen extends StatelessWidget {
                     over.disallowIndicator();
                     return true;
                   },
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        // const SizedBox(height: SizeApp.s23),
-                        const BuildStoryWidget(),
-                        const SizedBox(height: SizeApp.s23),
-                        AdsCarouselSlider(
-                          ads: state.lisAdvertisment,
-                        ),
-                        const SizedBox(height: SizeApp.s16),
-                        InkWell(
-                          onTap: () {
-                            showSearch(
-                                context: context,
-                                delegate:
-                                    CustomSearchDelegate(state.lisCategory));
-                          },
-                          child: Padding(
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.symmetric(vertical: 2.65.h),
+                        child: const BuildStoryWidget(),
+                      ),
+                      AdsCarouselSlider(
+                        ads: state.lisAdvertisment,
+                      ),
+                      SizedBox(height: 1.7.h),
+                      InkWell(
+                        onTap: () {
+                          showSearch(
+                              context: context,
+                              delegate:
+                                  CustomSearchDelegate(state.lisCategory));
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: PaddingApp.p55),
+                          child: Container(
                             padding: const EdgeInsets.symmetric(
-                                horizontal: PaddingApp.p55),
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: SizeApp.s10),
-                              height: 45,
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius:
-                                      BorderRadius.circular(RadiusApp.r50)),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: const [
-                                  Icon(Icons.search),
+                                horizontal: SizeApp.s10),
+                            height: 3.5.h,
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius:
+                                    BorderRadius.circular(RadiusApp.r50)),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: const [
+                                Icon(
+                                  Icons.search,
+                                  color: ColorManager.primaryColor,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 1.3.h),
+                      Expanded(
+                        child: Column(
+                          // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Expanded(
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                    width: 1.sw,
+                                    child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Expanded(
+                                          child: BuildCardCategories(
+                                            category: state.lisCategory[0],
+                                            isBlue: true,
+                                            isEnd: true,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 9.2.w,
+                                        ),
+                                        Expanded(
+                                          child: BuildCardCategories(
+                                            category: state.lisCategory[1],
+                                            isBlue: false,
+                                            isEnd: false,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
                                 ],
                               ),
                             ),
-                          ),
-                        ),
-                        const SizedBox(height: SizeApp.s16),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: SizeApp.s16),
-                          child: GridView.builder(
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemCount: state.lisCategory.length,
-                            shrinkWrap: true,
-                            itemBuilder: (context, index) {
-                              if (index.isOdd) isBlue = !isBlue;
-                              return BuildCardCategories(
-                                  category: state.lisCategory[index],
-                                  isBlue: isBlue);
-                            },
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
+                            Expanded(
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                    width: 1.sw,
+                                    child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Expanded(
+                                          child: BuildCardCategories(
+                                            category: state.lisCategory[2],
+                                            isBlue: true,
+                                            isEnd: true,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 9.2.w,
+                                        ),
+                                        Expanded(
+                                          child: BuildCardCategories(
+                                            category: state.lisCategory[3],
+                                            isBlue: false,
+                                            isEnd: false,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                        )
-                      ],
-                    ),
+                            Expanded(
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                    width: 1.sw,
+                                    child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Expanded(
+                                          child: BuildCardCategories(
+                                            category: state.lisCategory[4],
+                                            isBlue: true,
+                                            isEnd: true,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 9.2.w,
+                                        ),
+                                        Expanded(
+                                          child: MoreCategoryCard(
+                                            isBlue: false,
+                                            isEnd: false,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      // GridView.builder(
+                      //   physics: const NeverScrollableScrollPhysics(),
+                      //   itemCount: 6,
+                      //   shrinkWrap: true,
+                      //   itemBuilder: (context, index) {
+                      //     if (index.isOdd) isBlue = !isBlue;
+                      //     return BuildCardCategories(
+                      //         category: state.lisCategory[index],
+                      //         isBlue: isBlue);
+                      //   },
+                      //   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      //       crossAxisCount: 2,
+                      //       mainAxisExtent: 13.2.h,
+                      //       childAspectRatio: 1),
+                      // )
+                    ],
                   ),
                 ),
               );

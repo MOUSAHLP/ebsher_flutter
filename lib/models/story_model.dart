@@ -48,7 +48,7 @@ List<StoryModelDto> dummyStories = [
         // video:
         //     'https://vod-progressive.akamaized.net/exp=1685011400~acl=%2Fvimeo-prod-skyfire-std-us%2F01%2F4710%2F7%2F198553511%2F668751288.mp4~hmac=f2851ef3406c7e43ad12729a6ae9ff2e0c9a9d2fcceb4c42214a4717131f9b5c/vimeo-prod-skyfire-std-us/01/4710/7/198553511/668751288.mp4?download=1&filename=soap_bubble_-_7101+%28360p%29.mp4',
         image:
-            'https://pixabay.com/get/g5c339fca2117fdcedda989d5e39c5969c60b2a329d46c556b4b28c6cfcc99e7ec3ae5441452acc0a17bb811f6ddd0c5f7d362a153ea6b0d62ed4f9e671a0463e776aaa3e28ce0100a8d76903ea37c160_1280.jpg?attachment=',
+            'https://pixabay.com/get/g0b574176d9e0dfdf6d3230efe9ebad87c1bf1dedbb3d10b9caea96236526cc7ae319c86d9e80fbdeaa0b77063da6a84fe526308eb9b4f7919c9425667c0d5df314d10c3915b8215ed1b385195ab0b785_1280.jpg?attachment=',
         description: 'تعليق على الستوري',
         creationTime: DateTime.now().subtract(Duration(days: 3)),
         totalViewsCount: 29,

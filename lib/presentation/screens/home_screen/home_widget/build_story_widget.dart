@@ -6,6 +6,7 @@ import 'package:absher/presentation/widgets/accessories/cached_image.dart';
 import 'package:absher/presentation/widgets/accessories/video_thumb_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../resources/values_app.dart';
 import '../../../widgets/animated_container.dart';
@@ -17,7 +18,7 @@ class BuildStoryWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 95,
+      height: 8.9.h,
       child: ListView.builder(
         physics: const BouncingScrollPhysics(),
         itemCount: context.read<HomeBloc>().stories!.length,
@@ -29,45 +30,34 @@ class BuildStoryWidget extends StatelessWidget {
               stories: context.read<HomeBloc>().stories!,
             ),
             cardItem: Padding(
-              padding: const EdgeInsets.all(PaddingApp.p8),
+              padding: const EdgeInsets.symmetric(horizontal: 4),
               child: Container(
-                height: 70,
-                width: 70,
+                height: 7.7.h,
+                width: 7.7.h,
                 decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    gradient: LinearGradient(
-                      begin: Alignment.centerLeft,
-                      end: Alignment.centerRight,
-                      colors: <Color>[
-                        ColorManager.circleStartColor,
-                        ColorManager.circleEndColor,
-                      ],
-                    )),
+                  shape: BoxShape.circle,
+                  gradient: LinearGradient(
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight,
+                    colors: <Color>[
+                      ColorManager.circleStartColor,
+                      ColorManager.circleEndColor,
+                    ],
+                  ),
+                ),
                 child: Center(
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(RadiusApp.r50),
-                    child: context
-                                .read<HomeBloc>()
-                                .stories![index]
-                                .stories![0]
-                                .video ==
-                            null
-                        ? CachedImage(
-                            height: 60,
-                            width: 60,
-                            imageUrl: context
-                                .read<HomeBloc>()
-                                .stories![index]
-                                .stories![0]
-                                .image,
-                            fit: BoxFit.cover,
-                          )
-                        : VideoThumbImage(
-                            videoUrl: context
-                                .read<HomeBloc>()
-                                .stories![index]
-                                .stories![0]
-                                .video!),
+                    child: CachedImage(
+                      height: 6.h,
+                      width: 6.h,
+                      imageUrl: context
+                          .read<HomeBloc>()
+                          .stories![index]
+                          .stories![0]
+                          .image,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
               ),

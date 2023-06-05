@@ -31,8 +31,8 @@ class FavoritesScreenBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: CustomAppBackGround(
+    return Expanded(
+      child: CustomAppBackGround(
           child: SafeArea(
               child: Stack(
         children: [
@@ -51,7 +51,7 @@ class FavoritesScreenBody extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const SizedBox(height: 70),
+                    const SizedBox(height: 10),
                     state.vendorsList.isNotEmpty
                         ? GridView.builder(
                             physics: const NeverScrollableScrollPhysics(),
@@ -76,13 +76,13 @@ class FavoritesScreenBody extends StatelessWidget {
               return const Text("");
             }
           }),
-          Stack(
-            children: [
-              CustomAppBarScreens(
-                title: AppLocalizations.of(context)!.favorite,
-              ),
-            ],
-          ),
+//          Stack(
+//            children: [
+//              CustomAppBarScreens(
+//                title: AppLocalizations.of(context)!.favorite,
+//              ),
+//            ],
+//          ),
         ],
       ))),
     );

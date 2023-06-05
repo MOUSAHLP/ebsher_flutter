@@ -1,7 +1,13 @@
+import 'package:absher/bloc/bottom_bloc/bottom_event.dart';
 import 'package:absher/presentation/resources/color_manager.dart';
 import 'package:absher/presentation/widgets/custom_app_bottom_navigation.dart';
 import 'package:absher/presentation/widgets/dialogs/will_pop_scope_handler.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../bloc/bottom_bloc/bottom_bloc.dart';
+import '../../../bloc/bottom_bloc/bottom_state.dart';
+import '../../../core/services/services_locator.dart';
 import '../../widgets/custom_app_drawer.dart';
+import '../favorites_screen/favorites_screen.dart';
 import 'home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -10,52 +16,72 @@ import '../../widgets/custom_app_background.dart';
 import '../../widgets/custom_app_bar.dart';
 
 class BasicScreen extends StatelessWidget {
-   BasicScreen({super.key});
+  BasicScreen({super.key});
 
   static final List<Widget> _screenOptions = <Widget>[
     HomeScreen(),
-    Container(),
-    Container(),
-    Container(),
+    FavoritesScreen(),
+    Container(
+      height: 500,
+      color: Colors.yellow,
+    ),
+    Container(
+      height: 500,
+      color: Colors.green,
+    ),
+    Container(
+      height: 500,
+      color: Colors.green,
+    ),
   ];
-  final GlobalKey<ScaffoldState> _scaffoldKey =  GlobalKey<ScaffoldState>();
-
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: ()  async{
-        if(_scaffoldKey.currentState?.isDrawerOpen==true){
-          _scaffoldKey.currentState?.closeDrawer();
-        }else
-       { WillPopScopeHandler.handle(context);}
+        onWillPop: () async {
+          if (_scaffoldKey.currentState?.isDrawerOpen == true) {
+            _scaffoldKey.currentState?.closeDrawer();
+          } else {
+            WillPopScopeHandler.handle(context);
+          }
 
-        return false;
+          return false;
         },
-      child: Scaffold(
-        key: _scaffoldKey,
-        drawerEnableOpenDragGesture: true,
-        backgroundColor: ColorManager.backgroundStartColor,
-        body: CustomAppBackGround(
-          child: SafeArea(
-            child: Column(
-              children: [
-                CustomAppBar(_scaffoldKey,),
-                _screenOptions.elementAt(0),
-                const CustomAppBottomNavigation(),
-              ],
-            ),
-          ),
-        ),
-        floatingActionButton: FloatingActionButton(
-            backgroundColor: ColorManager.whiteColor,
-            onPressed: () {},
-            child: SvgPicture.asset(
-              IconsManager.iconHome,
-            )),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        drawer:const CustomAppDrawer(),
-      ),
-    );
+        child: BlocBuilder<BottomBloc, BottomState>(
+            builder: (context, state) {
+              if (state is NewButtom) {
+                return Scaffold(
+                  key: _scaffoldKey,
+                  drawerEnableOpenDragGesture: true,
+                  backgroundColor: ColorManager.backgroundStartColor,
+                  body: CustomAppBackGround(
+                    child: SafeArea(
+                      child: Column(
+                        children: [
+                          CustomAppBar(
+                            _scaffoldKey,
+                          ),
+                          _screenOptions[state.index],
+                          const CustomAppBottomNavigation(),
+                        ],
+                      ),
+                    ),
+                  ),
+                  floatingActionButton: FloatingActionButton(
+                      backgroundColor: ColorManager.whiteColor,
+                      onPressed: () {
+                        sl<BottomBloc>().add(NewBottomChange(0));
+                      },
+                      child: SvgPicture.asset(
+                        IconsManager.iconHome,
+                        color:  state.index==0? ColorManager.softYellow: ColorManager.lightBlueColor ,
+                      )),
+                  floatingActionButtonLocation:
+                      FloatingActionButtonLocation.centerFloat,
+                  drawer: const CustomAppDrawer(),
+                );
+              } else
+                return Text("noooo");
+            }));
   }
-
 }

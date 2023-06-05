@@ -61,7 +61,6 @@ class VendorModel {
   });
 
   factory VendorModel.fromJson(Map<String, dynamic> json) {
-    print("========from");
     return VendorModel(
       id: json["id"],
       name: localizationStringModel.fromJson(json, "name"),

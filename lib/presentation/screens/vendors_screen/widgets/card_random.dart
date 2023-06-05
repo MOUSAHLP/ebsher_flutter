@@ -196,22 +196,12 @@ class InfoCardWithIcon extends StatelessWidget {
           svgAsset,
           height: 14,
         ),
-        SizedBox(
+        const SizedBox(
           width: 8,
         ),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              label!,
-              style: getBoldStyle(
-                color: ColorManager.labelGrey,
-                fontSize: 8,
-              )?.copyWith(height: 1),
-            ),
-            SizedBox(
-              height: 2,
-            ),
             Text(
               value!,
               style: getBoldStyle(

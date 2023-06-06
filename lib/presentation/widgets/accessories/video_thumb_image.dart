@@ -1,5 +1,6 @@
 import 'package:absher/core/extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:video_player/video_player.dart';
 
@@ -46,8 +47,8 @@ class _VideoThumbImageState extends State<VideoThumbImage> {
     }
     return _controller.value.isInitialized
         ? SizedBox(
-            height: 60,
-            width: 60,
+            height: 6.h,
+            width: 6.h,
             child: VideoPlayer(_controller),
           )
         : const CircularProgressIndicator(

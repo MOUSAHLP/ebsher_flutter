@@ -5,7 +5,9 @@ import '../../../models/login_response.dart';
 
 class DataStore {
   DataStore._internal();
+
   static final DataStore _instance = DataStore._internal();
+
   static DataStore get instance => _instance;
 
   late Box<dynamic> box;
@@ -41,6 +43,7 @@ class DataStore {
   Future<void> setToken(String value) => box.put("token", value);
 
   Future<void> setUserInfo(LoginResponse value) => box.put("userInfo", value);
+
   LoginResponse? get userInfo {
     if (!box.containsKey("userInfo")) return null;
     return box.get("userInfo");

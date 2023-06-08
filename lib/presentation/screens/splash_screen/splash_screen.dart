@@ -1,6 +1,7 @@
 import 'package:absher/presentation/resources/assets_manager.dart';
 import 'package:absher/presentation/resources/color_manager.dart';
 import 'package:absher/presentation/widgets/custom_app_background.dart';
+import 'package:absher/translations.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
@@ -30,8 +31,8 @@ class SplashScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'جاري الاتصال',
-                      style: TextStyle(
+                      AppLocalizations.of(context)!.calling,
+                      style: const TextStyle(
                         color: ColorManager.softYellow,
                         fontSize: 14.0,
                       ),

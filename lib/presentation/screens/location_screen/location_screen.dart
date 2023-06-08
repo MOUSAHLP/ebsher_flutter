@@ -12,13 +12,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../../../bloc/location_bloc/location_bloc.dart';
+import '../../../core/localization_string.dart';
 import '../../../core/services/services_locator.dart';
-import '../../../models/vendors_near_model.dart';
 import '../../resources/assets_manager.dart';
 import '../../resources/color_manager.dart';
 import '../../resources/font_app.dart';
 import '../../resources/style_app.dart';
-
 import '../../widgets/custom_button.dart';
 import '../vendors_screen/vendors_screen.dart';
 
@@ -30,7 +29,7 @@ class LocationScreen extends StatelessWidget {
     return CustomAppBackGround(
       child: BlocProvider<LocationBloc>(
         create: (BuildContext context) =>
-            sl<LocationBloc>()..add(CurrentLocation()),
+        sl<LocationBloc>()..add(CurrentLocation()),
         child: const LocationScreenBody(),
       ),
     );
@@ -42,369 +41,260 @@ class LocationScreenBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<LocationBloc, LocationState>(builder: (context, state) {
-      if (state is CurrentLocationLoading) {
-        return const ShimmerLocationWidget();
-      } else if (state is CurrentLocationError) {
-        return CustomErrorScreen(
-          onTap: () {
-            sl<LocationBloc>().add(CurrentLocation());
-          },
-        );
-      } else {
-        return SafeArea(
-          child: Stack(
-            children: [
-              ClipRRect(
-                  borderRadius: BorderRadius.circular(15),
-                  child: CustomGoogleMapMarkerBuilder(
-                     customMarkers: state.myMark!,
-                      builder: (BuildContext contextMarker, Set<Marker>? markers) {
-                        if (markers == null) {
-                          return const Center(
-                              child: CircularProgressIndicator());
-                        }
-                        return GoogleMap(
-                          zoomControlsEnabled: false,
-                          markers: markers,
-                          mapType: MapType.normal,
-                          initialCameraPosition: CameraPosition(
-                            target: LatLng(state.latitude, state.longitude),
-                            zoom: 18,
-                          ),
-                          onMapCreated: (GoogleMapController controller) {
-                            context.read<LocationBloc>().mapController =
-                                controller;
-                            LatLng location =
+    return BlocBuilder<LocationBloc, LocationState>(
+        builder: (context, state) {
+          if (state is CurrentLocationLoading) {
+            return const ShimmerLocationWidget();
+          } else if (state is CurrentLocationError) {
+            return CustomErrorScreen(
+              onTap: () {
+                sl<LocationBloc>().add(CurrentLocation());
+              },
+            );
+          } else {
+            return SafeArea(
+              child: Stack(
+                children: [
+                  ClipRRect(
+                      borderRadius: BorderRadius.circular(15),
+                      child: CustomGoogleMapMarkerBuilder(
+                          customMarkers: state.myMark!,
+                          builder: ( context, Set<Marker>? markers) {
+                            return GoogleMap(
+                              zoomControlsEnabled: false,
+                              markers:  markers ?? Set<Marker>(),
+                              mapType: MapType.normal,
+                              initialCameraPosition: CameraPosition(
+                                target: LatLng(state.latitude, state.longitude),
+                                zoom: 18,
+                              ),
+                              onMapCreated: (GoogleMapController controller) {
+                                context.read<LocationBloc>().mapController =
+                                    controller;
+                                LatLng location =
                                 LatLng(state.latitude, state.longitude);
-                            controller.animateCamera(
-                                CameraUpdate.newLatLngZoom(location, 14));
-                          },
-
-                        );
-                      })),
-              Padding(
-                padding:
+                                controller.animateCamera(
+                                    CameraUpdate.newLatLngZoom(location, 14));
+                              },
+                            );
+                          })),
+                  Padding(
+                    padding:
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
-                child: Column(
-                  children: [
-                    AppBarWidget(),
-                    const SizedBox(height: 10),
-                    Container(
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(19)),
-                      height: 50,
-                      width: double.infinity,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                        child: Row(
-                          children: [
-                            GestureDetector(
-                                onTap: () {
-                                  context
-                                      .read<LocationBloc>()
-                                      .mapController
-                                      ?.animateCamera(
+                    child: Column(
+                      children: [
+                        AppBarWidget(),
+                        const SizedBox(height: 10),
+                        Container(
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(19)),
+                          height: 50,
+                          width: double.infinity,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                            child: Row(
+                              children: [
+                                GestureDetector(
+                                    onTap: () {
+                                      context
+                                          .read<LocationBloc>()
+                                          .mapController
+                                          ?.animateCamera(
                                           CameraUpdate.newLatLngZoom(
                                               LatLng(state.latitude,
                                                   state.longitude),
                                               16));
-                                },
-                                child: SvgPicture.asset(
-                                    IconsManager.iconLocation)),
-                            const SizedBox(width: 10),
-                            Text(
-                              'تحديد موقعك ',
-                              style: getBoldStyle(
-                                color: ColorManager.primaryColor,
-                                fontSize: FontSizeApp.s14,
-                              ),
-                            ),
-                            const Spacer(),
-                            GestureDetector(
-                                onTap: () {
-                                  showModalBottomSheet(
-                                      shape: const RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.vertical(
-                                          top: Radius.circular(56),
-                                        ),
-                                      ),
-                                      context: context,
-                                      builder: (BuildContext context1) {
-                                        return BlocBuilder<LocationBloc,
+                                    },
+                                    child: SvgPicture.asset(
+                                        IconsManager.iconLocation)),
+                                const SizedBox(width: 10),
+                                Text(
+                                  'تحديد موقعك ',
+                                  style: getBoldStyle(
+                                    color: ColorManager.primaryColor,
+                                    fontSize: FontSizeApp.s14,
+                                  ),
+                                ),
+                                const Spacer(),
+                                GestureDetector(
+                                    onTap: () {
+                                      showModalBottomSheet(
+                                          shape: const RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.vertical(
+                                              top: Radius.circular(56),
+                                            ),
+                                          ),
+                                          context: context,
+                                          builder: (BuildContext context1) {
+                                            return BlocBuilder<LocationBloc,
                                                 LocationState>(
-                                            bloc: context.read<LocationBloc>(),
-                                            builder: (contextBottom, state) {
-                                              return SingleChildScrollView(
-                                                child: Column(
-                                                  children: [
-                                                    Padding(
-                                                      padding: const EdgeInsets
+                                                bloc: context.read<LocationBloc>(),
+                                                builder: (contextBottom, state) {
+                                                  return SingleChildScrollView(
+                                                    child: Column(
+                                                      children: [
+                                                        Padding(
+                                                          padding: const EdgeInsets
                                                               .symmetric(
-                                                          vertical: 8.0),
-                                                      child: Center(
-                                                        child: Container(
-                                                          width: 50,
-                                                          height: 4,
-                                                          decoration: BoxDecoration(
-                                                              color: ColorManager
-                                                                  .labelGrey,
-                                                              borderRadius:
+                                                              vertical: 8.0),
+                                                          child: Center(
+                                                            child: Container(
+                                                              width: 50,
+                                                              height: 4,
+                                                              decoration: BoxDecoration(
+                                                                  color: ColorManager
+                                                                      .labelGrey,
+                                                                  borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          50)),
+                                                                      50)),
+                                                            ),
+                                                          ),
                                                         ),
-                                                      ),
-                                                    ),
-                                                    Padding(
-                                                      padding:
+                                                        Padding(
+                                                          padding:
                                                           const EdgeInsets.all(
                                                               32.0),
-                                                      child: Column(
-                                                        crossAxisAlignment:
+                                                          child: Column(
+                                                            crossAxisAlignment:
                                                             CrossAxisAlignment
                                                                 .start,
-                                                        children: [
-                                                          SizedBox(
-                                                            height: 200,
-                                                            child: ListView
-                                                                .builder(
-                                                              itemBuilder:
-                                                                  (context1,
+                                                            children: [
+                                                              SizedBox(
+                                                                height: 200,
+                                                                child: ListView
+                                                                    .builder(
+                                                                  itemBuilder:
+                                                                      (context1,
                                                                       index) {
-                                                                return GestureDetector(
+                                                                    return GestureDetector(
+                                                                      onTap: () {
+                                                                        context
+                                                                            .read<
+                                                                            LocationBloc>()
+                                                                            .add(checkIndex(
+                                                                            index));
+                                                                      },
+                                                                      child: FilterButton(
+                                                                          label:
+                                                                          LocalixationString(context,state
+                                                                              .vendorList[
+                                                                          index]
+                                                                              .name) ?? ""
+                                                                         ,
+                                                                          isSelected: state.vendorBinding.any((element) =>
+                                                                          element
+                                                                              .id ==
+                                                                              state
+                                                                                  .vendorList[index]
+                                                                                  .id)),
+                                                                    );
+                                                                  },
+                                                                  itemCount: state
+                                                                      .vendorList
+                                                                      .length,
+                                                                ),
+                                                              ),
+                                                              Padding(
+                                                                padding:
+                                                                const EdgeInsets
+                                                                    .all(8.0),
+                                                                child: CustomButton(
+                                                                  label: 'تطبيق',
+                                                                  fillColor:
+                                                                  ColorManager
+                                                                      .primaryColor,
                                                                   onTap: () {
                                                                     context
                                                                         .read<
-                                                                            LocationBloc>()
-                                                                        .add(checkIndex(
-                                                                            index));
-                                                                  },
-                                                                  child: FilterButton(
-                                                                      label: state
-                                                                          .vendorList[
-                                                                              index]
-                                                                          .name!,
-                                                                      isSelected: state.vendorBinding.any((element) =>
-                                                                          element
-                                                                              .id ==
-                                                                          state
-                                                                              .vendorList[index]
-                                                                              .id)),
-                                                                );
-                                                              },
-                                                              itemCount: state
-                                                                  .vendorList
-                                                                  .length,
-                                                            ),
-                                                          ),
-                                                          Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .all(8.0),
-                                                            child: CustomButton(
-                                                              label: 'تطبيق',
-                                                              fillColor:
-                                                                  ColorManager
-                                                                      .primaryColor,
-                                                              onTap: () {
-                                                                context
-                                                                    .read<
                                                                         LocationBloc>()
-                                                                    .add(
+                                                                        .add(
                                                                         (FilterVendors()));
-                                                                Navigator.pop(
-                                                                    context);
-                                                              },
-                                                            ),
-                                                          ),
-                                                          Padding(
-                                                            padding:
+                                                                    Navigator.pop(
+                                                                        context);
+                                                                  },
+                                                                ),
+                                                              ),
+                                                              Padding(
+                                                                padding:
                                                                 const EdgeInsets
-                                                                        .symmetric(
+                                                                    .symmetric(
                                                                     vertical:
-                                                                        8.0,
+                                                                    8.0,
                                                                     horizontal:
-                                                                        64),
-                                                            child: CustomButton(
-                                                              label: 'إلغاء',
-                                                              fillColor:
+                                                                    64),
+                                                                child: CustomButton(
+                                                                  label: 'إلغاء',
+                                                                  fillColor:
                                                                   ColorManager
                                                                       .primaryColor,
-                                                              isFilled: false,
-                                                              labelColor:
+                                                                  isFilled: false,
+                                                                  labelColor:
                                                                   ColorManager
                                                                       .primaryColor,
-                                                              onTap: () {
-                                                                Navigator.pop(
-                                                                    context);
-                                                              },
-                                                            ),
+                                                                  onTap: () {
+                                                                    Navigator.pop(
+                                                                        context);
+                                                                  },
+                                                                ),
+                                                              ),
+                                                            ],
                                                           ),
-                                                        ],
-                                                      ),
+                                                        ),
+                                                      ],
                                                     ),
-                                                  ],
-                                                ),
-                                              );
-                                            });
-                                      });
-                                },
-                                child:
+                                                  );
+                                                });
+                                          });
+                                    },
+                                    child:
                                     SvgPicture.asset(IconsManager.iconFilter))
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              state.index == -1
-                  ? const Text("")
-                  : Positioned(
-                      left: 10,
-                      right: 10,
-                      bottom: 15,
-                      child: Row(
-                        children: [
-                          ArrowButton(
-                              image: IconsManager.iconRightArrow,
-                              onTap: () {
-                                context
-                                    .read<LocationBloc>()
-                                    .add(IndexIncrement());
-                                context
-                                    .read<LocationBloc>()
-                                    .mapController
-                                    ?.animateCamera(CameraUpdate.newLatLngZoom(
-                                        LatLng(
-                                            double.parse(state
-                                                .vendorSelected[state.index]
-                                                .latitude!),
-                                            double.parse(state
-                                                .vendorSelected[state.index]
-                                                .longitude!)),
-                                        16));
-                              }),
-                          const SizedBox(width: 5),
-                          LocationCard(
-                              vendorsNearModel:
-                                  state.vendorSelected[state.index]),
-                          const SizedBox(
-                            width: 5,
+                              ],
+                            ),
                           ),
-                          ArrowButton(
-                              image: IconsManager.iconLeftArrow,
-                              onTap: () {
-
-                                context
-                                    .read<LocationBloc>()
-                                    .add(IndexDecrement());
-                                context
-                                    .read<LocationBloc>()
-                                    .mapController
-                                    ?.animateCamera(CameraUpdate.newLatLngZoom(
-                                        LatLng(
-                                            double.parse(state
-                                                .vendorSelected[state.index]
-                                                .latitude!),
-                                            double.parse(state
-                                                .vendorSelected[state.index]
-                                                .longitude!)),
-                                        16));
-                              })
-                        ],
-                      ),
-                    )
-            ],
-          ),
-        );
-      }
-    });
-  }
-}
-
-class BottomSheetBody extends StatelessWidget {
-  List<VendorsNearModel> vendorList;
-  List<VendorsNearModel> vendorBinding;
-
-  BottomSheetBody({required this.vendorList, required this.vendorBinding});
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<LocationBloc, LocationState>(
-        bloc: context.read<LocationBloc>(),
-        builder: (contextBottom, state) {
-          return SingleChildScrollView(
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: Center(
-                    child: Container(
-                      width: 50,
-                      height: 4,
-                      decoration: BoxDecoration(
-                          color: ColorManager.labelGrey,
-                          borderRadius: BorderRadius.circular(50)),
+                        ),
+                      ],
                     ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(32.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: 200,
-                        child: ListView.builder(
-                          itemBuilder: (context1, index) {
-                            return GestureDetector(
-                              onTap: () {
-                                context
-                                    .read<LocationBloc>()
-                                    .add(checkIndex(index));
-                              },
-                              child: FilterButton(
-                                  label: vendorList[index].name!,
-                                  isSelected: vendorBinding.any((element) =>
-                                      element.id == vendorList[index].id)),
-                            );
-                          },
-                          itemCount: vendorList.length,
+                  state.index == -1
+                      ? const Text("")
+                      : Positioned(
+                    left: 10,
+                    right: 10,
+                    bottom: 15,
+                    child: Row(
+                      children: [
+                        ArrowButton(
+                            image: IconsManager.iconRightArrow,
+                            onTap: () {
+                              context
+                                  .read<LocationBloc>()
+                                  .add(IndexIncrement());
+                            }),
+                        const SizedBox(width: 5),
+                        LocationCard(
+                            vendorModel:
+                            state.vendorSelected[state.index]),
+                        const SizedBox(
+                          width: 5,
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: CustomButton(
-                          label: 'تطبيق',
-                          fillColor: ColorManager.primaryColor,
-                          onTap: () {
-                            context.read<LocationBloc>().add((FilterVendors()));
-                            Navigator.pop(context);
-                          },
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 8.0, horizontal: 64),
-                        child: CustomButton(
-                          label: 'إلغاء',
-                          fillColor: ColorManager.primaryColor,
-                          isFilled: false,
-                          labelColor: ColorManager.primaryColor,
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          );
+                        ArrowButton(
+                            image: IconsManager.iconLeftArrow,
+                            onTap: () {
+
+                              context
+                                  .read<LocationBloc>()
+                                  .add(IndexDecrement());
+                            })
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            );
+          }
         });
   }
 }
+

@@ -6,6 +6,7 @@ import 'package:absher/presentation/resources/font_app.dart';
 import 'package:absher/presentation/resources/style_app.dart';
 import 'package:absher/presentation/screens/auth_screen/account_screen.dart';
 import 'package:absher/presentation/widgets/custom_app_background.dart';
+import 'package:absher/translations.dart';
 import 'package:flutter/material.dart';
 
 class OnBoardingScreen extends StatelessWidget {
@@ -24,7 +25,7 @@ class OnBoardingScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'مرحبا!\n أبشر',
+                 AppLocalizations.of(context)!.hello,
                   style: getBoldStyle(
                     color: Colors.white,
                     fontSize: FontSizeApp.s66,
@@ -77,7 +78,7 @@ class OnBoardingScreen extends StatelessWidget {
                           Expanded(
                             child: Center(
                               child: Text(
-                                'التالي',
+                                AppLocalizations.of(context)!.next,
                                 style: getRegularStyle(
                                   color: ColorManager.primaryColor,
                                   fontSize: FontSizeApp.s26,

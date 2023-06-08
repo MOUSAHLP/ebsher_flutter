@@ -14,6 +14,7 @@ import 'package:absher/presentation/widgets/dialogs/error_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../translations.dart';
 import '../../widgets/dialogs/loading_dialog.dart';
 
 class PhoneNumberSignUpScreen extends StatelessWidget {
@@ -65,7 +66,7 @@ class _PhoneNumberSignUpScreenContent extends StatelessWidget {
                 height: 350,
               ),
               Text(
-                'أدخل رقم الهاتف',
+               AppLocalizations.of(context)!.enterPhone,
                 style: getBoldStyle(
                   color: Colors.white,
                   fontSize: FontSizeApp.s22,
@@ -73,8 +74,8 @@ class _PhoneNumberSignUpScreenContent extends StatelessWidget {
               ),
               Text(
                 resetPassword
-                    ? 'الرجاء إدخال رقم الهاتف الخاص بك لتلقي رمز \nلإنشاء كلمة مرور جديدة عبر رقم الهاتف'
-                    : 'الرجاء إدخال رقم الهاتف الخاص بك لتلقي رمز \n لإنشاء حساب عبر رقم الهاتف',
+                    ?  AppLocalizations.of(context)!.phoneForPassword
+                    :  AppLocalizations.of(context)!.phoneForCreat,
                 textAlign: TextAlign.center,
                 style: getBoldStyle(
                   color: ColorManager.softYellow,
@@ -88,12 +89,12 @@ class _PhoneNumberSignUpScreenContent extends StatelessWidget {
                 child: CustomInputField(
                   controller: textEditingController,
                   keyboardType: TextInputType.phone,
-                  hintText: 'أضف رقمك',
+                  hintText: AppLocalizations.of(context)!.addNumber,
                   icon: Icons.phone_android,
                 ),
               ),
               CustomButton(
-                label: 'أرسال',
+                label:AppLocalizations.of(context)!.send,
                 onTap: () {
                   if (resetPassword) {
                     sl<SignUpBloc>().add(ForgetPassword(

@@ -1,5 +1,6 @@
 import 'package:absher/bloc/bottom_bloc/bottom_event.dart';
 import 'package:absher/presentation/resources/color_manager.dart';
+import 'package:absher/presentation/screens/edit_profile_screen/edit_profile_screen.dart';
 import 'package:absher/presentation/widgets/custom_app_bottom_navigation.dart';
 import 'package:absher/presentation/widgets/dialogs/will_pop_scope_handler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,14 +26,9 @@ class BasicScreen extends StatelessWidget {
       height: 500,
       color: Colors.yellow,
     ),
-    Container(
-      height: 500,
-      color: Colors.green,
-    ),
-    Container(
-      height: 500,
-      color: Colors.green,
-    ),
+
+    EditProfileScreen(),
+    EditProfileScreen(),
   ];
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   @override

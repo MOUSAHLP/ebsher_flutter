@@ -3,6 +3,7 @@ import 'package:absher/core/app_router/dialog_transition_builder.dart';
 import 'package:absher/presentation/resources/color_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import '../../../translations.dart';
 import '../../resources/font_app.dart';
 import '../../resources/style_app.dart';
 import '../custom_button.dart';
@@ -29,7 +30,7 @@ class _ExitAppDialog extends StatelessWidget {
               vertical: 60,
             ),
             child: Text(
-              "سوف يتم أغلاق أبشر, هل انت متأكد؟",
+              AppLocalizations.of(context)!.sureShutDown,
               style: getBoldStyle(
                 color: Colors.black,
                 fontSize: FontSizeApp.s14,
@@ -42,7 +43,7 @@ class _ExitAppDialog extends StatelessWidget {
               children: [
                 Expanded(
                   child: CustomButton(
-                    label: 'البقاء',
+                    label:AppLocalizations.of(context)!.stay,
                     fillColor: ColorManager.softYellow,
                     onTap: () {
                       AppRouter.pop(context);
@@ -54,7 +55,7 @@ class _ExitAppDialog extends StatelessWidget {
                 ),
                 Expanded(
                   child: CustomButton(
-                    label: 'خروج',
+                    label:AppLocalizations.of(context)!.signOut,
                     fillColor: Colors.redAccent,
                     onTap: () {
                       SystemNavigator.pop();

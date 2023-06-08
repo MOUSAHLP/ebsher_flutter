@@ -4,6 +4,7 @@ import 'package:absher/presentation/resources/values_app.dart';
 import 'package:absher/presentation/screens/categories_screen/categories_screen.dart';
 import 'package:absher/presentation/screens/sub_categories_screen/sub_categories_screen.dart';
 import 'package:absher/presentation/screens/vendors_screen/vendors_screen.dart';
+import 'package:absher/translations.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -42,16 +43,14 @@ class _BuildCardCategoriesState extends State<BuildCardCategories> {
         GestureDetector(
           onTap: () {
             setState(() {
-              // size = size + 20;
+
               pressed = true;
             });
             Future.delayed(Duration(milliseconds: 300)).then((value) {
               AppRouter.push(
                 context,
-                VendorsScreen(
-                    title:
-                        LocalixationString(context, widget.category.name) ?? "",
-                    categoryId: widget.category.id!),
+                  SubCategoriesScreen(title:LocalixationString(context, widget.category.name) ?? "",id: widget.category.id!,)
+
               );
               setState(() {
                 pressed = false;
@@ -172,7 +171,7 @@ class _MoreCategoryCardState extends State<MoreCategoryCard> {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 4),
                   child: Text(
-                    'المزيد',
+                    AppLocalizations.of(context)!.more,
                     style: getBoldStyle(
                             color: ColorManager.whiteColor, fontSize: 12)
                         ?.copyWith(height: 1),

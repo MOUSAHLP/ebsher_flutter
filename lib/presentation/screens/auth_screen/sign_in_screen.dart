@@ -66,7 +66,7 @@ class _SignInScreen extends StatelessWidget {
                 CustomInputField(
                   controller: phoneController,
                   keyboardType: TextInputType.phone,
-                  hintText: 'أضف رقمك',
+                  hintText: AppLocalizations.of(context)!.addNumber,
                   withLabel: true,
                   icon: Icons.phone_android,
                 ),
@@ -88,7 +88,7 @@ class _SignInScreen extends StatelessWidget {
                         ));
                   },
                   child: Text(
-                    'هل نسيت كلمة المرور؟',
+                   AppLocalizations.of(context)!.forgetPassord,
                     style: getSemiBoldStyle(
                       color: ColorManager.softYellow,
                     ),
@@ -98,7 +98,7 @@ class _SignInScreen extends StatelessWidget {
                   height: 16,
                 ),
                 CustomButton(
-                    label: 'تسجيل ',
+                    label:AppLocalizations.of(context)!.register,
                     onTap: () {
                       sl<LoginBloc>().add(Login(
                           loginParams: LoginParams(

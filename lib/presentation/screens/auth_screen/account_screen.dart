@@ -3,6 +3,7 @@ import 'package:absher/presentation/resources/assets_manager.dart';
 import 'package:absher/presentation/screens/auth_screen/phone_number_signup_screen.dart';
 import 'package:absher/presentation/screens/auth_screen/sign_in_screen.dart';
 import 'package:absher/presentation/widgets/dialogs/will_pop_scope_handler.dart';
+import 'package:absher/translations.dart';
 import 'package:flutter/material.dart';
 
 import '../../resources/color_manager.dart';
@@ -39,7 +40,7 @@ class AccountScreen extends StatelessWidget {
                   CustomButton(
                     fillColor: Colors.white,
                     labelColor: ColorManager.primaryColor,
-                    label: 'تسجيل الدخول',
+                    label: AppLocalizations.of(context)!.signIn,
                     onTap: () {
                       AppRouter.push(context, SignInConfirmationScreen());
                     },
@@ -51,7 +52,7 @@ class AccountScreen extends StatelessWidget {
                     fillColor: Colors.white,
                     labelColor: Colors.white,
                     isFilled: false,
-                    label: 'إنشاء حساب',
+                    label:  AppLocalizations.of(context)!.signUp,
                     onTap: () {
                       AppRouter.push(
                           context,

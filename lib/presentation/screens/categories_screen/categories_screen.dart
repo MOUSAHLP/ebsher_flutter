@@ -11,6 +11,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../core/app_router/app_router.dart';
 import '../../../models/category_response.dart';
 import '../../resources/font_app.dart';
+import '../sub_categories_screen/sub_categories_screen.dart';
 import '../vendors_screen/vendors_screen.dart';
 
 class CategoriesScreen extends StatelessWidget {
@@ -107,9 +108,9 @@ class CategoryCover extends StatelessWidget {
       onTap: () {
         AppRouter.push(
           context,
-          VendorsScreen(
+          SubCategoriesScreen(
               title: LocalixationString(context, category.name) ?? "",
-              categoryId: category.id!),
+              id: category.id!),
         );
       },
       child: Stack(

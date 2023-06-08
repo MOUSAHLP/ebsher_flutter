@@ -1,19 +1,17 @@
 import 'package:absher/presentation/screens/home_screen/home_widget/build_card_categories.dart';
 import 'package:absher/presentation/screens/home_screen/home_widget/build_shimmer_widget.dart';
 import 'package:absher/presentation/widgets/ads_carousel_slider.dart';
-import 'package:absher/presentation/widgets/custom_button.dart';
+
 import 'package:absher/presentation/widgets/custom_error_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:lottie/lottie.dart';
+
 import '../../../bloc/home_bloc/home_bloc.dart';
 import '../../../bloc/home_bloc/home_event.dart';
 import '../../../bloc/home_bloc/home_state.dart';
 import '../../../core/services/services_locator.dart';
-import '../../resources/assets_manager.dart';
 import '../../resources/values_app.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import '../../resources/color_manager.dart';
 import 'home_widget/build_story_widget.dart';
@@ -93,128 +91,118 @@ class HomeScreen extends StatelessWidget {
                       SizedBox(height: 1.3.h),
                       Expanded(
                         child: Column(
-                          // mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             Expanded(
-                              child: Column(
-                                children: [
-                                  SizedBox(
-                                    width: 1.sw,
-                                    child: Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Expanded(
-                                          child: BuildCardCategories(
-                                            category: state.lisCategory[0],
-                                            isBlue: true,
-                                            isEnd: true,
+                              child: SingleChildScrollView(
+                                child: Column(
+                                  children: [
+                                    SizedBox(
+                                      width: 1.sw,
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Expanded(
+                                            child: BuildCardCategories(
+                                              category: state.lisCategory[0],
+                                              isBlue: true,
+                                              isEnd: true,
+                                            ),
                                           ),
-                                        ),
-                                        SizedBox(
-                                          width: 9.2.w,
-                                        ),
-                                        Expanded(
-                                          child: BuildCardCategories(
-                                            category: state.lisCategory[1],
-                                            isBlue: false,
-                                            isEnd: false,
+                                          SizedBox(
+                                            width: 9.2.w,
                                           ),
-                                        ),
-                                      ],
+                                          Expanded(
+                                            child: BuildCardCategories(
+                                              category: state.lisCategory[1],
+                                              isBlue: false,
+                                              isEnd: false,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                             Expanded(
-                              child: Column(
-                                children: [
-                                  SizedBox(
-                                    width: 1.sw,
-                                    child: Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Expanded(
-                                          child: BuildCardCategories(
-                                            category: state.lisCategory[2],
-                                            isBlue: true,
-                                            isEnd: true,
+                              child: SingleChildScrollView(
+                                child: Column(
+                                  
+                                  children: [
+                                    SizedBox(
+                                      width: 1.sw,
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Expanded(
+                                            child: BuildCardCategories(
+                                              category: state.lisCategory[2],
+                                              isBlue: true,
+                                              isEnd: true,
+                                            ),
                                           ),
-                                        ),
-                                        SizedBox(
-                                          width: 9.2.w,
-                                        ),
-                                        Expanded(
-                                          child: BuildCardCategories(
-                                            category: state.lisCategory[3],
-                                            isBlue: false,
-                                            isEnd: false,
+                                          SizedBox(
+                                            width: 9.2.w,
                                           ),
-                                        ),
-                                      ],
+                                          Expanded(
+                                            child: BuildCardCategories(
+                                              category: state.lisCategory[3],
+                                              isBlue: false,
+                                              isEnd: false,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                             Expanded(
-                              child: Column(
-                                children: [
-                                  SizedBox(
-                                    width: 1.sw,
-                                    child: Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Expanded(
-                                          child: BuildCardCategories(
-                                            category: state.lisCategory[4],
-                                            isBlue: true,
-                                            isEnd: true,
+                              child: SingleChildScrollView(
+                                child: Column(
+                                  children: [
+                                    SizedBox(
+                                      width: 1.sw,
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Expanded(
+                                            child: BuildCardCategories(
+                                              category: state.lisCategory[4],
+                                              isBlue: true,
+                                              isEnd: true,
+                                            ),
                                           ),
-                                        ),
-                                        SizedBox(
-                                          width: 9.2.w,
-                                        ),
-                                        Expanded(
-                                          child: MoreCategoryCard(
-                                            isBlue: false,
-                                            isEnd: false,
+                                          SizedBox(
+                                            width: 9.2.w,
                                           ),
-                                        ),
-                                      ],
+                                          const Expanded(
+                                            child: MoreCategoryCard(
+                                              isBlue: false,
+                                              isEnd: false,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                           ],
                         ),
                       ),
-
-                      // GridView.builder(
-                      //   physics: const NeverScrollableScrollPhysics(),
-                      //   itemCount: 6,
-                      //   shrinkWrap: true,
-                      //   itemBuilder: (context, index) {
-                      //     if (index.isOdd) isBlue = !isBlue;
-                      //     return BuildCardCategories(
-                      //         category: state.lisCategory[index],
-                      //         isBlue: isBlue);
-                      //   },
-                      //   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      //       crossAxisCount: 2,
-                      //       mainAxisExtent: 13.2.h,
-                      //       childAspectRatio: 1),
-                      // )
                     ],
                   ),
                 ),

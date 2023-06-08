@@ -1,5 +1,6 @@
 
 
+import 'package:absher/models/vendor_model.dart';
 import 'package:custom_map_markers/custom_map_markers.dart';
 import 'package:equatable/equatable.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -31,18 +32,18 @@ class CurrentLocationError extends LocationState {
   final double longitude;
    List<MarkerData>? myMark ;
 
-  List<VendorsNearModel> vendorList;
-  List<VendorsNearModel> vendorSelected;
-  List<VendorsNearModel> vendorBinding;
+  List<VendorModel> vendorList;
+  List<VendorModel> vendorSelected;
+  List<VendorModel> vendorBinding;
   int index;
   bool check;
   LocationState copyWith({
      double? latitude,
      double? longitude,
     List<MarkerData>? myMark ,
-      List<VendorsNearModel>? vendorList,
-      List<VendorsNearModel>? vendorSelected,
-      List<VendorsNearModel>? vendorBinding,
+      List<VendorModel>? vendorList,
+      List<VendorModel>? vendorSelected,
+      List<VendorModel>? vendorBinding,
 
     int? index,
     bool? check

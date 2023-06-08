@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:overlay_support/overlay_support.dart';
 
+import '../../../translations.dart';
 import '../../resources/color_manager.dart';
 import '../../widgets/custom_button.dart';
 import '../../widgets/dialogs/loading_dialog.dart';
@@ -58,14 +59,14 @@ class SignUpScreen extends StatelessWidget {
                       height: 240,
                     ),
                     Text(
-                      'أنشاء حساب',
+                     AppLocalizations.of(context)!.signUp,
                       style: getBoldStyle(
                         color: Colors.white,
                         fontSize: FontSizeApp.s36,
                       ),
                     ),
                     Text(
-                      'أضف التفاصيل الخاصة بك لتسجيل حساب',
+                      AppLocalizations.of(context)!.addDetails,
                       style: getBoldStyle(
                         color: Colors.white,
                         fontSize: FontSizeApp.s14,
@@ -75,7 +76,7 @@ class SignUpScreen extends StatelessWidget {
                       height: 8,
                     ),
                     CustomInputField(
-                      hintText: 'الاسم بالكامل',
+                      hintText: AppLocalizations.of(context)!.fullName,
                       withLabel: true,
                       icon: Icons.person,
                       onChange: (value) {
@@ -86,7 +87,7 @@ class SignUpScreen extends StatelessWidget {
                       height: 8,
                     ),
                     CustomInputField(
-                      hintText: 'أضف رقمك',
+                      hintText: AppLocalizations.of(context)!.addNumber,
                       initValue: context.read<SignUpBloc>().signUpParams.phone,
                       readOnly: true,
                       withLabel: true,
@@ -99,7 +100,7 @@ class SignUpScreen extends StatelessWidget {
                       height: 8,
                     ),
                     CustomInputField(
-                      hintText: 'أدخل بريدك الإلكتروني',
+                      hintText: AppLocalizations.of(context)!.enterEmail,
                       withLabel: true,
                       icon: Icons.email,
                       onChange: (value) {
@@ -110,7 +111,7 @@ class SignUpScreen extends StatelessWidget {
                       height: 8,
                     ),
                     CustomPasswordInputField(
-                      hintText: 'كلمة المرور',
+                      hintText: AppLocalizations.of(context)!.password,
                       withLabel: true,
                       icon: Icons.lock_open_rounded,
                       onChange: (value) {
@@ -122,7 +123,7 @@ class SignUpScreen extends StatelessWidget {
                       height: 8,
                     ),
                     CustomPasswordInputField(
-                      hintText: 'تأكيد كلمة المرور',
+                      hintText: AppLocalizations.of(context)!.confimPassword,
                       withLabel: true,
                       icon: Icons.lock_open_rounded,
                       onChange: (value) {
@@ -134,7 +135,7 @@ class SignUpScreen extends StatelessWidget {
                       height: 16,
                     ),
                     CustomButton(
-                      label: 'تسجيل',
+                      label: AppLocalizations.of(context)!.register,
                       onTap: () {
                         context.read<SignUpBloc>().add(SignUp());
                       },
@@ -148,7 +149,7 @@ class SignUpScreen extends StatelessWidget {
                       text: TextSpan(
                         children: [
                           TextSpan(
-                            text: 'هل لديك حساب؟',
+                            text: AppLocalizations.of(context)!.haveAccount,
                             style: getBoldStyle(
                               color: Colors.white,
                               fontSize: FontSizeApp.s14,
@@ -156,7 +157,7 @@ class SignUpScreen extends StatelessWidget {
                           ),
                           const TextSpan(text: ' '),
                           TextSpan(
-                            text: 'تسجيل الدخول',
+                            text: AppLocalizations.of(context)!.signIn,
                             style: getBoldStyle(
                               color: ColorManager.softYellow,
                               fontSize: FontSizeApp.s14,

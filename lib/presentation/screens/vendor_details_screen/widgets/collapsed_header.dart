@@ -31,43 +31,45 @@ class CollapsedHeader extends StatelessWidget {
       width: 1.sw,
       color: ColorManager.backgroundEndColor,
       child: SafeArea(
-        child: Column(
-          children: [
-            Padding(
-              padding: EdgeInsets.only(
-                  top: window.padding.top / window.devicePixelRatio),
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    CircleIconButton(
-                      icon: Icons.arrow_back_rounded,
-                      onTap: () {
-                        AppRouter.pop(context);
-                      },
-                    ),
-                    Expanded(
-                      child: Text(
-                        LocalixationString(context, vendor.name) ?? '',
-                        textAlign: TextAlign.center,
-                        style: getBoldStyle(
-                          color: Colors.white,
-                          fontSize: 18,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(
+                    top: window.padding.top / window.devicePixelRatio),
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      CircleIconButton(
+                        icon: Icons.arrow_back_rounded,
+                        onTap: () {
+                          AppRouter.pop(context);
+                        },
+                      ),
+                      Expanded(
+                        child: Text(
+                          LocalixationString(context, vendor.name) ?? '',
+                          textAlign: TextAlign.center,
+                          style: getBoldStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                          ),
                         ),
                       ),
-                    ),
-                    CircleIconButton(icon: Icons.share),
-                    SizedBox(
-                      width: 12,
-                    ),
-                    CircleIconButton(icon: Icons.photo_library_sharp),
-                  ],
+                      CircleIconButton(icon: Icons.share),
+                      SizedBox(
+                        width: 12,
+                      ),
+                      CircleIconButton(icon: Icons.photo_library_sharp),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

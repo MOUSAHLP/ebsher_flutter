@@ -12,18 +12,18 @@ import '../../presentation/screens/location_screen/widgets/marker.dart';
 import 'location_state.dart';
 import 'package:custom_map_markers/custom_map_markers.dart';
 class LocationBloc extends Bloc<LocationEvent, LocationState> {
-  Future<Position> determinePosition() async {
+  Future<Position?> determinePosition() async {
     bool serviceEnabled;
     LocationPermission permission;
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     permission = await Geolocator.checkPermission();
-
-    if (!serviceEnabled) {
-      bool serviceEnabled = await Geolocator.openLocationSettings();
-      if (!serviceEnabled) {
-        return Future.error('Location services are disabled.');
-      }
-    }
+try{
+//    if (!serviceEnabled) {
+//      bool serviceEnabled = await Geolocator.openLocationSettings();
+//      if (!serviceEnabled) {
+//        return Future.error('Location services are disabled.');
+//      }
+//    }
 
     if (permission == LocationPermission.deniedForever) {
        return Future.error('Location services are disabled.');
@@ -36,11 +36,14 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
       }
     }
 
-    return await Geolocator.getCurrentPosition();
+    return await Geolocator.getCurrentPosition();}
+    catch(e){
+  return null;
+    }
   }
 
 
-  var latitudeCurrent = 0.0, longitudeCurrent = 0.0;
+  double? latitudeCurrent , longitudeCurrent ;
   GoogleMapController? mapController;
   Position? position;
   List<VendorModel> vendorList=[];
@@ -50,20 +53,23 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
   List<MarkerData> myMarkFilter=[];
   Future<void> getPosition() async {
     position = await determinePosition();
+    if(position==null){
+    }
+    else{
     latitudeCurrent = position!.latitude;
     longitudeCurrent = position!.longitude;
     myMarkFilter.add(
       MarkerData(
           marker:
-          Marker(markerId:   const MarkerId("current"), position:  LatLng(latitudeCurrent , longitudeCurrent ), ),
+          Marker(markerId:   const MarkerId("current"), position:  LatLng(latitudeCurrent! , longitudeCurrent! ), ),
           child:Image.asset( ImageManager.locationMap,width:100,height: 100,)),
     );
     customMarkers.add(
       MarkerData(
           marker:
-          Marker(markerId:   const MarkerId("current1"), position:  LatLng(latitudeCurrent , longitudeCurrent ), ),
+          Marker(markerId:   const MarkerId("current1"), position:  LatLng(latitudeCurrent! , longitudeCurrent! ), ),
           child:Image.asset( ImageManager.locationMap,width:100,height: 100,)),
-    );
+    );}
   }
   addMarker(){
     for(int i=0;i<vendorList.length;i++){
@@ -97,17 +103,22 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
       if(event is CurrentLocation){
         emit(CurrentLocationLoading());
         await getPosition();
-        final response =
-        await LocationRepository.getVendorsNear(latitude: latitudeCurrent, longitude: longitudeCurrent);
-        response.fold((l) {
-          emit(CurrentLocationError(l));
-        }, (r) {
-          vendorList=r;
-          addMarker();
-          emit(state.copyWith(latitude: latitudeCurrent,longitude: longitudeCurrent,vendorList: vendorList,vendorSelected:vendorList,
-              myMark: customMarkers ));
-        });
-      }
+        if(latitudeCurrent==null){
+          emit(CurrentLocationNoPermission());
+        }
+          else{
+          final response =
+          await LocationRepository.getVendorsNear(latitude: latitudeCurrent!, longitude: longitudeCurrent!);
+          response.fold((l) {
+            emit(CurrentLocationError(l));
+          }, (r) {
+            vendorList=r;
+            addMarker();
+            emit(state.copyWith(latitude: latitudeCurrent,longitude: longitudeCurrent,vendorList: vendorList,vendorSelected:vendorList,
+                myMark: customMarkers ));
+          });
+        }
+        }
       if(event is FilterVendors){
         vendorListSelected.clear();
         vendorListSelected=[...vendorListBinding];

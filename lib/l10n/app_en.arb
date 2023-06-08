@@ -11,8 +11,6 @@
   "haveAccount":"do you have an account?",
   "gender":"Gender",
   "noResult":"Sorry no results found",
-
-
   "justNow": "Just now",
     "secondsAgo": "{number} Seconds ago",
     "@secondsAgo": {
@@ -79,8 +77,47 @@
     "privacy":"Privacy policy",
     "logOut":"Log out",
     "address":"Address",
-    "phone":"Phone number"
-
-
+    "phone":"Phone number",
+    "calling":"Calling",
+    "more":"More",
+    "confimSignOut":"Confirm sign out?",
+    "signOut":"Sign out",
+    "stay":"Stay",
+    "sureShutDown":"Will be shut down Absher, Are you sure ?",
+    "forgetPassord":"Forgot your password?",
+    "send":"Send",
+    "enterPhone":"Enter a phone number",
+    "phoneForPassword":"Please enter your phone number to receive a \n code to create a new password via phone number",
+    "phoneForCreat":"Please enter your phone number to receive a \n code to create an account via phone number",
+    "error":"An error occurred, please try again later",
+    "close":"Close",
+    "processing":"Processing",
+    "sendCode":"We have sent the code to your phone.",
+    "yourCode":"Your Code is {number}",
+     "@yourCode": {
+          "placeholders": {
+            "number": {}
+          }
+        },
+    "enterEmail":"Enter your email",
+    "confimPassword":"Confirm password",
+    "reqName":"Name field is required",
+    "reqEmail":"Email field is required",
+    "reqEmailValid":"This is not a valid email address",
+    "reqPassord":"Password field is required",
+    "reqPassordMatch":"Password does not match",
+    "verifyMobileCreat":"Please verify your mobile phone number {number} To continue creating your account",
+     "@verifyMobileCreat": {
+          "placeholders": {
+            "number": {}
+          }
+        },
+          "verifyMobilePassword":"Please verify your mobile phone number {number} To continue resetting your password",
+             "@verifyMobilePassword": {
+                  "placeholders": {
+                    "number": {}
+                  }
+                },
+    "hello":"Hello\nAbsher"
 
 }

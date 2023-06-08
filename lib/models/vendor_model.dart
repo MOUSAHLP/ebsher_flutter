@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'package:absher/models/vendors_near_model.dart';
+
 import 'localization_String_model.dart';
 
 VendorModel subCategoryResponseFromJson(String str) =>
@@ -60,7 +62,10 @@ class VendorModel {
     this.vendorType,
   });
 
+
+
   factory VendorModel.fromJson(Map<String, dynamic> json) {
+
     return VendorModel(
       id: json["id"],
       name: localizationStringModel.fromJson(json, "name"),
@@ -88,7 +93,7 @@ class VendorModel {
       logo: json["logo"],
       features:
           List<Feature>.from(json["features"].map((x) => Feature.fromJson(x))),
-      vendorType: VendorType.fromJson(json["vendor_type"]),
+      vendorType: json["vendor_type"]==null?null:VendorType.fromJson(json["vendor_type"]),
     );
   }
 

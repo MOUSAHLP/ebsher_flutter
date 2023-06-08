@@ -1,3 +1,4 @@
+
 import 'package:absher/core/app_regex.dart';
 import 'package:absher/core/app_validators.dart';
 import 'package:absher/data/repos/user_repository.dart';
@@ -31,7 +32,6 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
           emit(SignUpOtpRequested());
         });
       }
-
       if (event is ConfirmOtp) {
         emit(SignUpLoading());
         otpConfirmParams.phone = otpVerifyResponse?.phone;

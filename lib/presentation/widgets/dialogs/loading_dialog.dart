@@ -2,6 +2,7 @@ import 'package:absher/core/app_router/app_router.dart';
 import 'package:absher/core/app_router/dialog_transition_builder.dart';
 import 'package:absher/presentation/resources/assets_manager.dart';
 import 'package:absher/presentation/resources/color_manager.dart';
+import 'package:absher/translations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
@@ -60,7 +61,7 @@ class _LoadingDialogBody extends StatelessWidget {
                 },
               ),
               Text(
-                'جاري المعالجة',
+                AppLocalizations.of(context)!.processing,
                 style: TextStyle(
                   // fontFamily: appFontFamily,
                   fontSize: 16,

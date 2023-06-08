@@ -3,6 +3,7 @@ import 'package:absher/core/app_router/app_router.dart';
 import 'package:absher/core/app_router/dialog_transition_builder.dart';
 import 'package:absher/presentation/resources/color_manager.dart';
 import 'package:absher/presentation/screens/auth_screen/account_screen.dart';
+import 'package:absher/translations.dart';
 import 'package:flutter/material.dart';
 import '../../../bloc/authentication_bloc/authertication_bloc.dart';
 import '../../../core/services/services_locator.dart';
@@ -33,7 +34,7 @@ class _LogoutConfirmationDialog extends StatelessWidget {
               vertical: 60,
             ),
             child: Text(
-              "تأكيد تسجيل الخروج ؟",
+              AppLocalizations.of(context)!.confimSignOut,
               style: getBoldStyle(
                 color: Colors.black,
                 fontSize: FontSizeApp.s14,
@@ -46,7 +47,7 @@ class _LogoutConfirmationDialog extends StatelessWidget {
               children: [
                 Expanded(
                   child: CustomButton(
-                    label: 'البقاء',
+                    label:AppLocalizations.of(context)!.stay,
                     fillColor: ColorManager.softYellow,
                     onTap: () {
                       AppRouter.pop(context);
@@ -58,7 +59,7 @@ class _LogoutConfirmationDialog extends StatelessWidget {
                 ),
                 Expanded(
                   child: CustomButton(
-                    label: 'تسجيل الخروج',
+                    label: AppLocalizations.of(context)!.signOut,
                     fillColor: Colors.redAccent,
                     onTap: () {
                       sl<AuthenticationBloc>().add(LoggedOut());

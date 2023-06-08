@@ -22,7 +22,7 @@ class ExpandedHeader extends StatelessWidget {
     return Container(
       height: 1.sw,
       width: 1.sw,
-      color: Colors.redAccent,
+      color: Colors.white,
       child: Stack(
         children: [
           CachedImage(

@@ -5,6 +5,7 @@ import 'package:dartz/dartz.dart';
 import '../../core/api_const.dart';
 import '../../models/home_model.dart';
 import '../../models/search_response.dart';
+import '../../models/sub_category_response.dart';
 import '../data_resource/remote_resource/api_handler/base_api_client.dart';
 
 class HomeRepository {
@@ -31,6 +32,15 @@ class HomeRepository {
         url: ApiConst.vendorsList(categoryId),
         converter: (e) {
           return VendorModel.listFromJson(e);
+        });
+  }
+
+  static Future<Either<String, List<SubCategoryResponse>>> getSubCategory(
+      {required int categoryId}) {
+    return BaseApiClient.get<List<SubCategoryResponse>>(
+        url: ApiConst.getSubCategories(categoryId),
+        converter: (e) {
+          return SubCategoryResponse.listFromJson(e['data']);
         });
   }
 }

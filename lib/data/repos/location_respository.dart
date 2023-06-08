@@ -10,13 +10,13 @@ import '../data_resource/remote_resource/api_handler/base_api_client.dart';
 
 class LocationRepository {
 
-  static Future<Either<String, List<VendorsNearModel>>> getVendorsNear(
+  static Future<Either<String, List<VendorModel>>> getVendorsNear(
       {required double latitude,required double longitude }) {
-    return BaseApiClient.post<List<VendorsNearModel>>(
+    return BaseApiClient.post<List<VendorModel>>(
         url: ApiConst.getNearbyvendors(latitude: 33.49033015986759, longitude: 36.33734044758082),
         converter: (e) {
 
-          return VendorsNearModel.listFromJson(e['data']);
+          return VendorModel.listFromJson(e);
         });
   }
 

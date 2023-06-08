@@ -12,4 +12,6 @@ class ApiConst {
       '/vendors_by_vendortype?category_id=$categoryId';
   static String getSubCategories(int id) => '/categories?id=$id';
   static String getNearbyvendors({required double latitude,required double longitude}) => '/nearbyvendors?latitude=$latitude&longitude=$longitude&category_id=4';
+
+
 }

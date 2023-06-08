@@ -65,6 +65,7 @@ class _VendorDetailsScreenState extends State<VendorDetailsScreen> {
                   collapseMode: CollapseMode.pin,
                   background: ExpandedHeader(
                     vendor: widget.vendor,
+
                   ),
                 ),
                 actions: _isShrink

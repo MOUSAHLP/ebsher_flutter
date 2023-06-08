@@ -11,6 +11,7 @@ import 'package:absher/presentation/screens/auth_screen/sign_up_screen.dart';
 import 'package:absher/presentation/screens/auth_screen/widgets/otp_screen_background.dart';
 import 'package:absher/presentation/widgets/custom_button.dart';
 import 'package:absher/presentation/widgets/dialogs/error_dialog.dart';
+import 'package:absher/translations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sms_autofill/sms_autofill.dart';
@@ -64,7 +65,7 @@ class _OtpConfirmationScreenContent extends StatelessWidget {
                 height: 350,
               ),
               Text(
-                'لقد أرسلنا الرمز إلى هاتفك',
+               AppLocalizations.of(context)!.sendCode,
                 style: getBoldStyle(
                   color: Colors.white,
                   fontSize: FontSizeApp.s22,
@@ -74,8 +75,9 @@ class _OtpConfirmationScreenContent extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 32.0),
                 child: Text(
                   !resetPassword
-                      ? 'يرجى التحقق من رقم هاتفك المحمول  ${encodePhoneNumber(context.read<SignUpBloc>().otpVerifyResponse?.phone)} للاستمرار في انشاء الحساب الخاص بك'
-                      : 'يرجى التحقق من رقم هاتفك المحمول  ${encodePhoneNumber(context.read<SignUpBloc>().otpVerifyResponse?.phone)} استمر في إعادة تعيين كلمة المرور الخاصة بك',
+                      ? AppLocalizations.of(context)!.verifyMobileCreat(encodePhoneNumber(context.read<SignUpBloc>().otpVerifyResponse?.phone))
+                      :AppLocalizations.of(context)!.verifyMobilePassword(encodePhoneNumber(context.read<SignUpBloc>().otpVerifyResponse?.phone)),
+
                   textAlign: TextAlign.center,
                   style: getBoldStyle(
                     color: ColorManager.softYellow,
@@ -83,7 +85,8 @@ class _OtpConfirmationScreenContent extends StatelessWidget {
                 ),
               ),
               Text(
-                'Your Code is ${context.read<SignUpBloc>().otpVerifyResponse?.code}',
+                AppLocalizations.of(context)!.yourCode(context.read<SignUpBloc>().otpVerifyResponse?.code as Object),
+//                'Your Code is ${context.read<SignUpBloc>().otpVerifyResponse?.code}',
                 textAlign: TextAlign.center,
                 style: getBoldStyle(
                   color: ColorManager.softYellow,
@@ -111,7 +114,7 @@ class _OtpConfirmationScreenContent extends StatelessWidget {
                 ),
               ),
               CustomButton(
-                label: 'أرسال',
+                label: AppLocalizations.of(context)!.send,
                 onTap: () {
                   sl<SignUpBloc>()
                       .add(ConfirmOtp(code: textEditingController.text));

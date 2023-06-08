@@ -1,5 +1,6 @@
 import 'package:absher/bloc/location_bloc/location_event.dart';
 import 'package:absher/bloc/location_bloc/location_state.dart';
+import 'package:absher/core/app_router/app_router.dart';
 import 'package:absher/presentation/screens/location_screen/widgets/app_bar_widget.dart';
 import 'package:absher/presentation/screens/location_screen/widgets/arrow_button.dart';
 import 'package:absher/presentation/screens/location_screen/widgets/location_card.dart';
@@ -38,20 +39,50 @@ class LocationScreen extends StatelessWidget {
 
 class LocationScreenBody extends StatelessWidget {
   const LocationScreenBody({super.key});
-
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<LocationBloc, LocationState>(
+    return BlocConsumer<LocationBloc, LocationState>(
+      listener: (context, state) {
+       if(state is CurrentLocationNoPermission){
+        AppRouter.pop(context);
+        }
+      },
         builder: (context, state) {
           if (state is CurrentLocationLoading) {
-            return const ShimmerLocationWidget();
+            return Stack(
+              children: [
+                GoogleMap(
+                  zoomControlsEnabled: false,
+                  mapType: MapType.normal,
+                  initialCameraPosition: CameraPosition(
+                    target: LatLng(state.latitude, state.longitude),
+                    zoom: 18,
+                  ),
+                  onMapCreated: (GoogleMapController controller) {
+                    context.read<LocationBloc>().mapController =
+                        controller;
+                    LatLng location =
+                    LatLng(state.latitude, state.longitude);
+                    controller.animateCamera(
+                        CameraUpdate.newLatLngZoom(location, 14));
+                  },
+                ),
+                Center(
+                  child: CircularProgressIndicator(
+                  color: ColorManager.lightBlueColor,
+                ),
+                )
+              ],
+            );
+//              const ShimmerLocationWidget();
           } else if (state is CurrentLocationError) {
             return CustomErrorScreen(
               onTap: () {
                 sl<LocationBloc>().add(CurrentLocation());
               },
             );
-          } else {
+          }
+          else {
             return SafeArea(
               child: Stack(
                 children: [

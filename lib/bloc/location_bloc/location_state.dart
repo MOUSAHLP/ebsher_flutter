@@ -11,6 +11,8 @@ import '../../models/vendors_near_model.dart';
 
 class CurrentLocationLoading extends LocationState {
 }
+class CurrentLocationNoPermission extends LocationState {
+}
 class CurrentLocationError extends LocationState {
   String error;
   CurrentLocationError(this.error);

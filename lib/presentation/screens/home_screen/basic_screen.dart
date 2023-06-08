@@ -9,6 +9,7 @@ import '../../../bloc/bottom_bloc/bottom_state.dart';
 import '../../../core/services/services_locator.dart';
 import '../../widgets/custom_app_drawer.dart';
 import '../favorites_screen/favorites_screen.dart';
+import '../reels_screen/reels_screen.dart';
 import 'home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -21,13 +22,12 @@ class BasicScreen extends StatelessWidget {
 
   static final List<Widget> _screenOptions = <Widget>[
     HomeScreen(),
-    FavoritesScreen(),
+    const FavoritesScreen(),
     Container(
       height: 500,
       color: Colors.yellow,
     ),
-
-    EditProfileScreen(),
+    ReelsScreen(),
     EditProfileScreen(),
   ];
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();

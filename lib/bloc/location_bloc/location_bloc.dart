@@ -1,15 +1,45 @@
 import 'package:absher/bloc/location_bloc/location_event.dart';
+import 'package:absher/core/app_router/app_router.dart';
 import 'package:absher/presentation/resources/assets_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:overlay_support/overlay_support.dart';
 import '../../data/repos/location_respository.dart';
 import '../../models/vendor_model.dart';
 import '../../presentation/screens/location_screen/widgets/marker.dart';
 import 'location_state.dart';
 import 'package:custom_map_markers/custom_map_markers.dart';
 class LocationBloc extends Bloc<LocationEvent, LocationState> {
+  Future<Position> determinePosition() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    permission = await Geolocator.checkPermission();
+
+    if (!serviceEnabled) {
+      bool serviceEnabled = await Geolocator.openLocationSettings();
+      if (!serviceEnabled) {
+        return Future.error('Location services are disabled.');
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+       return Future.error('Location services are disabled.');
+    }
+
+    if (permission == LocationPermission.denied) {
+        permission = await Geolocator.requestPermission();
+      if (permission != LocationPermission.whileInUse && permission != LocationPermission.always) {
+        return Future.error('Location services are disabled.');
+      }
+    }
+
+    return await Geolocator.getCurrentPosition();
+  }
+
+
   var latitudeCurrent = 0.0, longitudeCurrent = 0.0;
   GoogleMapController? mapController;
   Position? position;
@@ -19,8 +49,7 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
   List<MarkerData> customMarkers=[];
   List<MarkerData> myMarkFilter=[];
   Future<void> getPosition() async {
-    position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
+    position = await determinePosition();
     latitudeCurrent = position!.latitude;
     longitudeCurrent = position!.longitude;
     myMarkFilter.add(
@@ -35,7 +64,6 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
           Marker(markerId:   const MarkerId("current1"), position:  LatLng(latitudeCurrent , longitudeCurrent ), ),
           child:Image.asset( ImageManager.locationMap,width:100,height: 100,)),
     );
-
   }
   addMarker(){
     for(int i=0;i<vendorList.length;i++){

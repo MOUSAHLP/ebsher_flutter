@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../bloc/bottom_bloc/bottom_bloc.dart';
 import '../../bloc/bottom_bloc/bottom_event.dart';
 import '../../core/services/services_locator.dart';
-import '../../test.dart';
+
 import '../resources/values_app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';

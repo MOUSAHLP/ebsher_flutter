@@ -104,7 +104,7 @@
     "reqName":"Name field is required",
     "reqEmail":"Email field is required",
     "reqEmailValid":"This is not a valid email address",
-    "reqPassord":"Password field is required",
+    "reqPassword":"Password field is required",
     "reqPassordMatch":"Password does not match",
     "verifyMobileCreat":"Please verify your mobile phone number {number} To continue creating your account",
      "@verifyMobileCreat": {
@@ -118,6 +118,7 @@
                     "number": {}
                   }
                 },
-    "hello":"Hello\nAbsher"
+    "hello":"Hello\nAbsher",
+    "profile":"Profile personly"
 
 }

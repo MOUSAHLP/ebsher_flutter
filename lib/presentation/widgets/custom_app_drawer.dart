@@ -99,7 +99,11 @@ class CustomAppDrawer extends StatelessWidget {
                         buildElevatedButton(
                             AppLocalizations.of(context)!.profile,
                             IconsManager.iconUserSetting,
-                            () {}),
+                            () {
+                              sl<BottomBloc>().add(NewBottomChange(4));
+                              AppRouter.pop(context);
+
+                            }),
                         buildElevatedButton(
                             AppLocalizations.of(context)!.favorite,
                             IconsManager.iconStar,

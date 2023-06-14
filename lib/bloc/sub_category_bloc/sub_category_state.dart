@@ -1,3 +1,6 @@
+import 'package:absher/models/advertisement_response.dart';
+import 'package:absher/models/sub_category_item_model.dart';
+
 import '../../models/sub_category_response.dart';
 
 abstract class SubCategoryState {}
@@ -10,6 +13,7 @@ class SubCategoryError extends SubCategoryState {
 }
 
 class SubCategorySuccess extends SubCategoryState {
-  List<SubCategoryResponse> vendorsList;
-  SubCategorySuccess(this.vendorsList);
+  List<SubCategoryItemModel> subCategories;
+  List<AdvertisementsResponse> mainAds;
+  SubCategorySuccess(this.subCategories,this.mainAds);
 }

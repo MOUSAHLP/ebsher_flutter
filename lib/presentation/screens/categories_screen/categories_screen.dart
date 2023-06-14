@@ -4,6 +4,8 @@ import 'package:absher/presentation/resources/assets_manager.dart';
 import 'package:absher/presentation/resources/color_manager.dart';
 import 'package:absher/presentation/resources/style_app.dart';
 import 'package:absher/presentation/widgets/accessories/cached_image.dart';
+import 'package:absher/translations.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -46,12 +48,17 @@ class CategoriesScreen extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Icon(
-                        Icons.arrow_back_rounded,
-                        color: Colors.white,
+                      InkWell(
+                        child: Icon(
+                          Icons.arrow_back_rounded,
+                          color: Colors.white,
+                        ),
+                        onTap: (){
+                          AppRouter.pop(context);
+                        },
                       ),
                       Text(
-                        'كافة التصنيفات',
+                       AppLocalizations.of(context)!.allCategory ,
                         style: getBoldStyle(
                           color: Colors.white,
                           fontSize: FontSizeApp.s22,
@@ -118,14 +125,12 @@ class CategoryCover extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.only(bottomLeft: Radius.circular(50)),
-
-            // decoration:
-            //     const BoxDecoration(shape: BoxShape.circle, color: Colors.white),
-            child: Image.asset(
-              ImageManager.categoryCoverTest,
+            child:CachedImage(
+              imageUrl: category.image,
               width: 1.sw,
               height: 200,
               fit: BoxFit.cover,
+              fallbackPlaceHolder: ImageManager.categoryCoverTest,
             ),
           ),
           Padding(
@@ -143,10 +148,15 @@ class CategoryCover extends StatelessWidget {
                     ),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.all(4.0),
-                    child: CachedImage(
-                      width: 14,
-                      imageUrl: category.logo,
+                    padding: const EdgeInsets.all(1.0),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(50),
+                      child: CachedImage(
+                        width: 14,
+                        height: 14,
+                        imageUrl: category.thumbnail,
+                        fit: BoxFit.fill,
+                      ),
                     ),
                   ),
                 ),

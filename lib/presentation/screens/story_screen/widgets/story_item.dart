@@ -8,6 +8,8 @@ import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../translations.dart';
+
 class StoryItem extends StatefulWidget {
   final int storyIndex;
   final int pageIndex;
@@ -89,7 +91,7 @@ class _StoryItemState extends State<StoryItem> {
                           height: 16,
                         ),
                         Text(
-                          'حدث خطأ ما.',
+                          AppLocalizations.of(context)!.error,
                           style: getBoldStyle(
                             color: Colors.white,
                             fontSize: FontSizeApp.s16,

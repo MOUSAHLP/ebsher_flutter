@@ -55,9 +55,9 @@ class CachedImage extends StatelessWidget {
             return state.completedWidget;
           case LoadState.failed:
             return Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(0),
               child: ExtendedImage(
-                image: AssetImage(fallbackPlaceHolder ?? ImageManager.appLogo),
+                image: AssetImage(fallbackPlaceHolder ?? ImageManager.appLogo,),
                 clearMemoryCacheWhenDispose: true,
                 fit: BoxFit.contain,
                 color: color,

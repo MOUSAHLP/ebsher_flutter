@@ -1,23 +1,28 @@
 import 'dart:ui';
 
 import 'package:absher/bloc/authentication_bloc/authertication_bloc.dart';
+import 'package:absher/bloc/language_bloc/language_event.dart';
 import 'package:absher/core/app_router/app_router.dart';
 import 'package:absher/presentation/resources/assets_manager.dart';
 import 'package:absher/presentation/resources/values_app.dart';
+import 'package:absher/presentation/screens/reels_screen/reels_screen.dart';
 import 'package:absher/translations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../bloc/bottom_bloc/bottom_bloc.dart';
 import '../../bloc/bottom_bloc/bottom_event.dart';
+import '../../bloc/language_bloc/language_bloc.dart';
 import '../../core/services/services_locator.dart';
+import '../../data/data_resource/local_resource/data_store.dart';
 import '../resources/color_manager.dart';
 import '../resources/style_app.dart';
-import '../screens/favorites_screen/favorites_screen.dart';
+import '../screens/about_screen/about_screen.dart';
+import '../screens/privacy_screen/privacy_screen.dart';
 import 'dialogs/logout_confirmation_dialog.dart';
 
 class CustomAppDrawer extends StatelessWidget {
-  const CustomAppDrawer({super.key});
+  CustomAppDrawer({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -98,29 +103,72 @@ class CustomAppDrawer extends StatelessWidget {
                         ),
                         buildElevatedButton(
                             AppLocalizations.of(context)!.profile,
-                            IconsManager.iconUserSetting,
-                            () {
-                              sl<BottomBloc>().add(NewBottomChange(4));
-                              AppRouter.pop(context);
-
-                            }),
+                            IconsManager.iconUserSetting, () {
+                          sl<BottomBloc>().add(NewBottomChange(4));
+                          AppRouter.pop(context);
+                        }),
                         buildElevatedButton(
                             AppLocalizations.of(context)!.favorite,
-                            IconsManager.iconStar,
-                            () {
-                              sl<BottomBloc>().add(NewBottomChange(1));
-                              AppRouter.pop(context);
-                            }),
+                            IconsManager.iconStar, () {
+                          sl<BottomBloc>().add(NewBottomChange(1));
+                          AppRouter.pop(context);
+                        }),
                         buildElevatedButton(
                             AppLocalizations.of(context)!.language,
-                            IconsManager.iconWorld,
-                            () {}),
+                            IconsManager.iconWorld, () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    GestureDetector(
+                                        child: Text("English",
+                                            style: getBoldStyle(
+                                                color:
+                                                    ColorManager.primaryColor,
+                                                fontSize: 16)),
+                                        onTap: () {
+                                          if (DataStore.instance.lang != "en") {
+                                            sl<LanguageBloc>()
+                                                .add(NewLanguageChange("en"));
+                                            AppRouter.pop(context);
+                                          } else {
+                                            AppRouter.pop(context);
+                                          }
+                                        }),
+                                    GestureDetector(
+                                        onTap: () {
+                                          if (DataStore.instance.lang != "ar") {
+                                            sl<LanguageBloc>()
+                                                .add(NewLanguageChange("ar"));
+                                            AppRouter.pop(context);
+                                          } else {
+                                            AppRouter.pop(context);
+                                          }
+                                        },
+                                        child: Text("عربي",
+                                            style: getBoldStyle(
+                                                color:
+                                                    ColorManager.primaryColor,
+                                                fontSize: 14))),
+                                  ],
+                                ),
+                              );
+                            },
+                          );
+                        }),
                         buildElevatedButton(AppLocalizations.of(context)!.about,
-                            IconsManager.iconAbout, () {}),
+                            IconsManager.iconAbout, () {
+                          AppRouter.push(context, AboutScreen());
+                        }),
                         buildElevatedButton(
                             AppLocalizations.of(context)!.privacy,
-                            IconsManager.iconSetting,
-                            () {}),
+                            IconsManager.iconSetting, () {
+                          AppRouter.push(context, PrivacyScreen());
+                        }),
                         const SizedBox(height: 90),
                         GestureDetector(
                           onTap: () {
@@ -153,9 +201,33 @@ class CustomAppDrawer extends StatelessWidget {
     );
   }
 
+  AlertDialog alert = AlertDialog(
+    title: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        GestureDetector(
+            child: Text("English",
+                style: getBoldStyle(
+                    color: ColorManager.primaryColor, fontSize: 16)),
+            onTap: () {
+              print("engilsh");
+              DataStore.instance.setLang("en");
+            }),
+        GestureDetector(
+            onTap: () {
+              print("arabic");
+              DataStore.instance.setLang("ar");
+            },
+            child: Text("عربي",
+                style: getBoldStyle(
+                    color: ColorManager.primaryColor, fontSize: 14))),
+      ],
+    ),
+  );
+
   Widget buildElevatedButton(String title, String image, Function fun) {
     return ElevatedButton(
-      onPressed:(){
+      onPressed: () {
         fun();
       },
       style: ButtonStyle(

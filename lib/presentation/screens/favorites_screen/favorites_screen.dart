@@ -19,7 +19,7 @@ class FavoritesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<FavoritesListBloc>(
       create: (BuildContext context) =>
-          sl<FavoritesListBloc>()..add(GetFavoritesList(2)),
+          sl<FavoritesListBloc>()..add(GetFavoritesList()),
       // lazy: false,
       child: const FavoritesScreenBody(),
     );
@@ -43,46 +43,42 @@ class FavoritesScreenBody extends StatelessWidget {
             } else if (state is FavoritesListError) {
               return CustomErrorScreen(
                 onTap: () {
-                  sl<FavoritesListBloc>().add(GetFavoritesList(2));
+                  sl<FavoritesListBloc>().add(GetFavoritesList());
                 },
               );
             } else if (state is FavoritesListSuccess) {
               return SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const SizedBox(height: 10),
-                    state.vendorsList.isNotEmpty
-                        ? GridView.builder(
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemCount: state.vendorsList.length,
-                            shrinkWrap: true,
-                            itemBuilder: (context, index) {
-                              return CardFavorite(
-                                vendorModel: state.vendorsList[index],
-                              );
-                            },
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              mainAxisExtent: 270,
-                            ),
-                          )
-                        : const Center(child: CustomNoDataScreen())
-                  ],
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const SizedBox(height: 10),
+                      state.vendorsList.isNotEmpty
+                          ? GridView.builder(
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: state.vendorsList.length,
+                              shrinkWrap: true,
+                              itemBuilder: (context, index) {
+                                return CardFavorite(
+                                  vendorModel: state.vendorsList[index],
+                                );
+                              },
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                mainAxisExtent: 270,
+                              ),
+                            )
+                          : const Center(child: CustomNoDataScreen())
+                    ],
+                  ),
                 ),
               );
             } else {
               return const Text("");
             }
           }),
-//          Stack(
-//            children: [
-//              CustomAppBarScreens(
-//                title: AppLocalizations.of(context)!.favorite,
-//              ),
-//            ],
-//          ),
         ],
       ))),
     );

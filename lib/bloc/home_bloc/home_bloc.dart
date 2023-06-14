@@ -7,7 +7,7 @@ import '../../models/category_response.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   int index = 0;
-  List<StoryModelDto>? stories = dummyStories;
+  List<StoryModelDto>? stories = [];
   List<CategoyResponse>? categories = [];
   HomeBloc() : super(CategoryLoading()) {
     on<HomeEvent>((event, emit) async {
@@ -18,7 +18,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           emit(CategoryError(l));
         }, (r) {
           categories = r.categories;
-          emit(CategorySuccess(index, r.categories!, r.mainAds!));
+          stories = r.story;
+          emit(CategorySuccess(index, r.categories!, r.mainAds!,r.story!));
         });
       }
     });

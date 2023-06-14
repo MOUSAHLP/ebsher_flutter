@@ -17,8 +17,8 @@ class UserRepository {
     return BaseApiClient.post<LoginResponse>(
         url: ApiConst.login,
         queryParameters: {
+          "password": loginParams?.password,
           "phone": loginParams?.phone,
-          "password": loginParams?.password
         },
         converter: (e) {
           return LoginResponse.fromJson(e['data']);

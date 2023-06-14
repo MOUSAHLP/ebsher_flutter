@@ -119,6 +119,21 @@
                   }
                 },
     "hello":"Hello\nAbsher",
-    "profile":"Profile personly"
+    "profile":"Profile personly",
+    "loading":"Loading ...",
+    "allCategory":"All categories",
+    "sort":"Sort by",
+    "cancel":"Cancel",
+    "app":"Application",
+    "latest":"Latest",
+    "oldest":"Oldest",
+    "descending":"Descending Order",
+    "open":"Open",
+    "closeVendor":"Close",
+    "wrong":"Something went wrong.",
+    "location":"Your location is being determined ....",
+    "selectLocation":" Select your location",
+    "tryAgain":"Try Again"
+
 
 }

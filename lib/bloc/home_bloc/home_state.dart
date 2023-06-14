@@ -1,3 +1,5 @@
+import 'package:absher/models/story_model.dart';
+
 import '../../models/advertisement_response.dart';
 import '../../models/category_response.dart';
 import '../../models/search_response.dart';
@@ -15,5 +17,6 @@ class CategorySuccess extends HomeState {
   int index;
   List<CategoyResponse> lisCategory;
   List<AdvertisementsResponse> lisAdvertisment;
-  CategorySuccess(this.index, this.lisCategory, this.lisAdvertisment);
+  List<StoryModelDto> listStories;
+  CategorySuccess(this.index, this.lisCategory, this.lisAdvertisment,this.listStories);
 }

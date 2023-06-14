@@ -9,6 +9,7 @@ import 'package:absher/presentation/screens/vendors_screen/widgets/build_shimmer
 import 'package:absher/presentation/screens/vendors_screen/widgets/card_random.dart';
 import 'package:absher/presentation/widgets/custom_app_bar_screens.dart';
 import 'package:absher/presentation/widgets/custom_button.dart';
+import 'package:absher/translations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -120,21 +121,21 @@ class VendorsScreenBody extends StatelessWidget {
                                             CrossAxisAlignment.start,
                                         children: [
                                           FilterButton(
-                                            label: 'الأقدم',
+                                            label: AppLocalizations.of(context)!.oldest,
                                             isSelected: true,
                                           ),
                                           FilterButton(
-                                            label: 'الأحدث',
+                                            label: AppLocalizations.of(context)!.latest,
                                             isSelected: false,
                                           ),
                                           FilterButton(
-                                            label: 'ترتيب تنازلي',
+                                            label: AppLocalizations.of(context)!.descending,
                                             isSelected: false,
                                           ),
                                           Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: CustomButton(
-                                              label: 'تطبيق',
+                                              label:  AppLocalizations.of(context)!.app,
                                               fillColor:
                                                   ColorManager.primaryColor,
                                             ),
@@ -143,7 +144,7 @@ class VendorsScreenBody extends StatelessWidget {
                                             padding: const EdgeInsets.symmetric(
                                                 vertical: 8.0, horizontal: 64),
                                             child: CustomButton(
-                                              label: 'إلغاء',
+                                              label: AppLocalizations.of(context)!.cancel,
                                               fillColor:
                                                   ColorManager.primaryColor,
                                               isFilled: false,
@@ -180,7 +181,7 @@ class VendorsScreenBody extends StatelessWidget {
                                   ),
                                 ),
                                 Text(
-                                  'فرز حسب',
+                                  AppLocalizations.of(context)!.sort,
                                   style: getBoldStyle(
                                     color: ColorManager.primaryColor,
                                     fontSize: FontSizeApp.s14,

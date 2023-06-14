@@ -12,7 +12,7 @@ class FavoritesListBloc extends Bloc<FavoritesListEvent, FavoritesListState> {
       if (event is  GetFavoritesList) {
         emit(FavoritesListLoading());
         final response =
-            await HomeRepository.getVendorsList(categoryId: event.idCategory);
+            await HomeRepository.getFavoriteList();
         response.fold((l) {
           emit(FavoritesListError(l));
         }, (r) {

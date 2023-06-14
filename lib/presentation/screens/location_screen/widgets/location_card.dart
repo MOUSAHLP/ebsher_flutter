@@ -40,7 +40,7 @@ class LocationCard extends StatelessWidget {
                     borderRadius: BorderRadius.circular(20),
                     child: CachedImage(
                       imageUrl:
-                      vendorModel.logo,
+                      vendorModel.image,
                       width: 130,
                       height: 130,
                     ),

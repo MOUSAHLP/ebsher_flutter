@@ -1,30 +1,19 @@
+import 'package:absher/models/advertisement_response.dart';
+import 'package:absher/models/story_model.dart';
+import 'package:absher/models/sub_category_item_model.dart';
 
+import 'category_response.dart';
 
-import 'dart:convert';
-
-SubCategoryResponse subCategoryResponseFromJson(String str) => SubCategoryResponse.fromJson(json.decode(str));
-
-String subCategoryResponseToJson(SubCategoryResponse data) => json.encode(data.toJson());
-
-class SubCategoryResponse {
-  int? id;
-  String? name;
-
-  SubCategoryResponse({
-    this.id,
-    this.name,
+class SubCategoriesModel {
+  List<SubCategoryItemModel>? subCategories;
+  List<AdvertisementsResponse>? mainAds;
+  SubCategoriesModel({
+    this.mainAds,
+    this.subCategories,
   });
 
-  factory SubCategoryResponse.fromJson(Map<String, dynamic> json) => SubCategoryResponse(
-    id: json["id"],
-    name: json["name"],
+  factory SubCategoriesModel.fromJson(Map<String, dynamic> json) => SubCategoriesModel(
+    mainAds: List<AdvertisementsResponse>.from(json["ads"].map((x) => AdvertisementsResponse.fromJson(x))),
+    subCategories: List<SubCategoryItemModel>.from(json["subcategoris"].map((x) => SubCategoryItemModel.fromJson(x))),
   );
-
-  Map<String, dynamic> toJson() => {
-    "id": id,
-    "name": name,
-  };
-  static List<SubCategoryResponse> listFromJson( List<dynamic> json){
-    return json.map((value) =>SubCategoryResponse.fromJson(value) ).toList();
-  }
 }

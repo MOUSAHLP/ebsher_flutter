@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../models/vendor_model.dart';
 import '../../../widgets/accessories/cached_image.dart';
+
 // ignore: must_be_immutable
 class CardFavorite extends StatelessWidget {
   VendorModel vendorModel;
@@ -20,7 +21,6 @@ class CardFavorite extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
-//        width: 50,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           color: Colors.white,
@@ -31,13 +31,11 @@ class CardFavorite extends StatelessWidget {
             ClipRRect(
               borderRadius: const BorderRadius.all(Radius.circular(20)),
               child: CachedImage(
-                height:150,
+                height: 150,
                 width: (MediaQuery.of(context).size.width / 2) - 16,
-                imageUrl: vendorModel.logo!,
+                imageUrl: vendorModel.image!,
                 fit: BoxFit.cover,
-              )
-
-              ,
+              ),
             ),
             Padding(
               padding: const EdgeInsets.only(left: 8.0, right: 8),
@@ -45,12 +43,11 @@ class CardFavorite extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SizedBox(height: 5),
+                  const SizedBox(height: 10),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      SizedBox(
-                        width:  (MediaQuery.of(context).size.width / 3) - 80,
+                      Expanded(
                         child: Text(
                           LocalixationString(context, vendorModel.name) ?? "",
                           style: getBoldStyle(
@@ -59,9 +56,13 @@ class CardFavorite extends StatelessWidget {
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
-                      const Spacer(),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
                       StaticRate(
-                        rate:vendorModel.avgRating ,
+                        rate: vendorModel.avgRating,
                       ),
                       Container(
                         decoration: const BoxDecoration(
@@ -74,7 +75,8 @@ class CardFavorite extends StatelessWidget {
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 8.0),
                           child: Text(
-                            double.tryParse(vendorModel.avgRating ?? '0')!.toStringAsFixed(1),
+                            double.tryParse(vendorModel.avgRating ?? '0')!
+                                .toStringAsFixed(1),
                             style: getBoldStyle(
                               color: Colors.white,
                               fontSize: FontSizeApp.s12,
@@ -86,11 +88,14 @@ class CardFavorite extends StatelessWidget {
                       )
                     ],
                   ),
-                  Text(
-                   vendorModel.vendorType!.name!,
-                    style: getBoldStyle(
-                        color: ColorManager.labelGrey, fontSize: 9),
-                  ),
+//                  Text(
+//                    LocalixationString(context, vendorModel.category?.name) ?? "",
+//                    style: getBoldStyle(
+//                        color: ColorManager.labelGrey, fontSize: 9),
+//                    maxLines: 1,
+//                    overflow: TextOverflow.ellipsis,
+//                  )
+
                   const SizedBox(height: 5),
                   InfoCardWithIcon(
                     svgAsset: IconsManager.iconLocation,
@@ -100,7 +105,7 @@ class CardFavorite extends StatelessWidget {
                   const SizedBox(height: 5),
                   InfoCardWithIcon(
                     svgAsset: IconsManager.iconPhone,
-                    label:  AppLocalizations.of(context)!.phone,
+                    label: AppLocalizations.of(context)!.phone,
                     value: vendorModel.phone!,
                   ),
                 ],

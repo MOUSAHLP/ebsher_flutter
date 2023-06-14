@@ -1,11 +1,14 @@
+import 'package:absher/models/notification_model.dart';
 import 'package:absher/presentation/resources/color_manager.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../core/relative_time.dart';
 import '../../../resources/style_app.dart';
 class BuildNotificationWidget extends StatelessWidget {
   bool isSee;
-
-  BuildNotificationWidget(this.isSee);
+  NotificationModel notificationModel;
+  BuildNotificationWidget({required this.isSee,required this.notificationModel});
 
   @override
   Widget build(BuildContext context) {
@@ -31,21 +34,31 @@ class BuildNotificationWidget extends StatelessWidget {
                 Container(
                   width: MediaQuery.of(context).size.width * 0.8,
                   child: Text(
-                      "orem ipsum dolor sit amet,  ut labore et dolore",
+                      notificationModel.title!,
                       style: getBoldStyle(
+                          color:
+                          isSee ? ColorManager.primaryColor : Colors.white,
+                          fontSize: 16),
+                      softWrap: true,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis),
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  child: Text(
+                      notificationModel.body!,
+                      style: getMediumStyle(
                           color:
                           isSee ? ColorManager.primaryColor : Colors.white,
                           fontSize: 14),
                       softWrap: true,
-                      maxLines: 2,
+                      maxLines: 10,
                       overflow: TextOverflow.ellipsis),
                 ),
-                Text("منذ ساعة",
-                    style: getBoldStyle(
+                Text( RelativeTime.relativeTime(context, notificationModel.createdAt),
+                    style: getSemiBoldStyle(
                         color: isSee ? ColorManager.primaryColor : Colors.white,
                         fontSize: 13),
-                    softWrap: true,
-                    maxLines: 2,
                     overflow: TextOverflow.ellipsis),
               ],
             ),

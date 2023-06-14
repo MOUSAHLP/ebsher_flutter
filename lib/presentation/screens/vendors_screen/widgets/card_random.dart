@@ -3,6 +3,7 @@ import 'package:absher/presentation/resources/color_manager.dart';
 import 'package:absher/presentation/resources/font_app.dart';
 import 'package:absher/presentation/resources/style_app.dart';
 import 'package:absher/presentation/screens/vendor_details_screen/vendor_details_screen.dart';
+import 'package:absher/translations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../../../core/localization_string.dart';
@@ -18,8 +19,8 @@ class CardRandomWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Widget> card = [
-      CircularCard(image: vendor.logo!),
-      RectangleCard(image: vendor.logo!),
+      CircularCard(image: vendor.image!),
+      RectangleCard(image: vendor.image!),
     ];
     card.shuffle();
     return GestureDetector(
@@ -41,7 +42,7 @@ class CardRandomWidget extends StatelessWidget {
           alignment: AlignmentDirectional.centerStart,
           children: [
             Container(
-              height: 111,
+              height: 120,
               decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadiusDirectional.only(
@@ -68,6 +69,12 @@ class CardRandomWidget extends StatelessWidget {
                             style: getBoldStyle(
                               color: ColorManager.primaryColor,
                               fontSize: 16,
+                            ),
+                          ),  Text(
+                            LocalixationString(context, vendor.category?.name) ?? "",
+                            style: getBoldStyle(
+                              color: ColorManager.primaryColor,
+                              fontSize: 9,
                             ),
                           ),
                           Row(
@@ -151,7 +158,7 @@ class CardRandomWidget extends StatelessWidget {
 
 class IsOpenLabel extends StatelessWidget {
   const IsOpenLabel({Key? key, required this.isOpen}) : super(key: key);
-  final bool? isOpen;
+  final String? isOpen;
 
   @override
   Widget build(BuildContext context) {
@@ -160,13 +167,13 @@ class IsOpenLabel extends StatelessWidget {
       width: 64,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
-          color: isOpen == true ? ColorManager.darkRed : null,
+          color: isOpen == "1" ? ColorManager.darkRed : null,
           border: Border.all(
             color: ColorManager.darkRed,
           )),
       child: Center(
           child: Text(
-        isOpen == true ? 'مفتوح' : 'مغلق',
+        isOpen == "1" ? AppLocalizations.of(context)!.open : AppLocalizations.of(context)!.closeVendor,
         style: getBoldStyle(
           color: isOpen == true ? Colors.white : ColorManager.darkRed,
           fontSize: FontSizeApp.s8,
@@ -302,76 +309,3 @@ class RectangleCard extends StatelessWidget {
   }
 }
 
-// class RectangleRotationCard extends StatelessWidget {
-//   final String image;
-//
-//   const RectangleRotationCard({super.key, required this.image});
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Stack(
-//       children: [
-//         RotationTransition(
-//             turns: new AlwaysStoppedAnimation(40 / 360),
-//             child: Container(
-//               width: 70,
-//               height: 70,
-//               transform: new Matrix4.translationValues(
-//                   MediaQuery.of(context).size.width * 0.55, -250.0, 0.0)
-//                 ..rotateZ(28 * 3.1415927 / 180),
-//               decoration: BoxDecoration(
-//                 color: Colors.redAccent,
-//                 borderRadius: BorderRadius.circular(10),
-//                 shape: BoxShape.rectangle,
-//                 boxShadow: ColorManager.boxShadow,
-//               ),
-//               child: RotationTransition(
-//                 turns: new AlwaysStoppedAnimation(320 / 360),
-//                 child: CachedImage(
-//                   imageUrl: image,
-//                   height: 70,
-//                   width: 70,
-//                 ),
-//               ),
-//             )),
-//
-//         // ),
-//       ],
-//     );
-//   }
-// }
-
-// class RPSCustomPainter extends CustomPainter{
-//
-//   @override
-//   void paint(Canvas canvas, Size size) {
-//
-//
-//
-//     Paint paint0 = Paint()
-//       ..color = const Color.fromARGB(255, 255, 255, 255)
-//       ..style = PaintingStyle.fill
-//       ..strokeWidth = 1.0;
-//
-//
-//     Path path0 = Path();
-//     path0.moveTo(size.width*0.0400000,size.height*0.2550000);
-//     path0.cubicTo(size.width*0.0400000,size.height*0.6262500,size.width*0.0400000,size.height*0.6262500,size.width*0.0400000,size.height*0.7500000);
-//     path0.cubicTo(size.width*0.0287500,size.height*1.0175000,size.width*0.2062500,size.height*1.0075000,size.width*0.2950000,size.height);
-//     path0.cubicTo(size.width*0.4575000,size.height*0.9387500,size.width*0.7425000,size.height*0.7362500,size.width*0.8450000,size.height*0.6550000);
-//     path0.cubicTo(size.width*0.9462500,size.height*0.5900000,size.width*1.1387500,size.height*0.5100000,size.width*0.8500000,size.height*0.3550000);
-//     path0.cubicTo(size.width*0.7287500,size.height*0.2587500,size.width*0.4762500,size.height*0.0762500,size.width*0.3050000,size.height*0.0100000);
-//     path0.cubicTo(size.width*0.1787500,size.height*0.0012500,size.width*0.0237500,size.height*-0.0337500,size.width*0.0400000,size.height*0.2550000);
-//     path0.close();
-//
-//     canvas.drawPath(path0, paint0);
-//
-//
-//   }
-//
-//   @override
-//   bool shouldRepaint(covariant CustomPainter oldDelegate) {
-//     return true;
-//   }
-//
-// }

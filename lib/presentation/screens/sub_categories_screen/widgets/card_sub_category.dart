@@ -4,6 +4,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../resources/style_app.dart';
 class CardSubCategory extends StatelessWidget {
+  String title;
+  String image;
+
+  CardSubCategory({required this.title, required this.image});
+
   @override
   Widget build(BuildContext context) {
     var size=(1.sw-40)*98;
@@ -14,8 +19,8 @@ class CardSubCategory extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
-              image:const  DecorationImage(
-                image: AssetImage(ImageManager.test1),
+              image:  DecorationImage(
+                image: NetworkImage(image),
                 fit: BoxFit.cover,
               ),
             ),
@@ -35,7 +40,7 @@ class CardSubCategory extends StatelessWidget {
                 border: Border.all(color: Colors.white, width: 2)),
             height:  size/338,
             child: Center(
-                child: Text("Resturant",
+                child: Text(title,
                     style: getBoldStyle(color: Colors.white,fontSize: 27))),
           ),
         ],

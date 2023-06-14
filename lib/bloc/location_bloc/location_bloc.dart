@@ -18,17 +18,9 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     permission = await Geolocator.checkPermission();
 try{
-//    if (!serviceEnabled) {
-//      bool serviceEnabled = await Geolocator.openLocationSettings();
-//      if (!serviceEnabled) {
-//        return Future.error('Location services are disabled.');
-//      }
-//    }
-
     if (permission == LocationPermission.deniedForever) {
        return Future.error('Location services are disabled.');
     }
-
     if (permission == LocationPermission.denied) {
         permission = await Geolocator.requestPermission();
       if (permission != LocationPermission.whileInUse && permission != LocationPermission.always) {
@@ -72,6 +64,7 @@ try{
     );}
   }
   addMarker(){
+
     for(int i=0;i<vendorList.length;i++){
       customMarkers.add(
         MarkerData(
@@ -80,7 +73,7 @@ try{
               position:  LatLng(double.parse(vendorList[i].latitude??"0") , double.parse(vendorList[i].longitude??"0") ),onTap: (){
                 add(ClickMarker(i));
               } ),
-          child: MarkerWidget(image: vendorList[i].logo!)
+          child: MarkerWidget(image: vendorList[i].category!.thumbnail!,colors:vendorList[i].category!.color! )
           ,),
       );
 
@@ -95,7 +88,7 @@ try{
           onTap: () {
             add(ClickMarker(i));
           }
-      ),child: MarkerWidget(image: vendorListSelected[i].logo!)));
+      ),child: MarkerWidget(image: vendorList[i].category!.thumbnail!,colors:vendorList[i].category!.color!)));
     }
   }
   LocationBloc() : super(LocationState()) {
@@ -202,7 +195,6 @@ try{
           emit(state.copyWith(vendorBinding:vendorListBinding,check: !state.check));
         }
       }
-
     });
   }
 }

@@ -14,12 +14,25 @@ class CategoyResponse {
   int? id;
   localizationStringModel? name;
   localizationStringModel? description;
-  String? logo;
+  String? isActive;
+  String? image;
+  String? thumbnail;
+  String? color;
+  String? featured;
+  dynamic createdAt;
+  dynamic updatedAt;
   CategoyResponse({
     this.id,
     this.name,
     this.description,
-    this.logo,
+    this.isActive,
+    this.image,
+    this.thumbnail,
+    this.color,
+    this.featured,
+    this.createdAt,
+    this.updatedAt,
+
   });
   factory CategoyResponse.fromJson(Map<String, dynamic> json)  {
     return
@@ -27,14 +40,26 @@ class CategoyResponse {
     id: json["id"],
     name: localizationStringModel.fromJson(json,"name"),
     description:localizationStringModel.fromJson(json,"description"),
-    logo: json["logo"],
+      isActive: json["is_active"],
+      image: json["image"],
+      thumbnail: json["thumbnail"],
+      color: json["color"]??"",
+      featured: json["featured"],
+      createdAt: json["created_at"],
+      updatedAt: json["updated_at"],
   );}
 
   Map<String, dynamic> toJson() => {
     "id": id,
     "name":name,
     "description": description,
-    "logo": logo,
+    "is_active": isActive,
+    "image": image,
+    "thumbnail": thumbnail,
+    "color": color,
+    "featured": featured,
+    "created_at": createdAt,
+    "updated_at": updatedAt,
   };
   static List<CategoyResponse> listFromJson( List<dynamic> json){
     return json.map((value) =>CategoyResponse.fromJson(value) ).toList();

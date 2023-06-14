@@ -1,9 +1,13 @@
 import 'package:absher/presentation/resources/color_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../../core/app_router/app_router.dart';
+import '../resources/assets_manager.dart';
 import '../resources/style_app.dart';
 import '../resources/values_app.dart';
+import 'custom_icon.dart';
+
 // ignore: must_be_immutable
 class CustomAppBarScreens extends StatelessWidget {
   String title;
@@ -12,7 +16,7 @@ class CustomAppBarScreens extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return   Container(
+    return Container(
       color: ColorManager.backgroundEndColor,
       child: Padding(
         padding: const EdgeInsets.symmetric(
@@ -20,26 +24,17 @@ class CustomAppBarScreens extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Container(
-              decoration: const BoxDecoration(
-                  color: Colors.white, shape: BoxShape.circle),
-              height: 40,
-              width: 40,
-              child: const Icon(Icons.share),
-            ),
-            Text(title,
-                style: getBoldStyle(color: Colors.white, fontSize: 18)),
             GestureDetector(
               onTap: () {
                 AppRouter.pop(context);
               },
-              child: Container(
-                decoration: const BoxDecoration(
-                    color: Colors.white, shape: BoxShape.circle),
-                height: 40,
-                width: 40,
-                child:  Icon(Icons.arrow_forward,),
+              child: CustomIcon(
+                svgAsset: IconsManager.iconBackArrow,
               ),
+            ),
+            Text(title, style: getBoldStyle(color: Colors.white, fontSize: 18)),
+            CustomIcon(
+              svgAsset: IconsManager.iconShare,
             ),
           ],
         ),

@@ -139,20 +139,21 @@ class CustomShapeContainer extends StatelessWidget {
             clipper: CustomCardCornerClipper(),
             shadow: Shadow(
                 color: Colors.black.withOpacity(0.2),
-                blurRadius: 1,
-                offset: const Offset(3, 2)),
+                blurRadius: 2,
+                offset: const Offset(-4, 10)),
           ),
         ),
-        ClipPath(
-          clipper: CustomCardCornerClipper(),
-          child: Container(
-            height: 58,
-            width: 58,
-            decoration: const BoxDecoration(
-              color: Colors.white,
-            ),
-          ),
-        ),
+        SvgPicture.asset(IconsManager.iconCustomShape)
+        // ClipPath(
+        //   clipper: CustomCardCornerClipper(),
+        //   child: Container(
+        //     height: 58,
+        //     width: 58,
+        //     decoration: const BoxDecoration(
+        //       color: Colors.white,
+        //     ),
+        //   ),
+        // ),
       ],
     );
   }

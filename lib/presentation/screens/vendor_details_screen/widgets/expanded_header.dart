@@ -39,17 +39,17 @@ class ExpandedHeader extends StatelessWidget {
                 child: Row(
                   children: [
                     CircleIconButton(
-                      icon: Icons.arrow_back_rounded,
+                      svgAsset: IconsManager.iconBackArrow,
                       onTap: () {
                         AppRouter.pop(context);
                       },
                     ),
                     Spacer(),
-                    CircleIconButton(icon: Icons.share),
+                    CircleIconButton(svgAsset: IconsManager.iconShare),
                     SizedBox(
                       width: 12,
                     ),
-                    CircleIconButton(icon: Icons.photo_library_sharp),
+                    CircleIconButton(svgAsset: IconsManager.iconGallery),
                   ],
                 ),
               ),
@@ -73,11 +73,11 @@ class ExpandedHeader extends StatelessWidget {
             start: 30,
             textDirection: Directionality.of(context),
             child: Stack(
-              alignment: AlignmentDirectional.centerEnd,
+              alignment: Alignment.center,
               children: [
                 CustomShapeContainer(),
                 Padding(
-                  padding: const EdgeInsets.all(12.0),
+                  padding: const EdgeInsetsDirectional.only(start: 4),
                   child: SvgPicture.asset(IconsManager.iconFavoriteFilled),
                 ),
               ],

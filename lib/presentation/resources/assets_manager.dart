@@ -54,7 +54,6 @@ class IconsManager {
   static const String iconLeftArrow = "$iconPath/leftArrow.svg";
   static const String iconRightArrow = "$iconPath/rightArrow.svg";
 
-
   static const String iconDogs = "$iconPath/dogs_icon.svg";
   static const String iconEmail = "$iconPath/email_icon.svg";
   static const String iconFax = "$iconPath/fax_icon.svg";
@@ -65,4 +64,9 @@ class IconsManager {
   static const String iconOpenHour = "$iconPath/open_hour_icon.svg";
   static const String iconWeb = "$iconPath/web_icon.svg";
   static const String iconWifi = "$iconPath/wifi_icon.svg";
+
+  static const String iconBackArrow = "$iconPath/back_arrow.svg";
+  static const String iconShare = "$iconPath/share.svg";
+  static const String iconGallery = "$iconPath/gallery.svg";
+  static const String iconCustomShape = "$iconPath/custom_shape_icon.svg";
 }

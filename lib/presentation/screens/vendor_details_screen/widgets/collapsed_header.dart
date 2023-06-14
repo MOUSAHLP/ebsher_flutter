@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:absher/core/app_router/app_router.dart';
 import 'package:absher/core/app_router/dialog_transition_builder.dart';
+import 'package:absher/core/extensions.dart';
 import 'package:absher/models/vendor_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -43,27 +44,48 @@ class CollapsedHeader extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      CircleIconButton(
-                        icon: Icons.arrow_back_rounded,
-                        onTap: () {
-                          AppRouter.pop(context);
-                        },
+                      GestureDetector(
+                        onTap: () => AppRouter.pop(context),
+                        child: SizedBox(
+                          height: 24,
+                          width: 24,
+                          child: SvgPicture.asset(
+                            IconsManager.iconBackArrow,
+                            color: Colors.white,
+                          ).handleRotation(context),
+                        ),
                       ),
                       Expanded(
                         child: Text(
                           LocalixationString(context, vendor.name) ?? '',
                           textAlign: TextAlign.center,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                           style: getBoldStyle(
                             color: Colors.white,
                             fontSize: 18,
                           ),
                         ),
                       ),
-                      CircleIconButton(icon: Icons.share),
                       SizedBox(
-                        width: 12,
+                        height: 24,
+                        width: 24,
+                        child: SvgPicture.asset(
+                          IconsManager.iconShare,
+                          color: Colors.white,
+                        ).handleRotation(context),
                       ),
-                      CircleIconButton(icon: Icons.photo_library_sharp),
+                      SizedBox(
+                        width: 24,
+                      ),
+                      SizedBox(
+                        height: 24,
+                        width: 24,
+                        child: SvgPicture.asset(
+                          IconsManager.iconGallery,
+                          color: Colors.white,
+                        ).handleRotation(context),
+                      ),
                     ],
                   ),
                 ),

@@ -59,18 +59,17 @@ class _VendorDetailsScreenState extends State<VendorDetailsScreen> {
                 backgroundColor: Colors.white,
                 pinned: true,
                 expandedHeight: 1.sw + 10,
-                toolbarHeight: 96,
+                toolbarHeight: 86,
                 flexibleSpace: FlexibleSpaceBar(
                   collapseMode: CollapseMode.pin,
                   background: ExpandedHeader(
                     vendor: widget.vendor,
-
                   ),
                 ),
                 actions: _isShrink
                     ? [
                         CollapsedHeader(
-                          toolbarHeight: 96,
+                          toolbarHeight: 86,
                           vendor: widget.vendor,
                         ),
                       ]

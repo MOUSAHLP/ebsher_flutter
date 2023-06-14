@@ -17,6 +17,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../bloc/stories_bloc/stories_state.dart';
+import '../../../core/localization_string.dart';
 import '../../../core/relative_time.dart';
 import '../../../models/story_model.dart';
 import 'widgets/story_item.dart';
@@ -263,8 +264,7 @@ class _StoryPageFrameState extends State<_StoryPageFrame> {
                                 image: NetworkImage(
                                   context
                                       .read<StoriesBloc>()
-                                      .stories[widget.pageIndex]
-                                      .vendorLogo!,
+                                      .stories[widget.pageIndex].vendor![0].image!,
                                 ),
                                 fit: BoxFit.cover,
                               ),
@@ -280,10 +280,11 @@ class _StoryPageFrameState extends State<_StoryPageFrame> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                context
-                                    .read<StoriesBloc>()
-                                    .stories[widget.pageIndex]
-                                    .vendorName!,
+      LocalixationString(context, context
+          .read<StoriesBloc>()
+          .stories[widget.pageIndex]
+          .vendor![0].name!) ?? ""
+                               ,
                                 style: getBoldStyle(
                                   color: Colors.white,
                                   fontSize: FontSizeApp.s18,
@@ -307,7 +308,7 @@ class _StoryPageFrameState extends State<_StoryPageFrame> {
                                                     .state
                                                     .currentStackIndex
                                                 : 0]
-                                            .creationTime),
+                                            .createdAt),
                                     style: getBoldStyle(
                                       color: Colors.white,
                                       fontSize: FontSizeApp.s12,
@@ -328,24 +329,24 @@ class _StoryPageFrameState extends State<_StoryPageFrame> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.end,
                                         children: [
-                                          Text(
-                                            intl.NumberFormat.compact().format(
-                                                context
-                                                    .read<StoriesBloc>()
-                                                    .stories[widget.pageIndex]
-                                                    .stories![widget
-                                                            .isCurrentPage
-                                                        ? context
-                                                            .read<StoriesBloc>()
-                                                            .state
-                                                            .currentStackIndex
-                                                        : 0]
-                                                    .totalViewsCount),
-                                            style: getBoldStyle(
-                                              color: ColorManager.softYellow,
-                                            )!
-                                                .copyWith(height: 1),
-                                          ),
+//                                          Text(
+//                                            intl.NumberFormat.compact().format(
+//                                                context
+//                                                    .read<StoriesBloc>()
+//                                                    .stories[widget.pageIndex]
+//                                                    .stories![widget
+//                                                            .isCurrentPage
+//                                                        ? context
+//                                                            .read<StoriesBloc>()
+//                                                            .state
+//                                                            .currentStackIndex
+//                                                        : 0]
+//                                                    .totalViewsCount),
+//                                            style: getBoldStyle(
+//                                              color: ColorManager.softYellow,
+//                                            )!
+//                                                .copyWith(height: 1),
+//                                          ),
                                           SizedBox(
                                             width: 4,
                                           ),

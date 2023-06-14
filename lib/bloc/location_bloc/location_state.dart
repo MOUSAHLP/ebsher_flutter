@@ -3,13 +3,13 @@
 import 'package:absher/models/vendor_model.dart';
 import 'package:custom_map_markers/custom_map_markers.dart';
 import 'package:equatable/equatable.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-import '../../models/vendors_near_model.dart';
 
 
 
 class CurrentLocationLoading extends LocationState {
+}
+class CurrentLocationNoPermission extends LocationState {
 }
 class CurrentLocationError extends LocationState {
   String error;

@@ -35,6 +35,9 @@ dependencies:
   geolocator: ^9.0.2
   custom_map_markers: ^0.0.2+1
   flutter_screenutil: ^5.7.0
+  percent_indicator: ^4.2.3
+  card_swiper: ^2.0.4
+  flutter_html:
 
 dev_dependencies:
   build_runner: ^2.3.3

@@ -1,32 +1,29 @@
 class StoryItemModel {
   int? id;
-  int? vendorId;
   String? image;
   String? video;
   String? description;
-  int? totalViewsCount;
-  DateTime? creationTime;
+//  int? totalViewsCount;
+  DateTime? createdAt;
 
   StoryItemModel(
       {this.id,
-      this.vendorId,
       this.image,
       this.video,
       this.description,
-      this.totalViewsCount = 0,
-      this.creationTime});
+//      this.totalViewsCount = 0,
+      this.createdAt});
 
   StoryItemModel.fromJson(Map<String, dynamic>? json) {
     if (json == null) return;
     id = json['id'];
-    vendorId = json['restaurantId'];
     image = json['image'];
-    creationTime = json['creationTime'] == null
+    createdAt = json['created_at'] == null
         ? null
-        : DateTime.parse(json['creationTime']);
+        : DateTime.parse(json['created_at']);
     description = json['description'];
     video = json['video'];
-    totalViewsCount = json['totalViewsCount'] ?? 0;
+//    totalViewsCount = json['totalViewsCount'] ?? 0;
   }
 
   static List<StoryItemModel> listFromJson(List<dynamic>? json) {

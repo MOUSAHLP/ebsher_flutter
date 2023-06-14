@@ -1,6 +1,6 @@
 
 import 'package:absher/bloc/sub_category_bloc/sub_category_event.dart';
-import 'package:absher/bloc/sub_category_bloc/vendors_list_state.dart';
+import 'package:absher/bloc/sub_category_bloc/sub_category_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../data/repos/home_repository.dart';
@@ -15,7 +15,7 @@ class SubCategoryBloc extends Bloc<SubCategoryEvent, SubCategoryState> {
         response.fold((l) {
           emit(SubCategoryError(l));
         }, (r) {
-          emit(SubCategorySuccess(r));
+          emit(SubCategorySuccess(r.subCategories!,r.mainAds!));
         });
       }
     });

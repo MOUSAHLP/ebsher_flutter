@@ -24,7 +24,6 @@ class _VendorDetailsScreenState extends State<VendorDetailsScreen> {
       });
     }
   }
-
   bool get _isShrink {
     return _scrollController != null &&
         _scrollController!.hasClients &&

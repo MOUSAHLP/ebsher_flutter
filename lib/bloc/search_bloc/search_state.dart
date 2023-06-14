@@ -1,9 +1,12 @@
-import '../../models/search_response.dart';
+
+
+
+import '../../models/vendor_model.dart';
 
 abstract class SearchState {}
 class SearchCategoryLoading extends SearchState{}
 class SearchCategorySuccess extends SearchState{
-  List<SearchResponse> listSearch;
+  List<VendorModel> listSearch;
   SearchCategorySuccess(this.listSearch);
 }
 class SearchCategoryError extends SearchState{

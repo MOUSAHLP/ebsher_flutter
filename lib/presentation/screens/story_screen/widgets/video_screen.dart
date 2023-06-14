@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:absher/bloc/stories_bloc/stories_bloc.dart';
+import 'package:absher/translations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -130,7 +131,7 @@ class _VideoScreenState extends State<VideoScreen> {
                     height: 16,
                   ),
                   Text(
-                    'حدث خطأ ما.',
+                    AppLocalizations.of(context)!.error,
                     style: getBoldStyle(
                       color: Colors.white,
                       fontSize: FontSizeApp.s16,

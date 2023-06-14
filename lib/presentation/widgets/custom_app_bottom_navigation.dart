@@ -5,13 +5,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../bloc/bottom_bloc/bottom_bloc.dart';
 import '../../bloc/bottom_bloc/bottom_event.dart';
 import '../../core/services/services_locator.dart';
-import '../../test.dart';
 import '../resources/values_app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../resources/assets_manager.dart';
 import '../resources/color_manager.dart';
 import '../screens/location_screen/location_screen.dart';
+import '../screens/reels_screen/reels_screen.dart';
 
 class CustomAppBottomNavigation extends StatelessWidget {
   const CustomAppBottomNavigation({super.key});
@@ -42,7 +42,7 @@ class CustomAppBottomNavigation extends StatelessWidget {
               } ,color:state.index==2? ColorManager.softYellow: ColorManager.lightBlueColor),
               const SizedBox(width: SizeApp.s5),
               IconBottomNavigation(imag:  IconsManager.iconVideo, onTap:(){
-                sl<BottomBloc>().add(NewBottomChange(3));
+                AppRouter.push(context, ReelsScreen());
               },color: state.index==3?ColorManager.softYellow: ColorManager.lightBlueColor),
               IconBottomNavigation(imag:  IconsManager.iconUser, onTap:(){
                 sl<BottomBloc>().add(NewBottomChange(4));
@@ -51,7 +51,6 @@ class CustomAppBottomNavigation extends StatelessWidget {
           ),
         );}
           else return Text("");
-
     });
   }
 }
@@ -61,9 +60,7 @@ class IconBottomNavigation  extends StatelessWidget {
   String imag;
   Function onTap;
   Color color;
-
   IconBottomNavigation({super.key, required this.imag,required this.onTap,required this.color});
-
   @override
   Widget build(BuildContext context) {
     return   InkWell(

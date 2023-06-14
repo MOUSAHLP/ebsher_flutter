@@ -15,7 +15,10 @@ class AdvertisementsResponse {
   String? priority;
   String? url;
   String? clicksCount;
-  String? photo;
+  String? image;
+  String? isActive;
+  dynamic createdAt;
+  dynamic updatedAt;
 
   AdvertisementsResponse({
     this.id,
@@ -24,17 +27,28 @@ class AdvertisementsResponse {
     this.priority,
     this.url,
     this.clicksCount,
-    this.photo,
+    this.image,
+    this.isActive,
+    this.createdAt,
+    this.updatedAt,
   });
 
   factory AdvertisementsResponse.fromJson(Map<String, dynamic> json) => AdvertisementsResponse(
     id: json["id"],
-    startTime: DateTime.parse(json["start_time"]),
-    endTime: DateTime.parse(json["end_time"]),
+    startTime: json["start_time"] == null
+        ? null
+        : DateTime.parse(json["start_time"]),
+    endTime: json["end_time"] == null
+        ? null
+        : DateTime.parse(json["end_time"]),
+
     priority: json["priority"],
     url: json["url"],
     clicksCount: json["clicks_count"],
-    photo: json["photo"],
+    image: json["image"],
+    isActive: json["is_active"],
+    createdAt: json["created_at"],
+    updatedAt: json["updated_at"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -44,7 +58,10 @@ class AdvertisementsResponse {
     "priority": priority,
     "url": url,
     "clicks_count": clicksCount,
-    "photo": photo,
+    "image": image,
+    "is_active": isActive,
+    "created_at": createdAt,
+    "updated_at": updatedAt,
   };
 
   static List<AdvertisementsResponse> listFromJson( List<dynamic> json){

@@ -43,7 +43,7 @@ class _AdsCarouselSliderState extends State<AdsCarouselSlider> {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(RadiusApp.r27),
                     child: CachedImage(
-                      imageUrl: ad.photo,
+                      imageUrl: ad.image,
                       fit: BoxFit.fill,
                     ),
                   ),

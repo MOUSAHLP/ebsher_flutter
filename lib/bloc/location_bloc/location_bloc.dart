@@ -1,16 +1,41 @@
 import 'package:absher/bloc/location_bloc/location_event.dart';
+import 'package:absher/core/app_router/app_router.dart';
 import 'package:absher/presentation/resources/assets_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:overlay_support/overlay_support.dart';
 import '../../data/repos/location_respository.dart';
 import '../../models/vendor_model.dart';
 import '../../presentation/screens/location_screen/widgets/marker.dart';
 import 'location_state.dart';
 import 'package:custom_map_markers/custom_map_markers.dart';
 class LocationBloc extends Bloc<LocationEvent, LocationState> {
-  var latitudeCurrent = 0.0, longitudeCurrent = 0.0;
+  Future<Position?> determinePosition() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    permission = await Geolocator.checkPermission();
+try{
+    if (permission == LocationPermission.deniedForever) {
+       return Future.error('Location services are disabled.');
+    }
+    if (permission == LocationPermission.denied) {
+        permission = await Geolocator.requestPermission();
+      if (permission != LocationPermission.whileInUse && permission != LocationPermission.always) {
+        return Future.error('Location services are disabled.');
+      }
+    }
+
+    return await Geolocator.getCurrentPosition();}
+    catch(e){
+  return null;
+    }
+  }
+
+
+  double? latitudeCurrent , longitudeCurrent ;
   GoogleMapController? mapController;
   Position? position;
   List<VendorModel> vendorList=[];
@@ -19,25 +44,27 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
   List<MarkerData> customMarkers=[];
   List<MarkerData> myMarkFilter=[];
   Future<void> getPosition() async {
-    position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
+    position = await determinePosition();
+    if(position==null){
+    }
+    else{
     latitudeCurrent = position!.latitude;
     longitudeCurrent = position!.longitude;
     myMarkFilter.add(
       MarkerData(
           marker:
-          Marker(markerId:   const MarkerId("current"), position:  LatLng(latitudeCurrent , longitudeCurrent ), ),
+          Marker(markerId:   const MarkerId("current"), position:  LatLng(latitudeCurrent! , longitudeCurrent! ), ),
           child:Image.asset( ImageManager.locationMap,width:100,height: 100,)),
     );
     customMarkers.add(
       MarkerData(
           marker:
-          Marker(markerId:   const MarkerId("current1"), position:  LatLng(latitudeCurrent , longitudeCurrent ), ),
+          Marker(markerId:   const MarkerId("current1"), position:  LatLng(latitudeCurrent! , longitudeCurrent! ), ),
           child:Image.asset( ImageManager.locationMap,width:100,height: 100,)),
-    );
-
+    );}
   }
   addMarker(){
+
     for(int i=0;i<vendorList.length;i++){
       customMarkers.add(
         MarkerData(
@@ -46,7 +73,7 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
               position:  LatLng(double.parse(vendorList[i].latitude??"0") , double.parse(vendorList[i].longitude??"0") ),onTap: (){
                 add(ClickMarker(i));
               } ),
-          child: MarkerWidget(image: vendorList[i].logo!)
+          child: MarkerWidget(image: vendorList[i].category!.thumbnail!,colors:vendorList[i].category!.color! )
           ,),
       );
 
@@ -61,7 +88,7 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
           onTap: () {
             add(ClickMarker(i));
           }
-      ),child: MarkerWidget(image: vendorListSelected[i].logo!)));
+      ),child: MarkerWidget(image: vendorList[i].category!.thumbnail!,colors:vendorList[i].category!.color!)));
     }
   }
   LocationBloc() : super(LocationState()) {
@@ -69,17 +96,22 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
       if(event is CurrentLocation){
         emit(CurrentLocationLoading());
         await getPosition();
-        final response =
-        await LocationRepository.getVendorsNear(latitude: latitudeCurrent, longitude: longitudeCurrent);
-        response.fold((l) {
-          emit(CurrentLocationError(l));
-        }, (r) {
-          vendorList=r;
-          addMarker();
-          emit(state.copyWith(latitude: latitudeCurrent,longitude: longitudeCurrent,vendorList: vendorList,vendorSelected:vendorList,
-              myMark: customMarkers ));
-        });
-      }
+        if(latitudeCurrent==null){
+          emit(CurrentLocationNoPermission());
+        }
+          else{
+          final response =
+          await LocationRepository.getVendorsNear(latitude: latitudeCurrent!, longitude: longitudeCurrent!);
+          response.fold((l) {
+            emit(CurrentLocationError(l));
+          }, (r) {
+            vendorList=r;
+            addMarker();
+            emit(state.copyWith(latitude: latitudeCurrent,longitude: longitudeCurrent,vendorList: vendorList,vendorSelected:vendorList,
+                myMark: customMarkers ));
+          });
+        }
+        }
       if(event is FilterVendors){
         vendorListSelected.clear();
         vendorListSelected=[...vendorListBinding];
@@ -163,7 +195,6 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
           emit(state.copyWith(vendorBinding:vendorListBinding,check: !state.check));
         }
       }
-
     });
   }
 }

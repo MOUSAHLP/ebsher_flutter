@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:absher/bloc/authentication_bloc/authentication_event.dart';
 import 'package:absher/bloc/authentication_bloc/authentication_state.dart';
+import 'package:absher/bloc/language_bloc/language_event.dart';
 import 'package:absher/bloc/login_bloc/login_event.dart';
 import 'package:absher/data/data_resource/local_resource/data_store.dart';
 import 'package:absher/presentation/screens/auth_screen/account_screen.dart';
@@ -20,6 +21,8 @@ import 'package:overlay_support/overlay_support.dart';
 import 'bloc/authentication_bloc/authertication_bloc.dart';
 import 'bloc/bottom_bloc/bottom_bloc.dart';
 import 'bloc/home_bloc/home_bloc.dart';
+import 'bloc/language_bloc/language_bloc.dart';
+import 'bloc/language_bloc/language_state.dart';
 import 'bloc/login_bloc/login_bloc.dart';
 import 'bloc/search_bloc/search_bloc.dart';
 import 'bloc/sign_up_bloc/sign_up_bloc.dart';
@@ -59,70 +62,74 @@ class _MyAppState extends State<MyApp> {
       designSize: const Size(100, 100),
       builder: (context, ctx) {
         return MultiBlocProvider(
-          providers: [
-            BlocProvider(
-                create: (BuildContext context) => sl<AuthenticationBloc>()),
-            BlocProvider(
-              create: (BuildContext context) => sl<SignUpBloc>(),
-              lazy: false,
-            ),
-            BlocProvider(
-              create: (BuildContext context) => sl<LoginBloc>(),
-              lazy: false,
-            ),
-            BlocProvider(
-              create: (BuildContext context) => sl<HomeBloc>(),
-            ),
-            BlocProvider(
-              create: (BuildContext context) => sl<SearchBloc>(),
-            ),
-            BlocProvider(
-              create: (BuildContext context) => sl<BottomBloc>(),
-            ),
-          ],
-          child: OverlaySupport.global(
-            child: GestureDetector(
-              onTap: () {
-                print('Tapped');
-                final FocusScopeNode currentFocus = FocusScope.of(context);
-                if (!currentFocus.hasPrimaryFocus &&
-                    currentFocus.focusedChild != null) {
-                  currentFocus.focusedChild?.unfocus();
-                  currentFocus.unfocus();
-                }
-              },
-              child: MaterialApp(
-                title: 'أبشر',
-                locale: Locale('ar'),
-                supportedLocales: AppLocalizations.supportedLocales,
-                localizationsDelegates: const [
-                  AppLocalizations.delegate,
-                  GlobalMaterialLocalizations.delegate,
-                  GlobalCupertinoLocalizations.delegate,
-                  GlobalWidgetsLocalizations.delegate,
-                ],
-                theme: ThemeData(
-                  primarySwatch: Colors.blue,
-                ),
-                home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
-                  bloc: sl<AuthenticationBloc>()..add(AppStarted()),
-                  builder: (context, state) {
-                    if (state is AuthenticationAuthenticated) {
-                      return BasicScreen();
-                    }
-                    if (state is AuthenticationUnauthenticated) {
-                      return const OnBoardingScreen();
-                    }
-                    if (state is AuthenticationLoggedOut)
-                      return const AccountScreen();
-                    return const SplashScreen();
-                  },
-                ),
-                // home: const SplashScreen(),
+            providers: [
+              BlocProvider(
+                  create: (BuildContext context) => sl<AuthenticationBloc>()),
+              BlocProvider(
+                create: (BuildContext context) => sl<SignUpBloc>(),
+                lazy: false,
               ),
-            ),
-          ),
-        );
+              BlocProvider(
+                create: (BuildContext context) => sl<LoginBloc>(),
+                lazy: false,
+              ),
+              BlocProvider(
+                create: (BuildContext context) => sl<HomeBloc>(),
+              ),
+              BlocProvider(
+                create: (BuildContext context) => sl<SearchBloc>(),
+              ),
+              BlocProvider(
+                create: (BuildContext context) => sl<BottomBloc>(),
+              ),
+              BlocProvider(
+                create: (BuildContext context) => sl<LanguageBloc>(),
+              ),
+            ],
+            child: OverlaySupport.global(
+                child: GestureDetector(onTap: () {
+              final FocusScopeNode currentFocus = FocusScope.of(context);
+              if (!currentFocus.hasPrimaryFocus &&
+                  currentFocus.focusedChild != null) {
+                currentFocus.focusedChild?.unfocus();
+                currentFocus.unfocus();
+              }
+            }, child: BlocBuilder<LanguageBloc, LanguageState>(
+                    builder: (context, state) {
+
+              if (true) {
+                return MaterialApp(
+                  title: 'أبشر',
+                  locale: Locale(DataStore.instance.lang),
+                  supportedLocales: AppLocalizations.supportedLocales,
+                  localizationsDelegates: const [
+                    AppLocalizations.delegate,
+                    GlobalMaterialLocalizations.delegate,
+                    GlobalCupertinoLocalizations.delegate,
+                    GlobalWidgetsLocalizations.delegate,
+                  ],
+                  theme: ThemeData(
+                    primarySwatch: Colors.blue,
+                  ),
+                  home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                    bloc: sl<AuthenticationBloc>()..add(AppStarted()),
+                    builder: (context, state) {
+                      if (state is AuthenticationAuthenticated) {
+                        return BasicScreen();
+                      }
+                      if (state is AuthenticationUnauthenticated) {
+                        return const OnBoardingScreen();
+                      }
+                      if (state is AuthenticationLoggedOut)
+                        return const AccountScreen();
+                      return const SplashScreen();
+                    },
+                  ),
+                  // home: const SplashScreen(),
+                );
+              } else
+                return Text("");
+            }))));
       },
     );
   }

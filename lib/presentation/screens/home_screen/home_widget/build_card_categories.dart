@@ -43,7 +43,6 @@ class _BuildCardCategoriesState extends State<BuildCardCategories> {
         GestureDetector(
           onTap: () {
             setState(() {
-
               pressed = true;
             });
             Future.delayed(Duration(milliseconds: 300)).then((value) {
@@ -76,7 +75,7 @@ class _BuildCardCategoriesState extends State<BuildCardCategories> {
                 Padding(
                   padding: const EdgeInsets.all(2.0),
                   child: CachedImage(
-                    imageUrl: widget.category.logo!,
+                    imageUrl: widget.category.thumbnail!,
                     width: 6.6.h,
                     height: 6.6.h,
                   ),

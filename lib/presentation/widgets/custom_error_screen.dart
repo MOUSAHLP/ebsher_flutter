@@ -1,4 +1,5 @@
 import 'package:absher/presentation/widgets/custom_button.dart';
+import 'package:absher/translations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
@@ -10,17 +11,19 @@ class CustomErrorScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        const SizedBox(height: 10),
-        Lottie.asset(IconsManager.iconNoInternet),
-        const SizedBox(height: 100),
-        CustomButton(label: "اعادة المحاولة",onTap: (){
-          onTap!();
-        },)
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const SizedBox(height: 10),
+          Lottie.asset(IconsManager.iconNoInternet),
+          const SizedBox(height: 100),
+          CustomButton(label: AppLocalizations.of(context)!.tryAgain,onTap: (){
+            onTap!();
+          },)
+        ],
+      ),
     );
   }
 }

@@ -14,6 +14,8 @@ import '../../../resources/font_app.dart';
 import '../../../widgets/custom_app_background.dart';
 import 'package:lottie/lottie.dart';
 
+import '../../vendors_screen/widgets/card_random.dart';
+
 class CustomSearchDelegate extends SearchDelegate {
   List<CategoyResponse> listCategory = [];
 
@@ -107,28 +109,8 @@ class CustomSearchDelegate extends SearchDelegate {
                     child: ListView.builder(
                       itemCount: state.listSearch.length,
                       itemBuilder: (context, index) {
-                        return Container(
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius:
-                                  BorderRadius.circular(RadiusApp.r5)),
-                          margin: const EdgeInsets.symmetric(vertical: 5),
-                          child: ListTile(
-                            onTap: () {},
-                            title: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(state.listSearch[index].name!,
-                                    style: getBoldStyle(
-                                        color: Colors.black,
-                                        fontSize: FontSizeApp.s16)),
-                                Text(state.listSearch[index].description!,
-                                    style: getSemiBoldStyle(
-                                        color: Colors.black,
-                                        fontSize: FontSizeApp.s14)),
-                              ],
-                            ),
-                          ),
+                        return   CardRandomWidget(
+                          vendor: state.listSearch[index],
                         );
                       },
                     ),
@@ -138,27 +120,8 @@ class CustomSearchDelegate extends SearchDelegate {
           }
         });
   }
-
   @override
   Widget buildSuggestions(BuildContext context) {
-    return CustomAppBackGround(
-      child: listCategory.isEmpty
-          ? whenSearchResultEmpty(context)
-          : ListView.builder(
-              itemCount: listCategory.length,
-              itemBuilder: (context, index) {
-                return Container(
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(RadiusApp.r5)),
-                  margin: const EdgeInsets.symmetric(vertical: 5),
-                  child: ListTile(
-                    onTap: () {},
-                    title: Text(listCategory[index].name!.value!),
-                  ),
-                );
-              },
-            ),
-    );
+    return CustomAppBackGround(child: Text(""));
   }
 }

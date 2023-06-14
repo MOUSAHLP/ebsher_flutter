@@ -25,6 +25,10 @@ class ImageManager {
   static const String facebookLogo = "$imagePath/facebook_logo.png";
   static const String categoryCoverTest = "$imagePath/test_category_cover.png";
   static const String locationMap = "$imagePath/locationMap.png";
+  static const String email = "$imagePath/email.png";
+  static const String faceBook = "$imagePath/facebook.png";
+  static const String twitter = "$imagePath/twitter.png";
+  static const String profileTest = "$imagePath/profileTest.png";
 }
 
 class IconsManager {
@@ -45,6 +49,7 @@ class IconsManager {
   static const String iconAbout = "$iconPath/about.svg";
   static const String iconNoResult = "$iconPath/noResult.json";
   static const String iconNoInternet = "$iconPath/noInternet.json";
+  static const String iconSoon = "$iconPath/soon.json";
   static const String iconNoDate = "$iconPath/noData.svg";
   static const String iconLocation = "$iconPath/location_icon.svg";
   static const String iconPhone = "$iconPath/phone_icon.svg";

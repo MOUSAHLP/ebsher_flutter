@@ -1,3 +1,4 @@
+import 'package:absher/presentation/resources/assets_manager.dart';
 import 'package:absher/presentation/screens/home_screen/home_widget/build_card_categories.dart';
 import 'package:absher/presentation/screens/home_screen/home_widget/build_shimmer_widget.dart';
 import 'package:absher/presentation/widgets/ads_carousel_slider.dart';
@@ -11,6 +12,7 @@ import '../../../bloc/home_bloc/home_bloc.dart';
 import '../../../bloc/home_bloc/home_event.dart';
 import '../../../bloc/home_bloc/home_state.dart';
 import '../../../core/services/services_locator.dart';
+import '../../../models/advertisement_response.dart';
 import '../../resources/values_app.dart';
 import 'package:flutter/material.dart';
 import '../../resources/color_manager.dart';
@@ -54,8 +56,10 @@ class HomeScreen extends StatelessWidget {
                         padding: EdgeInsets.symmetric(vertical: 2.65.h),
                         child: const BuildStoryWidget(),
                       ),
-                      AdsCarouselSlider(
+                      state.lisAdvertisment.isNotEmpty? AdsCarouselSlider(
                         ads: state.lisAdvertisment,
+                      ): AdsCarouselSlider(
+                        ads: [AdvertisementsResponse(image: ImageManager.appLogo)],
                       ),
                       SizedBox(height: 1.7.h),
                       InkWell(
@@ -144,7 +148,7 @@ class HomeScreen extends StatelessWidget {
                                           Expanded(
                                             child: BuildCardCategories(
                                               category: state.lisCategory[2],
-                                              isBlue: true,
+                                              isBlue: false,
                                               isEnd: true,
                                             ),
                                           ),
@@ -154,7 +158,7 @@ class HomeScreen extends StatelessWidget {
                                           Expanded(
                                             child: BuildCardCategories(
                                               category: state.lisCategory[3],
-                                              isBlue: false,
+                                              isBlue: true,
                                               isEnd: false,
                                             ),
                                           ),

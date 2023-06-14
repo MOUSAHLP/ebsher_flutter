@@ -3,7 +3,5 @@ abstract class FavoritesListEvent {
 }
 
 class GetFavoritesList extends FavoritesListEvent {
-  final int idCategory;
-
-  GetFavoritesList(this.idCategory);
+  GetFavoritesList();
 }

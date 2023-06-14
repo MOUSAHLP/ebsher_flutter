@@ -5,6 +5,7 @@ import 'package:absher/presentation/resources/assets_manager.dart';
 import 'package:absher/presentation/resources/color_manager.dart';
 import 'package:absher/presentation/resources/font_app.dart';
 import 'package:absher/presentation/resources/style_app.dart';
+import 'package:absher/presentation/screens/location_screen/widgets/marker.dart';
 import 'package:absher/presentation/screens/vendors_screen/widgets/build_shimmer_vendors.dart';
 import 'package:absher/presentation/screens/vendors_screen/widgets/card_random.dart';
 import 'package:absher/presentation/widgets/custom_app_bar_screens.dart';
@@ -229,10 +230,11 @@ class VendorsScreenBody extends StatelessWidget {
 }
 
 class FilterButton extends StatelessWidget {
-  const FilterButton({Key? key, required this.isSelected, required this.label})
+   FilterButton({Key? key, required this.isSelected, required this.label,})
       : super(key: key);
   final bool isSelected;
   final String label;
+
 
   @override
   Widget build(BuildContext context) {
@@ -252,7 +254,8 @@ class FilterButton extends StatelessWidget {
             ),
             Visibility(
               visible: isSelected,
-              child: Icon(
+              child:
+              Icon(
                 Icons.circle,
                 size: 16,
                 color: ColorManager.softYellow,

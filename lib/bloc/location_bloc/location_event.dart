@@ -1,6 +1,5 @@
 
 
-import 'package:absher/models/vendors_near_model.dart';
 
 abstract class LocationEvent {
   LocationEvent([List props = const []]) : super();

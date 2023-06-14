@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../../../core/localization_string.dart';
 import '../../../../models/vendor_model.dart';
-import '../../../../models/vendors_near_model.dart';
+
 import '../../../widgets/accessories/cached_image.dart';
 import '../../vendor_details_screen/vendor_details_screen.dart';
 import '../../vendor_details_screen/widgets/vendor_details_body.dart';

@@ -132,6 +132,8 @@
     "closeVendor":"Close",
     "wrong":"Something went wrong.",
     "location":"Your location is being determined ....",
-    "":""
+    "selectLocation":" Select your location",
+    "tryAgain":"Try Again"
+
 
 }

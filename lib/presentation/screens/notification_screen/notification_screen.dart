@@ -8,6 +8,7 @@ import '../../../bloc/notification_bloc/notification_state.dart';
 import '../../../core/services/services_locator.dart';
 import '../../widgets/custom_app_background.dart';
 import '../../widgets/custom_error_screen.dart';
+import '../../widgets/custom_no_data_screen.dart';
 import '../favorites_screen/widgets/build_shimmer_favorites.dart';
 import 'notification_widget/build_notification_widget.dart';
 import 'notification_widget/build_shimmer_notification.dart';
@@ -49,8 +50,7 @@ class NotificationBody extends StatelessWidget {
               child: Column(
                 children: [
                   const SizedBox(height: 60),
-                  ListView.separated(
-                    itemBuilder: (context, index) {
+                state.vendorsList.isNotEmpty?ListView.separated(itemBuilder: (context, index) {
                       return BuildNotificationWidget(
                       isSee:   index.isOdd ? true : false,
                         notificationModel: state.vendorsList[index],
@@ -64,7 +64,7 @@ class NotificationBody extends StatelessWidget {
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount:  state.vendorsList.length,
                     shrinkWrap: true,
-                  ),
+                  ): CustomNoDataScreen(),
                 ],
               ),
             );

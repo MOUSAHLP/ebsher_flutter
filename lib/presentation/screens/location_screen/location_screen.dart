@@ -3,6 +3,7 @@ import 'package:absher/bloc/location_bloc/location_state.dart';
 import 'package:absher/core/app_router/app_router.dart';
 import 'package:absher/presentation/screens/location_screen/widgets/app_bar_widget.dart';
 import 'package:absher/presentation/screens/location_screen/widgets/arrow_button.dart';
+import 'package:absher/presentation/screens/location_screen/widgets/filter_button.dart';
 import 'package:absher/presentation/screens/location_screen/widgets/location_card.dart';
 import 'package:absher/presentation/widgets/custom_app_background.dart';
 import 'package:absher/presentation/widgets/custom_error_screen.dart';
@@ -127,7 +128,7 @@ class LocationScreenBody extends StatelessWidget {
                                             IconsManager.iconLocation)),
                                     const SizedBox(width: 10),
                                     Text(
-                                      'تحديد موقعك ',
+                                      AppLocalizations.of(context)!.selectLocation,
                                       style: getBoldStyle(
                                         color: ColorManager.primaryColor,
                                         fontSize: FontSizeApp.s14,
@@ -193,7 +194,7 @@ class LocationScreenBody extends StatelessWidget {
                                                                                 .add(checkIndex(
                                                                                 index));
                                                                           },
-                                                                          child: FilterButton(
+                                                                          child: FilterButtonLocation(
                                                                               label:
                                                                               LocalixationString(context,state
                                                                                   .vendorList[
@@ -205,7 +206,15 @@ class LocationScreenBody extends StatelessWidget {
                                                                                   .id ==
                                                                                   state
                                                                                       .vendorList[index]
-                                                                                      .id)),
+                                                                                      .id),
+                                                                          image:state
+                                                                              .vendorList[
+                                                                          index]
+                                                                              .category!.thumbnail!,
+                                                                          color:state
+                                                                              .vendorList[
+                                                                          index]
+                                                                              .category!.color!! ),
                                                                         );
                                                                       },
                                                                       itemCount: state

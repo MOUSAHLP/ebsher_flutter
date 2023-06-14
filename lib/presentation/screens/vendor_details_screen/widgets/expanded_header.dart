@@ -26,7 +26,7 @@ class ExpandedHeader extends StatelessWidget {
       child: Stack(
         children: [
           CachedImage(
-            imageUrl: vendor.logo,
+            imageUrl: vendor.image,
             height: 1.sw,
             width: 1.sw,
           ),

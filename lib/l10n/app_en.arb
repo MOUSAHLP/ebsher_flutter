@@ -133,7 +133,13 @@
     "wrong":"Something went wrong.",
     "location":"Your location is being determined ....",
     "selectLocation":" Select your location",
-    "tryAgain":"Try Again"
+    "tryAgain":"Try Again",
+    "email":"Email",
+    "web":"Web",
+    "timeOpen":"Opening timing",
+    "social":"social media sites",
+    "craatDate":"Date of Establishment",
+    "services":"Services"
 
 
 }

@@ -1,5 +1,6 @@
 import 'package:absher/models/vendor_model.dart';
 import 'package:absher/presentation/resources/assets_manager.dart';
+import 'package:absher/translations.dart';
 import 'package:flutter/material.dart';
 
 import 'info_details.dart';
@@ -13,28 +14,28 @@ class DetailsSection extends StatelessWidget {
       children: [
         InfoDetails(
           svgAsset: IconsManager.iconLocation,
-          label: 'عنوان',
+          label:AppLocalizations.of(context)!.address,
           value: vendor.address,
+        ),
+        InfoDetails(
+          svgAsset: IconsManager.iconLocation,
+          label:AppLocalizations.of(context)!.address,
+          value: vendor.address2,
         ),
         InfoDetails(
           svgAsset: IconsManager.iconPhone,
-          label: 'رقم الموبايل',
-          value: vendor.address,
-        ),
-        InfoDetails(
-          svgAsset: IconsManager.iconFax,
-          label: 'فاكس',
-          value: '+963-95959595',
+          label: AppLocalizations.of(context)!.phone,
+          value: vendor.phone,
         ),
         InfoDetails(
           svgAsset: IconsManager.iconEmail,
-          label: 'البريد الالكتروني',
-          value: 'Lorem ipsum@gmail.com',
+          label:AppLocalizations.of(context)!.email,
+          value: vendor.email,
         ),
         InfoDetails(
           svgAsset: IconsManager.iconWeb,
-          label: 'ويب',
-          value: 'WWW.Lorem ipsum.com',
+          label: AppLocalizations.of(context)!.web,
+          value:  vendor.webiste,
         ),
       ],
     );

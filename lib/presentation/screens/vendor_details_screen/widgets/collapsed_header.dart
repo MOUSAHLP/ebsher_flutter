@@ -4,6 +4,7 @@ import 'package:absher/core/app_router/app_router.dart';
 import 'package:absher/core/app_router/dialog_transition_builder.dart';
 import 'package:absher/core/extensions.dart';
 import 'package:absher/models/vendor_model.dart';
+import 'package:absher/presentation/screens/vendor_details_screen/widgets/dialog_picture.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -67,24 +68,34 @@ class CollapsedHeader extends StatelessWidget {
                           ),
                         ),
                       ),
+//                      SizedBox(
+//                        height: 24,
+//                        width: 24,
+//                        child: SvgPicture.asset(
+//                          IconsManager.iconShare,
+//                          color: Colors.white,
+//                        ).handleRotation(context),
+//                      ),
                       SizedBox(
-                        height: 24,
                         width: 24,
-                        child: SvgPicture.asset(
-                          IconsManager.iconShare,
-                          color: Colors.white,
-                        ).handleRotation(context),
                       ),
-                      SizedBox(
-                        width: 24,
-                      ),
-                      SizedBox(
-                        height: 24,
-                        width: 24,
-                        child: SvgPicture.asset(
-                          IconsManager.iconGallery,
-                          color: Colors.white,
-                        ).handleRotation(context),
+                      GestureDetector(
+                        onTap: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return CustomDilog(photosUrls: vendor);
+                            },
+                          );
+                        },
+                        child: SizedBox(
+                          height: 24,
+                          width: 24,
+                          child: SvgPicture.asset(
+                            IconsManager.iconGallery,
+                            color: Colors.white,
+                          ).handleRotation(context),
+                        ),
                       ),
                     ],
                   ),

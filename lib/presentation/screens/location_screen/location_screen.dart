@@ -1,6 +1,7 @@
 import 'package:absher/bloc/location_bloc/location_event.dart';
 import 'package:absher/bloc/location_bloc/location_state.dart';
 import 'package:absher/core/app_router/app_router.dart';
+import 'package:absher/core/extensions.dart';
 import 'package:absher/presentation/screens/location_screen/widgets/app_bar_widget.dart';
 import 'package:absher/presentation/screens/location_screen/widgets/arrow_button.dart';
 import 'package:absher/presentation/screens/location_screen/widgets/filter_button.dart';
@@ -292,7 +293,7 @@ class LocationScreenBody extends StatelessWidget {
                         child: Row(
                           children: [
                             ArrowButton(
-                                image: IconsManager.iconRightArrow,
+                                image: IconsManager.iconLeftArrow,
                                 onTap: () {
                                   context
                                       .read<LocationBloc>()
@@ -306,9 +307,8 @@ class LocationScreenBody extends StatelessWidget {
                               width: 5,
                             ),
                             ArrowButton(
-                                image: IconsManager.iconLeftArrow,
+                                image: IconsManager.iconRightArrow,
                                 onTap: () {
-
                                   context
                                       .read<LocationBloc>()
                                       .add(IndexDecrement());

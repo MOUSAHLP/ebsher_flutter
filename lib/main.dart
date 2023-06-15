@@ -96,7 +96,6 @@ class _MyAppState extends State<MyApp> {
               }
             }, child: BlocBuilder<LanguageBloc, LanguageState>(
                     builder: (context, state) {
-
               if (true) {
                 return MaterialApp(
                   title: 'أبشر',

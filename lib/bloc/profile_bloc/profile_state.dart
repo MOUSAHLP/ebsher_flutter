@@ -1,4 +1,5 @@
 import 'package:absher/models/story_model.dart';
+import 'package:equatable/equatable.dart';
 
 import '../../models/advertisement_response.dart';
 import '../../models/category_response.dart';
@@ -15,6 +16,8 @@ class ProfileError extends ProfileState {
 }
 class ProfileSuccess extends ProfileState {
   ProfileModel profileModel;
-
-  ProfileSuccess(this.profileModel,);
+  bool isEditing;
+  ProfileSuccess(this.profileModel,this.isEditing);
 }
+
+

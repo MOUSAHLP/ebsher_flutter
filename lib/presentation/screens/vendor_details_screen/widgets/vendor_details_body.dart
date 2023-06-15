@@ -113,7 +113,9 @@ class VendorDetailsBody extends StatelessWidget {
               Divider(
                 thickness: 2,
               ),
-              ServicesSection(),
+              ServicesSection(
+                vendor: vendor,
+              ),
               Divider(
                 thickness: 2,
               ),
@@ -144,16 +146,7 @@ class CustomShapeContainer extends StatelessWidget {
           ),
         ),
         SvgPicture.asset(IconsManager.iconCustomShape)
-        // ClipPath(
-        //   clipper: CustomCardCornerClipper(),
-        //   child: Container(
-        //     height: 58,
-        //     width: 58,
-        //     decoration: const BoxDecoration(
-        //       color: Colors.white,
-        //     ),
-        //   ),
-        // ),
+
       ],
     );
   }

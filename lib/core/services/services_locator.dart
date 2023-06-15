@@ -1,4 +1,5 @@
 import 'package:absher/bloc/sign_up_bloc/sign_up_bloc.dart';
+import 'package:absher/bloc/vendor_details_bloc/vendor_details_bloc.dart';
 import 'package:absher/data/repos/user_repository.dart';
 import 'package:get_it/get_it.dart';
 import '../../bloc/about_bloc/about_bloc.dart';
@@ -36,6 +37,7 @@ class ServicesLocator {
     sl.registerFactory(() => AboutBloc());
     sl.registerFactory(() => PrivacyBloc());
     sl.registerFactory(() => LocationBloc());
+    sl.registerFactory(() => VendorDetailsBloc());
     sl.registerLazySingleton(() => BottomBloc());
     sl.registerLazySingleton(() => LanguageBloc());
 

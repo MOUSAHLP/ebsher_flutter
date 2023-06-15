@@ -5,3 +5,7 @@ abstract class ProfileEvent {
   ProfileEvent([List props = const []]) : super();
 }
 class getProfile extends ProfileEvent {}
+class isEditingEvent extends ProfileEvent {
+  bool isEditing;
+  isEditingEvent(this.isEditing);
+}

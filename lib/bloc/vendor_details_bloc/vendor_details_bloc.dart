@@ -1,22 +1,21 @@
-import 'package:absher/bloc/home_bloc/home_event.dart';
-import 'package:absher/bloc/home_bloc/home_state.dart';
-import 'package:absher/bloc/profile_bloc/profile_event.dart';
-import 'package:absher/bloc/profile_bloc/profile_state.dart';
-import 'package:absher/models/story_model.dart';
+
+import 'package:absher/bloc/vendor_details_bloc/vendor_details_event.dart';
+import 'package:absher/bloc/vendor_details_bloc/vendor_details_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../data/repos/home_repository.dart';
-import '../../models/category_response.dart';
-
-class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
-  ProfileBloc() : super(ProfileLoading()) {
-    on<ProfileEvent>((event, emit) async {
-      if (event is getProfile) {
-        emit(ProfileLoading());
-        final response = await HomeRepository.getProfile();
+class VendorDetailsBloc extends Bloc<VendorDetailsEvent, VendorDetailsState> {
+  VendorDetailsBloc() : super(VendorDetailsLoading()) {
+    on<VendorDetailsEvent>((event, emit) async {
+      if (event is getVendorDetails) {
+        emit(VendorDetailsLoading());
+        final response = await HomeRepository.getVendorDetails(id: event.id);
         response.fold((l) {
-          emit(ProfileError(l));
+          emit(VendorDetailsError(l));
         }, (r) {
-          emit(ProfileSuccess(r));
+          print("rrrrrrrrrrrrrrrr");
+          print(r.name);
+          print(r);
+          emit(VendorDetailsSuccess(r));
         });
       }
     });

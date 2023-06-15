@@ -25,10 +25,10 @@ class LocationCard extends StatelessWidget {
     return  Expanded(
       child: GestureDetector(
         onTap: (){
-          AppRouter.push(context, VendorDetailsScreen(vendor:vendorModel ,));
+         AppRouter.push(context, VendorDetailsScreen( id:vendorModel.id! ,));
         },
         child: Container(
-            height: 160,
+           // height: 160,
             decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(20)),
@@ -53,7 +53,7 @@ class LocationCard extends StatelessWidget {
                     CrossAxisAlignment.start,
                     children: [
                       Text( LocalixationString(context,vendorModel.name!) ?? "",style: getBoldStyle(color: ColorManager.lightBlueColor,fontSize: 18)),
-                      Text(LocalixationString(context,vendorModel.name!) ?? "",style: getBoldStyle(color: ColorManager.labelGrey),),
+                      Text(LocalixationString(context,vendorModel.category?.name!) ?? "",style: getBoldStyle(color: ColorManager.labelGrey),),
                       const SizedBox(
                         height: 2,
                       ),

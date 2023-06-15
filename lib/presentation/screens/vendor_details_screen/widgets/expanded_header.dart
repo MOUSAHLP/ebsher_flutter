@@ -11,6 +11,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../resources/assets_manager.dart';
 import '../../../resources/color_manager.dart';
+import 'dialog_picture.dart';
 
 class ExpandedHeader extends StatelessWidget {
   const ExpandedHeader({Key? key, required this.vendor}) : super(key: key);
@@ -45,11 +46,20 @@ class ExpandedHeader extends StatelessWidget {
                       },
                     ),
                     Spacer(),
-                    CircleIconButton(svgAsset: IconsManager.iconShare),
+                  //  CircleIconButton(svgAsset: IconsManager.iconShare),
                     SizedBox(
                       width: 12,
                     ),
-                    CircleIconButton(svgAsset: IconsManager.iconGallery),
+                    GestureDetector(
+                        onTap: (){
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return CustomDilog(photosUrls: vendor);
+                            },
+                          );
+                        },
+                        child: CircleIconButton(svgAsset: IconsManager.iconGallery)),
                   ],
                 ),
               ),

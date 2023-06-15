@@ -19,9 +19,9 @@ import '../favorites_screen/widgets/build_shimmer_favorites.dart';
 
 // ignore: must_be_immutable
 class EditProfileScreen extends StatelessWidget {
-  bool isEditing;
 
-  EditProfileScreen({super.key, this.isEditing = true});
+
+  EditProfileScreen({super.key,});
 
   @override
   Widget build(BuildContext context) {
@@ -49,10 +49,13 @@ class EditProfileBody extends StatelessWidget {
             } else if (state is ProfileError) {
               return CustomErrorScreen(
                 onTap: () {
-                  sl<ProfileBloc>().add(getProfile());
+                  context.read<ProfileBloc>().add(getProfile());
                 },
               );
             } else if (state is ProfileSuccess) {
+              print("context.read<ProfileBloc>().isEdit");
+              print(state.isEditing);
+
               return Stack(
                 alignment: Alignment.topCenter,
                 clipBehavior: Clip.none,
@@ -76,26 +79,9 @@ class EditProfileBody extends StatelessWidget {
                               const SizedBox(
                                 height: 40,
                               ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  GestureDetector(
-                                      onTap: () {
-                                        AppRouter.push(
-                                            context, EditProfileScreen());
-                                      },
-                                      child: Icon(
-                                        Icons.edit,
-                                        color: Colors.white,
-                                      )),
-                                  SizedBox(
-                                    width: 5,
-                                  ),
-                                  Text(AppLocalizations.of(context)!.profile,
-                                      style: getBoldStyle(
-                                          color: Colors.white, fontSize: 14)),
-                                ],
-                              ),
+                              Text(AppLocalizations.of(context)!.profile,
+                                  style: getBoldStyle(
+                                      color: Colors.white, fontSize: 14)),
                               const SizedBox(
                                 height: 20,
                               ),
@@ -104,7 +90,7 @@ class EditProfileBody extends StatelessWidget {
                                   color: ColorManager.primaryColor,
                                 ),
                                 initValue: state.profileModel.name,
-                                readOnly: true,
+                                readOnly:!state.isEditing,
                                 keyboardType: TextInputType.text,
                                 icon: Icons.person,
                               ),
@@ -168,6 +154,11 @@ class EditProfileBody extends StatelessWidget {
                                 keyboardType: TextInputType.text,
                                 icon: Icons.lock,
                               ),
+                              MaterialButton(
+                                color: ColorManager.softYellow,
+                                onPressed: (){
+                                context.read<ProfileBloc>().add(isEditingEvent(true));
+                              },child: Text("Edit profile"),),
                               Padding(
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 100, vertical: 10),

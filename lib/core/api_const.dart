@@ -1,3 +1,5 @@
+import 'package:absher/bloc/vendor_details_bloc/vendor_details_event.dart';
+
 class ApiConst {
   static const String baseUrl = "http://absher.peaklinkdemo.com/api";
   static const String signUpPhoneNumber = "/sign-up";
@@ -18,6 +20,7 @@ class ApiConst {
   static String vendorsList(int categoryId) =>
       '/vendors?is_active=1&subcategories[]=$categoryId';
   static String getSubCategories(int id) => '/subcategories?category_id=$id';
+  static String getVendorDetails(int id) => '/vendor?id=$id';
   static String getNearbyvendors({required double latitude,required double longitude}) => '/nearby-vendors?latitude=$latitude&longitude=$longitude';
 
 

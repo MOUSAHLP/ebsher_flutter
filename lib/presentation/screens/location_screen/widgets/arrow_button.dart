@@ -1,3 +1,4 @@
+import 'package:absher/core/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 class  ArrowButton extends StatelessWidget {
@@ -10,7 +11,7 @@ class  ArrowButton extends StatelessWidget {
         child: SvgPicture.asset(image),
         onTap: () {
           onTap();
-        });
+        }).handleRotation(context);
   }
 }
 

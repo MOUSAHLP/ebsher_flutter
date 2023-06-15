@@ -1,7 +1,9 @@
-import 'package:absher/models/advertisement_response.dart';
-import 'package:absher/models/category_response.dart';
 
-abstract class ProfileEvent {
-  ProfileEvent([List props = const []]) : super();
+
+abstract class VendorDetailsEvent {
+  VendorDetailsEvent([List props = const []]) : super();
 }
-class getProfile extends ProfileEvent {}
+class getVendorDetails extends VendorDetailsEvent {
+  int id;
+  getVendorDetails(this.id);
+}

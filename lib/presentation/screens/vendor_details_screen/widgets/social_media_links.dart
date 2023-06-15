@@ -3,13 +3,19 @@ import 'package:absher/presentation/resources/assets_manager.dart';
 import 'package:absher/presentation/resources/color_manager.dart';
 import 'package:absher/presentation/resources/font_app.dart';
 import 'package:absher/presentation/resources/style_app.dart';
+import 'package:absher/presentation/widgets/accessories/cached_image.dart';
+import 'package:absher/translations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:intl/intl.dart';
+
+import '../../../../core/formatter.dart';
 
 class SocialMediaLinksSection extends StatelessWidget {
   const SocialMediaLinksSection({Key? key, required this.vendor})
       : super(key: key);
   final VendorModel vendor;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -22,7 +28,7 @@ class SocialMediaLinksSection extends StatelessWidget {
               width: 8,
             ),
             Text(
-              'مواقع التواصل الاجتماعي',
+              AppLocalizations.of(context)!.social,
               style: getRegularStyle(
                 color: ColorManager.primaryColor,
                 fontSize: FontSizeApp.s12,
@@ -33,64 +39,42 @@ class SocialMediaLinksSection extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 8.0),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Padding(
-                padding: const EdgeInsets.all(4.0),
-                child: Image.asset(
-                  ImageManager.facebookLogo,
-                  height: 50,
-                  width: 50,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(4.0),
-                child: Image.asset(
-                  ImageManager.facebookLogo,
-                  height: 50,
-                  width: 50,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(4.0),
-                child: Image.asset(
-                  ImageManager.facebookLogo,
-                  height: 50,
-                  width: 50,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(4.0),
-                child: Image.asset(
-                  ImageManager.facebookLogo,
-                  height: 50,
-                  width: 50,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(4.0),
-                child: Image.asset(
-                  ImageManager.facebookLogo,
-                  height: 50,
-                  width: 50,
-                ),
-              ),
+                  padding: const EdgeInsets.all(4.0),
+                  child: Container(
+                    height: 50,
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      itemCount: vendor.socialMedia?.length,
+                      itemBuilder: (context, index) {
+                        return CachedImage(
+                          imageUrl: vendor.socialMedia![index].image,
+                          height: 50,
+                          width: 50,
+                        );
+                      },
+                    ),
+                  )),
             ],
           ),
         ),
         Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'تاريخ التأسيس',
+                AppLocalizations.of(context)!.craatDate,
                 style: getRegularStyle(
                   color: Colors.black,
                   fontSize: FontSizeApp.s12,
                 ),
               ),
               Text(
-                '10 - 04 - 2020',
+                Formatter.formatDateOnly(context, vendor.customDate!),
                 style: getBoldStyle(
                   color: ColorManager.primaryColor,
                   fontSize: FontSizeApp.s12,

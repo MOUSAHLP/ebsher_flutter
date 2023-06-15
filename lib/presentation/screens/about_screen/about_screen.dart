@@ -1,3 +1,4 @@
+import 'package:absher/core/app_router/app_router.dart';
 import 'package:absher/presentation/resources/color_manager.dart';
 import 'package:absher/translations.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +8,9 @@ import '../../../bloc/about_bloc/about_bloc.dart';
 import '../../../bloc/about_bloc/about_event.dart';
 import '../../../bloc/about_bloc/about_state.dart';
 import '../../../core/services/services_locator.dart';
+import '../../resources/assets_manager.dart';
 import '../../widgets/custom_error_screen.dart';
+import '../../widgets/custom_icon.dart';
 
 class AboutScreen extends StatelessWidget {
   const AboutScreen({super.key});
@@ -33,6 +36,15 @@ class AboutBody extends StatelessWidget {
             backgroundColor: ColorManager.backgroundEndColor,
             title: Text(AppLocalizations.of(context)!.about),
             centerTitle: true,
+            leading: GestureDetector(
+              onTap: () {
+                AppRouter.pop(context);
+              },
+              child: CustomIcon(
+                svgAsset: IconsManager.iconBackArrow,
+
+              ),
+            ),
           ),
           body: Stack(
             children: [

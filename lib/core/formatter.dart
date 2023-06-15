@@ -11,9 +11,10 @@ mixin Formatter {
         DateFormat.yMMMd(Localizations.localeOf(context).languageCode);
     return dateFormat.format(date.toLocal());
   }
-
   static String formatNumber(dynamic number) {
     final NumberFormat dateFormat = NumberFormat("#,###.#");
     return dateFormat.format(number);
   }
+
+
 }

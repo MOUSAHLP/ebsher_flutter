@@ -66,4 +66,11 @@ class HomeRepository {
           return ReelsModel.listFromJson(e["data"]);
         });
   }
+  static Future<Either<String, VendorModel>> getVendorDetails({required int id}) {
+    return BaseApiClient.get<VendorModel>(
+        url: ApiConst.getVendorDetails(id),
+        converter: (e) {
+          return VendorModel.fromJson(e['data'][0]);
+        });
+  }
 }

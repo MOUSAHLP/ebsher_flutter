@@ -1,20 +1,16 @@
-import 'package:absher/models/story_model.dart';
 
-import '../../models/advertisement_response.dart';
-import '../../models/category_response.dart';
 import '../../models/profile_model.dart';
-import '../../models/search_response.dart';
+import '../../models/vendor_model.dart';
+abstract class VendorDetailsState {}
 
-abstract class ProfileState {}
+class VendorDetailsLoading extends VendorDetailsState {}
 
-class ProfileLoading extends ProfileState {}
-
-class ProfileError extends ProfileState {
+class VendorDetailsError extends VendorDetailsState {
   String error;
-  ProfileError(this.error);
+  VendorDetailsError(this.error);
 }
-class ProfileSuccess extends ProfileState {
-  ProfileModel profileModel;
+class VendorDetailsSuccess extends VendorDetailsState {
+  VendorModel vendorModel;
 
-  ProfileSuccess(this.profileModel,);
+  VendorDetailsSuccess(this.vendorModel,);
 }

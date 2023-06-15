@@ -28,7 +28,7 @@ class CardRandomWidget extends StatelessWidget {
         AppRouter.push(
             context,
             VendorDetailsScreen(
-              vendor: vendor,
+              id: vendor.id!,
             ));
       },
       child: Padding(

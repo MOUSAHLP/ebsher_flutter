@@ -83,11 +83,12 @@ class VendorModel {
       phone: json["phone"],
       email: json["email"],
       address: json["address"],
+      address2: json["address2"],
       latitude: json["latitude"],
       longitude: json["longitude"],
       isActive: json["is_active"],
       isOpen: json["is_open"],
-      createdAt: DateTime.parse(json["created_at"]),
+      createdAt:json["created_at"]==null?null: DateTime.parse(json["created_at"]),
       startDate: json["start_date"] == null
           ? null
           : DateTime.parse(json["start_date"]),
@@ -112,7 +113,6 @@ class VendorModel {
     );
   }
   static List<VendorModel> listFromJson(Map<String, dynamic> json) {
-
     return json["data"]
         .map<VendorModel>((value) => VendorModel.fromJson(value))
         .toList();
@@ -235,8 +235,7 @@ class Banner {
 }
 class Day {
   int? id;
-  String? name;
-  String? nameAr;
+  localizationStringModel? name;
   DateTime? createdAt;
   DateTime? updatedAt;
   DayPivot? pivot;
@@ -244,7 +243,6 @@ class Day {
   Day({
     this.id,
     this.name,
-    this.nameAr,
     this.createdAt,
     this.updatedAt,
     this.pivot,
@@ -252,8 +250,7 @@ class Day {
 
   factory Day.fromJson(Map<String, dynamic> json) => Day(
     id: json["id"],
-    name: json["name"],
-    nameAr: json["name_ar"],
+    name: localizationStringModel.fromJson(json, "name"),
     createdAt: json["created_at"]==null?null:DateTime.parse(json["created_at"]),
     updatedAt: json["updated_at"]==null?null:DateTime.parse(json["updated_at"]),
     pivot: DayPivot.fromJson(json["pivot"]),
@@ -262,7 +259,6 @@ class Day {
   Map<String, dynamic> toJson() => {
     "id": id,
     "name": name,
-    "name_ar": nameAr,
     "created_at": createdAt,
     "updated_at": updatedAt,
     "pivot": pivot?.toJson(),
@@ -321,8 +317,8 @@ class Feature {
     name: json["name"],
     nameAr: json["name_ar"],
     packageId: json["package_id"],
-    createdAt: json["created_at"],
-    updatedAt: json["updated_at"],
+//    createdAt: json["created_at"],
+//    updatedAt: json["updated_at"],
     icon: json["icon"],
     pivot: FeaturePivot.fromJson(json["pivot"]),
   );
@@ -382,8 +378,8 @@ class SocialMedia {
     name: json["name"],
     nameAr: json["name_ar"],
     image: json["image"],
-    createdAt: json["created_at"],
-    updatedAt: json["updated_at"],
+//    createdAt: json["created_at"],
+//    updatedAt: json["updated_at"],
     pivot: SocialMediaPivot.fromJson(json["pivot"]),
   );
 
@@ -451,8 +447,8 @@ class SubCategory {
     image: json["image"],
     thumbnail: json["thumbnail"],
     categoryId: json["category_id"],
-    createdAt: json["created_at"],
-    updatedAt: json["updated_at"],
+//    createdAt: json["created_at"],
+//    updatedAt: json["updated_at"],
     pivot: SubCategoryPivot.fromJson(json["pivot"]),
   );
 

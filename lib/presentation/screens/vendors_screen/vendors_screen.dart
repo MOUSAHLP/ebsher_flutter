@@ -84,7 +84,7 @@ class VendorsScreenBody extends StatelessWidget {
               );
             } else if (state is VendorsListSuccess) {
               return SingleChildScrollView(
-                child: Column(
+                child:  state.vendorsList.isNotEmpty?Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     const SizedBox(height: 70),
@@ -197,8 +197,7 @@ class VendorsScreenBody extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 40),
-                    state.vendorsList.isNotEmpty
-                        ? ListView.builder(
+                    ListView.builder(
                             itemBuilder: (context, index) {
                               return CardRandomWidget(
                                 vendor: state.vendorsList[index],
@@ -208,8 +207,9 @@ class VendorsScreenBody extends StatelessWidget {
                             itemCount: state.vendorsList.length,
                             shrinkWrap: true,
                           )
-                        : const Center(child: CustomNoDataScreen()),
                   ],
+                ): Container(
+                  child: Center(child: CustomNoDataScreen()),
                 ),
               );
             } else {

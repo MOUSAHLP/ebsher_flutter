@@ -19,5 +19,10 @@ class ProfileSuccess extends ProfileState {
   bool isEditing;
   ProfileSuccess(this.profileModel,this.isEditing);
 }
+class SignUpFieldsValidationFailed extends ProfileState {
+  final String? validationError;
 
+  SignUpFieldsValidationFailed({this.validationError});
+}
+class ImageSuccess extends ProfileState{}
 

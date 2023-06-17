@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:absher/bloc/location_bloc/location_event.dart';
 import 'package:absher/core/app_router/app_router.dart';
 import 'package:absher/presentation/resources/assets_manager.dart';
@@ -11,190 +13,203 @@ import '../../models/vendor_model.dart';
 import '../../presentation/screens/location_screen/widgets/marker.dart';
 import 'location_state.dart';
 import 'package:custom_map_markers/custom_map_markers.dart';
+
 class LocationBloc extends Bloc<LocationEvent, LocationState> {
+  double? latitudeCurrent, longitudeCurrent;
+
+  GoogleMapController? mapController;
+
+  List<VendorModel> allVendors = [];
+  List<VendorModel> selectedVendors = [];
+
+  List<Category> allCategories = [];
+  List<Category> selectedCategories = [];
+  List<Category> pendingCategories = [];
+
+  List<MarkerData> currentMarkers = [];
+
+  LocationBloc() : super(LocationState()) {
+    on<LocationEvent>((event, emit) async {
+      if (event is CurrentLocation) {
+        emit(state.copyWith(screenStates: ScreenStates.loading));
+        await getPosition();
+        if (latitudeCurrent == null) {
+          emit(ExitLocation());
+        } else {
+          final response = await LocationRepository.getVendorsNear(
+              latitude: latitudeCurrent!, longitude: longitudeCurrent!);
+          response.fold((l) {
+            emit(state.copyWith(screenStates: ScreenStates.error, error: l));
+          }, (r) {
+            allVendors = r;
+            for (VendorModel vendor in allVendors) {
+              if (!allCategories
+                  .any((element) => element.id == vendor.category!.id)) {
+                allCategories.add(vendor.category!);
+              }
+            }
+            selectedCategories.addAll(allCategories);
+            pendingCategories.addAll(selectedCategories);
+            refreshSelectedVendorsList();
+            setMarkers();
+            emit(state.copyWith(
+                screenStates: ScreenStates.success,
+                latitude: latitudeCurrent,
+                longitude: longitudeCurrent,
+                vendorList: [...allVendors],
+                allCategories: allCategories,
+                pendingCategories: pendingCategories,
+                selectedCategories: selectedCategories,
+                vendorSelected: selectedVendors,
+                myMark: [...currentMarkers]));
+          });
+        }
+      }
+
+      if (event is FilterVendors) {
+        selectedCategories.clear();
+        selectedCategories.addAll(pendingCategories);
+        refreshSelectedVendorsList();
+        setMarkers();
+        emit(state.copyWith(
+            myMark: [...currentMarkers],
+            vendorSelected: selectedVendors,
+            index: -1,
+            check: !state.check));
+      }
+
+      if (event is ClickMarker) {
+        emit(state.copyWith(index: event.index));
+      }
+
+      if (event is IndexIncrement) {
+        int indexIncrement = state.index;
+        if (indexIncrement == state.vendorSelected.length - 1) {
+          mapController?.animateCamera(CameraUpdate.newLatLngZoom(
+              LatLng(double.parse(state.vendorSelected[0].latitude!),
+                  double.parse(state.vendorSelected[0].longitude!)),
+              16));
+
+          emit(state.copyWith(index: 0));
+        } else {
+          mapController?.animateCamera(CameraUpdate.newLatLngZoom(
+              LatLng(
+                  double.parse(state.vendorSelected[state.index + 1].latitude!),
+                  double.parse(
+                      state.vendorSelected[state.index + 1].longitude!)),
+              16));
+          emit(state.copyWith(index: indexIncrement + 1));
+        }
+      }
+
+      if (event is IndexDecrement) {
+        int indexIncrement = state.index;
+        if (indexIncrement == 0) {
+          mapController?.animateCamera(CameraUpdate.newLatLngZoom(
+              LatLng(
+                  double.parse(state
+                      .vendorSelected[state.vendorSelected.length - 1]
+                      .latitude!),
+                  double.parse(state
+                      .vendorSelected[state.vendorSelected.length - 1]
+                      .longitude!)),
+              16));
+          emit(state.copyWith(index: state.vendorSelected.length - 1));
+        } else {
+          mapController?.animateCamera(CameraUpdate.newLatLngZoom(
+              LatLng(
+                  double.parse(
+                      state.vendorSelected[indexIncrement - 1].latitude!),
+                  double.parse(
+                      state.vendorSelected[indexIncrement - 1].longitude!)),
+              16));
+          emit(state.copyWith(index: indexIncrement - 1));
+        }
+      }
+
+      if (event is checkIndex) {
+        if (pendingCategories
+            .any((element) => element.id == allCategories[event.index].id)) {
+          pendingCategories.remove(allCategories[event.index]);
+          emit(state.copyWith(
+              pendingCategories: pendingCategories, check: !state.check));
+        } else {
+          pendingCategories.add(allCategories[event.index]);
+          emit(state.copyWith(
+              pendingCategories: pendingCategories, check: !state.check));
+        }
+      }
+    });
+  }
+
+  void refreshSelectedVendorsList() {
+    selectedVendors.clear();
+    for (VendorModel vendor in allVendors) {
+      if (selectedCategories
+          .any((element) => element.id == vendor.category!.id)) {
+        selectedVendors.add(vendor);
+      }
+    }
+  }
+
+  Future<void> getPosition() async {
+    await determinePosition().then((value) {
+      if (value == null) return;
+      latitudeCurrent = value.latitude;
+      longitudeCurrent = value.longitude;
+    });
+  }
+
   Future<Position?> determinePosition() async {
     bool serviceEnabled;
     LocationPermission permission;
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     permission = await Geolocator.checkPermission();
-try{
-    if (permission == LocationPermission.deniedForever) {
-       return Future.error('Location services are disabled.');
-    }
-    if (permission == LocationPermission.denied) {
-        permission = await Geolocator.requestPermission();
-      if (permission != LocationPermission.whileInUse && permission != LocationPermission.always) {
+    try {
+      if (permission == LocationPermission.deniedForever) {
         return Future.error('Location services are disabled.');
       }
-    }
+      if (permission == LocationPermission.denied) {
+        permission = await Geolocator.requestPermission();
+        if (permission != LocationPermission.whileInUse &&
+            permission != LocationPermission.always) {
+          return Future.error('Location services are disabled.');
+        }
+      }
 
-    return await Geolocator.getCurrentPosition();}
-    catch(e){
-  return null;
+      return await Geolocator.getCurrentPosition();
+    } catch (e) {
+      return null;
     }
   }
 
-
-  double? latitudeCurrent , longitudeCurrent ;
-  GoogleMapController? mapController;
-  Position? position;
-  List<VendorModel> vendorList=[];
-  List<VendorModel> vendorListBinding=[];
-  List<VendorModel> vendorListSelected=[];
-  List<MarkerData> customMarkers=[];
-  List<MarkerData> myMarkFilter=[];
-  Future<void> getPosition() async {
-    position = await determinePosition();
-    if(position==null){
-    }
-    else{
-    latitudeCurrent = position!.latitude;
-    longitudeCurrent = position!.longitude;
-    myMarkFilter.add(
+  setMarkers() {
+    currentMarkers.clear();
+    currentMarkers.add(
       MarkerData(
-          marker:
-          Marker(markerId:   const MarkerId("current"), position:  LatLng(latitudeCurrent! , longitudeCurrent! ), ),
-          child:Image.asset( ImageManager.locationMap,width:100,height: 100,)),
+          marker: Marker(
+            markerId: const MarkerId("My Location"),
+            position: LatLng(latitudeCurrent!, longitudeCurrent!),
+          ),
+          child: Image.asset(
+            ImageManager.locationMap,
+            width: 100,
+            height: 100,
+          )),
     );
-    customMarkers.add(
-      MarkerData(
-          marker:
-          Marker(markerId:   const MarkerId("current1"), position:  LatLng(latitudeCurrent! , longitudeCurrent! ), ),
-          child:Image.asset( ImageManager.locationMap,width:100,height: 100,)),
-    );}
-  }
-  addMarker(){
-
-    for(int i=0;i<vendorList.length;i++){
-      customMarkers.add(
-        MarkerData(
-          marker:
-          Marker(markerId:   MarkerId("$i"),
-              position:  LatLng(double.parse(vendorList[i].latitude??"0") , double.parse(vendorList[i].longitude??"0") ),onTap: (){
+    for (int i = 0; i < selectedVendors.length; i++) {
+      currentMarkers.add(MarkerData(
+          marker: Marker(
+              draggable: false,
+              markerId: MarkerId("$i"),
+              position: LatLng(double.parse(selectedVendors[i].latitude ?? "0"),
+                  double.parse(selectedVendors[i].longitude ?? "0")),
+              onTap: () {
                 add(ClickMarker(i));
-              } ),
-          child: MarkerWidget(image: vendorList[i].category!.thumbnail!,colors:vendorList[i].category!.color! )
-          ,),
-      );
-
+              }),
+          child: MarkerWidget(
+              image: selectedVendors[i].category!.thumbnail!,
+              colors: selectedVendors[i].category!.color!)));
     }
-  }
-  addMarkerFilter(){
-    for(int i=0;i<vendorListSelected.length;i++){
-      myMarkFilter.add(MarkerData(marker:  Marker(
-          draggable: false,
-          markerId:  MarkerId("$i"),
-          position: LatLng(double.parse(vendorListSelected[i].latitude??"0") , double.parse(vendorListSelected[i].longitude??"0") ), //position of marker
-          onTap: () {
-            add(ClickMarker(i));
-          }
-      ),child: MarkerWidget(image: vendorList[i].category!.thumbnail!,colors:vendorList[i].category!.color!)));
-    }
-  }
-  LocationBloc() : super(LocationState()) {
-    on< LocationEvent>((event, emit) async {
-      if(event is CurrentLocation){
-        emit(CurrentLocationLoading());
-        await getPosition();
-        if(latitudeCurrent==null){
-          emit(CurrentLocationNoPermission());
-        }
-          else{
-          final response =
-          await LocationRepository.getVendorsNear(latitude: latitudeCurrent!, longitude: longitudeCurrent!);
-          response.fold((l) {
-            emit(CurrentLocationError(l));
-          }, (r) {
-            vendorList=r;
-            addMarker();
-            emit(state.copyWith(latitude: latitudeCurrent,longitude: longitudeCurrent,vendorList: vendorList,vendorSelected:vendorList,
-                myMark: customMarkers ));
-          });
-        }
-        }
-      if(event is FilterVendors){
-        vendorListSelected.clear();
-        vendorListSelected=[...vendorListBinding];
-        addMarkerFilter();
-        emit(state.copyWith(myMark: myMarkFilter,vendorSelected:vendorListSelected ,index: -1,check: !state.check ));
-      }
-      if(event is ClickMarker){
-        emit(state.copyWith(index: event.index));
-      }
-      if (event is IndexIncrement) {
-        int indexIncrement = state.index ;
-        if(indexIncrement==state.vendorSelected.length-1)
-        {
-          mapController
-              ?.animateCamera(CameraUpdate.newLatLngZoom(
-              LatLng(
-                  double.parse(state
-                      .vendorSelected[0]
-                      .latitude!),
-                  double.parse(state
-                      .vendorSelected[0]
-                      .longitude!)),
-              16));
-
-          emit(state.copyWith(index:0 ));
-
-
-        }
-        else{
-          mapController
-              ?.animateCamera(CameraUpdate.newLatLngZoom(
-              LatLng(
-                  double.parse(state
-                      .vendorSelected[state.index+1]
-                      .latitude!),
-                  double.parse(state
-                      .vendorSelected[state.index+1]
-                      .longitude!)),
-              16));
-          emit(state.copyWith(index:indexIncrement+1));
-        }
-      }
-      if (event is IndexDecrement) {
-
-        int indexIncrement = state.index ;
-        if(indexIncrement==0)
-        {
-          mapController
-            ?.animateCamera(CameraUpdate.newLatLngZoom(
-            LatLng(
-                double.parse(state
-                    .vendorSelected[state.vendorSelected.length-1]
-                    .latitude!),
-                double.parse(state
-                    .vendorSelected[state.vendorSelected.length-1]
-                    .longitude!)),
-            16));
-          emit(state.copyWith(index:state.vendorSelected.length-1 ));}
-        else{
-          mapController
-              ?.animateCamera(CameraUpdate.newLatLngZoom(
-              LatLng(
-                  double.parse(state
-                      .vendorSelected[indexIncrement-1]
-                      .latitude!),
-                  double.parse(state
-                      .vendorSelected[indexIncrement-1]
-                      .longitude!)),
-              16));
-          emit(state.copyWith(index:indexIncrement-1));
-        }
-      }
-      if(event is checkIndex){
-        if(vendorListBinding
-            .any((element) => element.id==vendorList[event.index].id)){
-          vendorListBinding.remove(vendorList[event.index]);
-          emit(state.copyWith(vendorBinding:vendorListBinding,check: !state.check));
-        }
-        else{
-          vendorListBinding.add(vendorList[event.index]);
-          emit(state.copyWith(vendorBinding:vendorListBinding,check: !state.check));
-        }
-      }
-    });
   }
 }

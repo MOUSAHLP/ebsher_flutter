@@ -9,6 +9,7 @@ import '../../../bloc/about_bloc/about_event.dart';
 import '../../../bloc/about_bloc/about_state.dart';
 import '../../../core/services/services_locator.dart';
 import '../../resources/assets_manager.dart';
+import '../../widgets/custom_app_bar_screens.dart';
 import '../../widgets/custom_error_screen.dart';
 import '../../widgets/custom_icon.dart';
 
@@ -30,47 +31,52 @@ class AboutBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-          appBar: AppBar(
-            backgroundColor: ColorManager.backgroundEndColor,
-            title: Text(AppLocalizations.of(context)!.about),
-            centerTitle: true,
-
-          ),
-          body: Stack(
+    return Scaffold(
+        backgroundColor: ColorManager.primaryColor,
+        body: SafeArea(
+          child: Column(
             children: [
-              BlocBuilder<AboutBloc, AboutState>(builder: (context, state) {
-                if (state is AboutLoading) {
-                  return const Center(child: CircularProgressIndicator(
-                    color: ColorManager.primaryColor,
-                  ));
-                } else if (state is AboutError) {
-                  return CustomErrorScreen(
-                    onTap: () {
-                      sl<AboutBloc>().add(getAbout());
-                    },
-                  );
-                } else if (state is AboutSuccess) {
-                  return SingleChildScrollView(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            const SizedBox(height: 10),
-                            Html(
-                              data: state.content,
-                            )
-                          ]),
-                    ),
-                  );
-                } else {
-                  return const Text("");
-                }
-              }),
+              CustomAppBarScreens(
+                title: AppLocalizations.of(context)!.about,
+              ),
+              Expanded(
+                child: Container(
+                  color: Colors.white,
+                  child: BlocBuilder<AboutBloc, AboutState>(
+                      builder: (context, state) {
+                    if (state is AboutLoading) {
+                      return const Center(
+                          child: CircularProgressIndicator(
+                        color: ColorManager.primaryColor,
+                      ));
+                    } else if (state is AboutError) {
+                      return CustomErrorScreen(
+                        onTap: () {
+                          sl<AboutBloc>().add(getAbout());
+                        },
+                      );
+                    } else if (state is AboutSuccess) {
+                      return SingleChildScrollView(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                const SizedBox(height: 10),
+                                Html(
+                                  data: state.content,
+                                )
+                              ]),
+                        ),
+                      );
+                    } else {
+                      return const Text("");
+                    }
+                  }),
+                ),
+              ),
             ],
-          )),
-    );
+          ),
+        ));
   }
 }

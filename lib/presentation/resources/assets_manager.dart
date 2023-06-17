@@ -29,6 +29,10 @@ class ImageManager {
   static const String faceBook = "$imagePath/facebook.png";
   static const String twitter = "$imagePath/twitter.png";
   static const String profileTest = "$imagePath/profileTest.png";
+
+  static const String largePlaceholder = "$imagePath/large_placeholder.png";
+  static const String midPlaceholder = "$imagePath/mid_placeholder.png";
+  static const String smallPlaceholder = "$imagePath/small_placeholder.png";
 }
 
 class IconsManager {

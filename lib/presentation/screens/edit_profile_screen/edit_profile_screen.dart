@@ -1,7 +1,9 @@
-import 'package:absher/core/app_router/app_router.dart';
+import 'dart:io';
+
 import 'package:absher/presentation/resources/color_manager.dart';
 import 'package:absher/presentation/resources/style_app.dart';
 import 'package:absher/presentation/screens/edit_profile_screen/widgets/build_shimmer_profile.dart';
+import 'package:absher/presentation/widgets/custom_button.dart';
 import 'package:absher/presentation/widgets/custom_input_field.dart';
 import 'package:absher/translations.dart';
 
@@ -19,21 +21,52 @@ import '../favorites_screen/widgets/build_shimmer_favorites.dart';
 
 // ignore: must_be_immutable
 class EditProfileScreen extends StatelessWidget {
-
-
-  EditProfileScreen({super.key,});
+  EditProfileScreen({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider<ProfileBloc>(
       create: (BuildContext context) => sl<ProfileBloc>()..add(getProfile()),
-      child: const EditProfileBody(),
+      child:  EditProfileBody(),
     );
   }
 }
 
 class EditProfileBody extends StatelessWidget {
-  const EditProfileBody({super.key});
+   EditProfileBody({super.key});
+   void _showPicker(context) {
+     showModalBottomSheet(
+         context: context,
+         builder: (BuildContext bc) {
+           return SafeArea(
+             child: Wrap(
+               children: <Widget>[
+                  ListTile(
+                     leading:  Icon(Icons.photo_library),
+                     title:  Text(("Photo_Library")),
+                     onTap: ()  {
+                       sl<ProfileBloc>()
+                           .add(GetImageGallery());
+                       Navigator.of(context).pop();
+                     }),
+                  ListTile(
+                   leading:  Icon(Icons.photo_camera),
+                   title:  Text(("Camera_")),
+                   onTap: ()  {
+                     context
+                         .read<ProfileBloc>()
+                         .add(GetImageCamera());
+
+                     Navigator.of(context).pop();
+                   },
+                 ),
+               ],
+             ),
+           );
+         });
+   }
 
   @override
   Widget build(BuildContext context) {
@@ -90,8 +123,11 @@ class EditProfileBody extends StatelessWidget {
                                   color: ColorManager.primaryColor,
                                 ),
                                 initValue: state.profileModel.name,
-                                readOnly:!state.isEditing,
+                                readOnly: !state.isEditing,
                                 keyboardType: TextInputType.text,
+                                onChange: (value){
+                                  state.profileModel.name=value;
+                                },
                                 icon: Icons.person,
                               ),
                               const SizedBox(
@@ -102,8 +138,11 @@ class EditProfileBody extends StatelessWidget {
                                   color: ColorManager.primaryColor,
                                 ),
                                 initValue: state.profileModel.email,
-                                readOnly: true,
+                                readOnly:  !state.isEditing,
                                 keyboardType: TextInputType.text,
+                                onChange: (value){
+                                  state.profileModel.email=value;
+                                },
                                 icon: Icons.email_rounded,
                               ),
                               const SizedBox(
@@ -114,33 +153,21 @@ class EditProfileBody extends StatelessWidget {
                                   color: ColorManager.primaryColor,
                                 ),
                                 initValue: state.profileModel.phone,
-                                readOnly: true,
+                                readOnly:  true,
                                 keyboardType: TextInputType.text,
                                 icon: Icons.phone_android,
                               ),
                               const SizedBox(
                                 height: 5,
                               ),
-                              const CustomInputField(
+                               CustomInputField(
                                 textStyle: TextStyle(
                                   color: ColorManager.primaryColor,
                                 ),
                                 initValue: "Female",
-                                readOnly: true,
+                                readOnly:  !state.isEditing,
                                 keyboardType: TextInputType.text,
                                 icon: Icons.people_alt_rounded,
-                              ),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              const CustomInputField(
-                                textStyle: TextStyle(
-                                  color: ColorManager.primaryColor,
-                                ),
-                                initValue: "My favorite",
-                                readOnly: true,
-                                keyboardType: TextInputType.text,
-                                icon: Icons.favorite,
                               ),
                               const SizedBox(
                                 height: 5,
@@ -154,11 +181,7 @@ class EditProfileBody extends StatelessWidget {
                                 keyboardType: TextInputType.text,
                                 icon: Icons.lock,
                               ),
-                              MaterialButton(
-                                color: ColorManager.softYellow,
-                                onPressed: (){
-                                context.read<ProfileBloc>().add(isEditingEvent(true));
-                              },child: Text("Edit profile"),),
+
                               Padding(
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 100, vertical: 10),
@@ -180,7 +203,31 @@ class EditProfileBody extends StatelessWidget {
                                     ],
                                   ),
                                 ),
-                              )
+                              ),
+                              const SizedBox(
+                                  height:10
+                              ),
+                              MaterialButton(
+                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20.0))),
+                                color: ColorManager.softYellow,
+                                onPressed: () {
+                                  if(state.isEditing == false)
+                                  {context
+                                      .read<ProfileBloc>()
+                                      .add(isEditingEvent(true));}
+                                  else{
+                                    context
+                                        .read<ProfileBloc>()
+                                        .add(isEditingEvent(false));
+                                    context
+                                        .read<ProfileBloc>()
+                                        .add(UpdateProfile());
+                                  }
+                                },
+                                child: state.isEditing == false
+                                    ? Text(AppLocalizations.of(context)!.edit,style: getBoldStyle(color: Colors.white),)
+                                    : Text(AppLocalizations.of(context)!.save,style: getBoldStyle(color: Colors.white)),
+                              ),
                             ],
                           ),
                         ),
@@ -219,7 +266,13 @@ class EditProfileBody extends StatelessWidget {
                                   )),
                             ),
                           ),
-                        )
+                        ),
+//                        Positioned(
+//                          bottom:2,
+//                          child: InkWell(
+//                              onTap: (){_showPicker(context);},
+//                              child: Icon(Icons.camera_alt_outlined,color: Colors.white,)),
+//                        )
                       ],
                     ),
                   )

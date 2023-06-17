@@ -38,6 +38,7 @@ dependencies:
   percent_indicator: ^4.2.3
   card_swiper: ^2.0.4
   flutter_html:
+  image_picker:
 
 dev_dependencies:
   build_runner: ^2.3.3

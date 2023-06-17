@@ -12,8 +12,11 @@ import 'package:absher/translations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../bloc/home_bloc/home_bloc.dart';
 import '../../../bloc/login_bloc/login_bloc.dart';
 import '../../../bloc/login_bloc/login_state.dart';
+import '../../../bloc/privacy_bloc/privacy_bloc.dart';
+import '../../../bloc/privacy_bloc/privacy_event.dart';
 import '../../../core/services/services_locator.dart';
 import '../../resources/color_manager.dart';
 import '../../widgets/custom_button.dart';
@@ -99,11 +102,27 @@ class _SignInScreen extends StatelessWidget {
                 ),
                 CustomButton(
                     label:AppLocalizations.of(context)!.register,
-                    onTap: () {
-                      sl<LoginBloc>().add(Login(
-                          loginParams: LoginParams(
-                              phone: phoneController.text,
-                              password: passwordController.text)));
+                    onTap: ()  {
+                   //  sl<PrivacyBloc>()..add(getPrivacy());
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: const Text("Term Screen"),
+                            actions: [
+                              MaterialButton(
+                                  onPressed: (){
+                                sl<LoginBloc>().add(Login(
+                                    loginParams: LoginParams(
+                                        phone: phoneController.text,
+                                        password: passwordController.text)));
+                              },
+                              color: ColorManager.softYellow,child: Text("موافق",style: getBoldStyle(color: Colors.white)),)
+                            ],
+                          );
+                        },
+                      );
+
                     }),
               ],
             ),

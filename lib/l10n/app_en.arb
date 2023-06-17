@@ -5,7 +5,7 @@
   "signUp":"Sign up",
   "signIn":"Sign in",
   "addNumber":"Add your number",
-  "register":"Register",
+  "register":"Sign in",
   "addDetails":"Add your details to register an account",
   "fullName":"Full name",
   "haveAccount":"do you have an account?",
@@ -139,7 +139,7 @@
     "timeOpen":"Opening timing",
     "social":"social media sites",
     "craatDate":"Date of Establishment",
-    "services":"Services"
-
-
+    "services":"Services",
+    "edit":"Edit",
+    "save":"Save"
 }

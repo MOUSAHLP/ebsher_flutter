@@ -36,15 +36,7 @@ class AboutBody extends StatelessWidget {
             backgroundColor: ColorManager.backgroundEndColor,
             title: Text(AppLocalizations.of(context)!.about),
             centerTitle: true,
-            leading: GestureDetector(
-              onTap: () {
-                AppRouter.pop(context);
-              },
-              child: CustomIcon(
-                svgAsset: IconsManager.iconBackArrow,
 
-              ),
-            ),
           ),
           body: Stack(
             children: [

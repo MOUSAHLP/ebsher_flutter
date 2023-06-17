@@ -5,8 +5,10 @@ import 'package:dartz/dartz.dart';
 
 import '../../core/api_const.dart';
 import '../../models/home_model.dart';
+import '../../models/params/sign_up_params.dart';
 import '../../models/profile_model.dart';
 import '../../models/search_response.dart';
+import '../../models/sign_up_response.dart';
 import '../../models/sub_category_response.dart';
 import '../data_resource/remote_resource/api_handler/base_api_client.dart';
 
@@ -71,6 +73,21 @@ class HomeRepository {
         url: ApiConst.getVendorDetails(id),
         converter: (e) {
           return VendorModel.fromJson(e['data'][0]);
+        });
+  }
+
+  static Future<Either<String, ProfileModel>> editProfile(
+      ProfileModel? profileModel) async {
+    return BaseApiClient.post<ProfileModel>(
+        url: ApiConst.signUpRegister,
+        queryParameters: {
+          "name": profileModel?.name!,
+          "email": profileModel?.email!,
+          "phone": profileModel?.phone!,
+//          "avatar": profileModel?.avatar!,
+        },
+        converter: (e) {
+          return ProfileModel.fromJson(e['data']);
         });
   }
 }

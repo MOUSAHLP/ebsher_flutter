@@ -13,6 +13,7 @@ import 'package:absher/presentation/widgets/custom_input_field.dart';
 import 'package:absher/presentation/widgets/dialogs/error_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:overlay_support/overlay_support.dart';
 
 import '../../../translations.dart';
 import '../../widgets/dialogs/loading_dialog.dart';
@@ -39,6 +40,11 @@ class PhoneNumberSignUpScreen extends StatelessWidget {
                 OtpConfirmationScreen(
                   resetPassword: resetPassword,
                 ));
+          }
+          if (state is PhoneFieldsValidationFailed) {
+            if (state.validationError != null) {
+              toast(state.validationError!);
+            }
           }
         },
         child: _PhoneNumberSignUpScreenContent(

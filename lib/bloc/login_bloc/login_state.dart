@@ -12,3 +12,8 @@ class LoginError extends LoginState {
 class LoginConfirmed extends LoginState {}
 
 class ForgetPassword extends LoginState {}
+class LoginFieldsValidationFailed extends LoginState {
+  final String? validationError;
+
+  LoginFieldsValidationFailed({this.validationError});
+}

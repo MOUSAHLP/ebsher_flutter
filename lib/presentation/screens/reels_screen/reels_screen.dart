@@ -1,15 +1,20 @@
 import 'package:absher/bloc/reels_bloc/reels_event.dart';
 import 'package:absher/models/reels_model.dart';
 import 'package:absher/presentation/resources/color_manager.dart';
+import 'package:absher/presentation/resources/style_app.dart';
+import 'package:absher/presentation/screens/reels_screen/widgets/shimmer_reels.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:dismissible_page/dismissible_page.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../bloc/reels_bloc/reels_bloc.dart';
 import '../../../bloc/reels_bloc/reels_state.dart';
 import '../../../core/services/services_locator.dart';
+import '../../../translations.dart';
 import '../../widgets/custom_app_background.dart';
 import '../../widgets/custom_error_screen.dart';
+import '../../widgets/custom_no_data_screen.dart';
 import 'widgets/body_reels.dart';
 import '../../../core/app_router/app_router.dart';
 
@@ -28,6 +33,7 @@ class ReelsScreen extends StatelessWidget {
 
 class ReelsScreenBody extends StatefulWidget {
   const ReelsScreenBody({Key? key}) : super(key: key);
+
   @override
   State<ReelsScreenBody> createState() => _ReelsScreenBodyState();
 }
@@ -35,6 +41,7 @@ class ReelsScreenBody extends StatefulWidget {
 class _ReelsScreenBodyState extends State<ReelsScreenBody>
     with TickerProviderStateMixin {
   late ReelsBloc storiesBloc;
+
   @override
   void initState() {
     storiesBloc = context.read<ReelsBloc>();
@@ -55,48 +62,71 @@ class _ReelsScreenBodyState extends State<ReelsScreenBody>
         AppRouter.pop(context);
       },
       key: const Key(''),
-
-      child: CustomAppBackGround(
-        child: BlocConsumer<ReelsBloc, ReelsState>(
-          listener: (context, state) {
-          },
-          builder: (context, state) {
-            if(state is ReelsLoading){
-              return const Center(child: CircularProgressIndicator(
-                color: ColorManager.primaryColor,
-              ));
-            }
-            else if(state is ReelsError)
-              {
-                return CustomErrorScreen(
-                  onTap: () {
-                    sl<ReelsBloc>().add(getReels());
-                  },
-                );
-              }
-            else   if(state is ReelsSuccess)
-           {
-             return SafeArea(
-              child: ColoredBox(
-                color: Colors.transparent,
-                child: Swiper(
-                  controller: storiesBloc.controller,
-                  itemCount: storiesBloc.stories.length,
-                  loop: false,
-                  scrollDirection: Axis.vertical,
-                  itemBuilder: (context, index) {
-                    return BodyReelsScreen(
-                      reelsModel: storiesBloc.stories[index],
-                      controller: storiesBloc.controller ,
+      child: SafeArea(
+        child: Stack(
+          children: [
+            CustomAppBackGround(
+              child: BlocConsumer<ReelsBloc, ReelsState>(
+                listener: (context, state) {},
+                builder: (context, state) {
+                  if (state is ReelsLoading) {
+                    return ShimmerReels();
+                  } else if (state is ReelsError) {
+                    return CustomErrorScreen(
+                      onTap: () {
+                        sl<ReelsBloc>().add(getReels());
+                      },
                     );
-                  },
-                ),
+                  } else if (state is ReelsSuccess) {
+                    return SafeArea(
+                      child: ColoredBox(
+                        color: Colors.transparent,
+                        child: storiesBloc.stories.isNotEmpty
+                            ? Swiper(
+                                controller: storiesBloc.controller,
+                                itemCount: storiesBloc.stories.length,
+                                loop: false,
+                                scrollDirection: Axis.vertical,
+                                itemBuilder: (context, index) {
+                                  return BodyReelsScreen(
+                                    reelsModel: storiesBloc.stories[index],
+                                    controller: storiesBloc.controller,
+                                  );
+                                },
+                              )
+                            : CustomNoDataScreen(),
+                      ),
+                    );
+                  } else {
+                    return Text("");
+                  }
+                },
               ),
-            );}
-            else {
+            ),
+            Padding(
+              padding: const EdgeInsets.all(12),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    AppLocalizations.of(context)!.reels,
 
-              return Text("");}
-          },
+                    style: getBoldStyle(color: Colors.white, fontSize: 16),
+                  ),
+                  GestureDetector(
+                    onTap: (){
+                      AppRouter.pop(context);
+                    },
+                    child: Icon(
+                      Icons.clear,
+                      size: 30,
+                      color: Colors.white,
+                    ),
+                  )
+                ],
+              ),
+            )
+          ],
         ),
       ),
     );

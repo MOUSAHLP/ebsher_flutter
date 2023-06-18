@@ -22,4 +22,12 @@ class SignUpFieldsValidationFailed extends SignUpState {
   SignUpFieldsValidationFailed({this.validationError});
 }
 
+class PhoneFieldsValidationFailed extends SignUpState {
+  final String? validationError;
+  PhoneFieldsValidationFailed({this.validationError});
+}
+class PasswordFieldsValidationFailed extends SignUpState {
+  final String? validationError;
+  PasswordFieldsValidationFailed({this.validationError});
+}
 class ResetPasswordCompleted extends SignUpState {}

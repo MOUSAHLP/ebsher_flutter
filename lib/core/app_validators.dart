@@ -1,5 +1,7 @@
 import 'package:absher/models/params/sign_up_params.dart';
 
+import '../models/params/login_params.dart';
+import '../models/params/reset_password_params.dart';
 import 'app_regex.dart';
 
 class AppValidators {
@@ -21,6 +23,35 @@ class AppValidators {
       return 'كلمة السر غير مطابقة';
     }
     if (signUpParams.password != signUpParams.repeatPassword) {
+      return 'كلمة السر غير مطابقة';
+    }
+  }
+  static String? validateSignInFields(LoginParams signInParams) {
+    if (signInParams.phone == null || signInParams.phone!.isEmpty) {
+      return 'حقل الرقم مطلوب';
+    }
+    if (signInParams.password == null || signInParams.password!.isEmpty) {
+      return 'حقل كلمة المرور مطلوب';
+    }
+
+  }
+  static String? validatePhoneFields(String phone) {
+    if (phone == null || phone.isEmpty) {
+      return 'حقل الرقم مطلوب';
+    }
+
+
+  }
+  static String? validatePasswordFields(ResetPasswordParams resetPasswordParams) {
+
+    if (resetPasswordParams.password == null || resetPasswordParams.password!.isEmpty) {
+      return 'حقل كلمة المرور مطلوب';
+    }
+    if (resetPasswordParams.repeatPassword == null ||
+        resetPasswordParams.repeatPassword!.isEmpty) {
+      return 'حقل كلمة المرور مطلوب';
+    }
+    if (resetPasswordParams.password !=resetPasswordParams. repeatPassword) {
       return 'كلمة السر غير مطابقة';
     }
   }

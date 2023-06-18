@@ -23,14 +23,20 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     on<SignUpEvent>((event, emit) async {
       if (event is RequestOtp) {
         emit(SignUpLoading());
-        var response =
+        String? validationError =
+        AppValidators.validatePhoneFields(event.phoneNumber);
+        if(validationError == null)
+      { var response =
             await userRepository.signUpPhoneNumber(event.phoneNumber);
         response.fold((l) {
           emit(SignUpError(error: l));
         }, (r) {
           otpVerifyResponse = r;
           emit(SignUpOtpRequested());
-        });
+        });}
+        else{
+          emit(PhoneFieldsValidationFailed(validationError: validationError));
+        }
       }
       if (event is ConfirmOtp) {
         emit(SignUpLoading());
@@ -75,17 +81,27 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
 
       if (event is ResetPassword) {
         emit(SignUpLoading());
+
         ResetPasswordParams resetPasswordParams = ResetPasswordParams(
           phone: otpVerifyResponse?.phone,
           password: event.password,
           repeatPassword: event.repeatPassword,
         );
-        var response = await userRepository.resetPassword(resetPasswordParams);
+        String? validationError =
+        AppValidators.validatePasswordFields(resetPasswordParams );
+        if(validationError ==null)
+      {  var response = await userRepository.resetPassword(resetPasswordParams);
         response.fold((l) {
           emit(SignUpError(error: l));
         }, (r) {
           emit(ResetPasswordCompleted());
-        });
+        });}
+        else
+          {
+            emit(
+                SignUpFieldsValidationFailed(validationError: validationError)
+            );
+          }
       }
     });
   }

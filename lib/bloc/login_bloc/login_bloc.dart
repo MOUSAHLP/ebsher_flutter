@@ -4,6 +4,7 @@ import 'package:absher/core/services/services_locator.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/gestures.dart';
 
+import '../../core/app_validators.dart';
 import '../../data/repos/user_repository.dart';
 import '../../models/params/login_params.dart';
 import '../authentication_bloc/authentication_event.dart';
@@ -14,10 +15,15 @@ import 'login_state.dart';
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final UserRepository userRepository;
   final AuthenticationBloc authenticationBloc;
+  LoginParams loginParams=LoginParams();
   LoginBloc(this.userRepository, this.authenticationBloc) : super(LoginInit()) {
     on<LoginEvent>((event, emit) async {
       if (event is Login) {
         emit(LoginLoading());
+        String? validationError =
+        AppValidators.validateSignInFields(loginParams);
+        if (validationError == null) {
+
         final response =
             await userRepository.authenticate(loginParams: event.loginParams);
         response.fold((l) {
@@ -27,6 +33,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           emit(LoginConfirmed());
         });
       }
+      else{
+        emit(LoginFieldsValidationFailed(validationError: validationError));
+      }}
     });
   }
 }

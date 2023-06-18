@@ -16,6 +16,7 @@ import 'package:absher/presentation/widgets/custom_password_input_field.dart';
 import 'package:absher/presentation/widgets/dialogs/error_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:overlay_support/overlay_support.dart';
 
 import '../../../translations.dart';
 import '../../widgets/dialogs/loading_dialog.dart';
@@ -38,6 +39,9 @@ class ResetPasswordScreen extends StatelessWidget {
           }
           if (state is ResetPasswordCompleted) {
             AppRouter.pushReplacement(context, SignInConfirmationScreen());
+          }
+          if(state is SignUpFieldsValidationFailed){
+            toast(state.validationError!);
           }
         },
         child: _PhoneNumberSignUpScreenContent());

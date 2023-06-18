@@ -11,6 +11,7 @@ import 'package:absher/presentation/widgets/custom_password_input_field.dart';
 import 'package:absher/translations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:overlay_support/overlay_support.dart';
 
 import '../../../bloc/home_bloc/home_bloc.dart';
 import '../../../bloc/login_bloc/login_bloc.dart';
@@ -39,6 +40,11 @@ class SignInConfirmationScreen extends StatelessWidget {
           }
           if (state is LoginConfirmed) {
             AppRouter.pushAndRemoveAllStack(context, BasicScreen());
+          }
+          if (state is LoginFieldsValidationFailed) {
+            if (state.validationError != null) {
+              toast(state.validationError!);
+            }
           }
         },
         child: _SignInScreen());
@@ -122,7 +128,6 @@ class _SignInScreen extends StatelessWidget {
                           );
                         },
                       );
-
                     }),
               ],
             ),

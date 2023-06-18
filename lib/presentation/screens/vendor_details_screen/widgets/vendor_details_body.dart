@@ -142,11 +142,16 @@ class CustomShapeContainer extends StatelessWidget {
             shadow: Shadow(
                 color: Colors.black.withOpacity(0.2),
                 blurRadius: 2,
-                offset: const Offset(-4, 10)),
+                offset: Directionality.of(context) == TextDirection.ltr
+                    ? const Offset(10, 15)
+                    : const Offset(-2, 10)),
           ),
         ),
-        SvgPicture.asset(IconsManager.iconCustomShape)
-
+        SvgPicture.asset(
+          IconsManager.iconCustomShape,
+          height: 80,
+          width: 80,
+        )
       ],
     );
   }

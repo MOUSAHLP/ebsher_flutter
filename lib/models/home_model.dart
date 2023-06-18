@@ -14,8 +14,11 @@ class HomeModel {
   });
 
   factory HomeModel.fromJson(Map<String, dynamic> json) => HomeModel(
-    story: List<StoryModelDto>.from(json["stories"].map((x) => StoryModelDto.fromJson(x))),
-    mainAds: List<AdvertisementsResponse>.from(json["mainAds"].map((x) => AdvertisementsResponse.fromJson(x))),
-    categories: List<CategoyResponse>.from(json["categories"].map((x) => CategoyResponse.fromJson(x))),
-  );
+        story: List<StoryModelDto>.from(
+            json["stories"].map((x) => StoryModelDto.fromJson(x))),
+        mainAds: List<AdvertisementsResponse>.from(
+            json["mainAds"].map((x) => AdvertisementsResponse.fromJson(x))),
+        categories: List<CategoyResponse>.from(
+            json["categories"].map((x) => CategoyResponse.fromJson(x))),
+      );
 }

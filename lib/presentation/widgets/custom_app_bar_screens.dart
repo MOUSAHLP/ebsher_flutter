@@ -33,9 +33,10 @@ class CustomAppBarScreens extends StatelessWidget {
               ),
             ),
             Text(title, style: getBoldStyle(color: Colors.white, fontSize: 18)),
-            CustomIcon(
-              svgAsset: IconsManager.iconShare,
-            ),
+            // CustomIcon(
+            //   svgAsset: IconsManager.iconShare,
+            // ),
+            SizedBox()
           ],
         ),
       ),

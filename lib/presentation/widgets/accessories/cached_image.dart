@@ -2,6 +2,8 @@ import 'package:absher/presentation/resources/assets_manager.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 
+enum ImageSize { large, mid, small }
+
 class CachedImage extends StatelessWidget {
   final String? imageUrl;
   final BoxFit? fit;
@@ -13,6 +15,7 @@ class CachedImage extends StatelessWidget {
   final Color? color;
   final String? fallbackPlaceHolder;
   final bool removeOnDispose;
+  final ImageSize imageSize;
 
   const CachedImage({
     Key? key,
@@ -26,6 +29,7 @@ class CachedImage extends StatelessWidget {
     this.color,
     this.fallbackPlaceHolder,
     this.removeOnDispose = true,
+    this.imageSize = ImageSize.large,
   }) : super(key: key);
 
   @override
@@ -43,28 +47,38 @@ class CachedImage extends StatelessWidget {
       loadStateChanged: (ExtendedImageState state) {
         switch (state.extendedImageLoadState) {
           case LoadState.loading:
-            return Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ExtendedImage(
-                image: const AssetImage(ImageManager.appLogo),
-                clearMemoryCacheWhenDispose: true,
-                fit: BoxFit.contain,
+            return ExtendedImage(
+              image: AssetImage(
+                fallbackPlaceHolder ?? getPlaceHolderSize(),
               ),
+              clearMemoryCacheWhenDispose: true,
+              fit: imageSize == ImageSize.small ? BoxFit.contain : BoxFit.cover,
+              color: color,
             );
           case LoadState.completed:
             return state.completedWidget;
           case LoadState.failed:
-            return Padding(
-              padding: const EdgeInsets.all(0),
-              child: ExtendedImage(
-                image: AssetImage(fallbackPlaceHolder ?? ImageManager.appLogo,),
-                clearMemoryCacheWhenDispose: true,
-                fit: BoxFit.contain,
-                color: color,
+            return ExtendedImage(
+              image: AssetImage(
+                fallbackPlaceHolder ?? getPlaceHolderSize(),
               ),
+              clearMemoryCacheWhenDispose: true,
+              fit: imageSize == ImageSize.small ? BoxFit.contain : BoxFit.cover,
+              color: color,
             );
         }
       },
     );
+  }
+
+  String getPlaceHolderSize() {
+    switch (imageSize) {
+      case ImageSize.large:
+        return ImageManager.largePlaceholder;
+      case ImageSize.mid:
+        return ImageManager.midPlaceholder;
+      case ImageSize.small:
+        return ImageManager.appLogo;
+    }
   }
 }

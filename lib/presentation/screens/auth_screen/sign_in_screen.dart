@@ -91,13 +91,14 @@ class _SignInScreen extends StatelessWidget {
                 GestureDetector(
                   onTap: () {
                     AppRouter.pushReplacement(
-                        context,
-                        const PhoneNumberSignUpScreen(
-                          resetPassword: true,
-                        ));
+                      context,
+                      const PhoneNumberSignUpScreen(
+                        resetPassword: true,
+                      ),
+                    );
                   },
                   child: Text(
-                   AppLocalizations.of(context)!.forgetPassord,
+                    AppLocalizations.of(context)!.forgetPassord,
                     style: getSemiBoldStyle(
                       color: ColorManager.softYellow,
                     ),
@@ -107,28 +108,18 @@ class _SignInScreen extends StatelessWidget {
                   height: 16,
                 ),
                 CustomButton(
-                    label:AppLocalizations.of(context)!.register,
-                    onTap: ()  {
-                   //  sl<PrivacyBloc>()..add(getPrivacy());
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: const Text("Term Screen"),
-                            actions: [
-                              MaterialButton(
-                                  onPressed: (){
-                                sl<LoginBloc>().add(Login(
-                                    loginParams: LoginParams(
-                                        phone: phoneController.text,
-                                        password: passwordController.text)));
-                              },
-                              color: ColorManager.softYellow,child: Text("موافق",style: getBoldStyle(color: Colors.white)),)
-                            ],
-                          );
-                        },
-                      );
-                    }),
+                  label: AppLocalizations.of(context)!.register,
+                  onTap: () {
+                    sl<LoginBloc>().add(
+                      Login(
+                        loginParams: LoginParams(
+                          phone: phoneController.text,
+                          password: passwordController.text,
+                        ),
+                      ),
+                    );
+                  },
+                ),
               ],
             ),
           ),

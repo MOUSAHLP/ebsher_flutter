@@ -22,13 +22,14 @@ class LoginResponseAdapter extends TypeAdapter<LoginResponse> {
       phone: fields[2] as String,
       email: fields[3] as String,
       token: fields[4] as String,
+      image: fields[5] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, LoginResponse obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(6)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -38,7 +39,9 @@ class LoginResponseAdapter extends TypeAdapter<LoginResponse> {
       ..writeByte(3)
       ..write(obj.email)
       ..writeByte(4)
-      ..write(obj.token);
+      ..write(obj.token)
+      ..writeByte(5)
+      ..write(obj.image);
   }
 
   @override

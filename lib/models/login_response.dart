@@ -16,6 +16,7 @@ class LoginResponse {
   String token;
   @HiveField(5)
   String? image;
+
   LoginResponse({
     required this.id,
     required this.name,
@@ -24,6 +25,7 @@ class LoginResponse {
     required this.token,
     this.image,
   });
+
   factory LoginResponse.fromJson(Map<String, dynamic> json) => LoginResponse(
         id: json["id"],
         name: json["name"],

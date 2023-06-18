@@ -17,3 +17,4 @@ class LoginFieldsValidationFailed extends LoginState {
 
   LoginFieldsValidationFailed({this.validationError});
 }
+class TermsAcceptRequired extends LoginState {}

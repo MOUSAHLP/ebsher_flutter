@@ -1,6 +1,7 @@
 import 'package:absher/bloc/sign_up_bloc/sign_up_bloc.dart';
 import 'package:absher/bloc/sign_up_bloc/sign_up_event.dart';
 import 'package:absher/core/services/services_locator.dart';
+import 'package:absher/data/data_resource/local_resource/data_store.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/gestures.dart';
 
@@ -21,7 +22,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       if (event is Login) {
         emit(LoginLoading());
         String? validationError =
-        AppValidators.validateSignInFields(loginParams);
+        AppValidators.validateSignInFields( event.loginParams);
         if (validationError == null) {
 
         final response =
@@ -36,6 +37,12 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       else{
         emit(LoginFieldsValidationFailed(validationError: validationError));
       }}
+
+      if (event is CheckForTermsAcceptance) {
+        if (!DataStore.instance.termsViewed) {
+          emit(TermsAcceptRequired());
+        }
+      }
     });
   }
 }

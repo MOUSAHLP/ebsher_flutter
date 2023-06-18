@@ -6,6 +6,7 @@ import 'package:absher/core/app_router/app_router.dart';
 import 'package:absher/presentation/resources/assets_manager.dart';
 import 'package:absher/presentation/resources/values_app.dart';
 import 'package:absher/presentation/screens/reels_screen/reels_screen.dart';
+import 'package:absher/presentation/widgets/accessories/cached_image.dart';
 import 'package:absher/translations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -71,9 +72,11 @@ class CustomAppDrawer extends StatelessWidget {
                                   child: ClipRRect(
                                       borderRadius:
                                           BorderRadius.circular(RadiusApp.r50),
-                                      child: Image.asset(
-                                        ImageManager.test,
-                                        fit: BoxFit.fill,
+                                      child: CachedImage(
+                                        imageUrl: context
+                                            .read<AuthenticationBloc>()
+                                            .loginResponse!
+                                            .image,
                                       )),
                                 ),
                                 const SizedBox(width: 10),

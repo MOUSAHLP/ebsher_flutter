@@ -47,13 +47,14 @@ class _BuildCardCategoriesState extends State<BuildCardCategories> {
             });
             Future.delayed(Duration(milliseconds: 300)).then((value) {
               AppRouter.push(
-                context,
-                  SubCategoriesScreen(title:LocalixationString(context, widget.category.name) ?? "",id: widget.category.id!,)
-
-              );
+                  context,
+                  SubCategoriesScreen(
+                    title:
+                        LocalixationString(context, widget.category.name) ?? "",
+                    id: widget.category.id!,
+                  ));
               setState(() {
                 pressed = false;
-                // size = 13.2.h;
               });
             });
           },
@@ -76,6 +77,7 @@ class _BuildCardCategoriesState extends State<BuildCardCategories> {
                   padding: const EdgeInsets.all(2.0),
                   child: CachedImage(
                     imageUrl: widget.category.thumbnail!,
+                    imageSize: ImageSize.small,
                     width: 6.6.h,
                     height: 6.6.h,
                   ),

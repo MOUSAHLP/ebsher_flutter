@@ -1,6 +1,7 @@
 import 'package:absher/bloc/sign_up_bloc/sign_up_bloc.dart';
 import 'package:absher/bloc/sign_up_bloc/sign_up_event.dart';
 import 'package:absher/core/services/services_locator.dart';
+import 'package:absher/data/data_resource/local_resource/data_store.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/gestures.dart';
 
@@ -14,6 +15,7 @@ import 'login_state.dart';
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final UserRepository userRepository;
   final AuthenticationBloc authenticationBloc;
+
   LoginBloc(this.userRepository, this.authenticationBloc) : super(LoginInit()) {
     on<LoginEvent>((event, emit) async {
       if (event is Login) {
@@ -26,6 +28,12 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           authenticationBloc.add(LoggedIn(loginResponse: r));
           emit(LoginConfirmed());
         });
+      }
+
+      if (event is CheckForTermsAcceptance) {
+        if (!DataStore.instance.termsViewed) {
+          emit(TermsAcceptRequired());
+        }
       }
     });
   }

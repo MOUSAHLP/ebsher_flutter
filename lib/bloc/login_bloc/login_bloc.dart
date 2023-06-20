@@ -24,7 +24,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         String? validationError =
         AppValidators.validateSignInFields( event.loginParams);
         if (validationError == null) {
-
         final response =
             await userRepository.authenticate(loginParams: event.loginParams);
         response.fold((l) {

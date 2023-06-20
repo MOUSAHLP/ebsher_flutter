@@ -14,6 +14,4 @@ class UpdateProfile extends ProfileEvent{
 }
 class GetImageGallery extends ProfileEvent{
 }
-class GetImageCamera extends ProfileEvent{
-}
 

@@ -1,3 +1,4 @@
+import 'package:absher/core/launcher.dart';
 import 'package:absher/models/vendor_model.dart';
 import 'package:absher/presentation/resources/assets_manager.dart';
 import 'package:absher/presentation/resources/color_manager.dart';
@@ -8,6 +9,7 @@ import 'package:absher/translations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../core/formatter.dart';
 
@@ -18,6 +20,7 @@ class SocialMediaLinksSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (vendor.socialMedia!.isEmpty) return const SizedBox();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -50,10 +53,18 @@ class SocialMediaLinksSection extends StatelessWidget {
                       scrollDirection: Axis.horizontal,
                       itemCount: vendor.socialMedia?.length,
                       itemBuilder: (context, index) {
-                        return CachedImage(
-                          imageUrl: vendor.socialMedia![index].image,
-                          height: 50,
-                          width: 50,
+                        return InkWell(
+                          onTap: (){
+                            launchSocial( vendor.socialMedia![index].pivot!.link??"");
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                            child: CachedImage(
+                              imageUrl: vendor.socialMedia![index].image,
+                              height: 50,
+                              width: 50,
+                            ),
+                          ),
                         );
                       },
                     ),
@@ -86,4 +97,5 @@ class SocialMediaLinksSection extends StatelessWidget {
       ],
     );
   }
+
 }

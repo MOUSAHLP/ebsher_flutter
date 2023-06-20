@@ -19,6 +19,7 @@ class CategoyResponse {
   String? thumbnail;
   String? color;
   String? featured;
+  String? vendorsCount;
   dynamic createdAt;
   dynamic updatedAt;
   CategoyResponse({
@@ -32,6 +33,7 @@ class CategoyResponse {
     this.featured,
     this.createdAt,
     this.updatedAt,
+    this.vendorsCount
 
   });
   factory CategoyResponse.fromJson(Map<String, dynamic> json)  {
@@ -47,6 +49,7 @@ class CategoyResponse {
       featured: json["featured"],
       createdAt: json["created_at"],
       updatedAt: json["updated_at"],
+      vendorsCount: json["vendors_count"],
   );}
 
   Map<String, dynamic> toJson() => {
@@ -60,6 +63,7 @@ class CategoyResponse {
     "featured": featured,
     "created_at": createdAt,
     "updated_at": updatedAt,
+    "vendors_count": vendorsCount,
   };
   static List<CategoyResponse> listFromJson( List<dynamic> json){
     return json.map((value) =>CategoyResponse.fromJson(value) ).toList();

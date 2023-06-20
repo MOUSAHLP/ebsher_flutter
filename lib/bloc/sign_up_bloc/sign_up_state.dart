@@ -30,4 +30,5 @@ class PasswordFieldsValidationFailed extends SignUpState {
   final String? validationError;
   PasswordFieldsValidationFailed({this.validationError});
 }
+class ForgetPasswordCompleted extends SignUpState {}
 class ResetPasswordCompleted extends SignUpState {}

@@ -32,7 +32,7 @@ class ServicesLocator {
     sl.registerFactory(() => SubCategoryBloc());
     sl.registerFactory(() => ProfileBloc());
     sl.registerFactory(() => ReelsBloc());
-    sl.registerFactory(() => FavoritesListBloc());
+    sl.registerLazySingleton(() => FavoritesListBloc());
     sl.registerFactory(() => NotificationBloc());
     sl.registerFactory(() => AboutBloc());
     sl.registerFactory(() => PrivacyBloc());

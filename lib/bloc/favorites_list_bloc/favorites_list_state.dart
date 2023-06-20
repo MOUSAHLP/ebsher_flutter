@@ -13,3 +13,5 @@ class FavoritesListSuccess extends FavoritesListState {
   List<VendorModel> vendorsList;
   FavoritesListSuccess(this.vendorsList);
 }
+class AddFavoriteSuccess extends FavoritesListState{}
+class RemoveFavoriteSuccess extends FavoritesListState{}

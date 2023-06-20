@@ -13,10 +13,12 @@ import 'package:absher/presentation/widgets/custom_input_field.dart';
 import 'package:absher/presentation/widgets/dialogs/error_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:overlay_support/overlay_support.dart';
 
 import '../../../translations.dart';
 import '../../widgets/dialogs/loading_dialog.dart';
+import '../location_screen/widgets/app_bar_widget.dart';
 
 class PhoneNumberSignUpScreen extends StatelessWidget {
   const PhoneNumberSignUpScreen({Key? key, required this.resetPassword})
@@ -48,16 +50,16 @@ class PhoneNumberSignUpScreen extends StatelessWidget {
           }
         },
         child: _PhoneNumberSignUpScreenContent(
-          resetPassword: resetPassword,
+          forgetPassword: resetPassword,
         ));
   }
 }
 
 class _PhoneNumberSignUpScreenContent extends StatelessWidget {
-  _PhoneNumberSignUpScreenContent({Key? key, required this.resetPassword})
+  _PhoneNumberSignUpScreenContent({Key? key, required this.forgetPassword})
       : super(key: key);
   final TextEditingController textEditingController = TextEditingController();
-  final bool resetPassword;
+  final bool forgetPassword;
 
   @override
   Widget build(BuildContext context) {
@@ -69,51 +71,61 @@ class _PhoneNumberSignUpScreenContent extends StatelessWidget {
           child: Column(
             children: [
               SizedBox(
-                height: 350,
+                height: 1.sh-350,
               ),
-              Text(
-               AppLocalizations.of(context)!.enterPhone,
-                style: getBoldStyle(
-                  color: Colors.white,
-                  fontSize: FontSizeApp.s22,
+              Container(
+              //  color: Colors.red,
+                height: 250,
+                child: Column(
+                  children: [
+                    Text(
+                      AppLocalizations.of(context)!.enterPhone,
+                      style: getBoldStyle(
+                        color: Colors.white,
+                        fontSize: FontSizeApp.s22,
+                      ),
+                    ),
+                    Text(
+                      forgetPassword
+                          ?  AppLocalizations.of(context)!.phoneForPassword
+                          :  AppLocalizations.of(context)!.phoneForCreat,
+                      textAlign: TextAlign.center,
+                      style: getBoldStyle(
+                        color: ColorManager.softYellow,
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        vertical: 16.0,
+                        horizontal: 32,
+                      ),
+                      child: CustomInputField(
+                        controller: textEditingController,
+                        keyboardType: TextInputType.phone,
+                        hintText: AppLocalizations.of(context)!.addNumber,
+                        icon: Icons.phone_android,
+                      ),
+                    ),
+                    CustomButton(
+                      label:AppLocalizations.of(context)!.send,
+                      onTap: () {
+                        if (forgetPassword) {
+                          sl<SignUpBloc>().add(ForgetPasswordGenerateOtp(
+                              phoneNumber: textEditingController.text));
+                        } else {
+                          sl<SignUpBloc>().add(
+                              RequestOtp(phoneNumber: textEditingController.text));
+                        }
+                      },
+                    )
+                  ],
                 ),
               ),
-              Text(
-                resetPassword
-                    ?  AppLocalizations.of(context)!.phoneForPassword
-                    :  AppLocalizations.of(context)!.phoneForCreat,
-                textAlign: TextAlign.center,
-                style: getBoldStyle(
-                  color: ColorManager.softYellow,
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                  vertical: 16.0,
-                  horizontal: 32,
-                ),
-                child: CustomInputField(
-                  controller: textEditingController,
-                  keyboardType: TextInputType.phone,
-                  hintText: AppLocalizations.of(context)!.addNumber,
-                  icon: Icons.phone_android,
-                ),
-              ),
-              CustomButton(
-                label:AppLocalizations.of(context)!.send,
-                onTap: () {
-                  if (resetPassword) {
-                    sl<SignUpBloc>().add(ForgetPassword(
-                        phoneNumber: textEditingController.text));
-                  } else {
-                    sl<SignUpBloc>().add(
-                        RequestOtp(phoneNumber: textEditingController.text));
-                  }
-                },
-              )
+
             ],
           ),
         ),
+        SafeArea(child: AppBarWidget())
       ],
     ));
   }

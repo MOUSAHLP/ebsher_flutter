@@ -40,6 +40,7 @@ class LoginResponse {
         "name": name,
         "phone": phone,
         "email": email,
+        "avatar": image,
         "token": token,
       };
 }

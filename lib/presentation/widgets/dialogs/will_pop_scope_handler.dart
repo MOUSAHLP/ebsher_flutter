@@ -55,7 +55,7 @@ class _ExitAppDialog extends StatelessWidget {
                 ),
                 Expanded(
                   child: CustomButton(
-                    label:AppLocalizations.of(context)!.signOut,
+                    label:AppLocalizations.of(context)!.exit,
                     fillColor: Colors.redAccent,
                     onTap: () {
                       SystemNavigator.pop();

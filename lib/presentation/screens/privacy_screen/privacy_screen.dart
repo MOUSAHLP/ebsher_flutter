@@ -8,6 +8,7 @@ import '../../../bloc/privacy_bloc/privacy_bloc.dart';
 import '../../../bloc/privacy_bloc/privacy_event.dart';
 import '../../../core/services/services_locator.dart';
 
+import '../../widgets/custom_app_background.dart';
 import '../../widgets/custom_app_bar_screens.dart';
 import '../../widgets/custom_error_screen.dart';
 
@@ -47,10 +48,13 @@ class PrivacyBody extends StatelessWidget {
                       color: ColorManager.primaryColor,
                     ));
                   } else if (state is PrivacyError) {
-                    return CustomErrorScreen(
-                      onTap: () {
-                        sl<PrivacyBloc>().add(GetPrivacy());
-                      },
+                    return CustomAppBackGround(
+
+                      child: CustomErrorScreen(
+                        onTap: () {
+                          sl<PrivacyBloc>().add(GetPrivacy());
+                        },
+                      ),
                     );
                   } else if (state is PrivacySuccess) {
                     return SingleChildScrollView(

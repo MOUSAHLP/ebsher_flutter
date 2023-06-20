@@ -1,4 +1,6 @@
+import 'package:absher/presentation/resources/style_app.dart';
 import 'package:absher/presentation/widgets/accessories/cached_image.dart';
+import 'package:absher/translations.dart';
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -13,12 +15,11 @@ class CustomDilog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (photosUrls.banners == null) return const SizedBox();
+    if (photosUrls.banners!.isEmpty) return Center(child: Text(AppLocalizations.of(context)!.noThing,style: getBoldStyle(color: Colors.white),));
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
-
           child: CarouselSlider(
             options: CarouselOptions(
                 initialPage: 0,

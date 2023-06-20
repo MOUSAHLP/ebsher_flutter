@@ -1,9 +1,8 @@
-import 'dart:developer';
 
 import 'package:absher/bloc/location_bloc/location_event.dart';
 import 'package:absher/bloc/location_bloc/location_state.dart';
 import 'package:absher/core/app_router/app_router.dart';
-import 'package:absher/core/extensions.dart';
+
 import 'package:absher/presentation/screens/location_screen/widgets/app_bar_widget.dart';
 import 'package:absher/presentation/screens/location_screen/widgets/arrow_button.dart';
 import 'package:absher/presentation/screens/location_screen/widgets/filter_button.dart';
@@ -24,7 +23,7 @@ import '../../resources/color_manager.dart';
 import '../../resources/font_app.dart';
 import '../../resources/style_app.dart';
 import '../../widgets/custom_button.dart';
-import '../vendors_screen/vendors_screen.dart';
+
 
 class LocationScreen extends StatelessWidget {
   const LocationScreen({super.key});
@@ -79,10 +78,12 @@ class LocationScreenBody extends StatelessWidget {
               );
             }
             if (state.screenStates == ScreenStates.error) {
-              return CustomErrorScreen(
-                onTap: () {
-                  sl<LocationBloc>().add(CurrentLocation());
-                },
+              return Center(
+                child: CustomErrorScreen(
+                  onTap: () {
+                    sl<LocationBloc>().add(CurrentLocation());
+                  },
+                ),
               );
             }
             return SafeArea(

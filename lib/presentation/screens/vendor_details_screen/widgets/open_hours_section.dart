@@ -10,33 +10,13 @@ import 'package:intl/intl.dart';
 
 import '../../../resources/assets_manager.dart';
 
-//List<String> getDaysOfWeek(String locale) {
-//  final now = DateTime.now();
-//  final firstDayOfWeek = now.subtract(Duration(days: now.weekday - 1));
-//  List<String> daysList = List.generate(7, (index) => index)
-//      .map((value) => DateFormat(DateFormat.WEEKDAY, locale)
-//          .format(firstDayOfWeek.add(Duration(days: value))))
-//      .toList();
-//  List<String> finalList = [
-//    daysList[5],
-//    daysList[6],
-//    daysList[0],
-//    daysList[1],
-//    daysList[2],
-//    daysList[3],
-//    daysList[4],
-//  ];
-//
-//  return finalList;
-//}
-
 class OpenHourSection extends StatelessWidget {
   const OpenHourSection({Key? key, required this.vendor}) : super(key: key);
   final VendorModel vendor;
 
   @override
   Widget build(BuildContext context) {
-    if (vendor.days == null) return const SizedBox();
+    if (vendor.days!.isEmpty) return const SizedBox();
     return Column(
       children: [
         Row(
@@ -63,6 +43,7 @@ class OpenHourSection extends StatelessWidget {
             child: ListView.builder(
               itemCount:vendor.days!.length ,
               shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
               return Row(children: [
                Text( LocalixationString(context, vendor.days![index].name!)!,style: getRegularStyle(

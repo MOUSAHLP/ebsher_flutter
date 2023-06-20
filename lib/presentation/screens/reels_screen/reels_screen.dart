@@ -108,11 +108,6 @@ class _ReelsScreenBodyState extends State<ReelsScreenBody>
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    AppLocalizations.of(context)!.reels,
-
-                    style: getBoldStyle(color: Colors.white, fontSize: 16),
-                  ),
                   GestureDetector(
                     onTap: (){
                       AppRouter.pop(context);
@@ -122,7 +117,12 @@ class _ReelsScreenBodyState extends State<ReelsScreenBody>
                       size: 30,
                       color: Colors.white,
                     ),
-                  )
+                  ),
+                  Text(
+                    AppLocalizations.of(context)!.reels,
+                    style: getBoldStyle(color: Colors.white, fontSize: 16),
+                  ),
+
                 ],
               ),
             )

@@ -5,7 +5,6 @@ import 'package:absher/presentation/resources/assets_manager.dart';
 import 'package:absher/presentation/resources/color_manager.dart';
 import 'package:absher/presentation/resources/font_app.dart';
 import 'package:absher/presentation/resources/style_app.dart';
-import 'package:absher/presentation/screens/location_screen/widgets/marker.dart';
 import 'package:absher/presentation/screens/vendors_screen/widgets/build_shimmer_vendors.dart';
 import 'package:absher/presentation/screens/vendors_screen/widgets/card_random.dart';
 import 'package:absher/presentation/widgets/custom_app_bar_screens.dart';
@@ -29,9 +28,8 @@ class VendorsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<VendorsListBloc>(
-      create: (BuildContext context) => sl<VendorsListBloc>()
-        ..add(GetVendorsList(categoryId)
-            ),
+      create: (BuildContext context) =>
+          sl<VendorsListBloc>()..add(GetVendorsList(categoryId)),
       // lazy: false,
       child: VendorsScreenBody(
         title: title,
@@ -77,141 +75,169 @@ class VendorsScreenBody extends StatelessWidget {
             if (state is VendorsListLoading) {
               return const BuildShimmerVendors();
             } else if (state is VendorsListError) {
-              return CustomErrorScreen(
-                onTap: () {
-                  sl<VendorsListBloc>().add(GetVendorsList(categoryId));
-                },
+              return Column(
+                children: [
+                  CustomErrorScreen(
+                    onTap: () {
+                      sl<VendorsListBloc>().add(GetVendorsList(categoryId));
+                    },
+                  ),
+                ],
               );
             } else if (state is VendorsListSuccess) {
-              return SingleChildScrollView(
-                child:  state.vendorsList.isNotEmpty?Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const SizedBox(height: 70),
-                    GestureDetector(
-                      onTap: () {
-                        showModalBottomSheet(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.vertical(
-                                top: Radius.circular(56),
+              return state.vendorsList.isNotEmpty
+                  ? SingleChildScrollView(
+                      child:  NotificationListener<OverscrollIndicatorNotification>(
+                        onNotification: (over) {
+                          over.disallowIndicator();
+                          return true;
+                        },
+                        child: RefreshIndicator(
+                          onRefresh: ()async{
+                            sl<VendorsListBloc>().add(GetVendorsList(categoryId));
+                          },
+                          child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            const SizedBox(height: 70),
+                            GestureDetector(
+                              onTap: () {
+                                showModalBottomSheet(
+                                    shape: const RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.vertical(
+                                        top: Radius.circular(56),
+                                      ),
+                                    ),
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return SingleChildScrollView(
+                                        child: Column(
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsets.symmetric(
+                                                  vertical: 8.0),
+                                              child: Center(
+                                                child: Container(
+                                                  width: 50,
+                                                  height: 4,
+                                                  decoration: BoxDecoration(
+                                                      color: ColorManager.labelGrey,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              50)),
+                                                ),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.all(32.0),
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  FilterButton(
+                                                    label: AppLocalizations.of(
+                                                            context)!
+                                                        .oldest,
+                                                    isSelected: true,
+                                                  ),
+                                                  FilterButton(
+                                                    label: AppLocalizations.of(
+                                                            context)!
+                                                        .latest,
+                                                    isSelected: false,
+                                                  ),
+                                                  FilterButton(
+                                                    label: AppLocalizations.of(
+                                                            context)!
+                                                        .descending,
+                                                    isSelected: false,
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(8.0),
+                                                    child: CustomButton(
+                                                      label: AppLocalizations.of(
+                                                              context)!
+                                                          .app,
+                                                      fillColor:
+                                                          ColorManager.primaryColor,
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.symmetric(
+                                                            vertical: 8.0,
+                                                            horizontal: 64),
+                                                    child: CustomButton(
+                                                      label: AppLocalizations.of(
+                                                              context)!
+                                                          .cancel,
+                                                      fillColor:
+                                                          ColorManager.primaryColor,
+                                                      isFilled: false,
+                                                      labelColor:
+                                                          ColorManager.primaryColor,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    });
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 16),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(19)),
+                                  height: 50,
+                                  width: double.infinity,
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 16.0),
+                                    child: Row(
+                                      children: [
+                                        const  RotatedBox(
+                                          quarterTurns: 1,
+                                          child: Icon(
+                                            Icons.compare_arrows_rounded,
+                                            color: ColorManager.primaryColor,
+                                          ),
+                                        ),
+                                        Text(
+                                          AppLocalizations.of(context)!.sort,
+                                          style: getBoldStyle(
+                                            color: ColorManager.primaryColor,
+                                            fontSize: FontSizeApp.s14,
+                                          ),
+                                        ),
+                                        const Spacer(),
+                                        SvgPicture.asset(IconsManager.iconFilter)
+                                      ],
+                                    ),
+                                  ),
+                                ),
                               ),
                             ),
-                            context: context,
-                            builder: (BuildContext context) {
-                              return SingleChildScrollView(
-                                child: Column(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 8.0),
-                                      child: Center(
-                                        child: Container(
-                                          width: 50,
-                                          height: 4,
-                                          decoration: BoxDecoration(
-                                              color: ColorManager.labelGrey,
-                                              borderRadius:
-                                                  BorderRadius.circular(50)),
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(32.0),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          FilterButton(
-                                            label: AppLocalizations.of(context)!.oldest,
-                                            isSelected: true,
-                                          ),
-                                          FilterButton(
-                                            label: AppLocalizations.of(context)!.latest,
-                                            isSelected: false,
-                                          ),
-                                          FilterButton(
-                                            label: AppLocalizations.of(context)!.descending,
-                                            isSelected: false,
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: CustomButton(
-                                              label:  AppLocalizations.of(context)!.app,
-                                              fillColor:
-                                                  ColorManager.primaryColor,
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 8.0, horizontal: 64),
-                                            child: CustomButton(
-                                              label: AppLocalizations.of(context)!.cancel,
-                                              fillColor:
-                                                  ColorManager.primaryColor,
-                                              isFilled: false,
-                                              labelColor:
-                                                  ColorManager.primaryColor,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            });
-                      },
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 16),
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(19)),
-                          height: 50,
-                          width: double.infinity,
-                          child: Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 16.0),
-                            child: Row(
-                              children: [
-                                RotatedBox(
-                                  quarterTurns: 1,
-                                  child: Icon(
-                                    Icons.compare_arrows_rounded,
-                                    color: ColorManager.primaryColor,
-                                  ),
-                                ),
-                                Text(
-                                  AppLocalizations.of(context)!.sort,
-                                  style: getBoldStyle(
-                                    color: ColorManager.primaryColor,
-                                    fontSize: FontSizeApp.s14,
-                                  ),
-                                ),
-                                Spacer(),
-                                SvgPicture.asset(IconsManager.iconFilter)
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
+                            const SizedBox(height: 40),
+                            ListView.builder(
+                              itemBuilder: (context, index) {
+                                return CardRandomWidget(
+                                  vendor: state.vendorsList[index],
+                                );
+                              },
+//                            physics: const NeverScrollableScrollPhysics(),
+                              itemCount: state.vendorsList.length,
+                              shrinkWrap: true,
+                            )
+                          ],
                     ),
-                    const SizedBox(height: 40),
-                    ListView.builder(
-                            itemBuilder: (context, index) {
-                              return CardRandomWidget(
-                                vendor: state.vendorsList[index],
-                              );
-                            },
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemCount: state.vendorsList.length,
-                            shrinkWrap: true,
-                          )
-                  ],
-                ): Container(
-                  child: Center(child: CustomNoDataScreen()),
-                ),
-              );
+                        ),
+                      ))
+                  : const CustomNoDataScreen();
             } else {
               return const Text("");
             }
@@ -230,11 +256,13 @@ class VendorsScreenBody extends StatelessWidget {
 }
 
 class FilterButton extends StatelessWidget {
-   FilterButton({Key? key, required this.isSelected, required this.label,})
-      : super(key: key);
+  const FilterButton({
+    Key? key,
+    required this.isSelected,
+    required this.label,
+  }) : super(key: key);
   final bool isSelected;
   final String label;
-
 
   @override
   Widget build(BuildContext context) {
@@ -254,8 +282,7 @@ class FilterButton extends StatelessWidget {
             ),
             Visibility(
               visible: isSelected,
-              child:
-              Icon(
+              child: const Icon(
                 Icons.circle,
                 size: 16,
                 color: ColorManager.softYellow,
@@ -263,7 +290,7 @@ class FilterButton extends StatelessWidget {
             )
           ],
         ),
-        Divider(
+        const Divider(
           thickness: 2,
         ),
       ],

@@ -9,7 +9,6 @@ import '../../../core/services/services_locator.dart';
 import '../../widgets/custom_app_background.dart';
 import '../../widgets/custom_error_screen.dart';
 import '../../widgets/custom_no_data_screen.dart';
-import '../favorites_screen/widgets/build_shimmer_favorites.dart';
 import 'notification_widget/build_notification_widget.dart';
 import 'notification_widget/build_shimmer_notification.dart';
 
@@ -21,14 +20,13 @@ class NotificationScreen extends StatelessWidget {
     return BlocProvider<NotificationBloc>(
       create: (BuildContext context) =>
           sl<NotificationBloc>()..add(GetNotificationList()),
-      child: NotificationBody(),
+      child: const NotificationBody(),
     );
   }
 }
 
 class NotificationBody extends StatelessWidget {
   const NotificationBody({super.key});
-
   @override
   Widget build(BuildContext context) {
     return CustomAppBackGround(
@@ -40,17 +38,19 @@ class NotificationBody extends StatelessWidget {
           if (state is NotificationLoading) {
             return const BuildShimmerNotification();
           } else if (state is NotificationError) {
-            return CustomErrorScreen(
-              onTap: () {
-                sl<NotificationBloc>().add(GetNotificationList());
-              },
+            return Center(
+              child: CustomErrorScreen(
+                onTap: () {
+                  sl<NotificationBloc>().add(GetNotificationList());
+                },
+              ),
             );
           } else if (state is NotificationSuccess) {
-            return SingleChildScrollView(
+            return  state.vendorsList.isNotEmpty? SingleChildScrollView(
               child: Column(
                 children: [
                   const SizedBox(height: 60),
-                state.vendorsList.isNotEmpty?ListView.separated(itemBuilder: (context, index) {
+              ListView.separated(itemBuilder: (context, index) {
                       return BuildNotificationWidget(
                       isSee:   index.isOdd ? true : false,
                         notificationModel: state.vendorsList[index],
@@ -64,10 +64,10 @@ class NotificationBody extends StatelessWidget {
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount:  state.vendorsList.length,
                     shrinkWrap: true,
-                  ): CustomNoDataScreen(),
+                  )
                 ],
-              ),
-            );
+              )
+            ):CustomNoDataScreen();
           } else
             return Text("");
         }),

@@ -1,4 +1,5 @@
 import 'package:absher/presentation/resources/assets_manager.dart';
+import 'package:absher/presentation/widgets/accessories/cached_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -17,14 +18,20 @@ class CardSubCategory extends StatelessWidget {
       child: Stack(
         children: [
           Container(
+            width: size,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
-              image:  DecorationImage(
-                image: NetworkImage(image),
-                fit: BoxFit.cover,
-              ),
+
             ),
             height: size/338,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: CachedImage(
+                imageUrl: image,
+                fit: BoxFit.fill,
+                imageSize: ImageSize.mid,
+              ),
+            ),
           ),
           Container(
             decoration: BoxDecoration(

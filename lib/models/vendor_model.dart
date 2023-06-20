@@ -35,6 +35,7 @@ class VendorModel {
   List<SocialMedia>? socialMedia;
   List<Feature>? features;
   List<Banner>? banners;
+  List<VendorModel>? recomindation;
   VendorModel({
     this.id,
     this.name,
@@ -67,12 +68,14 @@ class VendorModel {
     this.subCategories,
     this.socialMedia,
     this.features,
-    this.banners
+    this.banners,
+    this.recomindation
   });
 
 
 
   factory VendorModel.fromJson(Map<String, dynamic> json) {
+    print("xxxxxxxxxxxxx");
     return VendorModel(
       id: json["id"],
       name: localizationStringModel.fromJson(json, "name"),
@@ -110,10 +113,12 @@ class VendorModel {
       socialMedia:json["social_media"]==null?null: List<SocialMedia>.from(json["social_media"].map((x) => SocialMedia.fromJson(x))),
       features:json["features"]==null?null: List<Feature>.from(json["features"].map((x) => Feature.fromJson(x))),
       banners:json["banners"]==null?null :List<Banner>.from(json["banners"].map((x) => Banner.fromJson(x))),
+      recomindation:json["recomindation"]==null?null :List<VendorModel>.from(json["recomindation"].map((x) => VendorModel.fromJson(x))),
     );
   }
   static List<VendorModel> listFromJson(Map<String, dynamic> json) {
-    return json["data"]
+    return json == null
+        ? [] :json["data"]
         .map<VendorModel>((value) => VendorModel.fromJson(value))
         .toList();
   }
@@ -484,3 +489,90 @@ class SubCategoryPivot {
     "sub_category_id": subCategoryId,
   };
 }
+
+class Recomindation {
+  int? id;
+  localizationStringModel? name;
+  localizationStringModel? description;
+  String? image;
+  dynamic? open;
+  dynamic? close;
+  String? phone;
+  String? email;
+  String? address;
+  String? address2;
+  String? latitude;
+  String? longitude;
+  String? isActive;
+  String? isOpen;
+  DateTime? startDate;
+  DateTime? expireDate;
+  dynamic? avgRating;
+  String? categoryId;
+  String? packageId;
+  String? visits;
+  DateTime? customDate;
+  dynamic? webiste;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+  Category? category;
+
+  Recomindation({
+    this.id,
+    this.name,
+    this.description,
+    this.image,
+    this.open,
+    this.close,
+    this.phone,
+    this.email,
+    this.address,
+    this.address2,
+    this.latitude,
+    this.longitude,
+    this.isActive,
+    this.isOpen,
+    this.startDate,
+    this.expireDate,
+    this.avgRating,
+    this.categoryId,
+    this.packageId,
+    this.visits,
+    this.customDate,
+    this.webiste,
+    this.createdAt,
+    this.updatedAt,
+    this.category,
+  });
+
+  factory Recomindation.fromJson(Map<String, dynamic> json) => Recomindation(
+    id: json["id"],
+    name:localizationStringModel.fromJson(json, "name"),
+    description: localizationStringModel.fromJson(json, "description"),
+    image: json["image"],
+    open: json["open"],
+    close: json["close"],
+    phone: json["phone"],
+    email: json["email"],
+    address: json["address"],
+    address2: json["address2"],
+    latitude: json["latitude"],
+    longitude: json["longitude"],
+    isActive: json["is_active"],
+    isOpen: json["is_open"],
+    startDate: json["start_date"]==null?null: DateTime.parse(json["start_date"]),
+    expireDate: json["expire_date"]==null?null: DateTime.parse(json["expire_date"]),
+    avgRating: json["avg_rating"],
+    categoryId: json["category_id"],
+    packageId: json["package_id"],
+    visits: json["visits"],
+    customDate:  json["custom_date"]==null?null:DateTime.parse(json["custom_date"]),
+    webiste: json["webiste"],
+    createdAt: json["created_at"]==null?null: DateTime.parse(json["created_at"]),
+    updatedAt: json["updated_at"]==null?null: DateTime.parse(json["updated_at"]),
+    category: json["category"]==null?null:Category.fromJson(json["category"]),
+  );
+
+}
+
+

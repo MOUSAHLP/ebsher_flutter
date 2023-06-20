@@ -11,15 +11,16 @@ import 'package:absher/presentation/screens/home_screen/basic_screen.dart';
 import 'package:absher/presentation/screens/on_boarding_screen/on_boarding_screen.dart';
 import 'package:absher/presentation/screens/splash_screen/splash_screen.dart';
 import 'package:absher/presentation/widgets/dialogs/will_pop_scope_handler.dart';
+import 'package:absher/push_notification_service.dart';
 import 'package:absher/translations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'bloc/authentication_bloc/authertication_bloc.dart';
 import 'bloc/bottom_bloc/bottom_bloc.dart';
+import 'bloc/favorites_list_bloc/favorites_list_bloc.dart';
 import 'bloc/home_bloc/home_bloc.dart';
 import 'bloc/language_bloc/language_bloc.dart';
 import 'bloc/language_bloc/language_state.dart';
@@ -41,6 +42,9 @@ class MyHttpOverrides extends HttpOverrides {
 void main() async {
   HttpOverrides.global = MyHttpOverrides();
   WidgetsFlutterBinding.ensureInitialized();
+//  await Firebase.initializeApp();
+//  await MyNotification.initialize();
+//  FirebaseMessaging.onBackgroundMessage(myBackgroundMessageHandler);
   ServicesLocator().init();
   BaseApiClient();
   await DataStore.instance.init();
@@ -84,6 +88,9 @@ class _MyAppState extends State<MyApp> {
               ),
               BlocProvider(
                 create: (BuildContext context) => sl<LanguageBloc>(),
+              ),
+              BlocProvider(
+                create: (BuildContext context) => sl<FavoritesListBloc>(),
               ),
             ],
             child: OverlaySupport.global(

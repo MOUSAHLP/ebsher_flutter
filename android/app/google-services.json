@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "152715624043",
+    "project_id": "absher-b9840",
+    "storage_bucket": "absher-b9840.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:152715624043:android:8c1c8ec7d5e00ae7317b2e",
+        "android_client_info": {
+          "package_name": "com.peaklink.absher"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "152715624043-5me2d99q9v2a1poo4b2okuupknns914j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB95ilRYSRKN5pyyTtljafMjKC2x9lFPiA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "152715624043-5me2d99q9v2a1poo4b2okuupknns914j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

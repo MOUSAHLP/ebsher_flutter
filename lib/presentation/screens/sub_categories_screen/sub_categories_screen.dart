@@ -27,18 +27,18 @@ class SubCategoriesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<SubCategoryBloc>(
-            create: (BuildContext context) =>
-                sl<SubCategoryBloc>()..add(GetSubCategory(id)),
-            child: SubCategoryBody(id: id, title: title))
-
-        ;
+        create: (BuildContext context) =>
+            sl<SubCategoryBloc>()..add(GetSubCategory(id)),
+        child: SubCategoryBody(id: id, title: title));
   }
 }
 
 class SubCategoryBody extends StatelessWidget {
   String title;
   int id;
+
   SubCategoryBody({super.key, required this.title, required this.id});
+
   @override
   Widget build(BuildContext context) {
     return CustomAppBackGround(
@@ -54,42 +54,62 @@ class SubCategoryBody extends StatelessWidget {
             },
           );
         } else if (state is SubCategorySuccess) {
-          return Column(
-            children: [
-              const SizedBox(height: 60),
-              state.mainAds.isNotEmpty?AdsCarouselSlider(
-                ads: state.mainAds,
-              ):AdsCarouselSlider(
-                ads:[ AdvertisementsResponse(image: ImageManager.fullAppLogo)],
-              ),
-              const SizedBox(height: 10),
-              Expanded(
-                child: SizedBox(
-                  child: state.subCategories.isNotEmpty
-                      ? ListView.builder(
-                          itemCount: state.subCategories.length,
-                          itemBuilder: (context, index) {
-                            return InkWell(
-                                onTap: () {
-                                  AppRouter.push(
-                                    context,
-                                    VendorsScreen(
-                                        title: LocalixationString(context, state.subCategories[index].name!)!,
-                                        categoryId:
-                                            state.subCategories[index].id!),
-                                  );
-                                },
-                                child: CardSubCategory(
-                                  title: LocalixationString(context, state.subCategories[index].name!)!,
-                                  image: state.subCategories[index].image!,
-                                ));
-                          },
+          return RefreshIndicator(
+            onRefresh: () async {
+              sl<SubCategoryBloc>().add(GetSubCategory(id));
+            },
+            child:  NotificationListener<OverscrollIndicatorNotification>(
+              onNotification: (over) {
+                over.disallowIndicator();
+                return true;
+              },
+              child: Column(
+                children: [
+                  const SizedBox(height: 60),
+                  state.mainAds.isNotEmpty
+                      ? AdsCarouselSlider(
+                          ads: state.mainAds,
                         )
-                      : Center(child: CustomNoDataScreen()),
-                ),
+                      : AdsCarouselSlider(
+                          ads: [
+                            AdvertisementsResponse(image: ImageManager.fullAppLogo)
+                          ],
+                        ),
+                  const SizedBox(height: 10),
+                  Expanded(
+                    child: SizedBox(
+                      child: state.subCategories.isNotEmpty
+                          ? ListView.builder(
+                            itemCount: state.subCategories.length,
+                            itemBuilder: (context, index) {
+                              return InkWell(
+                                  onTap: () {
+                                    AppRouter.push(
+                                      context,
+                                      VendorsScreen(
+                                          title: LocalixationString(
+                                              context,
+                                              state
+                                                  .subCategories[index].name!)!,
+                                          categoryId:
+                                              state.subCategories[index].id!),
+                                    );
+                                  },
+                                  child: CardSubCategory(
+                                    title: LocalixationString(context,
+                                        state.subCategories[index].name!)!,
+                                    image:
+                                        state.subCategories[index].image ?? "",
+                                  ));
+                            },
+                          )
+                          : Center(child: CustomNoDataScreen()),
+                    ),
+                  ),
+                  const SizedBox(height: 10)
+                ],
               ),
-              const SizedBox(height: 10)
-            ],
+            ),
           );
         } else
           return Text("");

@@ -84,7 +84,7 @@ class BasicScreen extends StatelessWidget {
           ),
         );
       } else
-        return Text("noooo");
+        return Text("");
     });
   }
 }

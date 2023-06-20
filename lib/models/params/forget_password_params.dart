@@ -1,15 +1,13 @@
-class ResetPasswordParams {
+class ForgetPasswordParams {
   String? phone;
   String? password;
   String? repeatPassword;
-  String? oldPassword;
 
-  ResetPasswordParams({this.phone, this.password, this.repeatPassword,this.oldPassword});
+  ForgetPasswordParams({this.phone, this.password, this.repeatPassword});
 
   Map<String, dynamic> toJson() => {
         "phone": phone,
         "password": password,
         "confirm_password": repeatPassword,
-    "old_password":oldPassword
       };
 }

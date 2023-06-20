@@ -1,4 +1,3 @@
-
 import 'dart:io';
 
 import 'package:absher/bloc/authentication_bloc/authertication_bloc.dart';
@@ -13,55 +12,65 @@ import '../../core/services/services_locator.dart';
 import '../../data/data_resource/local_resource/data_store.dart';
 import '../../data/repos/home_repository.dart';
 import '../../models/profile_model.dart';
+
 class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
-  ProfileModel profileModel=ProfileModel();
-  TextEditingController nameController=TextEditingController(text: DataStore.instance.userInfo?.name);
-  TextEditingController emailController=TextEditingController(text: DataStore.instance.userInfo?.email);
-  String? image= DataStore.instance.userInfo?.image;
-  bool isEditing=false;
+  ProfileModel profileModel = ProfileModel();
+  TextEditingController nameController =
+      TextEditingController(text: DataStore.instance.userInfo?.name);
+  TextEditingController emailController =
+      TextEditingController(text: DataStore.instance.userInfo?.email);
+  String? image = DataStore.instance.userInfo?.image;
+
+  bool isEditing = false;
   File? imagePick;
   final picker = ImagePicker();
-  Future getImageGallery() async {
-    print("get image");
-    print(imagePick);
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-      if (pickedFile != null) {
-        imagePick = File(pickedFile.path);
-        emit(ImageSuccess());
-      } else {
 
-      }
+  Future getImageGallery() async {
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      imagePick = File(pickedFile.path);
+      emit(ImageSuccess());
+    } else {}
   }
-  ProfileBloc( ) : super(ProfileInit()) {
+
+  ProfileBloc() : super(ProfileInit()) {
     on<ProfileEvent>((event, emit) async {
-      if(event is isEditingEvent){
-        isEditing=event.isEditing;
-        emit(ProfileSuccess(profileModel,event.isEditing));
+      if (event is isEditingEvent) {
+        isEditing = event.isEditing;
+        emit(ProfileSuccess(profileModel, event.isEditing));
       }
       if (event is UpdateProfile) {
         emit(ProfileLoading());
-        profileModel.name=nameController.text;
-        profileModel.email=emailController.text;
-        profileModel.avatar=imagePick?.path;
+        profileModel.name = nameController.text;
+        profileModel.email = emailController.text;
+        profileModel.avatar = imagePick?.path;
 
-        String? validationError=AppValidators.validateEditeProfileFields(profileModel);
+        String? validationError =
+            AppValidators.validateEditeProfileFields(profileModel);
         if (validationError == null) {
           var response = await HomeRepository.editProfile(profileModel);
           response.fold((l) {
-            emit(ProfileError( l));
-          }, (r) {
-           sl<AuthenticationBloc>().loginResponse=LoginResponse(id:DataStore.instance.userInfo!.id,
-               name: nameController.text, phone: profileModel.phone!,
-               email: profileModel.email!, token: profileModel.deviceToken??"");
-            emit(ProfileSuccess(profileModel,false));
-              });
-        }
-        else {
+            emit(ProfileError(l));
+          }, (r) async {
+            var profileResponse = await HomeRepository.getProfile();
+            profileResponse.fold((l) {
+              emit(ProfileError(l));
+            }, (r) {
+              sl<AuthenticationBloc>().loginResponse = LoginResponse(
+                  id: r.id ?? DataStore.instance.userInfo!.id,
+                  name: nameController.text,
+                  phone: profileModel.phone!,
+                  email: profileModel.email!,
+                  token: profileModel.deviceToken ?? "",
+                  image: r.avatar);
+              emit(ProfileSuccess(profileModel, false));
+            });
+          });
+        } else {
           emit(SignUpFieldsValidationFailed(validationError: validationError));
         }
-
       }
-      if(event is GetImageGallery){
+      if (event is GetImageGallery) {
         getImageGallery();
       }
     });

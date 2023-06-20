@@ -9,10 +9,12 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   int index = 0;
   List<StoryModelDto>? stories = [];
   List<CategoyResponse>? categories = [];
+  bool gotHome=false;
 
   HomeBloc() : super(CategoryLoading()) {
     on<HomeEvent>((event, emit) async {
       if (event is Home) {
+        if(gotHome)return;
         emit(CategoryLoading());
         final response = await HomeRepository.getHomeData();
         response.fold((l) {
@@ -20,6 +22,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         }, (r) {
           categories = r.categories ?? [];
           stories = r.story ?? [];
+          gotHome=true;
           emit(CategorySuccess(
               index, r.categories ?? [], r.mainAds ?? [], r.story ?? []));
         });

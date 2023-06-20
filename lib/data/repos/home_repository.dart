@@ -79,21 +79,21 @@ class HomeRepository {
 
   static Future<Either<String, ProfileModel>> editProfile(
       ProfileModel? profileModel) async {
+
     String? imageFileName = profileModel?.avatar != null
         ? profileModel?.avatar?.split('/').last
         : '';
-    print("imageFileName");
-    print(imageFileName);
-    print(profileModel?.avatar);
     return BaseApiClient.post<ProfileModel>(
         url: ApiConst.updateProfile,
-        queryParameters: {
+        formData:FormData.fromMap(
+        {
           "name": profileModel?.name,
           "email": profileModel?.email,
           "phone": profileModel?.phone,
-          "avatar": await MultipartFile.fromFile(profileModel?.avatar ?? "",
+          "avatar":
+          await MultipartFile.fromFile(profileModel?.avatar ?? "",
               filename: imageFileName)
-        },
+        }),
         converter: (e) {
           return ProfileModel.fromJson(e['data']);
         });

@@ -23,105 +23,111 @@ class VendorDetailsBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Container(
-        color: Colors.white,
-        child: Padding(
-          padding: const EdgeInsets.only(left: 16.0, right: 16, bottom: 32),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Expanded(
-                    child: Text(
-                      LocalixationString(context, vendor.name) ?? '',
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: getBoldStyle(
-                        color: ColorManager.primaryColor,
-                        fontSize: FontSizeApp.s26,
-                      ),
-                    ),
-                  ),
-                  IsOpenLabel(
-                    isOpen: vendor.isOpen,
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  Expanded(
-                    child: Text(
-                      LocalixationString(context, vendor.description) ?? '',
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: getRegularStyle(
-                        color: ColorManager.primaryColor,
-                        fontSize: FontSizeApp.s12,
-                      ),
-                    ),
-                  ),
-                  Row(
-                    children: [
-                      StaticRate(
-                        rate: vendor.avgRating,
-                      ),
-                      SizedBox(
-                        width: 8,
-                      ),
-                      Container(
-                        decoration: const BoxDecoration(
-                          borderRadius: BorderRadiusDirectional.only(
-                            bottomEnd: Radius.circular(20),
-                            topEnd: Radius.circular(20),
-                          ),
-                          color: ColorManager.softYellow,
+    return NotificationListener<OverscrollIndicatorNotification>(
+      onNotification: (over) {
+        over.disallowIndicator();
+        return true;
+      },
+      child: SingleChildScrollView(
+        child: Container(
+          color: Colors.white,
+          child: Padding(
+            padding: const EdgeInsets.only(left: 16.0, right: 16, bottom: 32),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        LocalixationString(context, vendor.name) ?? '',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: getBoldStyle(
+                          color: ColorManager.primaryColor,
+                          fontSize: FontSizeApp.s26,
                         ),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                          child: Text(
-                            double.tryParse(vendor.avgRating ?? '0')!
-                                .toStringAsFixed(1),
-                            style: getBoldStyle(
-                              color: Colors.white,
-                              fontSize: FontSizeApp.s12,
-                            )?.copyWith(
-                              height: 1.4,
+                      ),
+                    ),
+                    IsOpenLabel(
+                      isOpen: vendor.isOpen,
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        LocalixationString(context, vendor.description) ?? '',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: getRegularStyle(
+                          color: ColorManager.primaryColor,
+                          fontSize: FontSizeApp.s12,
+                        ),
+                      ),
+                    ),
+                    Row(
+                      children: [
+                        StaticRate(
+                          rate: vendor.avgRating,
+                        ),
+                        SizedBox(
+                          width: 8,
+                        ),
+                        Container(
+                          decoration: const BoxDecoration(
+                            borderRadius: BorderRadiusDirectional.only(
+                              bottomEnd: Radius.circular(20),
+                              topEnd: Radius.circular(20),
+                            ),
+                            color: ColorManager.softYellow,
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                            child: Text(
+                              double.tryParse(vendor.avgRating ?? '0')!
+                                  .toStringAsFixed(1),
+                              style: getBoldStyle(
+                                color: Colors.white,
+                                fontSize: FontSizeApp.s12,
+                              )?.copyWith(
+                                height: 1.4,
+                              ),
                             ),
                           ),
-                        ),
-                      )
-                    ],
-                  ),
-                ],
-              ),
-              Divider(
-                thickness: 2,
-              ),
-              DetailsSection(
-                vendor: vendor,
-              ),
-              Divider(
-                thickness: 2,
-              ),
-              OpenHourSection(
-                vendor: vendor,
-              ),
-              SocialMediaLinksSection(
-                vendor: vendor,
-              ),
-    vendor.socialMedia!.isNotEmpty?   Divider(
-                thickness: 2,
-              ):SizedBox.shrink(),
-              ServicesSection(
-                vendor: vendor,
-              ),
-              vendor.features!.isNotEmpty?  Divider(
-                thickness: 2,
-              ):SizedBox.shrink(),
-              RecomindationSection(vendor: vendor)
-            ],
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+                Divider(
+                  thickness: 2,
+                ),
+                DetailsSection(
+                  vendor: vendor,
+                ),
+                Divider(
+                  thickness: 2,
+                ),
+                OpenHourSection(
+                  vendor: vendor,
+                ),
+                SocialMediaLinksSection(
+                  vendor: vendor,
+                ),
+      vendor.socialMedia!.isNotEmpty?   Divider(
+                  thickness: 2,
+                ):SizedBox.shrink(),
+                ServicesSection(
+                  vendor: vendor,
+                ),
+                vendor.features!.isNotEmpty?  Divider(
+                  thickness: 2,
+                ):SizedBox.shrink(),
+                RecomindationSection(vendor: vendor)
+              ],
+            ),
           ),
         ),
       ),

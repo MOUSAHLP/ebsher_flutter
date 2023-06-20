@@ -29,12 +29,17 @@ class CustomAppDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        BackdropFilter(
-            filter: ImageFilter.blur(
-                sigmaX: 5.0,
-                sigmaY: 5.0), //this is dependent on the import statment above
-            child: Container(
-                decoration: BoxDecoration(color: Colors.transparent))),
+        InkWell(
+          onTap: (){
+            AppRouter.pop(context);
+          },
+          child: BackdropFilter(
+              filter: ImageFilter.blur(
+                  sigmaX: 5.0,
+                  sigmaY: 5.0), //this is dependent on the import statment above
+              child: Container(
+                  decoration: BoxDecoration(color: Colors.transparent)),),
+        ),
         Padding(
           padding: const EdgeInsets.only(
             top: 40,

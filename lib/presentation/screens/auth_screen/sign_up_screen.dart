@@ -12,16 +12,19 @@ import 'package:absher/presentation/widgets/dialogs/error_dialog.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:overlay_support/overlay_support.dart';
 
 import '../../../translations.dart';
 import '../../resources/color_manager.dart';
 import '../../widgets/custom_button.dart';
 import '../../widgets/dialogs/loading_dialog.dart';
+import '../location_screen/widgets/app_bar_widget.dart';
 
 class SignUpScreen extends StatelessWidget {
   SignUpScreen({Key? key}) : super(key: key);
   final _formState = GlobalKey<FormState>();
+  double screenHight=1.sh;
   @override
   Widget build(BuildContext context) {
     return BlocListener<SignUpBloc, SignUpState>(
@@ -35,7 +38,7 @@ class SignUpScreen extends StatelessWidget {
           ErrorDialog.openDialog(context, state.error);
         }
         if (state is SignUpCompleted) {
-          AppRouter.pushReplacement(context, SignInConfirmationScreen());
+          AppRouter.pushReplacement(context, const SignInConfirmationScreen());
         }
         if (state is SignUpFieldsValidationFailed) {
           if (state.validationError != null) {
@@ -47,133 +50,143 @@ class SignUpScreen extends StatelessWidget {
           body: Stack(
         children: [
           const SignUpBackGroundDecoration(),
-          SingleChildScrollView(
-            child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 30.0, vertical: 16),
-              child: Form(
-                key: _formState,
+          Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 30.0, vertical: 16),
+            child: Form(
+              key: _formState,
+              child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    const SizedBox(
-                      height: 240,
+                     SizedBox(
+                      height: 1.sh-510
                     ),
-                    Text(
-                     AppLocalizations.of(context)!.signUp,
-                      style: getBoldStyle(
-                        color: Colors.white,
-                        fontSize: FontSizeApp.s36,
-                      ),
-                    ),
-                    Text(
-                      AppLocalizations.of(context)!.addDetails,
-                      style: getBoldStyle(
-                        color: Colors.white,
-                        fontSize: FontSizeApp.s14,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    CustomInputField(
-                      hintText: AppLocalizations.of(context)!.fullName,
-                      withLabel: true,
-                      icon: Icons.person,
-                      onChange: (value) {
-                        context.read<SignUpBloc>().signUpParams.name = value;
-                      },
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    CustomInputField(
-                      hintText: AppLocalizations.of(context)!.addNumber,
-                      initValue: context.read<SignUpBloc>().signUpParams.phone,
-                      readOnly: true,
-                      withLabel: true,
-                      icon: Icons.phone_android,
-                      onChange: (value) {
-                        context.read<SignUpBloc>().signUpParams.phone = value;
-                      },
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    CustomInputField(
-                      hintText: AppLocalizations.of(context)!.enterEmail,
-                      withLabel: true,
-                      icon: Icons.email,
-                      onChange: (value) {
-                        context.read<SignUpBloc>().signUpParams.email = value;
-                      },
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    CustomPasswordInputField(
-                      hintText: AppLocalizations.of(context)!.password,
-                      withLabel: true,
-                      icon: Icons.lock_open_rounded,
-                      onChange: (value) {
-                        context.read<SignUpBloc>().signUpParams.password =
-                            value;
-                      },
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    CustomPasswordInputField(
-                      hintText: AppLocalizations.of(context)!.confimPassword,
-                      withLabel: true,
-                      icon: Icons.lock_open_rounded,
-                      onChange: (value) {
-                        context.read<SignUpBloc>().signUpParams.repeatPassword =
-                            value;
-                      },
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    CustomButton(
-                      label: AppLocalizations.of(context)!.register,
-                      onTap: () {
-                        context.read<SignUpBloc>().add(SignUp());
-                      },
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    RichText(
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      text: TextSpan(
+                    Container(
+                      height: 500,
+                      child: Column(
                         children: [
-                          TextSpan(
-                            text: AppLocalizations.of(context)!.haveAccount,
+                          Text(
+                            AppLocalizations.of(context)!.signUp,
+                            style: getBoldStyle(
+                              color: Colors.white,
+                              fontSize: FontSizeApp.s36,
+                            ),
+                          ),
+                          Text(
+                            AppLocalizations.of(context)!.addDetails,
                             style: getBoldStyle(
                               color: Colors.white,
                               fontSize: FontSizeApp.s14,
                             ),
                           ),
-                          const TextSpan(text: ' '),
-                          TextSpan(
-                            text: AppLocalizations.of(context)!.signIn,
-                            style: getBoldStyle(
-                              color: ColorManager.softYellow,
-                              fontSize: FontSizeApp.s14,
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          CustomInputField(
+                            hintText: AppLocalizations.of(context)!.fullName,
+                            withLabel: true,
+                            icon: Icons.person,
+                            onChange: (value) {
+                              context.read<SignUpBloc>().signUpParams.name = value;
+                            },
+                          ),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          CustomInputField(
+                            hintText: AppLocalizations.of(context)!.addNumber,
+                            initValue: context.read<SignUpBloc>().signUpParams.phone,
+                            readOnly: true,
+                            withLabel: true,
+                            icon: Icons.phone_android,
+                            onChange: (value) {
+                              context.read<SignUpBloc>().signUpParams.phone = value;
+                            },
+                          ),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          CustomInputField(
+                            hintText: AppLocalizations.of(context)!.enterEmail,
+                            withLabel: true,
+                            icon: Icons.email,
+                            onChange: (value) {
+                              context.read<SignUpBloc>().signUpParams.email = value;
+                            },
+                          ),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          CustomPasswordInputField(
+                            hintText: AppLocalizations.of(context)!.password,
+                            withLabel: true,
+                            icon: Icons.lock_open_rounded,
+                            onChange: (value) {
+                              context.read<SignUpBloc>().signUpParams.password =
+                                  value;
+                            },
+                          ),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          CustomPasswordInputField(
+                            hintText: AppLocalizations.of(context)!.confimPassword,
+                            withLabel: true,
+                            icon: Icons.lock_open_rounded,
+                            onChange: (value) {
+                              context.read<SignUpBloc>().signUpParams.repeatPassword =
+                                  value;
+                            },
+                          ),
+                          const SizedBox(
+                            height: 16,
+                          ),
+                          CustomButton(
+                            label: AppLocalizations.of(context)!.register,
+                            onTap: () {
+                              context.read<SignUpBloc>().add(SignUp());
+                            },
+                          ),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          RichText(
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            text: TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: AppLocalizations.of(context)!.haveAccount,
+                                  style: getBoldStyle(
+                                    color: Colors.white,
+                                    fontSize: FontSizeApp.s14,
+                                  ),
+                                ),
+                                const TextSpan(text: ' '),
+                                TextSpan(
+                                  text: AppLocalizations.of(context)!.signIn,
+                                  style: getBoldStyle(
+                                    color: ColorManager.softYellow,
+                                    fontSize: FontSizeApp.s14,
+                                  ),
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = () => AppRouter.pushReplacement(
+                                        context, SignInConfirmationScreen()),
+                                ),
+                              ],
                             ),
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () => AppRouter.pushReplacement(
-                                  context, SignInConfirmationScreen()),
                           ),
                         ],
                       ),
                     ),
+
                   ],
                 ),
               ),
             ),
           ),
+          SafeArea(child: AppBarWidget())
+
         ],
       )),
     );

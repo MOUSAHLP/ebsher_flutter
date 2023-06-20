@@ -14,7 +14,7 @@ class ServicesSection extends StatelessWidget {
   final VendorModel vendor;
   @override
   Widget build(BuildContext context) {
-    if (vendor.features == null) return const SizedBox();
+    if (vendor.features!.isEmpty) return const SizedBox();
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
       child: Column(

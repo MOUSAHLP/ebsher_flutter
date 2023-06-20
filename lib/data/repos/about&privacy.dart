@@ -13,7 +13,7 @@ class AboutAndPrivacyRepository {
   }
   static Future<Either<String, String>> getPrivacy() {
     return BaseApiClient.get<String>(
-        url: ApiConst.getprivacy,
+        url: ApiConst.getPrivacy,
         converter: (e) {
           return e['data']['content'];
         });

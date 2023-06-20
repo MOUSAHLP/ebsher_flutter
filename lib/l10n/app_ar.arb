@@ -87,7 +87,18 @@
     "craatDate":"تاريخ التأسيس",
     "services":"خدمات",
     "edit":"تعديل",
-    "save":"حفظ"
-
-
+    "save":"حفظ",
+    "reels":"مقاطع فيديو",
+    "newPassord":"كلمة المرور الجديدة",
+    "newPassordSet":"تعيين كلمة المرور\n الجديدة",
+    "changePassword":"تغيير كلمة المرور",
+    "oldPassword":" كلمة المرور القديمة",
+    "agreeCond":"اوافق على الشروط و الاحكام",
+    "acceptCond":"يرجى قبول  الشروط و الاحكام للمتابعة",
+    "closeApp":"اغلاق التطبيق",
+    "noThing":"لا يوجد ",
+    "continuee":"متابعة",
+    "recomindation":"ذات صلة ",
+    "exit":"خروج",
+    "noItem":"لا يوجد عناصر"
   }

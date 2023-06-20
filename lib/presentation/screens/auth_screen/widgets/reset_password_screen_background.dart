@@ -4,8 +4,8 @@ import 'package:absher/presentation/widgets/custom_app_background.dart';
 
 import 'package:flutter/material.dart';
 
-class ResetPasswordScreenBackground extends StatelessWidget {
-  const ResetPasswordScreenBackground({Key? key}) : super(key: key);
+class ForgetPasswordScreenBackground extends StatelessWidget {
+  const ForgetPasswordScreenBackground({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

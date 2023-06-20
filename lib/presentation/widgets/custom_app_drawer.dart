@@ -5,7 +5,7 @@ import 'package:absher/bloc/language_bloc/language_event.dart';
 import 'package:absher/core/app_router/app_router.dart';
 import 'package:absher/presentation/resources/assets_manager.dart';
 import 'package:absher/presentation/resources/values_app.dart';
-import 'package:absher/presentation/screens/reels_screen/reels_screen.dart';
+
 import 'package:absher/presentation/widgets/accessories/cached_image.dart';
 import 'package:absher/translations.dart';
 import 'package:flutter/material.dart';
@@ -52,6 +52,7 @@ class CustomAppDrawer extends StatelessWidget {
                       children: [
                         Container(
                           height: 250,
+
                           decoration: const BoxDecoration(
                             image: DecorationImage(
                               opacity: 0.1,
@@ -77,6 +78,8 @@ class CustomAppDrawer extends StatelessWidget {
                                             .read<AuthenticationBloc>()
                                             .loginResponse!
                                             .image,
+                                        imageSize: ImageSize.small,
+
                                       )),
                                 ),
                                 const SizedBox(width: 10),

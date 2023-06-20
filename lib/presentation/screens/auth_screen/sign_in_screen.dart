@@ -11,6 +11,8 @@ import 'package:absher/presentation/widgets/custom_password_input_field.dart';
 import 'package:absher/translations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:overlay_support/overlay_support.dart';
 
 import '../../../bloc/home_bloc/home_bloc.dart';
 import '../../../bloc/login_bloc/login_bloc.dart';
@@ -21,6 +23,7 @@ import '../../../core/services/services_locator.dart';
 import '../../resources/color_manager.dart';
 import '../../widgets/custom_button.dart';
 import '../../widgets/dialogs/error_dialog.dart';
+import '../location_screen/widgets/app_bar_widget.dart';
 
 class SignInConfirmationScreen extends StatelessWidget {
   const SignInConfirmationScreen({Key? key}) : super(key: key);
@@ -39,6 +42,11 @@ class SignInConfirmationScreen extends StatelessWidget {
           }
           if (state is LoginConfirmed) {
             AppRouter.pushAndRemoveAllStack(context, BasicScreen());
+          }
+          if (state is LoginFieldsValidationFailed) {
+            if (state.validationError != null) {
+              toast(state.validationError!);
+            }
           }
         },
         child: _SignInScreen());
@@ -63,61 +71,67 @@ class _SignInScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                const SizedBox(
-                  height: 400,
+                SizedBox(
+                  height: 1.sh- 400,
                 ),
-                CustomInputField(
-                  controller: phoneController,
-                  keyboardType: TextInputType.phone,
-                  hintText: AppLocalizations.of(context)!.addNumber,
-                  withLabel: true,
-                  icon: Icons.phone_android,
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                CustomPasswordInputField(
-                  controller: passwordController,
-                  hintText: AppLocalizations.of(context)!.password,
-                  withLabel: true,
-                  icon: Icons.lock_open_rounded,
-                ),
-                GestureDetector(
-                  onTap: () {
-                    AppRouter.pushReplacement(
-                      context,
-                      const PhoneNumberSignUpScreen(
-                        resetPassword: true,
-                      ),
-                    );
-                  },
-                  child: Text(
-                    AppLocalizations.of(context)!.forgetPassord,
-                    style: getSemiBoldStyle(
-                      color: ColorManager.softYellow,
+                Container(
+                  height: 200,
+                  child: Column(children: [
+                    CustomInputField(
+                      controller: phoneController,
+                      keyboardType: TextInputType.phone,
+                      hintText: AppLocalizations.of(context)!.addNumber,
+                      withLabel: true,
+                      icon: Icons.phone_android,
                     ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                CustomButton(
-                  label: AppLocalizations.of(context)!.register,
-                  onTap: () {
-                    sl<LoginBloc>().add(
-                      Login(
-                        loginParams: LoginParams(
-                          phone: phoneController.text,
-                          password: passwordController.text,
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    CustomPasswordInputField(
+                      controller: passwordController,
+                      hintText: AppLocalizations.of(context)!.password,
+                      withLabel: true,
+                      icon: Icons.lock_open_rounded,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        AppRouter.pushReplacement(
+                          context,
+                          const PhoneNumberSignUpScreen(
+                            resetPassword: true,
+                          ),
+                        );
+                      },
+                      child: Text(
+                        AppLocalizations.of(context)!.forgetPassord,
+                        style: getSemiBoldStyle(
+                          color: ColorManager.softYellow,
                         ),
                       ),
-                    );
-                  },
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    CustomButton(
+                      label: AppLocalizations.of(context)!.register,
+                      onTap: () {
+                        sl<LoginBloc>().add(
+                          Login(
+                            loginParams: LoginParams(
+                              phone: phoneController.text,
+                              password: passwordController.text,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ]),
                 ),
               ],
             ),
           ),
         ),
+        SafeArea(child: AppBarWidget())
       ],
     ));
   }

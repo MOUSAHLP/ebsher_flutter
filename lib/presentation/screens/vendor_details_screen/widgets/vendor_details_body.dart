@@ -4,6 +4,7 @@ import 'package:absher/core/localization_string.dart';
 import 'package:absher/models/vendor_model.dart';
 import 'package:absher/presentation/resources/assets_manager.dart';
 import 'package:absher/presentation/resources/font_app.dart';
+import 'package:absher/presentation/screens/vendor_details_screen/widgets/recomindation_section.dart';
 import 'package:absher/presentation/screens/vendor_details_screen/widgets/services_section.dart';
 import 'package:absher/presentation/screens/vendor_details_screen/widgets/social_media_links.dart';
 import 'package:absher/presentation/screens/vendors_screen/widgets/card_random.dart';
@@ -110,15 +111,16 @@ class VendorDetailsBody extends StatelessWidget {
               SocialMediaLinksSection(
                 vendor: vendor,
               ),
-              Divider(
+    vendor.socialMedia!.isNotEmpty?   Divider(
                 thickness: 2,
-              ),
+              ):SizedBox.shrink(),
               ServicesSection(
                 vendor: vendor,
               ),
-              Divider(
+              vendor.features!.isNotEmpty?  Divider(
                 thickness: 2,
-              ),
+              ):SizedBox.shrink(),
+              RecomindationSection(vendor: vendor)
             ],
           ),
         ),

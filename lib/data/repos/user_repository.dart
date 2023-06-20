@@ -4,7 +4,7 @@ import 'package:absher/core/api_const.dart';
 import 'package:absher/data/data_resource/local_resource/data_store.dart';
 import 'package:absher/data/data_resource/remote_resource/api_handler/base_api_client.dart';
 import 'package:absher/models/params/otp_confirm_params.dart';
-import 'package:absher/models/params/reset_password_params.dart';
+import 'package:absher/models/params/forget_password_params.dart';
 import 'package:absher/models/params/sign_up_params.dart';
 import 'package:absher/models/sign_up_response.dart';
 import 'package:dartz/dartz.dart';
@@ -12,6 +12,7 @@ import 'package:dartz/dartz.dart';
 import '../../models/login_response.dart';
 import '../../models/otp_verify_response.dart';
 import '../../models/params/login_params.dart';
+import '../../models/params/reset_password_params.dart';
 
 class UserRepository {
   Future<Either<String, LoginResponse>> authenticate(
@@ -38,7 +39,6 @@ class UserRepository {
   void saveToken(String token) {
     DataStore.instance.setToken(token);
   }
-
   Future<Either<String, OtpVerifyResponse>> signUpPhoneNumber(
       String phoneNumber) async {
     return BaseApiClient.post<OtpVerifyResponse>(
@@ -48,7 +48,6 @@ class UserRepository {
           return OtpVerifyResponse.fromJson(e['data']);
         });
   }
-
   Future<Either<String, bool>> confirmOtp(
       OtpConfirmParams? otpConfirmParams) async {
     return BaseApiClient.post<bool>(
@@ -69,21 +68,29 @@ class UserRepository {
         });
   }
 
-  Future<Either<String, OtpVerifyResponse>> forgetPassword(
+  Future<Either<String, OtpVerifyResponse>> forgetPasswordGenerateOtp(
       String phoneNumber) async {
     return BaseApiClient.post<OtpVerifyResponse>(
-        url: ApiConst.forgetPassword,
+        url: ApiConst.forgetPasswordGenerateOtp,
         queryParameters: {"phone": phoneNumber},
         converter: (e) {
           return OtpVerifyResponse.fromJson(e['data']);
         });
   }
-
+  Future<Either<String, bool>> forgetPassword(
+      ForgetPasswordParams forgetPasswordParams) async {
+    return BaseApiClient.post<bool>(
+        url: ApiConst.forgetPassword,
+        queryParameters: forgetPasswordParams.toJson(),
+        converter: (e) {
+          return true;
+        });
+  }
   Future<Either<String, bool>> resetPassword(
-      ResetPasswordParams resetPasswordParams) async {
+      ResetPasswordParams forgetPasswordParams) async {
     return BaseApiClient.post<bool>(
         url: ApiConst.resetPassword,
-        queryParameters: resetPasswordParams.toJson(),
+        queryParameters: forgetPasswordParams.toJson(),
         converter: (e) {
           return true;
         });

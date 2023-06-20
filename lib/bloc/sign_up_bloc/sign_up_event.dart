@@ -1,4 +1,3 @@
-import 'package:absher/models/params/sign_up_params.dart';
 
 abstract class SignUpEvent {
   SignUpEvent([List props = const []]) : super();
@@ -16,14 +15,21 @@ class ConfirmOtp extends SignUpEvent {
 
 class SignUp extends SignUpEvent {}
 
-class ForgetPassword extends SignUpEvent {
+class ForgetPasswordGenerateOtp extends SignUpEvent {
   final String phoneNumber;
-  ForgetPassword({required this.phoneNumber}) : super([phoneNumber]);
+  ForgetPasswordGenerateOtp({required this.phoneNumber}) : super([phoneNumber]);
 }
 
-class ResetPassword extends SignUpEvent {
+class ForgetPassword extends SignUpEvent {
   final String password;
   final String repeatPassword;
-  ResetPassword({required this.password, required this.repeatPassword})
+  ForgetPassword({required this.password, required this.repeatPassword})
       : super([password, repeatPassword]);
+}
+class ResetPassword extends SignUpEvent {
+  final String password;
+  final String oldPassword;
+  final String repeatPassword;
+  ResetPassword({required this.password, required this.repeatPassword,required this.oldPassword})
+      : super([password, repeatPassword,oldPassword]);
 }

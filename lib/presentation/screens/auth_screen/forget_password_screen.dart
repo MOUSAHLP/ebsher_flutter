@@ -20,9 +20,10 @@ import 'package:overlay_support/overlay_support.dart';
 
 import '../../../translations.dart';
 import '../../widgets/dialogs/loading_dialog.dart';
-import 'package:absher/presentation/screens/location_screen/widgets/app_bar_widget.dart';
-class ResetPasswordScreen extends StatelessWidget {
-  const ResetPasswordScreen({
+import '../location_screen/widgets/app_bar_widget.dart';
+
+class ForgetPasswordScreen extends StatelessWidget {
+  const ForgetPasswordScreen({
     Key? key,
   }) : super(key: key);
   @override
@@ -37,8 +38,8 @@ class ResetPasswordScreen extends StatelessWidget {
           if (state is SignUpError) {
             ErrorDialog.openDialog(context, null);
           }
-          if (state is ResetPasswordCompleted) {
-            AppRouter.pop(context);
+          if (state is ForgetPasswordCompleted) {
+            AppRouter.pushReplacement(context, SignInConfirmationScreen());
           }
           if(state is SignUpFieldsValidationFailed){
             toast(state.validationError!);
@@ -50,9 +51,9 @@ class ResetPasswordScreen extends StatelessWidget {
 
 class _PhoneNumberSignUpScreenContent extends StatelessWidget {
   _PhoneNumberSignUpScreenContent({Key? key}) : super(key: key);
-  final TextEditingController oldPasswordController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController repeatPasswordController = TextEditingController();
+  final TextEditingController repeatPasswordController =
+      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +70,7 @@ class _PhoneNumberSignUpScreenContent extends StatelessWidget {
                   height: 400,
                 ),
                 Text(
-                  AppLocalizations.of(context)!.changePassword,
+                  AppLocalizations.of(context)!.newPassordSet,
                   textAlign: TextAlign.center,
                   style: getBoldStyle(
                     color: Colors.white,
@@ -79,19 +80,9 @@ class _PhoneNumberSignUpScreenContent extends StatelessWidget {
                 const SizedBox(
                   height: 16,
                 ),
-
-                CustomPasswordInputField(
-                  controller: oldPasswordController,
-                  hintText: AppLocalizations.of(context)!.oldPassword,
-                  withLabel: true,
-                  icon: Icons.lock_open_rounded,
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
                 CustomPasswordInputField(
                   controller: passwordController,
-                  hintText: AppLocalizations.of(context)!.newPassord,
+                  hintText: AppLocalizations.of(context)!.password,
                   withLabel: true,
                   icon: Icons.lock_open_rounded,
                 ),
@@ -110,10 +101,9 @@ class _PhoneNumberSignUpScreenContent extends StatelessWidget {
                 CustomButton(
                   label:  AppLocalizations.of(context)!.next,
                   onTap: () {
-                    sl<SignUpBloc>().add(ResetPassword(
+                    sl<SignUpBloc>().add(ForgetPassword(
                         password: passwordController.text,
-                        repeatPassword: repeatPasswordController.text,
-                    oldPassword: oldPasswordController.text));
+                        repeatPassword: repeatPasswordController.text));
                   },
                 ),
               ],

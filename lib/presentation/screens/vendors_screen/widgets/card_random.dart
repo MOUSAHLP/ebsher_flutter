@@ -42,7 +42,6 @@ class CardRandomWidget extends StatelessWidget {
           alignment: AlignmentDirectional.centerStart,
           children: [
             Container(
-              height: 120,
               decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadiusDirectional.only(
@@ -114,7 +113,7 @@ class CardRandomWidget extends StatelessWidget {
                             height: 4,
                           ),
                           InfoCardWithIcon(
-                            svgAsset: IconsManager.iconPhone,
+                            svgAsset: IconsManager.iconLocation,
                             label: 'العنوان',
                             value: vendor.address,
                           ),
@@ -130,11 +129,12 @@ class CardRandomWidget extends StatelessWidget {
                       ),
                     ),
                     Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+//                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         IsOpenLabel(
                           isOpen: vendor.isOpen,
                         ),
+                        SizedBox( height: 20),
                         SvgPicture.asset(
                           IconsManager.iconFavoriteFilled,
                         ),
@@ -187,7 +187,7 @@ class InfoCardWithIcon extends StatelessWidget {
   const InfoCardWithIcon(
       {Key? key,
       required this.svgAsset,
-      required this.label,
+       this.label,
       required this.value})
       : super(key: key);
   final String svgAsset;

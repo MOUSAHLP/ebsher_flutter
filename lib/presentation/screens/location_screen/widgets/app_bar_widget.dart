@@ -8,28 +8,30 @@ import '../../../widgets/custom_icon.dart';
 class AppBarWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Row(
-        children: [
-          GestureDetector(
-            onTap: () {
-              AppRouter.pop(context);
-            },
-            child: Container(
-              decoration: const BoxDecoration(
-                  color: ColorManager.primaryColor, shape: BoxShape.circle),
-              height: 40,
-              width: 40,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: CustomIcon(
-                  svgAsset: IconsManager.iconBackArrow,
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Row(
+          children: [
+            GestureDetector(
+              onTap: () {
+                AppRouter.pop(context);
+              },
+              child: Container(
+                decoration: const BoxDecoration(
+                    color: ColorManager.primaryColor, shape: BoxShape.circle),
+                height: 40,
+                width: 40,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: CustomIcon(
+                    svgAsset: IconsManager.iconBackArrow,
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

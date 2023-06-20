@@ -244,7 +244,9 @@ class _StoryPageFrameState extends State<_StoryPageFrame> {
                 isPaging: widget.isPaging,
                 indicatorAnimationValue: widget.indicatorAnimationValue,
               ),
-              Row(
+              context
+                  .read<StoriesBloc>()
+                  .stories[widget.pageIndex].vendor!.isEmpty?SizedBox():    Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(

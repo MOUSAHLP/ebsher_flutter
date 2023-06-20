@@ -11,12 +11,11 @@ class CustomErrorScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
+    return Center(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const SizedBox(height: 10),
           Lottie.asset(IconsManager.iconNoInternet),
           const SizedBox(height: 100),
           CustomButton(label: AppLocalizations.of(context)!.tryAgain,onTap: (){

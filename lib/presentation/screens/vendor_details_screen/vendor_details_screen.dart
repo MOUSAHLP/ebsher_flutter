@@ -1,9 +1,11 @@
 import 'package:absher/bloc/vendor_details_bloc/vendor_details_state.dart';
 import 'package:absher/models/vendor_model.dart';
 import 'package:absher/presentation/resources/color_manager.dart';
+import 'package:absher/presentation/screens/location_screen/widgets/app_bar_widget.dart';
 import 'package:absher/presentation/screens/vendor_details_screen/widgets/collapsed_header.dart';
 import 'package:absher/presentation/screens/vendor_details_screen/widgets/expanded_header.dart';
 import 'package:absher/presentation/screens/vendor_details_screen/widgets/vendor_details_body.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -75,18 +77,39 @@ class _VendorDetailsScreenBodyState extends State<VendorDetailsScreenBody> {
   @override
   Widget build(BuildContext context) {
     return CustomAppBackGround(
-
       child: BlocBuilder<VendorDetailsBloc, VendorDetailsState>(
           builder: (context, state) {
         if (state is VendorDetailsLoading) {
-          return Center(child: CircularProgressIndicator(
-            color: ColorManager.primaryColor,
-          ));
+          return Column(
+            children: [
+              AppBarWidget(),
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Center(
+                      child: CircularProgressIndicator(
+                        color: ColorManager.primaryColor,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          );
         } else if (state is VendorDetailsError) {
-          return CustomErrorScreen(
-            onTap: () {
-              sl<VendorDetailsBloc>().add(getVendorDetails(widget.id));
-            },
+          return Column(
+            children: [
+              AppBarWidget(),
+              Center(
+                child: CustomErrorScreen(
+                  onTap: () {
+                    sl<VendorDetailsBloc>().add(getVendorDetails(widget.id));
+                  },
+                ),
+              ),
+            ],
           );
         } else if (state is VendorDetailsSuccess) {
           return Scaffold(

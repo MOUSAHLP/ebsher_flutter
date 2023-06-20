@@ -1,5 +1,6 @@
 import 'package:absher/core/app_router/app_router.dart';
 import 'package:absher/presentation/resources/color_manager.dart';
+import 'package:absher/presentation/widgets/custom_app_background.dart';
 import 'package:absher/translations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -50,10 +51,13 @@ class AboutBody extends StatelessWidget {
                         color: ColorManager.primaryColor,
                       ));
                     } else if (state is AboutError) {
-                      return CustomErrorScreen(
-                        onTap: () {
-                          sl<AboutBloc>().add(getAbout());
-                        },
+                      return CustomAppBackGround(
+
+                        child: CustomErrorScreen(
+                          onTap: () {
+                            sl<AboutBloc>().add(getAbout());
+                          },
+                        ),
                       );
                     } else if (state is AboutSuccess) {
                       return SingleChildScrollView(

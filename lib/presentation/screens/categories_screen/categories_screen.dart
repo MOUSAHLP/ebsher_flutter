@@ -29,7 +29,7 @@ class CategoriesScreen extends StatelessWidget {
               children: [
                 Column(
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       height: 80,
                     ),
                     Expanded(
@@ -41,7 +41,7 @@ class CategoriesScreen extends StatelessWidget {
                 Container(
                   height: 130,
                   width: 1.sw,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                       borderRadius:
                           BorderRadius.only(bottomLeft: Radius.circular(50)),
                       color: ColorManager.primaryColor),
@@ -49,7 +49,7 @@ class CategoriesScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       InkWell(
-                        child: Icon(
+                        child: const Icon(
                           Icons.arrow_back_rounded,
                           color: Colors.white,
                         ),
@@ -64,7 +64,7 @@ class CategoriesScreen extends StatelessWidget {
                           fontSize: FontSizeApp.s22,
                         ),
                       ),
-                      Icon(
+                      const Icon(
                         Icons.share,
                         color: Colors.white,
                       ),
@@ -98,6 +98,7 @@ class CategoriesStackList extends StatelessWidget {
       );
     });
     return SingleChildScrollView(
+
       child: Stack(
         children: stackLayers.reversed.toList(),
       ),
@@ -160,7 +161,7 @@ class CategoryCover extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 8,
                 ),
                 Column(
@@ -174,7 +175,7 @@ class CategoryCover extends StatelessWidget {
                       )?.copyWith(height: 1),
                     ),
                     Text(
-                      '12 عنصر',
+                      category.vendorsCount??"",
                       style: getRegularStyle(
                         color: Colors.white,
                         fontSize: FontSizeApp.s14,

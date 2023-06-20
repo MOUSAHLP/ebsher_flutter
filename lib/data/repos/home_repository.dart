@@ -4,6 +4,7 @@ import 'package:absher/models/category_response.dart';
 import 'package:absher/models/reels_model.dart';
 import 'package:absher/models/vendor_model.dart';
 import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
 
 import '../../core/api_const.dart';
 import '../../models/home_model.dart';
@@ -50,14 +51,6 @@ class HomeRepository {
         });
   }
 
-  static Future<Either<String, List<VendorModel>>> getFavoriteList() {
-    return BaseApiClient.get<List<VendorModel>>(
-        url: ApiConst.getFavorite,
-        converter: (e) {
-          return VendorModel.listFromJson(e);
-        });
-  }
-
   static Future<Either<String, SubCategoriesModel>> getSubCategory(
       {required int categoryId}) {
     return BaseApiClient.get<SubCategoriesModel>(
@@ -80,19 +73,26 @@ class HomeRepository {
     return BaseApiClient.get<VendorModel>(
         url: ApiConst.getVendorDetails(id),
         converter: (e) {
-          return VendorModel.fromJson(e['data'][0]);
+          return VendorModel.fromJson(e['data']);
         });
   }
 
   static Future<Either<String, ProfileModel>> editProfile(
       ProfileModel? profileModel) async {
+    String? imageFileName = profileModel?.avatar != null
+        ? profileModel?.avatar?.split('/').last
+        : '';
+    print("imageFileName");
+    print(imageFileName);
+    print(profileModel?.avatar);
     return BaseApiClient.post<ProfileModel>(
-        url: ApiConst.signUpRegister,
+        url: ApiConst.updateProfile,
         queryParameters: {
-          "name": profileModel?.name!,
-          "email": profileModel?.email!,
-          "phone": profileModel?.phone!,
-//          "avatar": profileModel?.avatar!,
+          "name": profileModel?.name,
+          "email": profileModel?.email,
+          "phone": profileModel?.phone,
+          "avatar": await MultipartFile.fromFile(profileModel?.avatar ?? "",
+              filename: imageFileName)
         },
         converter: (e) {
           return ProfileModel.fromJson(e['data']);

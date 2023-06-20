@@ -1,5 +1,10 @@
 import 'package:absher/models/params/sign_up_params.dart';
+import 'package:flutter/cupertino.dart';
 
+import '../models/params/login_params.dart';
+import '../models/params/forget_password_params.dart';
+import '../models/params/reset_password_params.dart';
+import '../models/profile_model.dart';
 import 'app_regex.dart';
 
 class AppValidators {
@@ -23,5 +28,60 @@ class AppValidators {
     if (signUpParams.password != signUpParams.repeatPassword) {
       return 'كلمة السر غير مطابقة';
     }
+  }
+  static String? validateSignInFields(LoginParams signInParams) {
+    if (signInParams.phone == null || signInParams.phone!.isEmpty) {
+      return 'حقل الرقم مطلوب';
+    }
+    if (signInParams.password == null || signInParams.password!.isEmpty) {
+      return 'حقل كلمة المرور مطلوب';
+    }
+
+  }
+  static String? validatePhoneFields(String phone) {
+    if (phone == null || phone.isEmpty) {
+      return 'حقل الرقم مطلوب';
+    }
+  }
+  static String? validatePasswordFields(ForgetPasswordParams resetPasswordParams) {
+
+    if (resetPasswordParams.password == null || resetPasswordParams.password!.isEmpty) {
+      return 'حقل كلمة المرور مطلوب';
+    }
+    if (resetPasswordParams.repeatPassword == null ||
+        resetPasswordParams.repeatPassword!.isEmpty) {
+      return 'حقل كلمة المرور مطلوب';
+    }
+    if (resetPasswordParams.password !=resetPasswordParams. repeatPassword) {
+      return 'كلمة السر غير مطابقة';
+    }
+  }
+  static String? validatePasswordResetFields(ResetPasswordParams resetPasswordParams) {
+    if (resetPasswordParams.oldPassword == null || resetPasswordParams.oldPassword!.isEmpty) {
+      return 'حقل كلمة المرور مطلوب';
+    }
+    if (resetPasswordParams.password == null || resetPasswordParams.password!.isEmpty) {
+      return 'حقل كلمة المرور مطلوب';
+    }
+    if (resetPasswordParams.repeatPassword == null ||
+        resetPasswordParams.repeatPassword!.isEmpty) {
+      return 'حقل كلمة المرور مطلوب';
+    }
+    if (resetPasswordParams.password !=resetPasswordParams. repeatPassword) {
+      return 'كلمة السر غير مطابقة';
+    }
+  }
+  static String? validateEditeProfileFields(ProfileModel resetPasswordParams) {
+
+    if (resetPasswordParams.name == null || resetPasswordParams.name!.isEmpty) {
+      return 'حقل الاسم مطلوب';
+    }
+    if (resetPasswordParams.email == null || resetPasswordParams.email!.isEmpty) {
+      return ' حقل الأيميل مطلوب';
+    }
+    if (!AppRegexp.emailRegexp.hasMatch(resetPasswordParams.email!)) {
+      return 'هذا ليس عنوان بريد إلكتروني صالح';
+    }
+
   }
 }

@@ -21,7 +21,7 @@ class BuildShimmerWidget extends StatelessWidget {
                   shimmerCircle(),
                   shimmerCircle(),
                   shimmerCircle(),
-                  shimmerCircle(),
+
                 ],
               ),
               const SizedBox(height: 10),

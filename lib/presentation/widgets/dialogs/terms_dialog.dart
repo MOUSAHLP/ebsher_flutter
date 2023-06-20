@@ -1,4 +1,4 @@
-import 'package:absher/bloc/login_bloc/login_bloc.dart';
+
 import 'package:absher/core/app_router/app_router.dart';
 import 'package:absher/core/app_router/dialog_transition_builder.dart';
 import 'package:absher/data/data_resource/local_resource/data_store.dart';
@@ -9,7 +9,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../../../bloc/privacy_bloc/privacy_bloc.dart';
 import '../../../bloc/privacy_bloc/privacy_event.dart';
 import '../../../bloc/privacy_bloc/privacy_state.dart';
@@ -65,7 +64,7 @@ class _TermsDialogBodyState extends State<_TermsDialogBody> {
             child: Column(
               children: [
                 Text(
-                  'Please accept Terms and Conditions in order to continue.',
+                  AppLocalizations.of(context)!.acceptCond,
                   style: getBoldStyle(
                     color: Colors.black,
                     fontSize: FontSizeApp.s14,
@@ -101,13 +100,14 @@ class _TermsDialogBodyState extends State<_TermsDialogBody> {
                           Row(
                             children: [
                               Checkbox(
+                                activeColor: ColorManager.primaryColor,
                                   value: termsAccepted,
                                   onChanged: (value) {
                                     setState(() {
                                       termsAccepted = value ?? false;
                                     });
                                   }),
-                              Text('I agree to Terms And Conditions.')
+                              Expanded(child: Text( AppLocalizations.of(context)!.agreeCond))
                             ],
                           )
                         ]);
@@ -118,7 +118,7 @@ class _TermsDialogBodyState extends State<_TermsDialogBody> {
                   ),
                 ),
                 CustomButton(
-                  label: 'Continue',
+                  label:AppLocalizations.of(context)!.continuee,
                   fillColor: termsAccepted
                       ? ColorManager.primaryColor
                       : ColorManager.labelGrey,
@@ -133,7 +133,7 @@ class _TermsDialogBodyState extends State<_TermsDialogBody> {
                   height: 16,
                 ),
                 CustomButton(
-                  label: 'Close App',
+                  label: AppLocalizations.of(context)!.closeApp ,
                   fillColor: ColorManager.darkRed,
                   onTap: () {
                     SystemNavigator.pop();

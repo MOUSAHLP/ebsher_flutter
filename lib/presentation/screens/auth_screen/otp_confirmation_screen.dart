@@ -6,7 +6,7 @@ import 'package:absher/core/services/services_locator.dart';
 import 'package:absher/presentation/resources/color_manager.dart';
 import 'package:absher/presentation/resources/font_app.dart';
 import 'package:absher/presentation/resources/style_app.dart';
-import 'package:absher/presentation/screens/auth_screen/reset_password_screen.dart';
+import 'package:absher/presentation/screens/auth_screen/forget_password_screen.dart';
 import 'package:absher/presentation/screens/auth_screen/sign_up_screen.dart';
 import 'package:absher/presentation/screens/auth_screen/widgets/otp_screen_background.dart';
 import 'package:absher/presentation/widgets/custom_button.dart';
@@ -14,14 +14,18 @@ import 'package:absher/presentation/widgets/dialogs/error_dialog.dart';
 import 'package:absher/translations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:overlay_support/overlay_support.dart';
 import 'package:sms_autofill/sms_autofill.dart';
 
 import '../../widgets/dialogs/loading_dialog.dart';
+import '../location_screen/widgets/app_bar_widget.dart';
 
 class OtpConfirmationScreen extends StatelessWidget {
   const OtpConfirmationScreen({Key? key, required this.resetPassword})
       : super(key: key);
   final bool resetPassword;
+
   @override
   Widget build(BuildContext context) {
     return BlocListener<SignUpBloc, SignUpState>(
@@ -37,7 +41,7 @@ class OtpConfirmationScreen extends StatelessWidget {
           if (state is SignUpOtpConfirmed) {
             resetPassword
                 ? AppRouter.pushReplacement(
-                    context, const ResetPasswordScreen())
+                    context, const ForgetPasswordScreen())
                 : AppRouter.pushReplacement(context, SignUpScreen());
           }
         },
@@ -52,6 +56,7 @@ class _OtpConfirmationScreenContent extends StatelessWidget {
       : super(key: key);
   final TextEditingController textEditingController = TextEditingController();
   final bool resetPassword;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,68 +66,96 @@ class _OtpConfirmationScreenContent extends StatelessWidget {
         SingleChildScrollView(
           child: Column(
             children: [
-              const SizedBox(
+               SizedBox(
+                height: 1.sh-350,
+              ),
+              Container(
                 height: 350,
-              ),
-              Text(
-               AppLocalizations.of(context)!.sendCode,
-                style: getBoldStyle(
-                  color: Colors.white,
-                  fontSize: FontSizeApp.s22,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 32.0),
-                child: Text(
-                  !resetPassword
-                      ? AppLocalizations.of(context)!.verifyMobileCreat(encodePhoneNumber(context.read<SignUpBloc>().otpVerifyResponse?.phone))
-                      :AppLocalizations.of(context)!.verifyMobilePassword(encodePhoneNumber(context.read<SignUpBloc>().otpVerifyResponse?.phone)),
-
-                  textAlign: TextAlign.center,
-                  style: getBoldStyle(
-                    color: ColorManager.softYellow,
-                  ),
-                ),
-              ),
-              Text(
-                AppLocalizations.of(context)!.yourCode(context.read<SignUpBloc>().otpVerifyResponse?.code as Object),
+                child: Column(
+                  children: [
+                    Text(
+                      AppLocalizations.of(context)!.sendCode,
+                      style: getBoldStyle(
+                        color: Colors.white,
+                        fontSize: FontSizeApp.s22,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 32.0),
+                      child: Text(
+                        !resetPassword
+                            ? AppLocalizations.of(context)!.verifyMobileCreat(
+                            encodePhoneNumber(context
+                                .read<SignUpBloc>()
+                                .otpVerifyResponse
+                                ?.phone))
+                            : AppLocalizations.of(context)!.verifyMobilePassword(
+                            encodePhoneNumber(context
+                                .read<SignUpBloc>()
+                                .otpVerifyResponse
+                                ?.phone)),
+                        textAlign: TextAlign.center,
+                        style: getBoldStyle(
+                          color: ColorManager.softYellow,
+                        ),
+                      ),
+                    ),
+                    Text(
+                      AppLocalizations.of(context)!.yourCode(context
+                          .read<SignUpBloc>()
+                          .otpVerifyResponse
+                          ?.code as Object),
 //                'Your Code is ${context.read<SignUpBloc>().otpVerifyResponse?.code}',
-                textAlign: TextAlign.center,
-                style: getBoldStyle(
-                  color: ColorManager.softYellow,
+                      textAlign: TextAlign.center,
+                      style: getBoldStyle(
+                        color: ColorManager.softYellow,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(32.0),
+                      child: PinFieldAutoFill(
+                        decoration: UnderlineDecoration(
+                          textStyle:
+                          const TextStyle(fontSize: 20, color: Colors.white),
+                          colorBuilder: const FixedColorBuilder(Colors.white),
+                        ),
+                        currentCode: textEditingController.text,
+                        codeLength: 6,
+                        onCodeChanged: (String? code) {
+                          print("code1");
+                          if (code != null) {
+                            print("code2");
+                            textEditingController.text = code;
+                            if (code.length == 6) {
+                              print("code3");
+                              sl<SignUpBloc>()
+                                  .add(ConfirmOtp(code: textEditingController.text));
+                            }
+                            print("code4");
+                          }
+                          print("code5");
+                        },
+                      ),
+                    ),
+                    CustomButton(
+                      label: AppLocalizations.of(context)!.send,
+                      onTap: () {
+                        if (textEditingController.text.length == 6) {
+                          sl<SignUpBloc>()
+                              .add(ConfirmOtp(code: textEditingController.text));
+                        } else {
+                          toast("ادخال كافة الحقول");
+                        }
+                      },
+                    )
+                  ],
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(32.0),
-                child: PinFieldAutoFill(
-                  decoration: UnderlineDecoration(
-                    textStyle:
-                        const TextStyle(fontSize: 20, color: Colors.white),
-                    colorBuilder: const FixedColorBuilder(Colors.white),
-                  ),
-                  currentCode: textEditingController.text,
-                  codeLength: 6,
-                  onCodeChanged: (String? code) {
-                    if (code != null) {
-                      textEditingController.text = code;
-                      if (code.length == 6) {
-                        sl<SignUpBloc>()
-                            .add(ConfirmOtp(code: textEditingController.text));
-                      }
-                    }
-                  },
-                ),
-              ),
-              CustomButton(
-                label: AppLocalizations.of(context)!.send,
-                onTap: () {
-                  sl<SignUpBloc>()
-                      .add(ConfirmOtp(code: textEditingController.text));
-                },
               )
+
             ],
           ),
         ),
+        AppBarWidget()
       ],
     ));
   }

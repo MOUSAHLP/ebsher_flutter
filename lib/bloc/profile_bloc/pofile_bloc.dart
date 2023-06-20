@@ -35,7 +35,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
 
   ProfileBloc() : super(ProfileInit()) {
     on<ProfileEvent>((event, emit) async {
-      if (event is isEditingEvent) {
+      if (event is IsEditingEvent) {
         isEditing = event.isEditing;
         emit(ProfileSuccess(profileModel, event.isEditing));
       }
@@ -51,25 +51,32 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
           var response = await HomeRepository.editProfile(profileModel);
           response.fold((l) {
             emit(ProfileError(l));
-          }, (r) async {
-            var profileResponse = await HomeRepository.getProfile();
-            profileResponse.fold((l) {
-              emit(ProfileError(l));
-            }, (r) {
-              sl<AuthenticationBloc>().loginResponse = LoginResponse(
-                  id: r.id ?? DataStore.instance.userInfo!.id,
-                  name: nameController.text,
-                  phone: profileModel.phone!,
-                  email: profileModel.email!,
-                  token: profileModel.deviceToken ?? "",
-                  image: r.avatar);
-              emit(ProfileSuccess(profileModel, false));
-            });
+          }, (r) {
+            add(GetProfile());
           });
         } else {
           emit(SignUpFieldsValidationFailed(validationError: validationError));
         }
       }
+      if (event is GetProfile) {
+        emit(ProfileLoading());
+        var profileResponse = await HomeRepository.getProfile();
+        profileResponse.fold((l) {
+          emit(ProfileError(l));
+        }, (r) {
+          LoginResponse result = LoginResponse(
+              id: r.id ?? DataStore.instance.userInfo!.id,
+              name: nameController.text,
+              phone: profileModel.phone!,
+              email: profileModel.email!,
+              token: profileModel.deviceToken ?? "",
+              image: r.avatar);
+          sl<AuthenticationBloc>().loginResponse = result;
+          DataStore.instance.setUserInfo(result);
+          emit(ProfileSuccess(profileModel, false));
+        });
+      }
+
       if (event is GetImageGallery) {
         getImageGallery();
       }

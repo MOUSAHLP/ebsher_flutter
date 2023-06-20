@@ -331,24 +331,17 @@ class _StoryPageFrameState extends State<_StoryPageFrame> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.end,
                                         children: [
-//                                          Text(
-//                                            intl.NumberFormat.compact().format(
-//                                                context
-//                                                    .read<StoriesBloc>()
-//                                                    .stories[widget.pageIndex]
-//                                                    .stories![widget
-//                                                            .isCurrentPage
-//                                                        ? context
-//                                                            .read<StoriesBloc>()
-//                                                            .state
-//                                                            .currentStackIndex
-//                                                        : 0]
-//                                                    .totalViewsCount),
-//                                            style: getBoldStyle(
-//                                              color: ColorManager.softYellow,
-//                                            )!
-//                                                .copyWith(height: 1),
-//                                          ),
+                                          Text(
+                                            intl.NumberFormat.compact().format(
+                                                context
+                                                    .read<StoriesBloc>()
+                                                    .stories[widget.pageIndex]
+                                                    .views),
+                                            style: getBoldStyle(
+                                              color: ColorManager.softYellow,
+                                            )!
+                                                .copyWith(height: 1),
+                                          ),
                                           SizedBox(
                                             width: 4,
                                           ),

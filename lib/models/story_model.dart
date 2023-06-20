@@ -6,11 +6,13 @@ class StoryModelDto {
   int? id;
   List<StoryItemModel>? stories;
   List<VendorStoryModel>? vendor;
+  double? views;
   StoryModelDto({
 
     this.id,
     this.stories,
     this.vendor,
+    this.views,
   });
 
   StoryModelDto.fromJson(Map<String, dynamic>? json) {
@@ -18,6 +20,7 @@ class StoryModelDto {
     id = json['id'];
     stories = StoryItemModel.listFromJson(json['storyDetails']?? []);
     vendor = VendorStoryModel.listFromJson(json['vendor']?? []);
+    views = double.tryParse(json['views']) ;
   }
 
   static List<StoryModelDto> listFromJson(List<dynamic>? json) {

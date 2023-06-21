@@ -7,6 +7,7 @@ class OpenContainerWithFade extends StatelessWidget {
       : super(key: key);
   final Widget cardItem;
   final Widget page;
+
   @override
   Widget build(BuildContext context) {
     return OpenContainer<bool>(

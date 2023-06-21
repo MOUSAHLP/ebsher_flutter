@@ -16,6 +16,7 @@ class ApiConst {
   static const String profile = "/profile";
   static const String search = "/search?keyword=";
   static const String reels = "/reels";
+  static const String seenStories = "/seen-stories";
   static const String getFavorite = "/get-favorite-vendors";
   static const String addFavorite = "/add-favorite-vendor";
   static const String removeFavorite = "/remove-favorite-vendor";

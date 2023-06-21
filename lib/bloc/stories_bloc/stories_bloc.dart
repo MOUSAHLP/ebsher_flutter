@@ -2,19 +2,22 @@ import 'dart:developer';
 
 import 'package:absher/bloc/stories_bloc/stories_event.dart';
 import 'package:absher/bloc/stories_bloc/stories_state.dart';
+import 'package:absher/core/services/services_locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:video_player/video_player.dart';
 
+import '../../data/repos/home_repository.dart';
 import '../../models/story_model.dart';
+import '../home_bloc/home_bloc.dart';
+import '../home_bloc/home_event.dart';
 
 class StoriesBloc extends Bloc<StoriesEvent, StoriesState> {
   late AnimationController animationController;
   VideoPlayerController? playerController;
-
   PageController? pageController;
-
   List<StoryModelDto> stories = [];
+  List<int> seeStory = [];
 
   StoriesBloc() : super(const StoriesState()) {
     on<StoriesEvent>((event, emit) async {
@@ -83,6 +86,20 @@ class StoriesBloc extends Bloc<StoriesEvent, StoriesState> {
           currentPageIndex: event.index,
         ));
         animationController.forward(from: 0);
+      }
+      if (event is AddIdStory) {
+        seeStory.add(event.idStory);
+        emit(SeeStorySuccess());
+      }
+      if (event is EndAddIdStory) {
+        sl<HomeBloc>().add(ChangeSeeStory(seeStory));
+        emit(EndSeeStorySuccess());
+        final response = await HomeRepository.seeStories(seeStory);
+        response.fold((l) {
+        }, (r) {
+         // sl<HomeBloc>().add(ChangeSeeStory(seeStory));
+          emit(EndSeeStorySuccess());
+        });
       }
     });
   }

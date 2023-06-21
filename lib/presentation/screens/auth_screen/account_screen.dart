@@ -20,6 +20,7 @@ import '../../../core/services/services_locator.dart';
 import '../../resources/color_manager.dart';
 import '../../widgets/custom_app_background.dart';
 import '../../widgets/custom_button.dart';
+import '../home_screen/basic_screen.dart';
 
 class AccountScreen extends StatelessWidget {
   const AccountScreen({Key? key}) : super(key: key);
@@ -66,6 +67,7 @@ class AccountScreen extends StatelessWidget {
                     SizedBox(
                       height: 16,
                     ),
+
                     CustomButton(
                       fillColor: Colors.white,
                       labelColor: Colors.white,
@@ -79,6 +81,18 @@ class AccountScreen extends StatelessWidget {
                             ));
                       },
                     ),
+//                    SizedBox(
+//                      height: 16,
+//                    ),
+//                    CustomButton(
+//                      fillColor: Colors.white,
+//                      labelColor: Colors.white,
+//                      isFilled: false,
+//                      label:"دخول كضيف",
+//                      onTap: () {
+//                        AppRouter.pushAndRemoveAllStack(context, BasicScreen());
+//                      },
+//                    ),
                   ],
                 ),
               ),

@@ -9,6 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:absher/presentation/resources/assets_manager.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../bloc/authentication_bloc/authertication_bloc.dart';
@@ -21,6 +22,7 @@ import '../../../core/services/services_locator.dart';
 import '../../widgets/accessories/cached_image.dart';
 import '../../widgets/custom_error_screen.dart';
 import '../auth_screen/reset_password_screen.dart';
+import '../auth_screen/sign_in_screen.dart';
 
 
 // ignore: must_be_immutable
@@ -66,7 +68,9 @@ class EditProfileBody extends StatelessWidget {
                 },
               );
             } else {
-              return Stack(
+
+              return
+                sl<AuthenticationBloc>().loggedIn? Stack(
                 alignment: Alignment.topCenter,
                 clipBehavior: Clip.none,
                 children: [
@@ -297,6 +301,21 @@ class EditProfileBody extends StatelessWidget {
                       ],
                     ),
                   )
+                ],
+              ):Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(" رجاء تسجيل الدخول",style: getBoldStyle(color: Colors.white,fontSize: 14),),
+                 MaterialButton(
+                   shape: const RoundedRectangleBorder(
+                       borderRadius: BorderRadius.all(
+                           Radius.circular(20.0))),
+                   color: ColorManager.softYellow,
+                   onPressed: (){
+                   AppRouter.push(context, SignInConfirmationScreen());
+
+                 },child: Text("تسجيل دخول" , style: getBoldStyle(color: Colors.white),),)
                 ],
               );
             }

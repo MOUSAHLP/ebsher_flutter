@@ -34,19 +34,31 @@ class CustomAppBottomNavigation extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              IconBottomNavigation(imag:IconsManager.iconStars, onTap:(){
-                sl<BottomBloc>().add(NewBottomChange(1));
-              },color:state.index==1? ColorManager.softYellow: ColorManager.lightBlueColor),
-              IconBottomNavigation(imag:  IconsManager.iconSearch, onTap:(){
-                AppRouter.push(context, LocationScreen());
-              } ,color:state.index==2? ColorManager.softYellow: ColorManager.lightBlueColor),
-              const SizedBox(width: SizeApp.s5),
-              IconBottomNavigation(imag:  IconsManager.iconVideo, onTap:(){
-                AppRouter.push(context, ReelsScreen());
-              },color: state.index==3?ColorManager.softYellow: ColorManager.lightBlueColor),
-              IconBottomNavigation(imag:  IconsManager.iconUser, onTap:(){
-                sl<BottomBloc>().add(NewBottomChange(4));
-              },color: state.index==4? ColorManager.softYellow: ColorManager.lightBlueColor ),
+              Expanded(
+                child: IconBottomNavigation(imag:IconsManager.iconStars, onTap:(){
+                  sl<BottomBloc>().add(NewBottomChange(1));
+                },color:state.index==1? ColorManager.softYellow: ColorManager.lightBlueColor),
+              ),
+
+              Expanded(
+                child: IconBottomNavigation(imag:  IconsManager.iconSearch, onTap:(){
+                  AppRouter.push(context, LocationScreen());
+                } ,color:state.index==2? ColorManager.softYellow: ColorManager.lightBlueColor),
+              ),
+              
+              Expanded(child: const SizedBox(width: SizeApp.s5)),
+             
+              Expanded(
+                child: IconBottomNavigation(imag:  IconsManager.iconVideo, onTap:(){
+                  AppRouter.push(context, ReelsScreen());
+                },color: state.index==3?ColorManager.softYellow: ColorManager.lightBlueColor),
+              ),
+              
+              Expanded(
+                child: IconBottomNavigation(imag:  IconsManager.iconUser, onTap:(){
+                  sl<BottomBloc>().add(NewBottomChange(4));
+                },color: state.index==4? ColorManager.softYellow: ColorManager.lightBlueColor ),
+              ),
             ],
           ),
         );}

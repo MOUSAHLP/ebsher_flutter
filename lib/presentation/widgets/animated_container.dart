@@ -2,11 +2,12 @@ import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 
 class OpenContainerWithFade extends StatelessWidget {
-  const OpenContainerWithFade(
+   OpenContainerWithFade(
       {Key? key, required this.cardItem, required this.page})
       : super(key: key);
   final Widget cardItem;
   final Widget page;
+
   @override
   Widget build(BuildContext context) {
     return OpenContainer<bool>(

@@ -19,6 +19,7 @@ import '../../data/data_resource/local_resource/data_store.dart';
 import '../resources/color_manager.dart';
 import '../resources/style_app.dart';
 import '../screens/about_screen/about_screen.dart';
+import '../screens/auth_screen/sign_in_screen.dart';
 import '../screens/privacy_screen/privacy_screen.dart';
 import 'dialogs/logout_confirmation_dialog.dart';
 
@@ -55,9 +56,8 @@ class CustomAppDrawer extends StatelessWidget {
                   children: [
                     Column(
                       children: [
-                        Container(
+                           Container(
                           height: 250,
-
                           decoration: const BoxDecoration(
                             image: DecorationImage(
                               opacity: 0.1,
@@ -68,7 +68,7 @@ class CustomAppDrawer extends StatelessWidget {
                             borderRadius: BorderRadiusDirectional.only(
                                 bottomStart: Radius.circular(50)),
                           ),
-                          child: Row(
+                          child: sl<AuthenticationBloc>().loggedIn? Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -107,7 +107,7 @@ class CustomAppDrawer extends StatelessWidget {
                                             color: Colors.white, fontSize: 17)),
                                   ],
                                 ),
-                              ]),
+                              ]):Container(),
                         ),
                         const SizedBox(
                           height: 10,
@@ -181,7 +181,7 @@ class CustomAppDrawer extends StatelessWidget {
                           AppRouter.push(context, PrivacyScreen());
                         }),
                         const SizedBox(height: 90),
-                        GestureDetector(
+                        sl<AuthenticationBloc>().loggedIn?     GestureDetector(
                           onTap: () {
                             LogoutConfirmationDialog.handle(context);
                           },
@@ -190,6 +190,25 @@ class CustomAppDrawer extends StatelessWidget {
                             children: [
                               Text(
                                 AppLocalizations.of(context)!.logOut,
+                                style: getBoldStyle(
+                                    fontSize: 15,
+                                    color: ColorManager.shadowGrey),
+                              ),
+                              const SizedBox(width: 10),
+                              SvgPicture.asset(IconsManager.iconCheckout,
+                                  width: 28, height: 28),
+                            ],
+                          ),
+                        ):
+                        GestureDetector(
+                          onTap: () {
+                            AppRouter.push(context, SignInConfirmationScreen());
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                AppLocalizations.of(context)!.signIn,
                                 style: getBoldStyle(
                                     fontSize: 15,
                                     color: ColorManager.shadowGrey),

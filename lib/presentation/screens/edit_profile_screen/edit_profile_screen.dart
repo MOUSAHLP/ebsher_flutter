@@ -156,7 +156,6 @@ class EditProfileBody extends StatelessWidget {
                               const SizedBox(
                                 height: 5,
                               ),
-
                               Padding(
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 100, vertical: 10),
@@ -238,45 +237,6 @@ class EditProfileBody extends StatelessWidget {
                                   }
                                 },
                               ),
-                              // MaterialButton(
-                              //   shape: const RoundedRectangleBorder(
-                              //       borderRadius: BorderRadius.all(
-                              //           Radius.circular(20.0))),
-                              //   color: ColorManager.softYellow,
-                              //   onPressed: () {
-                              //     if (context.read<ProfileBloc>().isEditing ==
-                              //         false) {
-                              //       context
-                              //           .read<ProfileBloc>()
-                              //           .add(IsEditingEvent(true));
-                              //     } else {
-                              //       context
-                              //           .read<ProfileBloc>()
-                              //           .add(IsEditingEvent(false));
-                              //       context
-                              //               .read<ProfileBloc>()
-                              //               .profileModel
-                              //               .phone =
-                              //           context
-                              //               .read<AuthenticationBloc>()
-                              //               .loginResponse!
-                              //               .phone;
-                              //       context
-                              //           .read<ProfileBloc>()
-                              //           .add(UpdateProfile());
-                              //     }
-                              //   },
-                              //   child: context.read<ProfileBloc>().isEditing ==
-                              //           false
-                              //       ? Text(
-                              //           AppLocalizations.of(context)!.edit,
-                              //           style:
-                              //               getBoldStyle(color: Colors.white),
-                              //         )
-                              //       : Text(AppLocalizations.of(context)!.save,
-                              //           style:
-                              //               getBoldStyle(color: Colors.white)),
-                              // ),
                             ],
                           ),
                         ),

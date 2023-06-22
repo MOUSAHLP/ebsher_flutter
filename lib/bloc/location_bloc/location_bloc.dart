@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:overlay_support/overlay_support.dart';
+import '../../data/repos/favorite_repository.dart';
 import '../../data/repos/location_respository.dart';
 import '../../models/vendor_model.dart';
 import '../../presentation/screens/location_screen/widgets/marker.dart';
@@ -137,6 +138,41 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
           pendingCategories.add(allCategories[event.index]);
           emit(state.copyWith(
               pendingCategories: pendingCategories, check: !state.check));
+        }
+      }
+
+      if (event is ChangeLocationListFavoriteStatus) {
+        int targetedIndex = selectedVendors
+            .indexWhere((element) => element.id == event.vendorId);
+        if (selectedVendors[targetedIndex].favoriteStatus) {
+          selectedVendors[targetedIndex].favoriteStatus = false;
+          int currentIndex = state.index;
+          emit(state.copyWith(vendorSelected: selectedVendors, index: 0));
+          emit(state.copyWith(
+              vendorSelected: selectedVendors, index: currentIndex));
+          final response =
+              await FavoriteRepository.removeFavorite(event.vendorId);
+          response.fold((l) {
+            selectedVendors[targetedIndex].favoriteStatus = true;
+            int currentIndex = state.index;
+            emit(state.copyWith(vendorSelected: selectedVendors, index: 0));
+            emit(state.copyWith(
+                vendorSelected: selectedVendors, index: currentIndex));
+          }, (r) {});
+        } else {
+          selectedVendors[targetedIndex].favoriteStatus = true;
+          int currentIndex = state.index;
+          emit(state.copyWith(vendorSelected: selectedVendors, index: 0));
+          emit(state.copyWith(
+              vendorSelected: selectedVendors, index: currentIndex));
+          final response = await FavoriteRepository.addFavorite(event.vendorId);
+          response.fold((l) {
+            selectedVendors[targetedIndex].favoriteStatus = false;
+            int currentIndex = state.index;
+            emit(state.copyWith(vendorSelected: selectedVendors, index: 0));
+            emit(state.copyWith(
+                vendorSelected: selectedVendors, index: currentIndex));
+          }, (r) {});
         }
       }
     });

@@ -1,3 +1,4 @@
+import 'package:absher/bloc/location_bloc/location_event.dart';
 import 'package:absher/core/app_router/app_router.dart';
 import 'package:absher/presentation/resources/assets_manager.dart';
 import 'package:absher/presentation/resources/color_manager.dart';
@@ -7,11 +8,15 @@ import 'package:absher/presentation/screens/vendors_screen/widgets/card_random.d
 import 'package:absher/translations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import '../../../../bloc/location_bloc/location_bloc.dart';
+import '../../../../bloc/location_bloc/location_state.dart';
 import '../../../../core/localization_string.dart';
 import '../../../../models/vendor_model.dart';
 
 import '../../../widgets/accessories/cached_image.dart';
+import '../../../widgets/favorite_heart.dart';
 import '../../vendor_details_screen/vendor_details_screen.dart';
 import '../../vendor_details_screen/widgets/vendor_details_body.dart';
 
@@ -23,6 +28,7 @@ class LocationCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('rebuilded');
     return Expanded(
       child: GestureDetector(
         onTap: () {
@@ -145,8 +151,23 @@ class LocationCard extends StatelessWidget {
                 children: [
                   CustomShapeContainer(),
                   Padding(
-                    padding: const EdgeInsetsDirectional.only(end: 6),
-                    child: SvgPicture.asset(IconsManager.iconFavoriteFilled),
+                    padding: const EdgeInsets.only(right: 6),
+                    child: BlocBuilder<LocationBloc, LocationState>(
+                      builder: (context, state) {
+                        int targetedIndex = state.vendorSelected.indexWhere(
+                            (element) => element.id == vendorModel.id!);
+                        return FavoriteHeart(
+                          id: state.vendorSelected[targetedIndex].id!,
+                          isToggled: state
+                              .vendorSelected[targetedIndex].favoriteStatus,
+                          onTap: () {
+                            context.read<LocationBloc>().add(
+                                ChangeLocationListFavoriteStatus(
+                                    state.vendorSelected[targetedIndex].id!));
+                          },
+                        );
+                      },
+                    ),
                   ),
                 ],
               ),

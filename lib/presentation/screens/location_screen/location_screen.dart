@@ -1,4 +1,3 @@
-
 import 'package:absher/bloc/location_bloc/location_event.dart';
 import 'package:absher/bloc/location_bloc/location_state.dart';
 import 'package:absher/core/app_router/app_router.dart';
@@ -23,7 +22,6 @@ import '../../resources/color_manager.dart';
 import '../../resources/font_app.dart';
 import '../../resources/style_app.dart';
 import '../../widgets/custom_button.dart';
-
 
 class LocationScreen extends StatelessWidget {
   const LocationScreen({super.key});

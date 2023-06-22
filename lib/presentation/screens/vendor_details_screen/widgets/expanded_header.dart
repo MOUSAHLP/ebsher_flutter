@@ -1,19 +1,23 @@
 import 'dart:ui';
 
 import 'package:absher/bloc/favorites_list_bloc/favorites_list_event.dart';
+import 'package:absher/bloc/vendor_details_bloc/vendor_details_event.dart';
 import 'package:absher/core/app_router/app_router.dart';
 import 'package:absher/models/vendor_model.dart';
 import 'package:absher/presentation/screens/vendor_details_screen/widgets/vendor_details_body.dart';
 import 'package:absher/presentation/widgets/accessories/cached_image.dart';
 import 'package:absher/presentation/widgets/circle_icon_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../bloc/favorites_list_bloc/favorites_list_bloc.dart';
+import '../../../../bloc/vendor_details_bloc/vendor_details_bloc.dart';
 import '../../../../core/services/services_locator.dart';
 import '../../../resources/assets_manager.dart';
 import '../../../resources/color_manager.dart';
+import '../../../widgets/favorite_heart.dart';
 import 'dialog_picture.dart';
 
 class ExpandedHeader extends StatelessWidget {
@@ -49,12 +53,12 @@ class ExpandedHeader extends StatelessWidget {
                       },
                     ),
                     Spacer(),
-                  //  CircleIconButton(svgAsset: IconsManager.iconShare),
+                    //  CircleIconButton(svgAsset: IconsManager.iconShare),
                     SizedBox(
                       width: 12,
                     ),
                     GestureDetector(
-                        onTap: (){
+                        onTap: () {
                           showDialog(
                             context: context,
                             builder: (BuildContext context) {
@@ -62,7 +66,8 @@ class ExpandedHeader extends StatelessWidget {
                             },
                           );
                         },
-                        child: CircleIconButton(svgAsset: IconsManager.iconGallery)),
+                        child: CircleIconButton(
+                            svgAsset: IconsManager.iconGallery)),
                   ],
                 ),
               ),
@@ -85,29 +90,23 @@ class ExpandedHeader extends StatelessWidget {
             bottom: 5,
             start: 30,
             textDirection: Directionality.of(context),
-            child: InkWell(
-              onTap: (){
-                print("======");
-                print(vendor.favoriteStatus);
-                if(vendor.favoriteStatus==0){
-
-                  sl<FavoritesListBloc>().add(AddFavorite(vendor.id!));
-                }
-                else{
-                  sl<FavoritesListBloc>().add(RemoveFavorite(vendor.id!));
-                }
-              },
-
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  CustomShapeContainer(),
-                  Padding(
-                    padding: const EdgeInsetsDirectional.only(start: 4),
-                    child: vendor.favoriteStatus==1?SvgPicture.asset(IconsManager.iconFavoriteFilled):SvgPicture.asset(IconsManager.iconFavoriteOutline),
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                CustomShapeContainer(),
+                Padding(
+                  padding: const EdgeInsets.only(right: 4),
+                  child: FavoriteHeart(
+                    id: vendor.id!,
+                    isToggled: vendor.favoriteStatus,
+                    onTap: () {
+                      context
+                          .read<VendorDetailsBloc>()
+                          .add(ChangeDetailsFavoriteStatus());
+                    },
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           )
         ],

@@ -1,11 +1,19 @@
+import 'package:absher/bloc/search_bloc/search_bloc.dart';
+import 'package:absher/bloc/search_bloc/search_event.dart';
+import 'package:absher/bloc/search_bloc/search_state.dart';
+import 'package:absher/bloc/vendors_list_bloc/vendors_list_bloc.dart';
+import 'package:absher/bloc/vendors_list_bloc/vendors_list_event.dart';
 import 'package:absher/core/app_router/app_router.dart';
 import 'package:absher/presentation/resources/color_manager.dart';
 import 'package:absher/presentation/resources/font_app.dart';
 import 'package:absher/presentation/resources/style_app.dart';
 import 'package:absher/presentation/screens/vendor_details_screen/vendor_details_screen.dart';
+import 'package:absher/presentation/widgets/favorite_heart.dart';
 import 'package:absher/translations.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import '../../../../bloc/vendors_list_bloc/vendors_list_state.dart';
 import '../../../../core/localization_string.dart';
 import '../../../../models/vendor_model.dart';
 import '../../../resources/assets_manager.dart';
@@ -13,8 +21,10 @@ import '../../../widgets/accessories/cached_image.dart';
 
 class CardRandomWidget extends StatelessWidget {
   final VendorModel vendor;
+  final bool fromSearch;
 
-  const CardRandomWidget({super.key, required this.vendor});
+  const CardRandomWidget(
+      {super.key, required this.vendor, this.fromSearch = false});
 
   @override
   Widget build(BuildContext context) {
@@ -26,10 +36,11 @@ class CardRandomWidget extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         AppRouter.push(
-            context,
-            VendorDetailsScreen(
-              id: vendor.id!,
-            ));
+          context,
+          VendorDetailsScreen(
+            id: vendor.id!,
+          ),
+        );
       },
       child: Padding(
         padding: const EdgeInsetsDirectional.only(
@@ -69,8 +80,11 @@ class CardRandomWidget extends StatelessWidget {
                               color: ColorManager.primaryColor,
                               fontSize: 16,
                             ),
-                          ),  Text(
-                            LocalixationString(context, vendor.category?.name) ?? "",
+                          ),
+                          Text(
+                            LocalixationString(
+                                    context, vendor.category?.name) ??
+                                "",
                             style: getBoldStyle(
                               color: ColorManager.primaryColor,
                               fontSize: 9,
@@ -134,10 +148,35 @@ class CardRandomWidget extends StatelessWidget {
                         IsOpenLabel(
                           isOpen: vendor.isOpen,
                         ),
-                        SizedBox( height: 20),
-                        SvgPicture.asset(
-                          IconsManager.iconFavoriteFilled,
-                        ),
+                        SizedBox(height: 20),
+                        if (!fromSearch)
+                          BlocBuilder<VendorsListBloc, VendorsListState>(
+                            builder: (context, state) {
+                              return FavoriteHeart(
+                                id: vendor.id!,
+                                isToggled: vendor.favoriteStatus,
+                                onTap: () {
+                                  context.read<VendorsListBloc>().add(
+                                      ChangeVendorsListFavoriteStatus(
+                                          vendor.id!));
+                                },
+                              );
+                            },
+                          ),
+                        if (fromSearch)
+                          BlocBuilder<SearchBloc, SearchState>(
+                            builder: (context, state) {
+                              return FavoriteHeart(
+                                id: vendor.id!,
+                                isToggled: vendor.favoriteStatus,
+                                onTap: () {
+                                  context
+                                      .read<SearchBloc>()
+                                      .add(ChangeFavoriteStatus(vendor.id!));
+                                },
+                              );
+                            },
+                          ),
                       ],
                     )
                   ],
@@ -173,7 +212,9 @@ class IsOpenLabel extends StatelessWidget {
           )),
       child: Center(
           child: Text(
-        isOpen == "1" ? AppLocalizations.of(context)!.open : AppLocalizations.of(context)!.closeVendor,
+        isOpen == "1"
+            ? AppLocalizations.of(context)!.open
+            : AppLocalizations.of(context)!.closeVendor,
         style: getBoldStyle(
           color: isOpen == true ? Colors.white : ColorManager.darkRed,
           fontSize: FontSizeApp.s8,
@@ -185,10 +226,7 @@ class IsOpenLabel extends StatelessWidget {
 
 class InfoCardWithIcon extends StatelessWidget {
   const InfoCardWithIcon(
-      {Key? key,
-      required this.svgAsset,
-       this.label,
-      required this.value})
+      {Key? key, required this.svgAsset, this.label, required this.value})
       : super(key: key);
   final String svgAsset;
   final String? label;
@@ -308,4 +346,3 @@ class RectangleCard extends StatelessWidget {
     );
   }
 }
-

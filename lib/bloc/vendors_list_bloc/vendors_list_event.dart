@@ -7,3 +7,11 @@ class GetVendorsList extends VendorsListEvent {
 
   GetVendorsList(this.idCategory);
 }
+
+class ChangeVendorsListFavoriteStatus extends VendorsListEvent {
+  final int vendorId;
+
+  ChangeVendorsListFavoriteStatus(
+    this.vendorId,
+  );
+}

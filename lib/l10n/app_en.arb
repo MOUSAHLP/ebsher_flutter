@@ -154,5 +154,26 @@
      "continuee":"Continue",
      "recomindation":"Recomindation",
      "exit":"Exit",
-     "noItem":"There are no items"
+     "noItem":"There are no items",
+     "filterBy" : "Filter By",
+     "byRate" : "By Rate",
+     "nearby" : "Nearby",
+     "isOpen" : "Is Open",
+     "apply" : "Apply",
+     "close" : "Close",
+     "filterByRate" : "Filter By Rate",
+     "clearRateFilter" : "Clear Rate Filter",
+     "sortBy" : "Sort By",
+     "byVisits" : "Most Visited",
+     "az" : "A - Z",
+      "za" : "Z - A",
+      "oldest" : "Oldest",
+      "latest" : "Latest",
+      "starsCount":"{number} Stars",
+           "@starsCount": {
+                "placeholders": {
+                  "number": {}
+                }
+              },
+     "addNewFilters" : "Add New Filters"
 }

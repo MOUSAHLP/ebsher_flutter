@@ -100,5 +100,22 @@
     "continuee":"متابعة",
     "recomindation":"ذات صلة ",
     "exit":"خروج",
-    "noItem":"لا يوجد عناصر"
+    "noItem":"لا يوجد عناصر",
+    "filterBy" : "فلترة حسب",
+     "byRate" : "حسب التقييم",
+     "nearby" : "الأقرب إليي",
+     "isOpen" : "مفتوح",
+     "apply" : "تطبيق",
+     "close" : "إغلاق",
+     "filterByRate" : "حسب التقييم",
+     "clearRateFilter" : "حذف فلتر التقييم",
+   "sortBy" : "ترتيب حسب",
+   "byVisits" : "الأكثر زيارة",
+   "az" : "ا - ي",
+    "za" : "ي - ا",
+    "oldest" : "الأقدم",
+    "latest" : "الأجدد",
+    "starsCount" : "{number} نجوم",
+    "addNewFilters" : "أضف فلاتر جديدة"
+
   }

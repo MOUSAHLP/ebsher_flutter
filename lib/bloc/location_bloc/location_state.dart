@@ -1,8 +1,7 @@
+import 'package:absher/core/app_enums.dart';
 import 'package:absher/models/vendor_model.dart';
 import 'package:custom_map_markers/custom_map_markers.dart';
 import 'package:equatable/equatable.dart';
-
-enum ScreenStates { loading, error, success }
 
 class LocationState extends Equatable {
   ScreenStates screenStates;

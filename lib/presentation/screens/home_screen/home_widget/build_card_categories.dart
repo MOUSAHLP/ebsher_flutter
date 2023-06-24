@@ -78,6 +78,7 @@ class _BuildCardCategoriesState extends State<BuildCardCategories> {
                   child: CachedImage(
                     imageUrl: widget.category.thumbnail!,
                     imageSize: ImageSize.small,
+                    fit: BoxFit.contain,
                     width: 6.6.h,
                     height: 6.6.h,
                   ),
@@ -86,7 +87,7 @@ class _BuildCardCategoriesState extends State<BuildCardCategories> {
                   height: 2,
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 4),
+                  padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
                   child: Text(
                     LocalixationString(context, widget.category.name) ?? "",
                     style: getBoldStyle(

@@ -1,18 +1,17 @@
+import 'dart:developer';
+
 import 'package:absher/bloc/vendors_list_bloc/vendors_list_bloc.dart';
 import 'package:absher/bloc/vendors_list_bloc/vendors_list_event.dart';
 import 'package:absher/bloc/vendors_list_bloc/vendors_list_state.dart';
-import 'package:absher/presentation/resources/assets_manager.dart';
+import 'package:absher/core/app_enums.dart';
 import 'package:absher/presentation/resources/color_manager.dart';
-import 'package:absher/presentation/resources/font_app.dart';
-import 'package:absher/presentation/resources/style_app.dart';
 import 'package:absher/presentation/screens/vendors_screen/widgets/build_shimmer_vendors.dart';
 import 'package:absher/presentation/screens/vendors_screen/widgets/card_random.dart';
+import 'package:absher/presentation/screens/vendors_screen/widgets/search_filter/search_filters.dart';
 import 'package:absher/presentation/widgets/custom_app_bar_screens.dart';
-import 'package:absher/presentation/widgets/custom_button.dart';
-import 'package:absher/translations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../core/services/services_locator.dart';
 import '../../widgets/custom_app_background.dart';
 import '../../widgets/custom_error_screen.dart';
@@ -70,178 +69,76 @@ class VendorsScreenBody extends StatelessWidget {
               ),
             ],
           ),
-          BlocBuilder<VendorsListBloc, VendorsListState>(
-              builder: (context, state) {
-            if (state is VendorsListLoading) {
-              return const BuildShimmerVendors();
-            } else if (state is VendorsListError) {
-              return Column(
-                children: [
-                  CustomErrorScreen(
-                    onTap: () {
-                      sl<VendorsListBloc>().add(GetVendorsList(categoryId));
-                    },
-                  ),
-                ],
-              );
-            } else if (state is VendorsListSuccess) {
-              return state.vendorsList.isNotEmpty
-                  ? SingleChildScrollView(
-                      child:  NotificationListener<OverscrollIndicatorNotification>(
-                        onNotification: (over) {
-                          over.disallowIndicator();
-                          return true;
-                        },
-                        child: RefreshIndicator(
-                          onRefresh: ()async{
-                            sl<VendorsListBloc>().add(GetVendorsList(categoryId));
-                          },
-                          child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            const SizedBox(height: 70),
-                            GestureDetector(
-                              onTap: () {
-                                showModalBottomSheet(
-                                    shape: const RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.vertical(
-                                        top: Radius.circular(56),
-                                      ),
-                                    ),
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return SingleChildScrollView(
-                                        child: Column(
-                                          children: [
-                                            Padding(
-                                              padding: const EdgeInsets.symmetric(
-                                                  vertical: 8.0),
-                                              child: Center(
-                                                child: Container(
-                                                  width: 50,
-                                                  height: 4,
-                                                  decoration: BoxDecoration(
-                                                      color: ColorManager.labelGrey,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              50)),
-                                                ),
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding: const EdgeInsets.all(32.0),
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  FilterButton(
-                                                    label: AppLocalizations.of(
-                                                            context)!
-                                                        .oldest,
-                                                    isSelected: true,
-                                                  ),
-                                                  FilterButton(
-                                                    label: AppLocalizations.of(
-                                                            context)!
-                                                        .latest,
-                                                    isSelected: false,
-                                                  ),
-                                                  FilterButton(
-                                                    label: AppLocalizations.of(
-                                                            context)!
-                                                        .descending,
-                                                    isSelected: false,
-                                                  ),
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(8.0),
-                                                    child: CustomButton(
-                                                      label: AppLocalizations.of(
-                                                              context)!
-                                                          .app,
-                                                      fillColor:
-                                                          ColorManager.primaryColor,
-                                                    ),
-                                                  ),
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.symmetric(
-                                                            vertical: 8.0,
-                                                            horizontal: 64),
-                                                    child: CustomButton(
-                                                      label: AppLocalizations.of(
-                                                              context)!
-                                                          .cancel,
-                                                      fillColor:
-                                                          ColorManager.primaryColor,
-                                                      isFilled: false,
-                                                      labelColor:
-                                                          ColorManager.primaryColor,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      );
-                                    });
+          SizedBox(
+            height: 1.sh,
+            child: BlocBuilder<VendorsListBloc, VendorsListState>(
+                buildWhen: (prev, current) {
+              return prev.screenStates != current.screenStates;
+            }, builder: (context, state) {
+              if (state.screenStates == ScreenStates.loading) {
+                return const BuildShimmerVendors();
+              } else if (state.screenStates == ScreenStates.error) {
+                return Column(
+                  children: [
+                    CustomErrorScreen(
+                      onTap: () {
+                        context
+                            .read<VendorsListBloc>()
+                            .add(GetVendorsList(categoryId));
+                      },
+                    ),
+                  ],
+                );
+              } else if (state.screenStates == ScreenStates.success) {
+                return state.vendorsList.isNotEmpty
+                    ? Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          const SizedBox(height: 70),
+                          const SearchFilter(),
+                          const SizedBox(height: 40),
+                          Expanded(
+                            child: NotificationListener<
+                                OverscrollIndicatorNotification>(
+                              onNotification: (over) {
+                                over.disallowIndicator();
+                                return true;
                               },
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 16),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(19)),
-                                  height: 50,
-                                  width: double.infinity,
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 16.0),
-                                    child: Row(
-                                      children: [
-                                        const  RotatedBox(
-                                          quarterTurns: 1,
-                                          child: Icon(
-                                            Icons.compare_arrows_rounded,
-                                            color: ColorManager.primaryColor,
-                                          ),
-                                        ),
-                                        Text(
-                                          AppLocalizations.of(context)!.sort,
-                                          style: getBoldStyle(
-                                            color: ColorManager.primaryColor,
-                                            fontSize: FontSizeApp.s14,
-                                          ),
-                                        ),
-                                        const Spacer(),
-                                        SvgPicture.asset(IconsManager.iconFilter)
-                                      ],
-                                    ),
-                                  ),
+                              child: RefreshIndicator(
+                                onRefresh: () async {
+                                  context
+                                      .read<VendorsListBloc>()
+                                      .add(GetVendorsList(categoryId));
+                                },
+                                child: ListView.builder(
+                                  itemBuilder: (context, index) {
+                                    return CardRandomWidget(
+                                      vendor: state.vendorsList[index],
+                                    );
+                                  },
+                                  itemCount: state.vendorsList.length,
                                 ),
                               ),
                             ),
-                            const SizedBox(height: 40),
-                            ListView.builder(
-                              itemBuilder: (context, index) {
-                                return CardRandomWidget(
-                                  vendor: state.vendorsList[index],
-                                );
-                              },
-//                            physics: const NeverScrollableScrollPhysics(),
-                              itemCount: state.vendorsList.length,
-                              shrinkWrap: true,
-                            )
-                          ],
-                    ),
-                        ),
-                      ))
-                  : const CustomNoDataScreen();
-            } else {
-              return const Text("");
-            }
-          }),
+                          )
+                        ],
+                      )
+                    : Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: const [
+                          SizedBox(height: 70),
+                          SearchFilter(),
+                          SizedBox(height: 40),
+                          Expanded(
+                            child: CustomNoDataScreen(),
+                          )
+                        ],
+                      );
+              } else {
+                return const Text("");
+              }
+            }),
+          ),
           Stack(
             children: [
               CustomAppBarScreens(
@@ -251,49 +148,6 @@ class VendorsScreenBody extends StatelessWidget {
           ),
         ],
       ))),
-    );
-  }
-}
-
-class FilterButton extends StatelessWidget {
-  const FilterButton({
-    Key? key,
-    required this.isSelected,
-    required this.label,
-  }) : super(key: key);
-  final bool isSelected;
-  final String label;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              label,
-              style: getBoldStyle(
-                color: isSelected
-                    ? ColorManager.softYellow
-                    : ColorManager.labelGrey,
-                fontSize: FontSizeApp.s16,
-              ),
-            ),
-            Visibility(
-              visible: isSelected,
-              child: const Icon(
-                Icons.circle,
-                size: 16,
-                color: ColorManager.softYellow,
-              ),
-            )
-          ],
-        ),
-        const Divider(
-          thickness: 2,
-        ),
-      ],
     );
   }
 }

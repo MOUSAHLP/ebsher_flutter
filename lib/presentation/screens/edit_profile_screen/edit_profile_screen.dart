@@ -3,6 +3,7 @@ import 'package:absher/core/launcher.dart';
 import 'package:absher/presentation/resources/color_manager.dart';
 import 'package:absher/presentation/resources/style_app.dart';
 import 'package:absher/presentation/screens/edit_profile_screen/widgets/build_shimmer_profile.dart';
+import 'package:absher/presentation/widgets/custom_button.dart';
 import 'package:absher/presentation/widgets/custom_input_field.dart';
 import 'package:absher/translations.dart';
 import 'package:flutter/cupertino.dart';
@@ -23,7 +24,6 @@ import '../../widgets/accessories/cached_image.dart';
 import '../../widgets/custom_error_screen.dart';
 import '../auth_screen/reset_password_screen.dart';
 import '../auth_screen/sign_in_screen.dart';
-
 
 // ignore: must_be_immutable
 class EditProfileScreen extends StatelessWidget {
@@ -54,7 +54,7 @@ class EditProfileBody extends StatelessWidget {
               listener: (context, state) {
             if (state is SignUpFieldsValidationFailed) {
               if (state.validationError != null) {
-                context.read<ProfileBloc>().add(isEditingEvent(true));
+                context.read<ProfileBloc>().add(IsEditingEvent(true));
                 toast(state.validationError!);
               }
             }
@@ -64,7 +64,7 @@ class EditProfileBody extends StatelessWidget {
             } else if (state is ProfileError) {
               return CustomErrorScreen(
                 onTap: () {
-                  context.read<ProfileBloc>().add(getProfile());
+                  context.read<ProfileBloc>().add(GetProfile());
                 },
               );
             } else {
@@ -142,7 +142,6 @@ class EditProfileBody extends StatelessWidget {
                               const SizedBox(
                                 height: 5,
                               ),
-
                               GestureDetector(
                                 onTap: () {
                                   sl<BottomBloc>().add(NewBottomChange(1));
@@ -161,20 +160,6 @@ class EditProfileBody extends StatelessWidget {
                               const SizedBox(
                                 height: 5,
                               ),
-                              GestureDetector(
-                                onTap: (){
-                                  AppRouter.push(context, ResetPasswordScreen());
-                                },
-                                child:  CustomInputField(
-                                  textStyle: TextStyle(
-                                    color: ColorManager.primaryColor,
-                                  ),
-                                  initValue: AppLocalizations.of(context)!.changePassword,
-                                  readOnly: true,
-                                  keyboardType: TextInputType.text,
-                                  icon: Icons.lock,
-                                ),
-                              ),
                               Padding(
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 100, vertical: 10),
@@ -191,38 +176,57 @@ class EditProfileBody extends StatelessWidget {
                                         MainAxisAlignment.spaceAround,
                                     children: [
                                       InkWell(
-                                          onTap: (){
-                                            launchSocial("https://www.facebook.com/peaklink.sy?mibextid=ZbWKwL");},
-                                          child: Image.asset(ImageManager.faceBook)),
+                                          onTap: () {
+                                            launchSocial(
+                                                "https://www.facebook.com/peaklink.sy?mibextid=ZbWKwL");
+                                          },
+                                          child: Image.asset(
+                                              ImageManager.faceBook)),
                                       InkWell(
-                                          onTap: (){
-                                            launchSocial("https://www.facebook.com/peaklink.sy?mibextid=ZbWKwL");
-                                      },
-                                          child: Image.asset(ImageManager.email)),
+                                          onTap: () {
+                                            launchSocial(
+                                                "https://www.facebook.com/peaklink.sy?mibextid=ZbWKwL");
+                                          },
+                                          child:
+                                              Image.asset(ImageManager.email)),
                                       InkWell(
-                                          onTap: (){
-                                            launchSocial("https://www.facebook.com/peaklink.sy?mibextid=ZbWKwL");
-                                          },child: Image.asset(ImageManager.twitter)),
+                                          onTap: () {
+                                            launchSocial(
+                                                "https://www.facebook.com/peaklink.sy?mibextid=ZbWKwL");
+                                          },
+                                          child: Image.asset(
+                                              ImageManager.twitter)),
                                     ],
                                   ),
                                 ),
                               ),
                               const SizedBox(height: 10),
-                              MaterialButton(
-                                shape: const RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.all(
-                                        Radius.circular(20.0))),
-                                color: ColorManager.softYellow,
-                                onPressed: () {
+                              CustomButton(
+                                label: AppLocalizations.of(context)!
+                                    .changePassword,
+                                fillColor: ColorManager.softYellow,
+                                onTap: () {
+                                  AppRouter.push(
+                                      context, ResetPasswordScreen());
+                                },
+                              ),
+                              const SizedBox(height: 10),
+                              CustomButton(
+                                label: context.read<ProfileBloc>().isEditing ==
+                                        false
+                                    ? AppLocalizations.of(context)!.edit
+                                    : AppLocalizations.of(context)!.save,
+                                fillColor: ColorManager.softYellow,
+                                onTap: () {
                                   if (context.read<ProfileBloc>().isEditing ==
                                       false) {
                                     context
                                         .read<ProfileBloc>()
-                                        .add(isEditingEvent(true));
+                                        .add(IsEditingEvent(true));
                                   } else {
                                     context
                                         .read<ProfileBloc>()
-                                        .add(isEditingEvent(false));
+                                        .add(IsEditingEvent(false));
                                     context
                                             .read<ProfileBloc>()
                                             .profileModel
@@ -236,16 +240,6 @@ class EditProfileBody extends StatelessWidget {
                                         .add(UpdateProfile());
                                   }
                                 },
-                                child: context.read<ProfileBloc>().isEditing ==
-                                        false
-                                    ? Text(
-                                        AppLocalizations.of(context)!.edit,
-                                        style:
-                                            getBoldStyle(color: Colors.white),
-                                      )
-                                    : Text(AppLocalizations.of(context)!.save,
-                                        style:
-                                            getBoldStyle(color: Colors.white)),
                               ),
                             ],
                           ),
@@ -280,24 +274,38 @@ class EditProfileBody extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(50)),
                               child: ClipRRect(
                                   borderRadius: BorderRadius.circular(50),
-                                  child:context.read<ProfileBloc>().imagePick==null? CachedImage(
-                                    imageUrl: context.read<ProfileBloc>().image,
-                                    imageSize: ImageSize.small,
-                                  ):Image.file(context.read<ProfileBloc>().imagePick!,fit: BoxFit.fill,)),
+                                  child: context
+                                              .read<ProfileBloc>()
+                                              .imagePick ==
+                                          null
+                                      ? CachedImage(
+                                          imageUrl:
+                                              context.read<ProfileBloc>().image,
+                                          imageSize: ImageSize.small,
+                                        )
+                                      : Image.file(
+                                          context
+                                              .read<ProfileBloc>()
+                                              .imagePick!,
+                                          fit: BoxFit.fill,
+                                        )),
                             ),
                           ),
                         ),
-                        context.read<ProfileBloc>().isEditing ==
-                            true
-                            ?  Positioned(
-                            bottom: 1,
-                            child: InkWell(
-                                onTap: (){
-                                  context
-                                      .read<ProfileBloc>()
-                                      .add(GetImageGallery());
-                                },
-                                child: Icon(Icons.camera_alt_outlined,color: Colors.white,))):SizedBox.shrink()
+                        context.read<ProfileBloc>().isEditing == true
+                            ? Positioned(
+                                bottom: 1,
+                                child: InkWell(
+                                    onTap: () {
+                                      context
+                                          .read<ProfileBloc>()
+                                          .add(GetImageGallery());
+                                    },
+                                    child: Icon(
+                                      Icons.camera_alt_outlined,
+                                      color: Colors.white,
+                                    )))
+                            : SizedBox.shrink()
                       ],
                     ),
                   )

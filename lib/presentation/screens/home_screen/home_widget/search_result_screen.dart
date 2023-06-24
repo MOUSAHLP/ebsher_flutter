@@ -109,8 +109,9 @@ class CustomSearchDelegate extends SearchDelegate {
                     child: ListView.builder(
                       itemCount: state.listSearch.length,
                       itemBuilder: (context, index) {
-                        return   CardRandomWidget(
+                        return CardRandomWidget(
                           vendor: state.listSearch[index],
+                          fromSearch: true,
                         );
                       },
                     ),
@@ -120,6 +121,7 @@ class CustomSearchDelegate extends SearchDelegate {
           }
         });
   }
+
   @override
   Widget buildSuggestions(BuildContext context) {
     return CustomAppBackGround(child: Text(""));

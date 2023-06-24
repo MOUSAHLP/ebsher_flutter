@@ -12,7 +12,7 @@ class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
   final UserRepository userRepository;
   LoginResponse? loginResponse;
-  bool loggedIn=false;
+  bool loggedIn = true;
   AuthenticationBloc(
     this.userRepository,
   ) : super(AuthenticationUninitialized()) {
@@ -30,7 +30,7 @@ class AuthenticationBloc
       }
 
       if (event is LoggedIn) {
-        loggedIn=true;
+        loggedIn = true;
         DataStore.instance.setToken(event.loginResponse.token);
         DataStore.instance.setUserInfo(event.loginResponse);
         loginResponse = event.loginResponse;

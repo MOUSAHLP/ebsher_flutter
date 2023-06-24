@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:absher/bloc/search_bloc/search_bloc.dart';
 import 'package:absher/bloc/search_bloc/search_event.dart';
 import 'package:absher/bloc/search_bloc/search_state.dart';
@@ -151,13 +153,13 @@ class CardRandomWidget extends StatelessWidget {
                         SizedBox(height: 20),
                         if (!fromSearch)
                           BlocBuilder<VendorsListBloc, VendorsListState>(
-                            buildWhen: (prev, current) {
-                              return prev.vendorsList != current.vendorsList;
-                            },
                             builder: (context, state) {
                               return FavoriteHeart(
                                 id: vendor.id!,
-                                isToggled: vendor.favoriteStatus,
+                                isToggled: state.vendorsList
+                                    .firstWhere(
+                                        (element) => element.id == vendor.id!)
+                                    .favoriteStatus,
                                 onTap: () {
                                   context.read<VendorsListBloc>().add(
                                       ChangeVendorsListFavoriteStatus(

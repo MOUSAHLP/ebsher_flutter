@@ -1,5 +1,6 @@
 import 'package:absher/bloc/location_bloc/location_event.dart';
 import 'package:absher/bloc/location_bloc/location_state.dart';
+import 'package:absher/core/app_enums.dart';
 import 'package:absher/core/app_router/app_router.dart';
 
 import 'package:absher/presentation/screens/location_screen/widgets/app_bar_widget.dart';

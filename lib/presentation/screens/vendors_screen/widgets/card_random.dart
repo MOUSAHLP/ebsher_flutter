@@ -151,6 +151,9 @@ class CardRandomWidget extends StatelessWidget {
                         SizedBox(height: 20),
                         if (!fromSearch)
                           BlocBuilder<VendorsListBloc, VendorsListState>(
+                            buildWhen: (prev, current) {
+                              return prev.vendorsList != current.vendorsList;
+                            },
                             builder: (context, state) {
                               return FavoriteHeart(
                                 id: vendor.id!,

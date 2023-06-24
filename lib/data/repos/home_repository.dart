@@ -8,6 +8,7 @@ import 'package:dio/dio.dart';
 
 import '../../core/api_const.dart';
 import '../../models/home_model.dart';
+import '../../models/params/get_vendors_params.dart';
 import '../../models/params/sign_up_params.dart';
 import '../../models/profile_model.dart';
 import '../../models/search_response.dart';
@@ -43,9 +44,10 @@ class HomeRepository {
   }
 
   static Future<Either<String, List<VendorModel>>> getVendorsList(
-      {required int categoryId}) {
+      {required GetVendorsParams getVendorsParams}) {
     return BaseApiClient.get<List<VendorModel>>(
-        url: ApiConst.vendorsList(categoryId),
+        url: ApiConst.getVendorsList,
+        queryParameters: getVendorsParams.toJson(),
         converter: (e) {
           return VendorModel.listFromJson(e);
         });

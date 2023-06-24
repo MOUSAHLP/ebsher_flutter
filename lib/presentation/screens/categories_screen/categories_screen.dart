@@ -53,12 +53,12 @@ class CategoriesScreen extends StatelessWidget {
                           Icons.arrow_back_rounded,
                           color: Colors.white,
                         ),
-                        onTap: (){
+                        onTap: () {
                           AppRouter.pop(context);
                         },
                       ),
                       Text(
-                       AppLocalizations.of(context)!.allCategory ,
+                        AppLocalizations.of(context)!.allCategory,
                         style: getBoldStyle(
                           color: Colors.white,
                           fontSize: FontSizeApp.s22,
@@ -98,7 +98,6 @@ class CategoriesStackList extends StatelessWidget {
       );
     });
     return SingleChildScrollView(
-
       child: Stack(
         children: stackLayers.reversed.toList(),
       ),
@@ -126,12 +125,12 @@ class CategoryCover extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.only(bottomLeft: Radius.circular(50)),
-            child:CachedImage(
+            child: CachedImage(
               imageUrl: category.image,
               width: 1.sw,
               height: 200,
+              imageSize: ImageSize.mid,
               fit: BoxFit.cover,
-              fallbackPlaceHolder: ImageManager.categoryCoverTest,
             ),
           ),
           Padding(
@@ -156,7 +155,7 @@ class CategoryCover extends StatelessWidget {
                         width: 14,
                         height: 14,
                         imageUrl: category.thumbnail,
-                        fit: BoxFit.fill,
+                        fit: BoxFit.contain,
                       ),
                     ),
                   ),
@@ -175,7 +174,7 @@ class CategoryCover extends StatelessWidget {
                       )?.copyWith(height: 1),
                     ),
                     Text(
-                      category.vendorsCount??"",
+                      category.vendorsCount ?? "",
                       style: getRegularStyle(
                         color: Colors.white,
                         fontSize: FontSizeApp.s14,

@@ -6,6 +6,8 @@ import 'package:absher/presentation/resources/color_manager.dart';
 import 'package:absher/presentation/resources/style_app.dart';
 import 'package:absher/presentation/screens/vendors_screen/widgets/search_filter/filter_button.dart';
 import 'package:absher/presentation/screens/vendors_screen/widgets/search_filter/filter_by_star_bottom_sheet_body.dart';
+import 'package:absher/presentation/widgets/dialogs/loading_dialog.dart';
+import 'package:absher/translations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,8 +21,15 @@ class FilterBottomSheetBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     VendorsListBloc vendorsListBloc = context.read<VendorsListBloc>();
-    return BlocBuilder<VendorsListBloc, VendorsListState>(
-        builder: (context, state) {
+    return BlocConsumer<VendorsListBloc, VendorsListState>(
+        listener: (context, state) {
+      print(state.showLoadingDialog.toString());
+      if (state.showLoadingDialog) {
+        LoadingDialog().openDialog(context);
+      } else {
+        LoadingDialog().closeDialog(context);
+      }
+    }, builder: (context, state) {
       if (state.screenStates == ScreenStates.success) {
         return SizedBox(
           height: 400,
@@ -43,7 +52,7 @@ class FilterBottomSheetBody extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          'Filter By',
+                          AppLocalizations.of(context)!.filterBy,
                           style: getBoldStyle(color: ColorManager.primaryColor),
                         ),
                         const Spacer(),
@@ -74,7 +83,7 @@ class FilterBottomSheetBody extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  "By_Rate",
+                                  AppLocalizations.of(context)!.byRate,
                                   style:
                                       vendorsListBloc.pendingFilter.rate != null
                                           ? getBoldStyle(
@@ -130,14 +139,14 @@ class FilterBottomSheetBody extends StatelessWidget {
                       ),
                     ),
                     FilterButton(
-                      label: 'Near_By',
+                      label: AppLocalizations.of(context)!.nearby,
                       isSelected: state.pendingFilters.lon != null,
                       onTab: () {
                         vendorsListBloc.add(ToggleNearByFilter());
                       },
                     ),
                     FilterButton(
-                      label: 'Opening Now',
+                      label: AppLocalizations.of(context)!.isOpen,
                       isSelected: state.pendingFilters.isOpen == true,
                       onTab: () {
                         vendorsListBloc.add(ToggleIsOpenFilter());
@@ -148,7 +157,7 @@ class FilterBottomSheetBody extends StatelessWidget {
                       padding: const EdgeInsets.all(8.0),
                       child: CustomButton(
                         fillColor: ColorManager.softYellow,
-                        label: 'Apply',
+                        label: AppLocalizations.of(context)!.apply,
                         onTap: () {
                           Navigator.of(context).pop();
                           vendorsListBloc.add(SetAppliedFilter());
@@ -180,7 +189,7 @@ class FilterBottomSheetBody extends StatelessWidget {
                             children: [
                               Expanded(
                                 child: Text(
-                                  'Dismiss',
+                                  AppLocalizations.of(context)!.close,
                                   style: getBoldStyle(
                                       color: ColorManager.primaryColor),
                                   textAlign: TextAlign.center,

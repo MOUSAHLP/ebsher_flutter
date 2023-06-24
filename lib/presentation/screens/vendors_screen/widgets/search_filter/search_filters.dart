@@ -6,6 +6,7 @@ import 'package:absher/presentation/resources/color_manager.dart';
 import 'package:absher/presentation/resources/style_app.dart';
 import 'package:absher/presentation/screens/vendors_screen/widgets/search_filter/filter_bottom_sheet_body.dart';
 import 'package:absher/presentation/screens/vendors_screen/widgets/search_filter/sort_bottom_sheet_body.dart';
+import 'package:absher/translations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -37,7 +38,7 @@ class SearchFilter extends StatelessWidget {
                   builder: (BuildContext builderContext) {
                     return BlocProvider.value(
                         value: BlocProvider.of<VendorsListBloc>(context),
-                        child: SortBottomSheetBody());
+                        child: const SortBottomSheetBody());
                   });
             },
             child: SizedBox(
@@ -68,14 +69,7 @@ class SearchFilter extends StatelessWidget {
                                 context.read<VendorsListBloc>().appliedFilter),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
-                            style: filterBarLabel(
-                                        context,
-                                        context
-                                            .read<VendorsListBloc>()
-                                            .appliedFilter) ==
-                                    null
-                                ? getBoldStyle(color: Colors.black)
-                                : getBoldStyle(color: Colors.black),
+                            style: getBoldStyle(color: Colors.black),
                           ),
                         ),
                       ],
@@ -129,21 +123,13 @@ class SearchFilter extends StatelessWidget {
                                   const EdgeInsets.symmetric(horizontal: 8.0),
                               child: Text(
                                 filterBarLabel(
-                                        context,
-                                        context
-                                            .read<VendorsListBloc>()
-                                            .appliedFilter) ??
-                                    'Add_New_Filters',
+                                    context,
+                                    context
+                                        .read<VendorsListBloc>()
+                                        .appliedFilter),
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
-                                style: filterBarLabel(
-                                            context,
-                                            context
-                                                .read<VendorsListBloc>()
-                                                .appliedFilter) ==
-                                        null
-                                    ? getBoldStyle(color: Colors.black)
-                                    : getBoldStyle(color: Colors.black),
+                                style: getBoldStyle(color: Colors.black),
                               ),
                             ),
                           ),
@@ -161,39 +147,44 @@ class SearchFilter extends StatelessWidget {
   }
 
   String sortBarLabel(BuildContext context, GetVendorsParams getVendorsParams) {
-    if (getVendorsParams.visits != null) return 'visits';
-    if (getVendorsParams.recent == true) return 'latest';
-    if (getVendorsParams.recent == false) return 'oldest';
-    if (getVendorsParams.sortByName == true) return 'a-z';
-    if (getVendorsParams.sortByName == false) return 'z-a';
-    return 'sortBy';
+    if (getVendorsParams.visits != null)
+      return AppLocalizations.of(context)!.byVisits;
+    if (getVendorsParams.recent == true)
+      return AppLocalizations.of(context)!.latest;
+    if (getVendorsParams.recent == false)
+      return AppLocalizations.of(context)!.oldest;
+    if (getVendorsParams.sortByName == true)
+      return AppLocalizations.of(context)!.az;
+    if (getVendorsParams.sortByName == false)
+      return AppLocalizations.of(context)!.za;
+    return AppLocalizations.of(context)!.sortBy;
   }
 
-  String? filterBarLabel(
+  String filterBarLabel(
       BuildContext context, GetVendorsParams getVendorsParams) {
     int appliedFilters = 0;
     String label = '';
     if (getVendorsParams.rate != null) {
       appliedFilters++;
-      label = '${getVendorsParams.rate} Stars';
+      label = AppLocalizations.of(context)!.starsCount(getVendorsParams.rate!);
     }
     if (getVendorsParams.lon != null) {
       if (appliedFilters >= 1) {
-        label = '$label, ' "Near_By";
+        label = '$label, ${AppLocalizations.of(context)!.nearby}';
       } else {
-        label = 'Near_By';
+        label = AppLocalizations.of(context)!.nearby;
       }
       appliedFilters++;
     }
     if (getVendorsParams.isOpen == true) {
       if (appliedFilters >= 1) {
-        label = '$label, ' "is_open";
+        label = '$label, ${AppLocalizations.of(context)!.isOpen}';
       } else {
-        label = 'is_open';
+        label = AppLocalizations.of(context)!.isOpen;
       }
       appliedFilters++;
     }
-    if (label.isEmpty) return null;
+    if (label.isEmpty) return AppLocalizations.of(context)!.addNewFilters;
     return label;
   }
 }

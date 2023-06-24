@@ -3,6 +3,8 @@ import 'package:absher/bloc/vendors_list_bloc/vendors_list_state.dart';
 import 'package:absher/core/app_enums.dart';
 import 'package:absher/data/repos/favorite_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:overlay_support/overlay_support.dart';
 
 import '../../data/repos/home_repository.dart';
 import '../../models/params/get_vendors_params.dart';
@@ -103,14 +105,16 @@ class VendorsListBloc extends Bloc<VendorsListEvent, VendorsListState> {
 
       if (event is ToggleNearByFilter) {
         if (pendingFilter.lat == null) {
-          ///TODO ADD GET LOCATION FUNCTION
-          pendingFilter.lat = 33.333;
-          pendingFilter.lon = 33.3333;
+          emit(state.copyWith(showLoadingDialog: true));
+          Position? position = await getLocation();
+          pendingFilter.lat = position?.latitude;
+          pendingFilter.lon = position?.longitude;
         } else {
           pendingFilter.lat = null;
           pendingFilter.lon = null;
         }
-        emit(state.copyWith(pendingFilters: pendingFilter));
+        emit(state.copyWith(
+            showLoadingDialog: false, pendingFilters: pendingFilter));
       }
 
       if (event is SetByRateFilter) {
@@ -143,5 +147,34 @@ class VendorsListBloc extends Bloc<VendorsListEvent, VendorsListState> {
         emit(state.copyWith(pendingFilters: pendingFilter));
       }
     });
+  }
+
+  Future<Position?> getLocation() async {
+    try {
+      bool serviceEnabled;
+      LocationPermission permission;
+
+      serviceEnabled = await Geolocator.isLocationServiceEnabled();
+      if (!serviceEnabled) {
+        toast('Location services are disabled.');
+        return null;
+      }
+      permission = await Geolocator.checkPermission();
+      if (permission == LocationPermission.denied) {
+        permission = await Geolocator.requestPermission();
+        if (permission == LocationPermission.denied) {
+          toast('Location permissions are denied.');
+          return null;
+        }
+      }
+      if (permission == LocationPermission.deniedForever) {
+        toast(
+            'Location permissions are permanently denied, we cannot request permissions.');
+        return null;
+      }
+      return await Geolocator.getCurrentPosition();
+    } catch (e) {
+      return null;
+    }
   }
 }

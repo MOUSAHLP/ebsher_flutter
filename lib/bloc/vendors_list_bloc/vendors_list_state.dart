@@ -12,6 +12,7 @@ class VendorsListState extends Equatable {
   final GetVendorsParams appliedFilters;
   final GetVendorsParams pendingFilters;
   final String error;
+  final bool showLoadingDialog;
 
   const VendorsListState({
     this.screenStates = ScreenStates.loading,
@@ -19,6 +20,7 @@ class VendorsListState extends Equatable {
     required this.appliedFilters,
     required this.pendingFilters,
     this.error = 'Unknown Error',
+    this.showLoadingDialog = false,
   }) : super();
 
   VendorsListState copyWith({
@@ -27,6 +29,7 @@ class VendorsListState extends Equatable {
     GetVendorsParams? pendingFilters,
     ScreenStates? screenStates,
     String? error,
+    bool? showLoadingDialog,
   }) {
     return VendorsListState(
       screenStates: screenStates ?? this.screenStates,
@@ -39,6 +42,7 @@ class VendorsListState extends Equatable {
           ? GetVendorsParams.fromGetVendorsParams(pendingFilters)
           : this.pendingFilters,
       error: error ?? this.error,
+      showLoadingDialog: showLoadingDialog ?? this.showLoadingDialog,
     );
   }
 
@@ -50,5 +54,6 @@ class VendorsListState extends Equatable {
         pendingFilters,
         screenStates,
         error,
+        showLoadingDialog,
       ];
 }

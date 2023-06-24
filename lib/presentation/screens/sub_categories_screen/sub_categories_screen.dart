@@ -15,14 +15,13 @@ import '../../widgets/ads_carousel_slider.dart';
 import '../../widgets/custom_app_background.dart';
 import '../../widgets/custom_error_screen.dart';
 import '../../widgets/custom_no_data_screen.dart';
-import '../favorites_screen/widgets/build_shimmer_favorites.dart';
 import '../vendors_screen/vendors_screen.dart';
 
 class SubCategoriesScreen extends StatelessWidget {
-  String title;
-  int id;
+  final String title;
+  final int id;
 
-  SubCategoriesScreen({super.key, required this.title, required this.id});
+  const SubCategoriesScreen({super.key, required this.title, required this.id});
 
   @override
   Widget build(BuildContext context) {
@@ -34,10 +33,10 @@ class SubCategoriesScreen extends StatelessWidget {
 }
 
 class SubCategoryBody extends StatelessWidget {
-  String title;
-  int id;
+  final String title;
+  final int id;
 
-  SubCategoryBody({super.key, required this.title, required this.id});
+  const SubCategoryBody({super.key, required this.title, required this.id});
 
   @override
   Widget build(BuildContext context) {
@@ -50,15 +49,15 @@ class SubCategoryBody extends StatelessWidget {
         } else if (state is SubCategoryError) {
           return CustomErrorScreen(
             onTap: () {
-              sl<SubCategoryBloc>().add(GetSubCategory(id));
+              context.read<SubCategoryBloc>().add(GetSubCategory(id));
             },
           );
         } else if (state is SubCategorySuccess) {
           return RefreshIndicator(
             onRefresh: () async {
-              sl<SubCategoryBloc>().add(GetSubCategory(id));
+              context.read<SubCategoryBloc>().add(GetSubCategory(id));
             },
-            child:  NotificationListener<OverscrollIndicatorNotification>(
+            child: NotificationListener<OverscrollIndicatorNotification>(
               onNotification: (over) {
                 over.disallowIndicator();
                 return true;
@@ -72,7 +71,8 @@ class SubCategoryBody extends StatelessWidget {
                         )
                       : AdsCarouselSlider(
                           ads: [
-                            AdvertisementsResponse(image: ImageManager.fullAppLogo)
+                            AdvertisementsResponse(
+                                image: ImageManager.fullAppLogo)
                           ],
                         ),
                   const SizedBox(height: 10),
@@ -80,30 +80,30 @@ class SubCategoryBody extends StatelessWidget {
                     child: SizedBox(
                       child: state.subCategories.isNotEmpty
                           ? ListView.builder(
-                            itemCount: state.subCategories.length,
-                            itemBuilder: (context, index) {
-                              return InkWell(
-                                  onTap: () {
-                                    AppRouter.push(
-                                      context,
-                                      VendorsScreen(
-                                          title: LocalixationString(
-                                              context,
-                                              state
-                                                  .subCategories[index].name!)!,
-                                          categoryId:
-                                              state.subCategories[index].id!),
-                                    );
-                                  },
-                                  child: CardSubCategory(
-                                    title: LocalixationString(context,
-                                        state.subCategories[index].name!)!,
-                                    image:
-                                        state.subCategories[index].image ?? "",
-                                  ));
-                            },
-                          )
-                          : Center(child: CustomNoDataScreen()),
+                              itemCount: state.subCategories.length,
+                              itemBuilder: (context, index) {
+                                return InkWell(
+                                    onTap: () {
+                                      AppRouter.push(
+                                        context,
+                                        VendorsScreen(
+                                            title: LocalixationString(
+                                                context,
+                                                state.subCategories[index]
+                                                    .name!)!,
+                                            categoryId:
+                                                state.subCategories[index].id!),
+                                      );
+                                    },
+                                    child: CardSubCategory(
+                                      title: LocalixationString(context,
+                                          state.subCategories[index].name!)!,
+                                      image: state.subCategories[index].image ??
+                                          "",
+                                    ));
+                              },
+                            )
+                          : const Center(child: CustomNoDataScreen()),
                     ),
                   ),
                   const SizedBox(height: 10)
@@ -111,8 +111,9 @@ class SubCategoryBody extends StatelessWidget {
               ),
             ),
           );
-        } else
-          return Text("");
+        } else {
+          return const Text("");
+        }
       }),
       Stack(
         children: [

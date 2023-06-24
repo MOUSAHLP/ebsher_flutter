@@ -4,20 +4,14 @@ import 'package:absher/bloc/vendors_list_bloc/vendors_list_bloc.dart';
 import 'package:absher/bloc/vendors_list_bloc/vendors_list_event.dart';
 import 'package:absher/bloc/vendors_list_bloc/vendors_list_state.dart';
 import 'package:absher/core/app_enums.dart';
-import 'package:absher/presentation/resources/assets_manager.dart';
 import 'package:absher/presentation/resources/color_manager.dart';
-import 'package:absher/presentation/resources/font_app.dart';
-import 'package:absher/presentation/resources/style_app.dart';
 import 'package:absher/presentation/screens/vendors_screen/widgets/build_shimmer_vendors.dart';
 import 'package:absher/presentation/screens/vendors_screen/widgets/card_random.dart';
 import 'package:absher/presentation/screens/vendors_screen/widgets/search_filter/search_filters.dart';
 import 'package:absher/presentation/widgets/custom_app_bar_screens.dart';
-import 'package:absher/presentation/widgets/custom_button.dart';
-import 'package:absher/translations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import '../../../core/services/services_locator.dart';
 import '../../widgets/custom_app_background.dart';
 import '../../widgets/custom_error_screen.dart';
@@ -79,7 +73,6 @@ class VendorsScreenBody extends StatelessWidget {
             height: 1.sh,
             child: BlocBuilder<VendorsListBloc, VendorsListState>(
                 buildWhen: (prev, current) {
-              log((prev.screenStates != current.screenStates).toString());
               return prev.screenStates != current.screenStates;
             }, builder: (context, state) {
               if (state.screenStates == ScreenStates.loading) {
@@ -89,7 +82,9 @@ class VendorsScreenBody extends StatelessWidget {
                   children: [
                     CustomErrorScreen(
                       onTap: () {
-                        sl<VendorsListBloc>().add(GetVendorsList(categoryId));
+                        context
+                            .read<VendorsListBloc>()
+                            .add(GetVendorsList(categoryId));
                       },
                     ),
                   ],
@@ -100,7 +95,7 @@ class VendorsScreenBody extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           const SizedBox(height: 70),
-                          SearchFilter(),
+                          const SearchFilter(),
                           const SizedBox(height: 40),
                           Expanded(
                             child: NotificationListener<
@@ -111,7 +106,8 @@ class VendorsScreenBody extends StatelessWidget {
                               },
                               child: RefreshIndicator(
                                 onRefresh: () async {
-                                  sl<VendorsListBloc>()
+                                  context
+                                      .read<VendorsListBloc>()
                                       .add(GetVendorsList(categoryId));
                                 },
                                 child: ListView.builder(
@@ -129,12 +125,12 @@ class VendorsScreenBody extends StatelessWidget {
                       )
                     : Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          const SizedBox(height: 70),
+                        children: const [
+                          SizedBox(height: 70),
                           SearchFilter(),
-                          const SizedBox(height: 40),
+                          SizedBox(height: 40),
                           Expanded(
-                            child: const CustomNoDataScreen(),
+                            child: CustomNoDataScreen(),
                           )
                         ],
                       );

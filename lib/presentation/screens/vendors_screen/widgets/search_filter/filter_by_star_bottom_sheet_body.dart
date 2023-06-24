@@ -3,6 +3,7 @@ import 'package:absher/bloc/vendors_list_bloc/vendors_list_event.dart';
 import 'package:absher/presentation/resources/color_manager.dart';
 import 'package:absher/presentation/resources/style_app.dart';
 import 'package:absher/presentation/screens/vendors_screen/widgets/search_filter/rate_stars_radio_button.dart';
+import 'package:absher/translations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -36,7 +37,7 @@ class FilterByStarsBottomSheetBody extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Filter_By_Rate',
+                AppLocalizations.of(context)!.filterByRate,
                 style: getBoldStyle(color: ColorManager.primaryColor),
               ),
               const Divider(
@@ -99,7 +100,7 @@ class FilterByStarsBottomSheetBody extends StatelessWidget {
                       children: [
                         Expanded(
                           child: Text(
-                            'Clear_Rate_Filter',
+                            AppLocalizations.of(context)!.clearRateFilter,
                             style:
                                 getBoldStyle(color: ColorManager.primaryColor),
                             textAlign: TextAlign.center,

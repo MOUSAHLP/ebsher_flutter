@@ -5,9 +5,11 @@ import 'package:absher/bloc/vendors_list_bloc/vendors_list_event.dart';
 import 'package:absher/bloc/vendors_list_bloc/vendors_list_state.dart';
 import 'package:absher/core/app_enums.dart';
 import 'package:absher/models/params/get_vendors_params.dart';
+import 'package:absher/presentation/resources/assets_manager.dart';
 import 'package:absher/presentation/resources/color_manager.dart';
 import 'package:absher/presentation/resources/style_app.dart';
 import 'package:absher/presentation/screens/vendors_screen/widgets/search_filter/filter_button.dart';
+import 'package:absher/translations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -20,10 +22,7 @@ class SortBottomSheetBody extends StatelessWidget {
   Widget build(BuildContext context) {
     VendorsListBloc vendorsListBloc = context.read<VendorsListBloc>();
     return BlocBuilder<VendorsListBloc, VendorsListState>(
-        buildWhen: (prev, current) {
-      log("BUILDER 2");
-      return true;
-    }, builder: (context, state) {
+        builder: (context, state) {
       if (state.screenStates == ScreenStates.success) {
         return SizedBox(
           height: 420,
@@ -35,7 +34,7 @@ class SortBottomSheetBody extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      'Sort By',
+                      AppLocalizations.of(context)!.sortBy,
                       style: getBoldStyle(color: ColorManager.primaryColor),
                     ),
                     const Spacer(),
@@ -54,7 +53,7 @@ class SortBottomSheetBody extends StatelessWidget {
                   thickness: 2,
                 ),
                 FilterButton(
-                  label: 'By Visits',
+                  label: AppLocalizations.of(context)!.byVisits,
                   isSelected: state.pendingFilters.visits != null,
                   onTab: () {
                     if (vendorsListBloc.pendingFilter.visits != true) {
@@ -67,7 +66,7 @@ class SortBottomSheetBody extends StatelessWidget {
                   },
                 ),
                 FilterButton(
-                  label: 'A - Z',
+                  label: AppLocalizations.of(context)!.az,
                   isSelected: state.pendingFilters.sortByName == true,
                   onTab: () {
                     if (vendorsListBloc.pendingFilter.sortByName != true) {
@@ -80,7 +79,7 @@ class SortBottomSheetBody extends StatelessWidget {
                   },
                 ),
                 FilterButton(
-                  label: 'Z - A',
+                  label: AppLocalizations.of(context)!.za,
                   isSelected: state.pendingFilters.sortByName == false,
                   onTab: () {
                     if (vendorsListBloc.pendingFilter.sortByName != false) {
@@ -93,7 +92,7 @@ class SortBottomSheetBody extends StatelessWidget {
                   },
                 ),
                 FilterButton(
-                  label: 'Oldest',
+                  label: AppLocalizations.of(context)!.oldest,
                   isSelected: state.pendingFilters.recent == false,
                   onTab: () {
                     if (vendorsListBloc.pendingFilter.recent != false) {
@@ -106,7 +105,7 @@ class SortBottomSheetBody extends StatelessWidget {
                   },
                 ),
                 FilterButton(
-                  label: 'Latest',
+                  label: AppLocalizations.of(context)!.latest,
                   isSelected: state.pendingFilters.recent == true,
                   onTab: () {
                     if (vendorsListBloc.pendingFilter.recent != true) {
@@ -123,7 +122,7 @@ class SortBottomSheetBody extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: CustomButton(
                     fillColor: ColorManager.softYellow,
-                    label: 'Apply',
+                    label: AppLocalizations.of(context)!.apply,
                     onTap: () {
                       Navigator.of(context).pop();
                       context.read<VendorsListBloc>().add(SetAppliedFilter());
@@ -158,7 +157,7 @@ class SortBottomSheetBody extends StatelessWidget {
                         children: [
                           Expanded(
                             child: Text(
-                              'Dismiss',
+                              AppLocalizations.of(context)!.close,
                               style: getBoldStyle(
                                   color: ColorManager.primaryColor),
                               textAlign: TextAlign.center,

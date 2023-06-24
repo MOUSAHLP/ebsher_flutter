@@ -27,6 +27,17 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
               index, r.categories ?? [], r.mainAds ?? [], r.story ?? []));
         });
       }
+      if(event is ChangeSeeStory)
+        {
+          for(int i=0;i<event.listIndex.length;i++){
+            if(stories!.any((element) => element.id==event.listIndex[i])){
+              var matchingIndex = stories!.indexWhere((element) => element.id == event.listIndex[i]);
+              stories![matchingIndex].stories![0].seen="1";
+            }
+          }
+          emit(CategorySuccess(
+              index, categories??[],  [], stories?? []));
+        }
     });
   }
 }

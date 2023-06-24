@@ -32,3 +32,5 @@ class StoriesState extends Equatable {
 }
 
 class ExitStories extends StoriesState {}
+class SeeStorySuccess extends StoriesState {}
+class EndSeeStorySuccess extends StoriesState {}

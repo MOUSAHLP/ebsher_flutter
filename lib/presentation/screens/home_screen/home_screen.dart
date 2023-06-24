@@ -22,9 +22,7 @@ import 'home_widget/search_result_screen.dart';
 // ignore: must_be_immutable
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
-
   bool isBlue = false;
-
   @override
   Widget build(BuildContext context) {
     return Expanded(

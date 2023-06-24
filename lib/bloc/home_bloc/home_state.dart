@@ -20,3 +20,4 @@ class CategorySuccess extends HomeState {
   List<StoryModelDto> listStories;
   CategorySuccess(this.index, this.lisCategory, this.lisAdvertisment,this.listStories);
 }
+class ChangeSeeStorySuccess extends HomeState{}

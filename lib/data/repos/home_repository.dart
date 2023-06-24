@@ -98,4 +98,19 @@ class HomeRepository {
           return ProfileModel.fromJson(e['data']);
         });
   }
+
+  static Future<Either<String, String>> seeStories(
+      List<int> idStroies) async {
+
+
+    return BaseApiClient.post<String>(
+        url: ApiConst.seenStories,
+        formData:FormData.fromMap(
+            {
+              "ids": idStroies,
+            }),
+        converter: (e) {
+          return e['data'];
+        });
+  }
 }

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <base-config cleartextTrafficPermitted="true">
+        <trust-anchors>
+            <certificates src="system" />
+            <certificates src="user" />
+        </trust-anchors>
+    </base-config>
+    <domain-config cleartextTrafficPermitted="false">
+        <domain includeSubdomains="true">secure.absher.peaklinkdemo.com</domain>
+    </domain-config>
+    <domain-config>
+        <domain includeSubdomains="true">absher.peaklinkdemo.com</domain>
+        <pin-set expiration="2025-05-17">
+            <pin digest="SHA-256">WW6dzXQW74e6uLYELV47/18TJ3bs6if6ICwc2vrzguc=</pin>
+            <!-- backup pin -->
+            <pin digest="SHA-256">hOF1upiO+xevnDEQ13g3aY3M3Uqa44RN5rVlwvU2WC8=</pin>
+        </pin-set>
+    </domain-config>
+    <debug-overrides>
+        <trust-anchors>
+            <certificates src="@raw/debug_cas" />
+        </trust-anchors>
+    </debug-overrides>
+</network-security-config>

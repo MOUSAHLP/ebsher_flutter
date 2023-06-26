@@ -73,7 +73,7 @@ class _PhoneNumberSignUpScreenContent extends StatelessWidget {
               SizedBox(
                 height: 1.sh-350,
               ),
-              Container(
+              SizedBox(
               //  color: Colors.red,
                 height: 250,
                 child: Column(
@@ -95,7 +95,7 @@ class _PhoneNumberSignUpScreenContent extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.symmetric(
+                      padding: const EdgeInsets.symmetric(
                         vertical: 16.0,
                         horizontal: 32,
                       ),
@@ -125,7 +125,7 @@ class _PhoneNumberSignUpScreenContent extends StatelessWidget {
             ],
           ),
         ),
-        SafeArea(child: AppBarWidget())
+        const SafeArea(child: AppBarWidget())
       ],
     ));
   }

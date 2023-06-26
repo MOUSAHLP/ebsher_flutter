@@ -55,7 +55,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
             add(GetProfile());
           });
         } else {
-          emit(SignUpFieldsValidationFailed(validationError: validationError));
+          emit(ProfileFieldsValidationFailed(validationError: validationError));
         }
       }
       if (event is GetProfile) {

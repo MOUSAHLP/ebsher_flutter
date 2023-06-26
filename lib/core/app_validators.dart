@@ -1,5 +1,5 @@
 import 'package:absher/models/params/sign_up_params.dart';
-import 'package:flutter/cupertino.dart';
+
 
 import '../models/params/login_params.dart';
 import '../models/params/forget_password_params.dart';
@@ -28,6 +28,7 @@ class AppValidators {
     if (signUpParams.password != signUpParams.repeatPassword) {
       return 'كلمة السر غير مطابقة';
     }
+    return null;
   }
   static String? validateSignInFields(LoginParams signInParams) {
     if (signInParams.phone == null || signInParams.phone!.isEmpty) {
@@ -36,12 +37,14 @@ class AppValidators {
     if (signInParams.password == null || signInParams.password!.isEmpty) {
       return 'حقل كلمة المرور مطلوب';
     }
+    return null;
 
   }
   static String? validatePhoneFields(String phone) {
-    if (phone == null || phone.isEmpty) {
+    if (phone.isEmpty) {
       return 'حقل الرقم مطلوب';
     }
+    return null;
   }
   static String? validatePasswordFields(ForgetPasswordParams resetPasswordParams) {
 
@@ -55,6 +58,7 @@ class AppValidators {
     if (resetPasswordParams.password !=resetPasswordParams. repeatPassword) {
       return 'كلمة السر غير مطابقة';
     }
+    return null;
   }
   static String? validatePasswordResetFields(ResetPasswordParams resetPasswordParams) {
     if (resetPasswordParams.oldPassword == null || resetPasswordParams.oldPassword!.isEmpty) {
@@ -70,6 +74,7 @@ class AppValidators {
     if (resetPasswordParams.password !=resetPasswordParams. repeatPassword) {
       return 'كلمة السر غير مطابقة';
     }
+    return null;
   }
   static String? validateEditeProfileFields(ProfileModel resetPasswordParams) {
 
@@ -82,6 +87,7 @@ class AppValidators {
     if (!AppRegexp.emailRegexp.hasMatch(resetPasswordParams.email!)) {
       return 'هذا ليس عنوان بريد إلكتروني صالح';
     }
+    return null;
 
   }
 }

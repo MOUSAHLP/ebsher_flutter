@@ -2,15 +2,15 @@ import 'package:absher/bloc/favorites_list_bloc/favorites_list_event.dart';
 import 'package:absher/bloc/favorites_list_bloc/favorites_list_state.dart';
 import 'package:absher/presentation/screens/favorites_screen/widgets/build_shimmer_favorites.dart';
 import 'package:absher/presentation/screens/favorites_screen/widgets/card_favorite.dart';
+import 'package:absher/presentation/widgets/custom_guest.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../bloc/authentication_bloc/authertication_bloc.dart';
 import '../../../bloc/favorites_list_bloc/favorites_list_bloc.dart';
 import '../../../core/services/services_locator.dart';
-import '../../widgets/custom_app_background.dart';
 import '../../widgets/custom_error_screen.dart';
 import '../../widgets/custom_no_data_screen.dart';
-
 class FavoritesScreen extends StatelessWidget {
   const FavoritesScreen({super.key});
 
@@ -20,13 +20,12 @@ class FavoritesScreen extends StatelessWidget {
 
   }
 }
-
 class FavoritesScreenBody extends StatelessWidget {
   const FavoritesScreenBody({super.key});
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: BlocBuilder<FavoritesListBloc, FavoritesListState>(
+      child:sl<AuthenticationBloc>().loggedIn?  BlocBuilder<FavoritesListBloc, FavoritesListState>(
         bloc: sl<FavoritesListBloc>()..add(GetFavoritesList()),
       builder: (context, state) {
         if (state is FavoritesListLoading) {
@@ -56,7 +55,7 @@ class FavoritesScreenBody extends StatelessWidget {
                       children: [
                         const SizedBox(height: 10),
                         GridView.builder(
-//                        physics: const NeverScrollableScrollPhysics(),
+                        physics:  const ScrollPhysics(),
                           itemCount: state.vendorsList.length,
                           shrinkWrap: true,
                           itemBuilder: (context, index) {
@@ -80,7 +79,7 @@ class FavoritesScreenBody extends StatelessWidget {
         } else {
       return const Text("");
         }
-      }),
+      }):const CustomGuest(),
     );
   }
 }

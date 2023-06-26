@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:absher/bloc/search_bloc/search_bloc.dart';
 import 'package:absher/bloc/search_bloc/search_event.dart';
@@ -77,14 +76,14 @@ class CardRandomWidget extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            LocalixationString(context, vendor.name) ?? "",
+                            localizationString(context, vendor.name) ?? "",
                             style: getBoldStyle(
                               color: ColorManager.primaryColor,
                               fontSize: 16,
                             ),
                           ),
                           Text(
-                            LocalixationString(
+                            localizationString(
                                     context, vendor.category?.name) ??
                                 "",
                             style: getBoldStyle(
@@ -97,11 +96,11 @@ class CardRandomWidget extends StatelessWidget {
                               StaticRate(
                                 rate: vendor.avgRating,
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 8,
                               ),
                               Container(
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                   borderRadius: BorderRadiusDirectional.only(
                                     bottomEnd: Radius.circular(20),
                                     topEnd: Radius.circular(20),
@@ -125,7 +124,7 @@ class CardRandomWidget extends StatelessWidget {
                               )
                             ],
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 4,
                           ),
                           InfoCardWithIcon(
@@ -133,7 +132,7 @@ class CardRandomWidget extends StatelessWidget {
                             label: 'العنوان',
                             value: vendor.address,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 4,
                           ),
                           InfoCardWithIcon(
@@ -150,7 +149,7 @@ class CardRandomWidget extends StatelessWidget {
                         IsOpenLabel(
                           isOpen: vendor.isOpen,
                         ),
-                        SizedBox(height: 20),
+                        const SizedBox(height: 20),
                         if (!fromSearch)
                           BlocBuilder<VendorsListBloc, VendorsListState>(
                             builder: (context, state) {
@@ -221,7 +220,7 @@ class IsOpenLabel extends StatelessWidget {
             ? AppLocalizations.of(context)!.open
             : AppLocalizations.of(context)!.closeVendor,
         style: getBoldStyle(
-          color: isOpen == true ? Colors.white : ColorManager.darkRed,
+          color: isOpen == "1" ? Colors.white : ColorManager.darkRed,
           fontSize: FontSizeApp.s8,
         ),
       )),

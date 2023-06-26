@@ -1,5 +1,4 @@
 import 'package:absher/presentation/resources/assets_manager.dart';
-import 'package:absher/presentation/resources/color_manager.dart';
 import 'package:flutter/material.dart';
 
 class CustomAppBackGround extends StatelessWidget {

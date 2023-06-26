@@ -1,4 +1,3 @@
-import 'dart:math';
 
 import 'package:absher/core/localization_string.dart';
 import 'package:absher/models/vendor_model.dart';
@@ -14,7 +13,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../../resources/color_manager.dart';
 import '../../../resources/style_app.dart';
 import 'details_section.dart';
-import 'info_details.dart';
 import 'open_hours_section.dart';
 
 class VendorDetailsBody extends StatelessWidget {
@@ -40,7 +38,7 @@ class VendorDetailsBody extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Text(
-                        LocalixationString(context, vendor.name) ?? '',
+                        localizationString(context, vendor.name) ?? '',
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: getBoldStyle(
@@ -58,7 +56,7 @@ class VendorDetailsBody extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Text(
-                        LocalixationString(context, vendor.description) ?? '',
+                        localizationString(context, vendor.description) ?? '',
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: getRegularStyle(
@@ -72,7 +70,7 @@ class VendorDetailsBody extends StatelessWidget {
                         StaticRate(
                           rate: vendor.avgRating,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 8,
                         ),
                         Container(
@@ -101,13 +99,13 @@ class VendorDetailsBody extends StatelessWidget {
                     ),
                   ],
                 ),
-                Divider(
+                const Divider(
                   thickness: 2,
                 ),
                 DetailsSection(
                   vendor: vendor,
                 ),
-                Divider(
+                const Divider(
                   thickness: 2,
                 ),
                 OpenHourSection(
@@ -116,15 +114,15 @@ class VendorDetailsBody extends StatelessWidget {
                 SocialMediaLinksSection(
                   vendor: vendor,
                 ),
-      vendor.socialMedia!.isNotEmpty?   Divider(
+      vendor.socialMedia!.isNotEmpty?   const Divider(
                   thickness: 2,
-                ):SizedBox.shrink(),
+                ):const SizedBox.shrink(),
                 ServicesSection(
                   vendor: vendor,
                 ),
-                vendor.features!.isNotEmpty?  Divider(
+                vendor.features!.isNotEmpty?  const Divider(
                   thickness: 2,
-                ):SizedBox.shrink(),
+                ):const SizedBox.shrink(),
                 RecomindationSection(vendor: vendor)
               ],
             ),

@@ -1,8 +1,6 @@
 import 'package:absher/models/advertisement_response.dart';
 import 'package:absher/models/sub_category_item_model.dart';
 
-import '../../models/sub_category_response.dart';
-
 abstract class SubCategoryState {}
 
 class SubCategoryLoading extends SubCategoryState {}

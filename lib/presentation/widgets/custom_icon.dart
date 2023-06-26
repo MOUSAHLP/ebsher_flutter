@@ -7,11 +7,12 @@ class CustomIcon extends StatelessWidget {
   final String svgAsset;
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 24,
       width: 24,
       child: SvgPicture.asset(
         svgAsset,
+
         color: Colors.white,
       ).handleRotation(context),
     );

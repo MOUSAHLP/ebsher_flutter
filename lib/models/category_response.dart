@@ -12,8 +12,8 @@ String categoyResponseToJson(CategoyResponse data) => json.encode(data.toJson())
 
 class CategoyResponse {
   int? id;
-  localizationStringModel? name;
-  localizationStringModel? description;
+  LocalizationStringModel? name;
+  LocalizationStringModel? description;
   String? isActive;
   String? image;
   String? thumbnail;
@@ -40,8 +40,8 @@ class CategoyResponse {
     return
     CategoyResponse(
     id: json["id"],
-    name: localizationStringModel.fromJson(json,"name"),
-    description:localizationStringModel.fromJson(json,"description"),
+    name: LocalizationStringModel.fromJson(json,"name"),
+    description:LocalizationStringModel.fromJson(json,"description"),
       isActive: json["is_active"],
       image: json["image"],
       thumbnail: json["thumbnail"],

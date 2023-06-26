@@ -124,6 +124,6 @@ class CustomSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    return CustomAppBackGround(child: Text(""));
+    return const CustomAppBackGround(child: Text(""));
   }
 }

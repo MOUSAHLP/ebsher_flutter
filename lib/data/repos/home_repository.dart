@@ -1,18 +1,13 @@
+import 'dart:convert';
 import 'dart:developer';
-
-import 'package:absher/models/category_response.dart';
 import 'package:absher/models/reels_model.dart';
 import 'package:absher/models/vendor_model.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-
 import '../../core/api_const.dart';
 import '../../models/home_model.dart';
 import '../../models/params/get_vendors_params.dart';
-import '../../models/params/sign_up_params.dart';
 import '../../models/profile_model.dart';
-import '../../models/search_response.dart';
-import '../../models/sign_up_response.dart';
 import '../../models/sub_category_response.dart';
 import '../data_resource/remote_resource/api_handler/base_api_client.dart';
 
@@ -99,18 +94,19 @@ class HomeRepository {
         });
   }
 
-  static Future<Either<String, String>> seeStories(
-      List<int> idStroies) async {
+  static Future<Either<String, String>> seeStories(List<int> idStory) async {
+    print({
+      "ids": idStory,
+    }.toString());
 
 
     return BaseApiClient.post<String>(
         url: ApiConst.seenStories,
-        formData:FormData.fromMap(
-            {
-              "ids": idStroies,
-            }),
+        formData:jsonEncode({
+          "ids": idStory,
+        }),
         converter: (e) {
-          return e['data'];
+          return e['data'].toString();
         });
   }
 }

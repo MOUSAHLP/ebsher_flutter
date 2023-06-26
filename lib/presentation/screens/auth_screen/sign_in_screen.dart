@@ -13,12 +13,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:overlay_support/overlay_support.dart';
-
-import '../../../bloc/home_bloc/home_bloc.dart';
 import '../../../bloc/login_bloc/login_bloc.dart';
 import '../../../bloc/login_bloc/login_state.dart';
-import '../../../bloc/privacy_bloc/privacy_bloc.dart';
-import '../../../bloc/privacy_bloc/privacy_event.dart';
 import '../../../core/services/services_locator.dart';
 import '../../resources/color_manager.dart';
 import '../../widgets/custom_button.dart';
@@ -74,7 +70,7 @@ class _SignInScreen extends StatelessWidget {
                 SizedBox(
                   height: 1.sh- 400,
                 ),
-                Container(
+                SizedBox(
                   height: 200,
                   child: Column(children: [
                     CustomInputField(
@@ -131,7 +127,7 @@ class _SignInScreen extends StatelessWidget {
             ),
           ),
         ),
-        SafeArea(child: AppBarWidget())
+        const SafeArea(child: AppBarWidget())
       ],
     ));
   }

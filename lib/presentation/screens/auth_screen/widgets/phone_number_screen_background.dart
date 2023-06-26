@@ -11,7 +11,7 @@ class PhoneNumberScreenBackGround extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        CustomAppBackGround(
+        const CustomAppBackGround(
           child: SizedBox(),
         ),
         Stack(

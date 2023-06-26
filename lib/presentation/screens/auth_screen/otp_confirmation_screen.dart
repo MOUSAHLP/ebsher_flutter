@@ -69,7 +69,7 @@ class _OtpConfirmationScreenContent extends StatelessWidget {
                SizedBox(
                 height: 1.sh-350,
               ),
-              Container(
+              SizedBox(
                 height: 350,
                 child: Column(
                   children: [
@@ -122,18 +122,15 @@ class _OtpConfirmationScreenContent extends StatelessWidget {
                         currentCode: textEditingController.text,
                         codeLength: 6,
                         onCodeChanged: (String? code) {
-                          print("code1");
+
                           if (code != null) {
-                            print("code2");
+
                             textEditingController.text = code;
                             if (code.length == 6) {
-                              print("code3");
                               sl<SignUpBloc>()
                                   .add(ConfirmOtp(code: textEditingController.text));
                             }
-                            print("code4");
                           }
-                          print("code5");
                         },
                       ),
                     ),
@@ -155,7 +152,7 @@ class _OtpConfirmationScreenContent extends StatelessWidget {
             ],
           ),
         ),
-        AppBarWidget()
+   const  AppBarWidget()
       ],
     ));
   }

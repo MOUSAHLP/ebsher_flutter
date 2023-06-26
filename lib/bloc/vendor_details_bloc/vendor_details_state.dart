@@ -1,5 +1,4 @@
 
-import '../../models/profile_model.dart';
 import '../../models/vendor_model.dart';
 abstract class VendorDetailsState {}
 

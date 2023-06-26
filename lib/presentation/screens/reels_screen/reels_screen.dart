@@ -1,11 +1,8 @@
 import 'package:absher/bloc/reels_bloc/reels_event.dart';
-import 'package:absher/models/reels_model.dart';
-import 'package:absher/presentation/resources/color_manager.dart';
 import 'package:absher/presentation/resources/style_app.dart';
 import 'package:absher/presentation/screens/reels_screen/widgets/shimmer_reels.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:dismissible_page/dismissible_page.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../bloc/reels_bloc/reels_bloc.dart';
@@ -24,7 +21,7 @@ class ReelsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<ReelsBloc>(
-      create: (BuildContext context) => ReelsBloc()..add(getReels()),
+      create: (BuildContext context) => ReelsBloc()..add(GetReels()),
       lazy: false,
       child: const ReelsScreenBody(),
     );
@@ -70,11 +67,11 @@ class _ReelsScreenBodyState extends State<ReelsScreenBody>
                 listener: (context, state) {},
                 builder: (context, state) {
                   if (state is ReelsLoading) {
-                    return ShimmerReels();
+                    return const ShimmerReels();
                   } else if (state is ReelsError) {
                     return CustomErrorScreen(
                       onTap: () {
-                        sl<ReelsBloc>().add(getReels());
+                        sl<ReelsBloc>().add(GetReels());
                       },
                     );
                   } else if (state is ReelsSuccess) {
@@ -94,11 +91,11 @@ class _ReelsScreenBodyState extends State<ReelsScreenBody>
                                   );
                                 },
                               )
-                            : CustomNoDataScreen(),
+                            : const CustomNoDataScreen(),
                       ),
                     );
                   } else {
-                    return Text("");
+                    return const Text("");
                   }
                 },
               ),
@@ -112,7 +109,7 @@ class _ReelsScreenBodyState extends State<ReelsScreenBody>
                     onTap: (){
                       AppRouter.pop(context);
                     },
-                    child: Icon(
+                    child: const Icon(
                       Icons.clear,
                       size: 30,
                       color: Colors.white,

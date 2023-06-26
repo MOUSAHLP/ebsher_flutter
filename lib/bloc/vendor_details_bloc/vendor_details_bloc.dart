@@ -10,7 +10,7 @@ class VendorDetailsBloc extends Bloc<VendorDetailsEvent, VendorDetailsState> {
 
   VendorDetailsBloc() : super(VendorDetailsLoading()) {
     on<VendorDetailsEvent>((event, emit) async {
-      if (event is getVendorDetails) {
+      if (event is GetVendorDetails) {
         emit(VendorDetailsLoading());
         final response = await HomeRepository.getVendorDetails(id: event.id);
         response.fold((l) {

@@ -1,3 +1,4 @@
+// ignore: depend_on_referenced_packages
 import 'package:hive/hive.dart';
 
 part 'login_response.g.dart';
@@ -24,6 +25,7 @@ class LoginResponse {
     required this.email,
     required this.token,
     this.image,
+
   });
 
   factory LoginResponse.fromJson(Map<String, dynamic> json) => LoginResponse(
@@ -33,6 +35,7 @@ class LoginResponse {
         email: json["email"],
         token: json["token"],
         image: json["avatar"],
+
       );
 
   Map<String, dynamic> toJson() => {
@@ -42,5 +45,6 @@ class LoginResponse {
         "email": email,
         "avatar": image,
         "token": token,
+
       };
 }

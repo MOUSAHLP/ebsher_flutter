@@ -1,4 +1,4 @@
-import 'package:absher/core/app_router/app_router.dart';
+
 import 'package:absher/core/localization_string.dart';
 import 'package:absher/presentation/resources/color_manager.dart';
 import 'package:absher/presentation/resources/style_app.dart';
@@ -173,7 +173,7 @@ class _BodyReelsScreenState extends State<BodyReelsScreen> {
                             ),
                             const SizedBox(width: 6),
                             Text(
-                              LocalixationString(context,  widget.reelsModel!.vendor!.name!)!
+                              localizationString(context,  widget.reelsModel!.vendor!.name!)!
                              ,
                               style: getBoldStyle(color: Colors.white),
                             ),
@@ -218,12 +218,6 @@ class _BodyReelsScreenState extends State<BodyReelsScreen> {
             ],
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: IconButton(icon: Icon(Icons.clear,size: 30,color: Colors.white,),onPressed: (){
-            AppRouter.pop(context);
-          },),
-        )
       ],
     );
   }

@@ -42,7 +42,7 @@ class _LoadingDialogBody extends StatelessWidget {
         child: Container(
           height: 120,
           width: 120,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(28)),
             color: ColorManager.primaryColor,
           ),
@@ -51,7 +51,7 @@ class _LoadingDialogBody extends StatelessWidget {
             children: [
               SpinKitThreeInOut(
                 itemBuilder: (_, int index) {
-                  return ImageIcon(
+                  return const ImageIcon(
                     AssetImage(
                       ImageManager.appLogo,
                     ),
@@ -62,14 +62,11 @@ class _LoadingDialogBody extends StatelessWidget {
               ),
               Text(
                 AppLocalizations.of(context)!.processing,
-                style: TextStyle(
-                  // fontFamily: appFontFamily,
+                style: const TextStyle(
                   fontSize: 16,
                   decoration: TextDecoration.none, ////set decoration to .none
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
-                  // fontWeight: FontWeight.bold,
-                  // fontSize: 16,
                 ),
               ),
             ],

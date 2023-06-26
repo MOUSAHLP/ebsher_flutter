@@ -23,6 +23,7 @@ import '../screens/auth_screen/sign_in_screen.dart';
 import '../screens/privacy_screen/privacy_screen.dart';
 import 'dialogs/logout_confirmation_dialog.dart';
 
+// ignore: must_be_immutable
 class CustomAppDrawer extends StatelessWidget {
   CustomAppDrawer({super.key});
 
@@ -39,7 +40,7 @@ class CustomAppDrawer extends StatelessWidget {
                   sigmaX: 5.0,
                   sigmaY: 5.0), //this is dependent on the import statment above
               child: Container(
-                  decoration: BoxDecoration(color: Colors.transparent)),),
+                  decoration: const BoxDecoration(color: Colors.transparent)),),
         ),
         Padding(
           padding: const EdgeInsets.only(
@@ -173,12 +174,12 @@ class CustomAppDrawer extends StatelessWidget {
                         }),
                         buildElevatedButton(AppLocalizations.of(context)!.about,
                             IconsManager.iconAbout, () {
-                          AppRouter.push(context, AboutScreen());
+                          AppRouter.push(context, const AboutScreen());
                         }),
                         buildElevatedButton(
                             AppLocalizations.of(context)!.privacy,
                             IconsManager.iconSetting, () {
-                          AppRouter.push(context, PrivacyScreen());
+                          AppRouter.push(context, const PrivacyScreen());
                         }),
                         const SizedBox(height: 90),
                         sl<AuthenticationBloc>().loggedIn?     GestureDetector(
@@ -202,7 +203,7 @@ class CustomAppDrawer extends StatelessWidget {
                         ):
                         GestureDetector(
                           onTap: () {
-                            AppRouter.push(context, SignInConfirmationScreen());
+                            AppRouter.push(context, const SignInConfirmationScreen());
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -240,12 +241,11 @@ class CustomAppDrawer extends StatelessWidget {
                 style: getBoldStyle(
                     color: ColorManager.primaryColor, fontSize: 16)),
             onTap: () {
-              print("engilsh");
               DataStore.instance.setLang("en");
             }),
         GestureDetector(
             onTap: () {
-              print("arabic");
+
               DataStore.instance.setLang("ar");
             },
             child: Text("عربي",

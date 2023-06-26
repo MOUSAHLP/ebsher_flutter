@@ -147,16 +147,21 @@ class SearchFilter extends StatelessWidget {
   }
 
   String sortBarLabel(BuildContext context, GetVendorsParams getVendorsParams) {
-    if (getVendorsParams.visits != null)
+    if (getVendorsParams.visits != null) {
       return AppLocalizations.of(context)!.byVisits;
-    if (getVendorsParams.recent == true)
+    }
+    if (getVendorsParams.recent == true) {
       return AppLocalizations.of(context)!.latest;
-    if (getVendorsParams.recent == false)
+    }
+    if (getVendorsParams.recent == false) {
       return AppLocalizations.of(context)!.oldest;
-    if (getVendorsParams.sortByName == true)
+    }
+    if (getVendorsParams.sortByName == true) {
       return AppLocalizations.of(context)!.az;
-    if (getVendorsParams.sortByName == false)
+    }
+    if (getVendorsParams.sortByName == false) {
       return AppLocalizations.of(context)!.za;
+    }
     return AppLocalizations.of(context)!.sortBy;
   }
 

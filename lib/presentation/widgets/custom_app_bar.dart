@@ -1,22 +1,25 @@
 import 'dart:ui';
-
 import 'package:absher/core/app_router/app_router.dart';
 import 'package:absher/core/app_router/dialog_transition_builder.dart';
 import 'package:absher/presentation/resources/color_manager.dart';
 import 'package:absher/presentation/resources/style_app.dart';
 import 'package:absher/presentation/screens/notification_screen/notification_screen.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../bloc/authentication_bloc/authertication_bloc.dart';
+import '../../bloc/notification_bloc/notification_bloc.dart';
+import '../../bloc/notification_bloc/notification_event.dart';
+import '../../bloc/notification_bloc/notification_state.dart';
+import '../../core/services/services_locator.dart';
 import '../../translations.dart';
-import '../resources/values_app.dart';
 import 'package:absher/presentation/resources/assets_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class CustomAppBar extends StatelessWidget {
-  GlobalKey<ScaffoldState> _scaffoldKey;
+  final GlobalKey<ScaffoldState> _scaffoldKey;
 
-  CustomAppBar(this._scaffoldKey);
+  const CustomAppBar(this._scaffoldKey, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +42,7 @@ class CustomAppBar extends StatelessWidget {
               IconsManager.iconAppAbsher,
               height: 6.h,
             ),
-            GestureDetector(
+            sl<AuthenticationBloc>().loggedIn?  GestureDetector(
                 onTap: () {
                   dialogTransitionBuilder(
                       context,
@@ -75,14 +78,34 @@ class CustomAppBar extends StatelessWidget {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      SizedBox(
-                                          width: 20,
-                                          child: SwitchListTile(
-                                            value: true,
-                                            onChanged: (v) {},
-                                            activeColor:
-                                                ColorManager.primaryColor,
-                                          )),
+                                      BlocBuilder<NotificationBloc,
+                                              NotificationState>(
+                                          bloc: sl<NotificationBloc>(),
+                                          builder: (context, state) {
+                                            return SizedBox(
+                                                width: 20,
+                                                child: SwitchListTile(
+                                                  value:  context
+                                                      .read<NotificationBloc>()
+                                                      .isEnable,
+                                                  onChanged: (v) {
+                                                    if ( context
+                                                        .read<NotificationBloc>()
+                                                        .isEnable ==
+                                                        true) {
+                                                      sl<NotificationBloc>().add(
+                                                          SetNotificationEnable(
+                                                              0));
+                                                    } else {
+                                                      sl<NotificationBloc>().add(
+                                                          SetNotificationEnable(
+                                                              1));
+                                                    }
+                                                  },
+                                                  activeColor:
+                                                      ColorManager.primaryColor,
+                                                ));
+                                          }),
                                       Text(
                                           AppLocalizations.of(context)!
                                               .turnNotification,
@@ -95,11 +118,11 @@ class CustomAppBar extends StatelessWidget {
                                       child: Divider(
                                     color: Colors.black,
                                   )),
-                                  Center(
+                                 Center(
                                       child: GestureDetector(
                                     onTap: () {
                                       AppRouter.pushReplacement(
-                                          context, NotificationScreen());
+                                          context, const NotificationScreen());
                                     },
                                     child: Text(
                                       AppLocalizations.of(context)!
@@ -118,7 +141,7 @@ class CustomAppBar extends StatelessWidget {
                 child: SvgPicture.asset(
                   IconsManager.iconNotification,
                   height: 2.64.h,
-                )),
+                )):const SizedBox.shrink(),
           ],
         ),
       ),

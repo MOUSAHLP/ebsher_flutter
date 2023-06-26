@@ -2,9 +2,9 @@ abstract class VendorDetailsEvent {
   VendorDetailsEvent([List props = const []]) : super();
 }
 
-class getVendorDetails extends VendorDetailsEvent {
+class GetVendorDetails extends VendorDetailsEvent {
   int id;
-  getVendorDetails(this.id);
+  GetVendorDetails(this.id);
 }
 
 class ChangeDetailsFavoriteStatus extends VendorDetailsEvent {}

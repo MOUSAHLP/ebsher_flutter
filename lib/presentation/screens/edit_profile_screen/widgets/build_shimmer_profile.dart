@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
-
-import '../../../resources/values_app.dart';
 class BuildShimmerProfile extends StatelessWidget {
   const BuildShimmerProfile({super.key});
 

@@ -175,5 +175,7 @@
                   "number": {}
                 }
               },
-     "addNewFilters" : "Add New Filters"
+     "addNewFilters" : "Add New Filters",
+     "guest":"Log in as a guest",
+     "pleaseLogIn":"Please login to add items to your favorites"
 }

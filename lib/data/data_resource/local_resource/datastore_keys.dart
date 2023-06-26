@@ -4,4 +4,5 @@ class DataStoreKeys {
   static const token = "token";
   static const userInfo = "userInfo";
   static const termsAccepted = "termsAccepted";
+  static const enableNotifications = "EnableNotifications";
 }

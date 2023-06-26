@@ -4,6 +4,7 @@ import 'package:absher/presentation/screens/location_screen/widgets/marker.dart'
 import 'package:flutter/material.dart';
 
 import '../../../resources/style_app.dart';
+// ignore: must_be_immutable
 class FilterButtonLocation extends StatelessWidget {
   FilterButtonLocation({Key? key, required this.isSelected, required this.label,required this.color,required this.image})
       : super(key: key);
@@ -31,15 +32,10 @@ class FilterButtonLocation extends StatelessWidget {
             Visibility(
                 visible: isSelected,
                 child: MarkerWidget(image: image,colors: color,)
-//              Icon(
-//                Icons.circle,
-//                size: 16,
-//                color: ColorManager.softYellow,
-//              ),
             )
           ],
         ),
-        Divider(
+        const Divider(
           thickness: 2,
         ),
       ],

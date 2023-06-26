@@ -1,8 +1,6 @@
-import 'package:absher/presentation/resources/font_app.dart';
+
 import 'package:absher/presentation/resources/style_app.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-
 import '../resources/color_manager.dart';
 
 class CustomPasswordInputField extends StatefulWidget {
@@ -52,12 +50,12 @@ class _CustomPasswordInputFieldState extends State<CustomPasswordInputField> {
       children: [
         Container(
           height: widget.height,
-          decoration: BoxDecoration(
-            borderRadius: const BorderRadius.all(Radius.circular(28.0)),
+          decoration:const BoxDecoration(
+            borderRadius:  BorderRadius.all(Radius.circular(28.0)),
             color: Color(0xFFEEF6F6),
           ),
           child: Padding(
-            padding: EdgeInsetsDirectional.only(end: 8, start: 20),
+            padding: const EdgeInsetsDirectional.only(end: 8, start: 20),
             child: Row(
               children: [
                 Padding(
@@ -74,7 +72,7 @@ class _CustomPasswordInputFieldState extends State<CustomPasswordInputField> {
                     onChanged: widget.onChange,
                     obscureText: obscure,
                     decoration: InputDecoration(
-                      fillColor: Color(0xFFEEF6F6),
+                      fillColor: const Color(0xFFEEF6F6),
                       floatingLabelBehavior: FloatingLabelBehavior.never,
                       hintText: widget.withLabel ? null : widget.hintText,
                       label: widget.withLabel
@@ -101,7 +99,7 @@ class _CustomPasswordInputFieldState extends State<CustomPasswordInputField> {
                         borderRadius: BorderRadius.all(Radius.circular(28.0)),
                         borderSide: BorderSide.none,
                       ),
-                      enabledBorder: OutlineInputBorder(
+                      enabledBorder: const OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(28.0)),
                         borderSide: BorderSide.none,
                       ),
@@ -121,7 +119,7 @@ class _CustomPasswordInputFieldState extends State<CustomPasswordInputField> {
             padding: const EdgeInsets.only(top: 4.0, right: 18, left: 18),
             child: Text(
               widget.errorMessage ?? '',
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.red,
               ),
             ),

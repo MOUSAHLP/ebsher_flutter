@@ -211,10 +211,10 @@ class LocationScreenBody extends StatelessWidget {
                                                                           () {
                                                                         context
                                                                             .read<LocationBloc>()
-                                                                            .add(checkIndex(index));
+                                                                            .add(CheckIndex(index));
                                                                       },
                                                                       child: FilterButtonLocation(
-                                                                          label: LocalixationString(context, state.allCategories[index].name) ??
+                                                                          label: localizationString(context, state.allCategories[index].name) ??
                                                                               "",
                                                                           isSelected: state.pendingCategories.any((element) =>
                                                                               element.id ==
@@ -332,7 +332,7 @@ class LocationScreenBody extends StatelessWidget {
             );
           },
         ),
-        AppBarWidget(),
+        const AppBarWidget(),
       ],
     );
   }

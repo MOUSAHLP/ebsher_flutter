@@ -1,12 +1,10 @@
-import 'package:absher/presentation/resources/style_app.dart';
-import 'package:absher/translations.dart';
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
-import '../../../../core/app_router/app_router.dart';
-
 class ShimmerReels extends StatelessWidget {
+  const ShimmerReels({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -15,7 +13,7 @@ class ShimmerReels extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Spacer(),
+          const Spacer(),
           Row(
             children: [
               Shimmer.fromColors(
@@ -23,12 +21,12 @@ class ShimmerReels extends StatelessWidget {
                 highlightColor: const Color(0xFFe2e4e9),
                 child: Card(
                   elevation: 0.0,
-                  color: Color.fromRGBO(45, 45, 45, 1.0),
+                  color: const Color.fromRGBO(45, 45, 45, 1.0),
                   clipBehavior: Clip.antiAliasWithSaveLayer,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(50),
                   ),
-                  child: SizedBox(
+                  child: const SizedBox(
                     width: 40,
                     height: 40,
                   ),
@@ -75,7 +73,7 @@ class ShimmerReels extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
         ],
       ),
     );

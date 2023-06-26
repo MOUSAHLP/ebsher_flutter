@@ -159,13 +159,13 @@ class ReelsModel {
   static List<ReelsModel> listFromJson(List<dynamic>? json) {
     return json == null
         ? []
-        : json.map((value) => new ReelsModel.fromJson(value)).toList();
+        : json.map((value) => ReelsModel.fromJson(value)).toList();
   }
 }
 
 class Vendor {
   int? id;
-  localizationStringModel? name;
+  LocalizationStringModel? name;
   String? image;
 
   Vendor({
@@ -176,7 +176,7 @@ class Vendor {
 
   factory Vendor.fromJson(Map<String, dynamic> json) => Vendor(
     id: json["id"],
-    name: localizationStringModel.fromJson(json,"name"),
+    name: LocalizationStringModel.fromJson(json,"name"),
 
     image: json["image"],
   );

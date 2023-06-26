@@ -1,23 +1,15 @@
-import 'dart:io';
+
 
 import 'package:absher/bloc/authentication_bloc/authentication_event.dart';
 import 'package:absher/bloc/authentication_bloc/authentication_state.dart';
-import 'package:absher/bloc/language_bloc/language_event.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:absher/bloc/login_bloc/login_event.dart';
 import 'package:absher/data/data_resource/local_resource/data_store.dart';
 import 'package:absher/presentation/screens/auth_screen/account_screen.dart';
-import 'package:absher/presentation/screens/auth_screen/sign_up_screen.dart';
 import 'package:absher/presentation/screens/home_screen/basic_screen.dart';
 import 'package:absher/presentation/screens/on_boarding_screen/on_boarding_screen.dart';
 import 'package:absher/presentation/screens/splash_screen/splash_screen.dart';
-import 'package:absher/presentation/widgets/dialogs/will_pop_scope_handler.dart';
-import 'package:absher/push_notification_service.dart';
 import 'package:absher/translations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:overlay_support/overlay_support.dart';
@@ -28,6 +20,7 @@ import 'bloc/home_bloc/home_bloc.dart';
 import 'bloc/language_bloc/language_bloc.dart';
 import 'bloc/language_bloc/language_state.dart';
 import 'bloc/login_bloc/login_bloc.dart';
+import 'bloc/notification_bloc/notification_bloc.dart';
 import 'bloc/search_bloc/search_bloc.dart';
 import 'bloc/sign_up_bloc/sign_up_bloc.dart';
 import 'core/services/services_locator.dart';
@@ -78,6 +71,9 @@ class _MyAppState extends State<MyApp> {
               BlocProvider(
                 create: (BuildContext context) => sl<FavoritesListBloc>(),
               ),
+              BlocProvider(
+                create: (BuildContext context) => sl<NotificationBloc>(),
+              ),
             ],
             child: OverlaySupport.global(
                 child: GestureDetector(onTap: () {
@@ -112,15 +108,16 @@ class _MyAppState extends State<MyApp> {
                       if (state is AuthenticationUnauthenticated) {
                         return const OnBoardingScreen();
                       }
-                      if (state is AuthenticationLoggedOut)
+                      if (state is AuthenticationLoggedOut) {
                         return const AccountScreen();
+                      }
                       return const SplashScreen();
                     },
                   ),
                   // home: const SplashScreen(),
                 );
-              } else
-                return Text("");
+              }
+
             }))));
       },
     );

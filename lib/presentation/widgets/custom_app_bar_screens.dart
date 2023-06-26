@@ -1,7 +1,5 @@
 import 'package:absher/presentation/resources/color_manager.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-
 import '../../core/app_router/app_router.dart';
 import '../resources/assets_manager.dart';
 import '../resources/style_app.dart';
@@ -28,7 +26,7 @@ class CustomAppBarScreens extends StatelessWidget {
               onTap: () {
                 AppRouter.pop(context);
               },
-              child: CustomIcon(
+              child: const CustomIcon(
                 svgAsset: IconsManager.iconBackArrow,
               ),
             ),
@@ -36,7 +34,7 @@ class CustomAppBarScreens extends StatelessWidget {
             // CustomIcon(
             //   svgAsset: IconsManager.iconShare,
             // ),
-            SizedBox()
+            const SizedBox()
           ],
         ),
       ),

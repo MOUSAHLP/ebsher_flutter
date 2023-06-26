@@ -8,8 +8,6 @@ import 'package:absher/presentation/widgets/accessories/cached_image.dart';
 import 'package:absher/translations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:intl/intl.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../core/formatter.dart';
 
@@ -27,7 +25,7 @@ class SocialMediaLinksSection extends StatelessWidget {
         Row(
           children: [
             SvgPicture.asset(IconsManager.iconLinks),
-            SizedBox(
+            const SizedBox(
               width: 8,
             ),
             Text(
@@ -46,7 +44,7 @@ class SocialMediaLinksSection extends StatelessWidget {
             children: [
               Padding(
                   padding: const EdgeInsets.all(4.0),
-                  child: Container(
+                  child: SizedBox(
                     height: 50,
                     child: ListView.builder(
                       shrinkWrap: true,

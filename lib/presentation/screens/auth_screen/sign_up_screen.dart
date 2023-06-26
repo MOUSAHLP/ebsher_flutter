@@ -24,7 +24,6 @@ import '../location_screen/widgets/app_bar_widget.dart';
 class SignUpScreen extends StatelessWidget {
   SignUpScreen({Key? key}) : super(key: key);
   final _formState = GlobalKey<FormState>();
-  double screenHight=1.sh;
   @override
   Widget build(BuildContext context) {
     return BlocListener<SignUpBloc, SignUpState>(
@@ -61,7 +60,7 @@ class SignUpScreen extends StatelessWidget {
                      SizedBox(
                       height: 1.sh-510
                     ),
-                    Container(
+                    SizedBox(
                       height: 500,
                       child: Column(
                         children: [
@@ -171,7 +170,7 @@ class SignUpScreen extends StatelessWidget {
                                   ),
                                   recognizer: TapGestureRecognizer()
                                     ..onTap = () => AppRouter.pushReplacement(
-                                        context, SignInConfirmationScreen()),
+                                        context, const SignInConfirmationScreen()),
                                 ),
                               ],
                             ),
@@ -185,7 +184,7 @@ class SignUpScreen extends StatelessWidget {
               ),
             ),
           ),
-          SafeArea(child: AppBarWidget())
+          const SafeArea(child: AppBarWidget())
 
         ],
       )),

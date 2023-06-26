@@ -16,3 +16,4 @@ class LoggedIn extends AuthenticationEvent {
 }
 
 class LoggedOut extends AuthenticationEvent {}
+class LoggedGuest extends AuthenticationEvent {}

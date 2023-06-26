@@ -4,7 +4,6 @@ import 'package:absher/presentation/screens/home_screen/home_widget/build_shimme
 import 'package:absher/presentation/widgets/ads_carousel_slider.dart';
 
 import 'package:absher/presentation/widgets/custom_error_screen.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -54,8 +53,8 @@ class HomeScreen extends StatelessWidget {
                         padding: EdgeInsets.symmetric(vertical: 2.65.h),
                         child: const BuildStoryWidget(),
                       ),
-                      state.lisAdvertisment.isNotEmpty? AdsCarouselSlider(
-                        ads: state.lisAdvertisment,
+                      state.listAdvertisments.isNotEmpty? AdsCarouselSlider(
+                        ads: state.listAdvertisments,
                       ): AdsCarouselSlider(
                         ads: [AdvertisementsResponse(image: ImageManager.appLogo)],
                       ),
@@ -65,7 +64,7 @@ class HomeScreen extends StatelessWidget {
                           showSearch(
                               context: context,
                               delegate:
-                                  CustomSearchDelegate(state.lisCategory));
+                                  CustomSearchDelegate(state.listCategory));
                         },
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
@@ -108,7 +107,7 @@ class HomeScreen extends StatelessWidget {
                                         children: [
                                           Expanded(
                                             child: BuildCardCategories(
-                                              category: state.lisCategory[0],
+                                              category: state.listCategory[0],
                                               isBlue: true,
                                               isEnd: true,
                                             ),
@@ -118,7 +117,7 @@ class HomeScreen extends StatelessWidget {
                                           ),
                                           Expanded(
                                             child: BuildCardCategories(
-                                              category: state.lisCategory[1],
+                                              category: state.listCategory[1],
                                               isBlue: false,
                                               isEnd: false,
                                             ),
@@ -145,7 +144,7 @@ class HomeScreen extends StatelessWidget {
                                         children: [
                                           Expanded(
                                             child: BuildCardCategories(
-                                              category: state.lisCategory[2],
+                                              category: state.listCategory[2],
                                               isBlue: false,
                                               isEnd: true,
                                             ),
@@ -155,7 +154,7 @@ class HomeScreen extends StatelessWidget {
                                           ),
                                           Expanded(
                                             child: BuildCardCategories(
-                                              category: state.lisCategory[3],
+                                              category: state.listCategory[3],
                                               isBlue: true,
                                               isEnd: false,
                                             ),
@@ -181,7 +180,7 @@ class HomeScreen extends StatelessWidget {
                                         children: [
                                           Expanded(
                                             child: BuildCardCategories(
-                                              category: state.lisCategory[4],
+                                              category: state.listCategory[4],
                                               isBlue: true,
                                               isEnd: true,
                                             ),

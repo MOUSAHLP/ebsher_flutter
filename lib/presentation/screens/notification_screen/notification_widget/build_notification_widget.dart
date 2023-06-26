@@ -1,21 +1,21 @@
 import 'package:absher/models/notification_model.dart';
 import 'package:absher/presentation/resources/color_manager.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/relative_time.dart';
 import '../../../resources/style_app.dart';
+// ignore: must_be_immutable
 class BuildNotificationWidget extends StatelessWidget {
   bool isSee;
   NotificationModel notificationModel;
-  BuildNotificationWidget({required this.isSee,required this.notificationModel});
+  BuildNotificationWidget({super.key, required this.isSee,required this.notificationModel});
 
   @override
   Widget build(BuildContext context) {
     return  Container(
       color: isSee ? Colors.white : Colors.transparent,
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
@@ -23,15 +23,15 @@ class BuildNotificationWidget extends StatelessWidget {
               width: 10,
               height: 10,
               decoration:
-              BoxDecoration(color: Colors.yellow, shape: BoxShape.circle),
+              const BoxDecoration(color: Colors.yellow, shape: BoxShape.circle),
             ),
-            SizedBox(
+            const SizedBox(
               width: 10,
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
+                SizedBox(
                   width: MediaQuery.of(context).size.width * 0.8,
                   child: Text(
                       notificationModel.title!,
@@ -43,7 +43,7 @@ class BuildNotificationWidget extends StatelessWidget {
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis),
                 ),
-                Container(
+                SizedBox(
                   width: MediaQuery.of(context).size.width * 0.8,
                   child: Text(
                       notificationModel.body!,

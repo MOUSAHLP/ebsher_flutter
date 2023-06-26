@@ -1,4 +1,4 @@
-import 'package:absher/presentation/resources/font_app.dart';
+
 import 'package:absher/presentation/resources/style_app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -60,7 +60,7 @@ class CustomInputField extends StatelessWidget {
           height: height,
           decoration: BoxDecoration(
             borderRadius: const BorderRadius.all(Radius.circular(28.0)),
-            color: readOnly ? Color(0xFFEEF6F6) : Color(0xFFEEF6F6),
+            color: readOnly ? const Color(0xFFEEF6F6) : const Color(0xFFEEF6F6),
 //            color: readOnly ? Colors.grey[400] : Color(0xFFEEF6F6),
           ),
           child: Padding(
@@ -89,7 +89,7 @@ class CustomInputField extends StatelessWidget {
                     validator: validator,
                     inputFormatters: inputFormatters,
                     decoration: InputDecoration(
-                      fillColor: readOnly ? Colors.grey : Color(0xFFEEF6F6),
+                      fillColor: readOnly ? Colors.grey : const Color(0xFFEEF6F6),
                       hintText: withLabel ? null : hintText,
                       floatingLabelBehavior: FloatingLabelBehavior.never,
                       label: withLabel
@@ -109,7 +109,7 @@ class CustomInputField extends StatelessWidget {
                         borderRadius: BorderRadius.all(Radius.circular(28.0)),
                         borderSide: BorderSide.none,
                       ),
-                      enabledBorder: OutlineInputBorder(
+                      enabledBorder: const OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(28.0)),
                         borderSide: BorderSide.none,
                       ),
@@ -129,7 +129,7 @@ class CustomInputField extends StatelessWidget {
             padding: const EdgeInsets.only(top: 4.0, right: 18, left: 18),
             child: Text(
               errorMessage ?? '',
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.red,
               ),
             ),

@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 
+// ignore: must_be_immutable
 class GetVendorsParams extends Equatable {
   int? subCategoryId;
   bool? isOpen;

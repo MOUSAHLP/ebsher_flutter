@@ -31,7 +31,7 @@ class InfoDetails extends StatelessWidget {
               color: ColorManager.softYellow,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             width: 16,
           ),
           Column(
@@ -44,7 +44,7 @@ class InfoDetails extends StatelessWidget {
                   fontSize: 12,
                 )?.copyWith(height: 1),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 2,
               ),
               Text(

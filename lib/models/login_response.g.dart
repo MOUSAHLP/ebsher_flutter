@@ -23,6 +23,7 @@ class LoginResponseAdapter extends TypeAdapter<LoginResponse> {
       email: fields[3] as String,
       token: fields[4] as String,
       image: fields[5] as String?,
+
     );
   }
 
@@ -42,6 +43,7 @@ class LoginResponseAdapter extends TypeAdapter<LoginResponse> {
       ..write(obj.token)
       ..writeByte(5)
       ..write(obj.image);
+
   }
 
   @override

@@ -3,7 +3,6 @@ import 'package:absher/presentation/resources/style_app.dart';
 import 'package:absher/presentation/resources/values_app.dart';
 import 'package:absher/presentation/screens/categories_screen/categories_screen.dart';
 import 'package:absher/presentation/screens/sub_categories_screen/sub_categories_screen.dart';
-import 'package:absher/presentation/screens/vendors_screen/vendors_screen.dart';
 import 'package:absher/translations.dart';
 
 import 'package:flutter/material.dart';
@@ -45,12 +44,12 @@ class _BuildCardCategoriesState extends State<BuildCardCategories> {
             setState(() {
               pressed = true;
             });
-            Future.delayed(Duration(milliseconds: 300)).then((value) {
+            Future.delayed(const Duration(milliseconds: 300)).then((value) {
               AppRouter.push(
                   context,
                   SubCategoriesScreen(
                     title:
-                        LocalixationString(context, widget.category.name) ?? "",
+                        localizationString(context, widget.category.name) ?? "",
                     id: widget.category.id!,
                   ));
               setState(() {
@@ -68,7 +67,7 @@ class _BuildCardCategoriesState extends State<BuildCardCategories> {
                         ? ColorManager.lightYellowColor
                         : ColorManager.lightBlueColor,
                 borderRadius: BorderRadius.circular(RadiusApp.r8)),
-            duration: Duration(milliseconds: 300),
+            duration: const Duration(milliseconds: 300),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -83,13 +82,13 @@ class _BuildCardCategoriesState extends State<BuildCardCategories> {
                     height: 6.6.h,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 2,
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+                  padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
                   child: Text(
-                    LocalixationString(context, widget.category.name) ?? "",
+                    localizationString(context, widget.category.name) ?? "",
                     style: getBoldStyle(
                             color: ColorManager.whiteColor, fontSize: 12)
                         ?.copyWith(height: 1),
@@ -134,10 +133,10 @@ class _MoreCategoryCardState extends State<MoreCategoryCard> {
             setState(() {
               pressed = true;
             });
-            Future.delayed(Duration(milliseconds: 300)).then((value) {
+            Future.delayed(const Duration(milliseconds: 300)).then((value) {
               AppRouter.push(
                 context,
-                CategoriesScreen(),
+                const CategoriesScreen(),
               );
               setState(() {
                 pressed = false;
@@ -154,7 +153,7 @@ class _MoreCategoryCardState extends State<MoreCategoryCard> {
                         ? ColorManager.lightYellowColor
                         : ColorManager.lightBlueColor,
                 borderRadius: BorderRadius.circular(RadiusApp.r8)),
-            duration: Duration(milliseconds: 300),
+            duration: const Duration(milliseconds: 300),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -167,11 +166,11 @@ class _MoreCategoryCardState extends State<MoreCategoryCard> {
                     color: Colors.white,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 2,
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 4),
+                  padding: const EdgeInsets.symmetric(horizontal: 4),
                   child: Text(
                     AppLocalizations.of(context)!.more,
                     style: getBoldStyle(

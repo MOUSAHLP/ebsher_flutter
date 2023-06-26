@@ -17,6 +17,7 @@ class Indicators extends StatefulWidget {
   final double indicatorAnimationValue;
 
   @override
+  // ignore: library_private_types_in_public_api
   _IndicatorsState createState() => _IndicatorsState();
 }
 

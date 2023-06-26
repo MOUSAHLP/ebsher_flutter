@@ -1,4 +1,4 @@
-import 'package:equatable/equatable.dart';
+
 
 import '../../models/reels_model.dart';
 abstract class ReelsState {}

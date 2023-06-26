@@ -1,20 +1,17 @@
 import 'package:absher/bloc/home_bloc/home_bloc.dart';
 import 'package:absher/core/localization_string.dart';
-import 'package:absher/presentation/resources/assets_manager.dart';
 import 'package:absher/presentation/resources/color_manager.dart';
 import 'package:absher/presentation/resources/style_app.dart';
 import 'package:absher/presentation/widgets/accessories/cached_image.dart';
 import 'package:absher/translations.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../../../core/app_router/app_router.dart';
 import '../../../models/category_response.dart';
 import '../../resources/font_app.dart';
 import '../sub_categories_screen/sub_categories_screen.dart';
-import '../vendors_screen/vendors_screen.dart';
+
 
 class CategoriesScreen extends StatelessWidget {
   const CategoriesScreen({Key? key}) : super(key: key);
@@ -66,7 +63,7 @@ class CategoriesScreen extends StatelessWidget {
                       ),
                       const Icon(
                         Icons.share,
-                        color: Colors.white,
+                        color: Colors.transparent,
                       ),
                     ],
                   ),
@@ -116,7 +113,7 @@ class CategoryCover extends StatelessWidget {
         AppRouter.push(
           context,
           SubCategoriesScreen(
-              title: LocalixationString(context, category.name) ?? "",
+              title: localizationString(context, category.name) ?? "",
               id: category.id!),
         );
       },
@@ -124,7 +121,7 @@ class CategoryCover extends StatelessWidget {
         alignment: Alignment.bottomRight,
         children: [
           ClipRRect(
-            borderRadius: BorderRadius.only(bottomLeft: Radius.circular(50)),
+            borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(50)),
             child: CachedImage(
               imageUrl: category.image,
               width: 1.sw,
@@ -167,7 +164,7 @@ class CategoryCover extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      LocalixationString(context, category.name) ?? '',
+                      localizationString(context, category.name) ?? '',
                       style: getBoldStyle(
                         color: Colors.white,
                         fontSize: FontSizeApp.s22,

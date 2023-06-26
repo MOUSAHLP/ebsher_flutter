@@ -2,7 +2,7 @@ import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 
 class OpenContainerWithFade extends StatelessWidget {
-   OpenContainerWithFade(
+   const OpenContainerWithFade(
       {Key? key, required this.cardItem, required this.page})
       : super(key: key);
   final Widget cardItem;
@@ -11,7 +11,7 @@ class OpenContainerWithFade extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return OpenContainer<bool>(
-      transitionDuration: Duration(milliseconds: 500),
+      transitionDuration: const Duration(milliseconds: 500),
       transitionType: ContainerTransitionType.fade,
       openBuilder: (BuildContext context, VoidCallback _) {
         return page;

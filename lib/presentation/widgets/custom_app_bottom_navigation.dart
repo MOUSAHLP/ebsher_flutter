@@ -42,15 +42,15 @@ class CustomAppBottomNavigation extends StatelessWidget {
 
               Expanded(
                 child: IconBottomNavigation(imag:  IconsManager.iconSearch, onTap:(){
-                  AppRouter.push(context, LocationScreen());
+                  AppRouter.push(context, const LocationScreen());
                 } ,color:state.index==2? ColorManager.softYellow: ColorManager.lightBlueColor),
               ),
               
-              Expanded(child: const SizedBox(width: SizeApp.s5)),
+              const Expanded(child: SizedBox(width: SizeApp.s5)),
              
               Expanded(
                 child: IconBottomNavigation(imag:  IconsManager.iconVideo, onTap:(){
-                  AppRouter.push(context, ReelsScreen());
+                  AppRouter.push(context, const ReelsScreen());
                 },color: state.index==3?ColorManager.softYellow: ColorManager.lightBlueColor),
               ),
               
@@ -62,7 +62,9 @@ class CustomAppBottomNavigation extends StatelessWidget {
             ],
           ),
         );}
-          else return Text("");
+          else {
+            return const Text("");
+          }
     });
   }
 }
@@ -79,11 +81,9 @@ class IconBottomNavigation  extends StatelessWidget {
       onTap: () {
       onTap();
       },
-      child: Container(
-        child: SvgPicture.asset(
-          imag,
-          color:color ,
-        ),
+      child: SvgPicture.asset(
+        imag,
+        color:color ,
       ),
     );
   }

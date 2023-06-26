@@ -15,9 +15,9 @@ class IndexIncrement extends LocationEvent {}
 
 class IndexDecrement extends LocationEvent {}
 
-class checkIndex extends LocationEvent {
+class CheckIndex extends LocationEvent {
   int index;
-  checkIndex(
+  CheckIndex(
     this.index,
   );
 }

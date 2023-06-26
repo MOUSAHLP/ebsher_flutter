@@ -1,21 +1,17 @@
 import 'package:absher/bloc/login_bloc/login_bloc.dart';
 import 'package:absher/bloc/login_bloc/login_event.dart';
 import 'package:absher/bloc/login_bloc/login_state.dart';
-import 'package:absher/bloc/privacy_bloc/privacy_event.dart';
-import 'package:absher/bloc/privacy_bloc/privacy_state.dart';
 import 'package:absher/core/app_router/app_router.dart';
-import 'package:absher/core/app_router/dialog_transition_builder.dart';
 import 'package:absher/presentation/resources/assets_manager.dart';
 import 'package:absher/presentation/screens/auth_screen/phone_number_signup_screen.dart';
 import 'package:absher/presentation/screens/auth_screen/sign_in_screen.dart';
-import 'package:absher/presentation/screens/privacy_screen/privacy_screen.dart';
 import 'package:absher/presentation/widgets/dialogs/terms_dialog.dart';
 import 'package:absher/presentation/widgets/dialogs/will_pop_scope_handler.dart';
 import 'package:absher/translations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../bloc/privacy_bloc/privacy_bloc.dart';
+import '../../../bloc/authentication_bloc/authentication_event.dart';
+import '../../../bloc/authentication_bloc/authertication_bloc.dart';
 import '../../../core/services/services_locator.dart';
 import '../../resources/color_manager.dart';
 import '../../widgets/custom_app_background.dart';
@@ -47,13 +43,13 @@ class AccountScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   // crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Container(
+                    SizedBox(
                       height: 140,
                       child: Image.asset(
                         ImageManager.fullAppLogo,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 64,
                     ),
                     CustomButton(
@@ -61,13 +57,12 @@ class AccountScreen extends StatelessWidget {
                       labelColor: ColorManager.primaryColor,
                       label: AppLocalizations.of(context)!.signIn,
                       onTap: () {
-                        AppRouter.push(context, SignInConfirmationScreen());
+                        AppRouter.push(context, const SignInConfirmationScreen());
                       },
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 16,
                     ),
-
                     CustomButton(
                       fillColor: Colors.white,
                       labelColor: Colors.white,
@@ -81,18 +76,19 @@ class AccountScreen extends StatelessWidget {
                             ));
                       },
                     ),
-//                    SizedBox(
-//                      height: 16,
-//                    ),
-//                    CustomButton(
-//                      fillColor: Colors.white,
-//                      labelColor: Colors.white,
-//                      isFilled: false,
-//                      label:"دخول كضيف",
-//                      onTap: () {
-//                        AppRouter.pushAndRemoveAllStack(context, BasicScreen());
-//                      },
-//                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    CustomButton(
+                      fillColor: Colors.white,
+                      labelColor: Colors.white,
+                      isFilled: false,
+                      label:AppLocalizations.of(context)!.guest,
+                      onTap: () {
+                        sl<AuthenticationBloc>().add(LoggedGuest());
+                        AppRouter.pushAndRemoveAllStack(context, BasicScreen());
+                      },
+                    ),
                   ],
                 ),
               ),

@@ -6,13 +6,10 @@ import 'package:absher/presentation/screens/edit_profile_screen/widgets/build_sh
 import 'package:absher/presentation/widgets/custom_button.dart';
 import 'package:absher/presentation/widgets/custom_input_field.dart';
 import 'package:absher/translations.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:absher/presentation/resources/assets_manager.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:overlay_support/overlay_support.dart';
-import 'package:url_launcher/url_launcher.dart';
 import '../../../bloc/authentication_bloc/authertication_bloc.dart';
 import '../../../bloc/bottom_bloc/bottom_bloc.dart';
 import '../../../bloc/bottom_bloc/bottom_event.dart';
@@ -22,8 +19,8 @@ import '../../../bloc/profile_bloc/profile_state.dart';
 import '../../../core/services/services_locator.dart';
 import '../../widgets/accessories/cached_image.dart';
 import '../../widgets/custom_error_screen.dart';
+import '../../widgets/custom_guest.dart';
 import '../auth_screen/reset_password_screen.dart';
-import '../auth_screen/sign_in_screen.dart';
 
 // ignore: must_be_immutable
 class EditProfileScreen extends StatelessWidget {
@@ -52,7 +49,7 @@ class EditProfileBody extends StatelessWidget {
           padding: const EdgeInsets.only(top: 20),
           child: BlocConsumer<ProfileBloc, ProfileState>(
               listener: (context, state) {
-            if (state is SignUpFieldsValidationFailed) {
+            if (state is ProfileFieldsValidationFailed) {
               if (state.validationError != null) {
                 context.read<ProfileBloc>().add(IsEditingEvent(true));
                 toast(state.validationError!);
@@ -68,7 +65,6 @@ class EditProfileBody extends StatelessWidget {
                 },
               );
             } else {
-
               return
                 sl<AuthenticationBloc>().loggedIn? Stack(
                 alignment: Alignment.topCenter,
@@ -207,7 +203,7 @@ class EditProfileBody extends StatelessWidget {
                                 fillColor: ColorManager.softYellow,
                                 onTap: () {
                                   AppRouter.push(
-                                      context, ResetPasswordScreen());
+                                      context, const ResetPasswordScreen());
                                 },
                               ),
                               const SizedBox(height: 10),
@@ -301,31 +297,17 @@ class EditProfileBody extends StatelessWidget {
                                           .read<ProfileBloc>()
                                           .add(GetImageGallery());
                                     },
-                                    child: Icon(
+                                    child: const Icon(
                                       Icons.camera_alt_outlined,
                                       color: Colors.white,
                                     )))
-                            : SizedBox.shrink()
+                            : const SizedBox.shrink()
                       ],
                     ),
                   )
                 ],
-              ):Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(" رجاء تسجيل الدخول",style: getBoldStyle(color: Colors.white,fontSize: 14),),
-                 MaterialButton(
-                   shape: const RoundedRectangleBorder(
-                       borderRadius: BorderRadius.all(
-                           Radius.circular(20.0))),
-                   color: ColorManager.softYellow,
-                   onPressed: (){
-                   AppRouter.push(context, SignInConfirmationScreen());
-
-                 },child: Text("تسجيل دخول" , style: getBoldStyle(color: Colors.white),),)
-                ],
-              );
+              ):
+                const CustomGuest();
             }
           }),
         ),

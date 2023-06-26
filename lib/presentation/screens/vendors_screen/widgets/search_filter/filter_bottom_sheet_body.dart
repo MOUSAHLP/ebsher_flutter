@@ -23,7 +23,6 @@ class FilterBottomSheetBody extends StatelessWidget {
     VendorsListBloc vendorsListBloc = context.read<VendorsListBloc>();
     return BlocConsumer<VendorsListBloc, VendorsListState>(
         listener: (context, state) {
-      print(state.showLoadingDialog.toString());
       if (state.showLoadingDialog) {
         LoadingDialog().openDialog(context);
       } else {

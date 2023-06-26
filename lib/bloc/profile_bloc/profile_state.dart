@@ -1,10 +1,5 @@
-import 'package:absher/models/story_model.dart';
-import 'package:equatable/equatable.dart';
 
-import '../../models/advertisement_response.dart';
-import '../../models/category_response.dart';
 import '../../models/profile_model.dart';
-import '../../models/search_response.dart';
 
 abstract class ProfileState {}
 
@@ -19,10 +14,9 @@ class ProfileSuccess extends ProfileState {
   bool isEditing;
   ProfileSuccess(this.profileModel,this.isEditing);
 }
-class SignUpFieldsValidationFailed extends ProfileState {
+class ProfileFieldsValidationFailed extends ProfileState {
   final String? validationError;
-
-  SignUpFieldsValidationFailed({this.validationError});
+  ProfileFieldsValidationFailed({this.validationError});
 }
 class ImageSuccess extends ProfileState{}
 

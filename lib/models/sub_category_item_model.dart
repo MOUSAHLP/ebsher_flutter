@@ -2,7 +2,7 @@ import 'localization_String_model.dart';
 
 class SubCategoryItemModel {
   int? id;
-  localizationStringModel? name;
+  LocalizationStringModel? name;
   String? image;
   String? thumbnail;
   String? categoryId;
@@ -17,7 +17,7 @@ class SubCategoryItemModel {
 
   factory SubCategoryItemModel.fromJson(Map<String, dynamic> json) => SubCategoryItemModel(
     id: json["id"],
-    name: localizationStringModel.fromJson(json, "name"),
+    name: LocalizationStringModel.fromJson(json, "name"),
     image: json["image"],
     thumbnail: json["thumbnail"],
     categoryId: json["category_id"],

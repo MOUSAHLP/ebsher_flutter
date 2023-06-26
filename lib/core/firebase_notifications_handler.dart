@@ -2,7 +2,6 @@ import 'package:absher/presentation/resources/color_manager.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 void notificationTapBackground(NotificationResponse notificationResponse) {
   if (kDebugMode) {
@@ -92,7 +91,8 @@ class FirebaseNotificationsHandler {
                     channel.name,
                     icon: android!.smallIcon,
                     showWhen: true,
-                    color: ColorManager.primaryColor,
+
+//                    color: ColorManager.primaryColor,
                   ),
                 ))
             .catchError((onError) {

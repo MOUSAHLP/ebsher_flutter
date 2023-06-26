@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:absher/core/app_router/app_router.dart';
-import 'package:absher/core/app_router/dialog_transition_builder.dart';
 import 'package:absher/core/extensions.dart';
 import 'package:absher/models/vendor_model.dart';
 import 'package:absher/presentation/screens/vendor_details_screen/widgets/dialog_picture.dart';
@@ -13,9 +12,6 @@ import '../../../../core/localization_string.dart';
 import '../../../resources/assets_manager.dart';
 import '../../../resources/color_manager.dart';
 import '../../../resources/style_app.dart';
-import '../../../resources/values_app.dart';
-import '../../../widgets/circle_icon_button.dart';
-
 class CollapsedHeader extends StatelessWidget {
   const CollapsedHeader({
     required this.toolbarHeight,
@@ -58,7 +54,7 @@ class CollapsedHeader extends StatelessWidget {
                       ),
                       Expanded(
                         child: Text(
-                          LocalixationString(context, vendor.name) ?? '',
+                          localizationString(context, vendor.name) ?? '',
                           textAlign: TextAlign.center,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
@@ -76,7 +72,7 @@ class CollapsedHeader extends StatelessWidget {
 //                          color: Colors.white,
 //                        ).handleRotation(context),
 //                      ),
-                      SizedBox(
+                      const SizedBox(
                         width: 24,
                       ),
                       GestureDetector(

@@ -31,7 +31,7 @@ class CustomButton extends StatelessWidget {
             border: Border.all(color: fillColor),
             boxShadow: isFilled
                 ? [
-                    BoxShadow(
+                    const BoxShadow(
                       color: ColorManager.shadowGrey,
                       blurRadius: 4,
                     )
@@ -39,7 +39,7 @@ class CustomButton extends StatelessWidget {
                 : []),
         child: Center(
           child: Padding(
-            padding: EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8.0),
             child: Text(
               label,
               style: getBoldStyle(

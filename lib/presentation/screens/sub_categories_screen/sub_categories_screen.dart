@@ -87,7 +87,7 @@ class SubCategoryBody extends StatelessWidget {
                                       AppRouter.push(
                                         context,
                                         VendorsScreen(
-                                            title: LocalixationString(
+                                            title: localizationString(
                                                 context,
                                                 state.subCategories[index]
                                                     .name!)!,
@@ -96,7 +96,7 @@ class SubCategoryBody extends StatelessWidget {
                                       );
                                     },
                                     child: CardSubCategory(
-                                      title: LocalixationString(context,
+                                      title: localizationString(context,
                                           state.subCategories[index].name!)!,
                                       image: state.subCategories[index].image ??
                                           "",

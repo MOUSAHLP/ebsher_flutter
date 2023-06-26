@@ -116,6 +116,8 @@
     "oldest" : "الأقدم",
     "latest" : "الأجدد",
     "starsCount" : "{number} نجوم",
-    "addNewFilters" : "أضف فلاتر جديدة"
+    "addNewFilters" : "أضف فلاتر جديدة",
+    "guest":"تسجيل الدخول كضيف",
+    "pleaseLogIn":"الرجاء تسجيل الدخول لاضافة العناصر الى المفضلة"
 
   }

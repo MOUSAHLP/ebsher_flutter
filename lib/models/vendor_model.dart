@@ -2,8 +2,8 @@ import 'localization_String_model.dart';
 
 class VendorModel {
   int? id;
-  localizationStringModel? name;
-  localizationStringModel? description;
+  LocalizationStringModel? name;
+  LocalizationStringModel? description;
   String? image;
   String? open;
   String? close;
@@ -70,11 +70,10 @@ class VendorModel {
       this.recomindation});
 
   factory VendorModel.fromJson(Map<String, dynamic> json) {
-    print("xxxxxxxxxxxxx");
     return VendorModel(
       id: json["id"],
-      name: localizationStringModel.fromJson(json, "name"),
-      description: localizationStringModel.fromJson(json, "description"),
+      name: LocalizationStringModel.fromJson(json, "name"),
+      description: LocalizationStringModel.fromJson(json, "description"),
       open: json["open"],
       image: json["image"],
       close: json["close"],
@@ -145,8 +144,8 @@ class VendorModel {
 
 class Category {
   int? id;
-  localizationStringModel? name;
-  localizationStringModel? description;
+  LocalizationStringModel? name;
+  LocalizationStringModel? description;
   String? isActive;
   String? image;
   String? thumbnail;
@@ -170,8 +169,8 @@ class Category {
 
   factory Category.fromJson(Map<String, dynamic> json) => Category(
         id: json["id"],
-        name: localizationStringModel.fromJson(json, "name"),
-        description: localizationStringModel.fromJson(json, "description"),
+        name: LocalizationStringModel.fromJson(json, "name"),
+        description: LocalizationStringModel.fromJson(json, "description"),
         isActive: json["is_active"],
         image: json["image"],
         thumbnail: json["thumbnail"],
@@ -263,7 +262,7 @@ class Banner {
 
 class Day {
   int? id;
-  localizationStringModel? name;
+  LocalizationStringModel? name;
   DateTime? createdAt;
   DateTime? updatedAt;
   DayPivot? pivot;
@@ -278,7 +277,7 @@ class Day {
 
   factory Day.fromJson(Map<String, dynamic> json) => Day(
         id: json["id"],
-        name: localizationStringModel.fromJson(json, "name"),
+        name: LocalizationStringModel.fromJson(json, "name"),
         createdAt: json["created_at"] == null
             ? null
             : DateTime.parse(json["created_at"]),
@@ -525,8 +524,8 @@ class SubCategoryPivot {
 
 class Recomindation {
   int? id;
-  localizationStringModel? name;
-  localizationStringModel? description;
+  LocalizationStringModel? name;
+  LocalizationStringModel? description;
   String? image;
   dynamic? open;
   dynamic? close;
@@ -580,8 +579,8 @@ class Recomindation {
 
   factory Recomindation.fromJson(Map<String, dynamic> json) => Recomindation(
         id: json["id"],
-        name: localizationStringModel.fromJson(json, "name"),
-        description: localizationStringModel.fromJson(json, "description"),
+        name: LocalizationStringModel.fromJson(json, "name"),
+        description: LocalizationStringModel.fromJson(json, "description"),
         image: json["image"],
         open: json["open"],
         close: json["close"],

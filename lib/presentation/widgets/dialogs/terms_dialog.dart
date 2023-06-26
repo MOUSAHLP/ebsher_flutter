@@ -70,7 +70,7 @@ class _TermsDialogBodyState extends State<_TermsDialogBody> {
                     fontSize: FontSizeApp.s14,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 16,
                 ),
                 Expanded(
@@ -129,7 +129,7 @@ class _TermsDialogBodyState extends State<_TermsDialogBody> {
                     }
                   },
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 16,
                 ),
                 CustomButton(

@@ -1,22 +1,23 @@
-import 'dart:convert';
 
-class localizationStringModel{
+
+
+ class LocalizationStringModel{
   String? value;
   String? valueAr;
 
-  factory localizationStringModel.fromJson(Map<String, dynamic> json,key) {
-    return localizationStringModel(
+  factory LocalizationStringModel.fromJson(Map<String, dynamic> json,key) {
+    return LocalizationStringModel(
       value: json[key],
       valueAr: json["${key}_ar"],
     );
   }
   Map<String, dynamic> toJson() {
     return {
-      "value": this.value,
-      "valueAr": this.valueAr,
+      "value": value,
+      "valueAr": valueAr,
     };
   }
 
-  localizationStringModel(  {required this.value, required this.valueAr} );
+  LocalizationStringModel(  {required this.value, required this.valueAr} );
 }
 

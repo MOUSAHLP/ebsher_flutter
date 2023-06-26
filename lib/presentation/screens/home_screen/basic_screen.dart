@@ -6,11 +6,9 @@ import 'package:absher/presentation/widgets/dialogs/will_pop_scope_handler.dart'
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../bloc/bottom_bloc/bottom_bloc.dart';
 import '../../../bloc/bottom_bloc/bottom_state.dart';
-
 import '../../../core/services/services_locator.dart';
 import '../../widgets/custom_app_drawer.dart';
 import '../favorites_screen/favorites_screen.dart';
-import '../reels_screen/reels_screen.dart';
 import 'home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -29,7 +27,7 @@ class BasicScreen extends StatelessWidget {
       color: Colors.yellow,
     ),
     Container(),
-    EditProfileScreen(),
+    const EditProfileScreen(),
   ];
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -74,6 +72,7 @@ class BasicScreen extends StatelessWidget {
                 },
                 child: SvgPicture.asset(
                   IconsManager.iconHome,
+
                   color: state.index == 0
                       ? ColorManager.softYellow
                       : ColorManager.lightBlueColor,
@@ -83,8 +82,9 @@ class BasicScreen extends StatelessWidget {
             drawer:  CustomAppDrawer(),
           ),
         );
-      } else
-        return Text("");
+      } else {
+        return const Text("");
+      }
     });
   }
 }

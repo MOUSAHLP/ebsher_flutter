@@ -1,8 +1,6 @@
 import 'package:absher/bloc/favorites_list_bloc/favorites_list_event.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../data/repos/favorite_repository.dart';
-import '../../data/repos/home_repository.dart';
 import 'favorites_list_state.dart';
 
 class FavoritesListBloc extends Bloc<FavoritesListEvent, FavoritesListState> {

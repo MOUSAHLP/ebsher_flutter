@@ -1,11 +1,8 @@
 import 'dart:math';
 import 'dart:ui';
-import 'dart:developer' as dev;
-
 import 'package:absher/bloc/stories_bloc/stories_bloc.dart';
 import 'package:absher/bloc/stories_bloc/stories_event.dart';
 import 'package:absher/core/app_router/app_router.dart';
-import 'package:absher/core/services/services_locator.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:absher/presentation/resources/color_manager.dart';
 import 'package:absher/presentation/resources/font_app.dart';
@@ -45,6 +42,7 @@ class _StoryScreenState extends State<StoryScreen> {
   }
 }
 
+// ignore: must_be_immutable
 class StoryScreenBody extends StatefulWidget {
   StoryScreenBody({Key? key, required this.targetPageIndex}) : super(key: key);
   int targetPageIndex;
@@ -65,9 +63,7 @@ class _StoryScreenBodyState extends State<StoryScreenBody>
   @override
   void initState() {
     storiesBloc = context.read<StoriesBloc>();
-    context
-        .read<StoriesBloc>()
-        .add(AddIdStory(storiesBloc.stories[widget.targetPageIndex].id!));
+
     indicatorAnimationController = ValueNotifier<IndicatorAnimationCommand>(
       IndicatorAnimationCommand.resume,
     );
@@ -92,9 +88,7 @@ class _StoryScreenBodyState extends State<StoryScreenBody>
           break;
       }
     };
-
     indicatorAnimationController.addListener(listener);
-
     indicatorAnimation =
         Tween(begin: 0.0, end: 1.0).animate(storiesBloc.animationController)
           ..addListener(() {
@@ -102,6 +96,9 @@ class _StoryScreenBodyState extends State<StoryScreenBody>
               indicatorAnimationValue = indicatorAnimation.value;
             });
           });
+    context
+        .read<StoriesBloc>()
+        .add(AddIdStory(storiesBloc.stories[widget.targetPageIndex].id!));
     super.initState();
   }
 
@@ -264,7 +261,7 @@ class _StoryPageFrameState extends State<_StoryPageFrame> {
                       .stories[widget.pageIndex]
                       .vendor!
                       .isEmpty
-                  ? SizedBox()
+                  ? const SizedBox()
                   : Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -303,7 +300,7 @@ class _StoryPageFrameState extends State<_StoryPageFrame> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      LocalixationString(
+                                      localizationString(
                                               context,
                                               context
                                                   .read<StoriesBloc>()
@@ -345,7 +342,7 @@ class _StoryPageFrameState extends State<_StoryPageFrame> {
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 8.0),
                                           child: Container(
-                                            padding: EdgeInsets.symmetric(
+                                            padding: const EdgeInsets.symmetric(
                                                 vertical: 4, horizontal: 8),
                                             decoration: BoxDecoration(
                                               color: Colors.white,
@@ -369,10 +366,10 @@ class _StoryPageFrameState extends State<_StoryPageFrame> {
                                                   )!
                                                       .copyWith(height: 1),
                                                 ),
-                                                SizedBox(
+                                                const SizedBox(
                                                   width: 4,
                                                 ),
-                                                Icon(
+                                                const Icon(
                                                   Icons.remove_red_eye,
                                                   color:
                                                       ColorManager.softYellow,

@@ -24,7 +24,7 @@ class BaseApiClient {
 
   static Future<Either<String, T>> post<T>(
       {required String url,
-      FormData? formData,
+        dynamic formData,
       Map<String, dynamic>? queryParameters,
       required T Function(dynamic) converter,
       dynamic returnOnError}) async {

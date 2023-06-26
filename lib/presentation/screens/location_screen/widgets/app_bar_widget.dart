@@ -6,6 +6,8 @@ import '../../../resources/assets_manager.dart';
 import '../../../widgets/custom_icon.dart';
 
 class AppBarWidget extends StatelessWidget {
+  const AppBarWidget({super.key});
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -22,8 +24,8 @@ class AppBarWidget extends StatelessWidget {
                     color: ColorManager.primaryColor, shape: BoxShape.circle),
                 height: 40,
                 width: 40,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                child: const Padding(
+                  padding: EdgeInsets.all(8.0),
                   child: CustomIcon(
                     svgAsset: IconsManager.iconBackArrow,
                   ),

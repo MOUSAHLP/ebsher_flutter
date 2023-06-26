@@ -18,7 +18,7 @@ class SplashScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              SizedBox(),
+              const SizedBox(),
               Center(
                 child: Image.asset(
                   ImageManager.fullAppLogo,
@@ -49,16 +49,16 @@ class SplashScreen extends StatelessWidget {
                             children: [
                               Text(
                                 'V ${snapshot.data!.version}',
-                                style: TextStyle(
+                                style: const TextStyle(
                                   height: 0.8,
                                   color: ColorManager.softYellow,
                                   fontSize: 12.0,
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 8,
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 8,
                                 height: 8,
                                 child: CircularProgressIndicator(

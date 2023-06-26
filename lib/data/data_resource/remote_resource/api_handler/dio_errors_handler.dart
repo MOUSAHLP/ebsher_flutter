@@ -1,5 +1,6 @@
 import 'dart:io';
 import "package:dio/dio.dart";
+import 'package:flutter/foundation.dart';
 
 class DioErrorsHandler {
   static Map data = {"statusCode": -1, "message": "Unknown Error"};
@@ -18,9 +19,12 @@ class DioErrorsHandler {
     } else if (e.response != null &&
         e.response?.statusCode != null &&
         e.response?.statusMessage != null) {
-      print(e.response!.data);
-      print(e.response!.statusCode);
-      print(e.response!.statusMessage);
+      if (kDebugMode) {
+        print(e.response!.data);
+        print(e.response!.statusCode);
+        print(e.response!.statusMessage);
+      }
+
       data["message"] = e.response!.data["message"];
       data["statusCode"] = e.response!.data["returnedCode"];
     } else if (e.type == DioErrorType.unknown ||

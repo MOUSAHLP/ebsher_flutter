@@ -9,6 +9,7 @@ import 'package:video_player/video_player.dart';
 
 import '../../data/repos/home_repository.dart';
 import '../../models/story_model.dart';
+import '../authentication_bloc/authertication_bloc.dart';
 import '../home_bloc/home_bloc.dart';
 import '../home_bloc/home_event.dart';
 
@@ -87,20 +88,21 @@ class StoriesBloc extends Bloc<StoriesEvent, StoriesState> {
         ));
         animationController.forward(from: 0);
       }
-      if (event is AddIdStory) {
+      if(sl<AuthenticationBloc>().loggedIn){
+        if(event is AddIdStory){
         seeStory.add(event.idStory);
-        emit(SeeStorySuccess());
+       // emit(SeeStorySuccess());
+           }
       }
-      if (event is EndAddIdStory) {
+      if(sl<AuthenticationBloc>().loggedIn){  if (event is EndAddIdStory) {
         sl<HomeBloc>().add(ChangeSeeStory(seeStory));
-        emit(EndSeeStorySuccess());
+       // emit(EndSeeStorySuccess());
         final response = await HomeRepository.seeStories(seeStory);
         response.fold((l) {
         }, (r) {
-         // sl<HomeBloc>().add(ChangeSeeStory(seeStory));
-          emit(EndSeeStorySuccess());
+        //  emit(EndSeeStorySuccess());
         });
-      }
+      }}
     });
   }
 

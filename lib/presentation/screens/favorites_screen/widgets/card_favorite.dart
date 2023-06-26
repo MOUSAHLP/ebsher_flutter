@@ -55,7 +55,7 @@ class CardFavorite extends StatelessWidget {
                       children: [
                         Expanded(
                           child: Text(
-                            LocalixationString(context, vendorModel.name) ?? "",
+                            localizationString(context, vendorModel.name) ?? "",
                             style: getBoldStyle(
                                 color: ColorManager.lightBlueColor, fontSize: 12),
                             maxLines: 1,

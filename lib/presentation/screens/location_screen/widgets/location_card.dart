@@ -6,10 +6,8 @@ import 'package:absher/presentation/resources/font_app.dart';
 import 'package:absher/presentation/resources/style_app.dart';
 import 'package:absher/presentation/screens/vendors_screen/widgets/card_random.dart';
 import 'package:absher/translations.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 import '../../../../bloc/location_bloc/location_bloc.dart';
 import '../../../../bloc/location_bloc/location_state.dart';
 import '../../../../core/localization_string.dart';
@@ -28,7 +26,6 @@ class LocationCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('rebuilded');
     return Expanded(
       child: GestureDetector(
         onTap: () {
@@ -65,13 +62,13 @@ class LocationCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                              LocalixationString(context, vendorModel.name!) ??
+                              localizationString(context, vendorModel.name!) ??
                                   "",
                               style: getBoldStyle(
                                   color: ColorManager.lightBlueColor,
                                   fontSize: 18)),
                           Text(
-                            LocalixationString(
+                            localizationString(
                                     context, vendorModel.category?.name!) ??
                                 "",
                             style: getBoldStyle(color: ColorManager.labelGrey),
@@ -149,7 +146,7 @@ class LocationCard extends StatelessWidget {
               child: Stack(
                 alignment: Alignment.center,
                 children: [
-                  CustomShapeContainer(),
+                  const CustomShapeContainer(),
                   Padding(
                     padding: const EdgeInsets.only(right: 6),
                     child: BlocBuilder<LocationBloc, LocationState>(

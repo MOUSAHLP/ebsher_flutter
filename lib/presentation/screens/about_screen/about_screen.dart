@@ -1,4 +1,4 @@
-import 'package:absher/core/app_router/app_router.dart';
+
 import 'package:absher/presentation/resources/color_manager.dart';
 import 'package:absher/presentation/widgets/custom_app_background.dart';
 import 'package:absher/translations.dart';
@@ -9,10 +9,10 @@ import '../../../bloc/about_bloc/about_bloc.dart';
 import '../../../bloc/about_bloc/about_event.dart';
 import '../../../bloc/about_bloc/about_state.dart';
 import '../../../core/services/services_locator.dart';
-import '../../resources/assets_manager.dart';
+
 import '../../widgets/custom_app_bar_screens.dart';
 import '../../widgets/custom_error_screen.dart';
-import '../../widgets/custom_icon.dart';
+
 
 class AboutScreen extends StatelessWidget {
   const AboutScreen({super.key});
@@ -20,7 +20,7 @@ class AboutScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<AboutBloc>(
-      create: (BuildContext context) => sl<AboutBloc>()..add(getAbout()),
+      create: (BuildContext context) => sl<AboutBloc>()..add(GetAbout()),
       // lazy: false,
       child: const AboutBody(),
     );
@@ -55,7 +55,7 @@ class AboutBody extends StatelessWidget {
 
                         child: CustomErrorScreen(
                           onTap: () {
-                            sl<AboutBloc>().add(getAbout());
+                            sl<AboutBloc>().add(GetAbout());
                           },
                         ),
                       );

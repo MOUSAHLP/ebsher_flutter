@@ -1,9 +1,10 @@
-import 'package:absher/bloc/favorites_list_bloc/favorites_list_bloc.dart';
-import 'package:absher/bloc/favorites_list_bloc/favorites_list_state.dart';
+import 'package:absher/translations.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:overlay_support/overlay_support.dart';
 
+import '../../bloc/authentication_bloc/authertication_bloc.dart';
+import '../../core/services/services_locator.dart';
 import '../resources/assets_manager.dart';
 
 class FavoriteHeart extends StatelessWidget {
@@ -21,7 +22,11 @@ class FavoriteHeart extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        onTap();
+        if (sl<AuthenticationBloc>().loggedIn) {
+          onTap();
+        }else{
+          toast(AppLocalizations.of(context)!.pleaseLogIn);
+        }
       },
       child: isToggled
           ? SvgPicture.asset(

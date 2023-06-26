@@ -1,8 +1,6 @@
 import 'package:absher/models/advertisement_response.dart';
-import 'package:absher/models/story_model.dart';
 import 'package:absher/models/sub_category_item_model.dart';
 
-import 'category_response.dart';
 
 class SubCategoriesModel {
   List<SubCategoryItemModel>? subCategories;

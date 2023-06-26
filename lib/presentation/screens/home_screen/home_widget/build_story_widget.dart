@@ -1,14 +1,13 @@
 import 'package:absher/bloc/home_bloc/home_bloc.dart';
-import 'package:absher/bloc/stories_bloc/stories_bloc.dart';
-import 'package:absher/core/app_router/app_router.dart';
+
 import 'package:absher/presentation/resources/color_manager.dart';
 import 'package:absher/presentation/widgets/accessories/cached_image.dart';
-import 'package:absher/presentation/widgets/accessories/video_thumb_image.dart';
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../bloc/authentication_bloc/authertication_bloc.dart';
 import '../../../../bloc/home_bloc/home_event.dart';
 import '../../../../bloc/home_bloc/home_state.dart';
 import '../../../../core/services/services_locator.dart';
@@ -67,7 +66,7 @@ class BuildStoryWidget extends StatelessWidget {
                       ),
                     ),
                   ),
-                  BlocBuilder<HomeBloc, HomeState>(
+                  sl<AuthenticationBloc>().loggedIn?    BlocBuilder<HomeBloc, HomeState>(
                     bloc: sl<HomeBloc>()..add(ChangeSeeStory([])),
                     builder: (context, state) {
                       return context
@@ -83,9 +82,9 @@ class BuildStoryWidget extends StatelessWidget {
                                 shape: BoxShape.circle,
                                 color: Colors.green,
                               ))
-                          : SizedBox.shrink();
+                          : const SizedBox.shrink();
                     },
-                  )
+                  ):const SizedBox.shrink()
                 ],
               ),
             ),

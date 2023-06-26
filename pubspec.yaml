@@ -41,7 +41,8 @@ dependencies:
   flutter_html:
   image_picker:
   url_launcher: ^6.1.11
-  firebase_messaging: ^14.6.3
+  firebase_messaging:
+
 
 
 dev_dependencies:

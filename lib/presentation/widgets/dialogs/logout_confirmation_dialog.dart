@@ -54,7 +54,7 @@ class _LogoutConfirmationDialog extends StatelessWidget {
                     },
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 16,
                 ),
                 Expanded(
@@ -63,7 +63,7 @@ class _LogoutConfirmationDialog extends StatelessWidget {
                     fillColor: Colors.redAccent,
                     onTap: () {
                       sl<AuthenticationBloc>().add(LoggedOut());
-                      AppRouter.pushAndRemoveAllStack(context, AccountScreen());
+                      AppRouter.pushAndRemoveAllStack(context, const AccountScreen());
                     },
                   ),
                 ),

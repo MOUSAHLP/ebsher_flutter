@@ -19,12 +19,16 @@ class AuthenticationBloc
     on<AuthenticationEvent>((event, emit) async {
       if (event is AppStarted) {
         final bool hasToken = await userRepository.hasToken();
-        await Future.delayed(Duration(seconds: 4)).then((value) {
+        await Future.delayed(const Duration(seconds: 4)).then((value) {
           if (hasToken) {
             loginResponse = DataStore.instance.userInfo;
             emit(AuthenticationAuthenticated());
           } else {
-            emit(AuthenticationUnauthenticated());
+            if (loggedIn == false) {
+              emit(AuthenticationGuest());
+            } else {
+              emit(AuthenticationUnauthenticated());
+            }
           }
         });
       }
@@ -36,7 +40,10 @@ class AuthenticationBloc
         loginResponse = event.loginResponse;
         emit(AuthenticationAuthenticated());
       }
-
+      if (event is LoggedGuest) {
+        loggedIn = false;
+        emit(AuthenticationGuest());
+      }
       if (event is LoggedOut) {
         userRepository.deleteToken();
         DataStore.instance.deleteUserInfo();

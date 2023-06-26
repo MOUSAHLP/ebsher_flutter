@@ -1,4 +1,4 @@
-import '../../models/profile_model.dart';
+
 
 abstract class ProfileEvent {
   ProfileEvent([List props = const []]) : super();

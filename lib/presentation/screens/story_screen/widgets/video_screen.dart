@@ -1,13 +1,9 @@
 import 'dart:developer';
-
 import 'package:absher/bloc/stories_bloc/stories_bloc.dart';
 import 'package:absher/translations.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:video_player/video_player.dart';
-
 import '../../../resources/font_app.dart';
 import '../../../resources/style_app.dart';
 
@@ -51,7 +47,6 @@ class _VideoScreenState extends State<VideoScreen> {
 
   void _initController(String link) {
     setState(() {
-      print('init state');
       isLoading = true;
       error = false;
     });
@@ -59,7 +54,6 @@ class _VideoScreenState extends State<VideoScreen> {
     storiesBloc.playerController = VideoPlayerController.network(link);
 
     storiesBloc.playerController!.initialize().then((_) {
-      print('initialized');
       setState(() {
         isLoading = false;
       });
@@ -74,8 +68,7 @@ class _VideoScreenState extends State<VideoScreen> {
       log('after current if ');
       storiesBloc.playerController!.addListener(() {
         if (storiesBloc.playerController!.value.hasError) {
-          print('HasError');
-          widget.animationController.duration = Duration(seconds: 5);
+          widget.animationController.duration = const Duration(seconds: 5);
           widget.animationController.forward();
           setState(() {
             error = true;
@@ -83,7 +76,7 @@ class _VideoScreenState extends State<VideoScreen> {
         }
       });
     }).catchError((onError) {
-      widget.animationController.duration = Duration(seconds: 5);
+      widget.animationController.duration = const Duration(seconds: 5);
       widget.animationController.forward();
       setState(() {
         error = true;
@@ -122,12 +115,12 @@ class _VideoScreenState extends State<VideoScreen> {
             ? Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.error_outline,
                     color: Colors.white,
                     size: 32,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 16,
                   ),
                   Text(

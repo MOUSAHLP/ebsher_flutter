@@ -1,10 +1,6 @@
-import 'package:absher/bloc/sign_up_bloc/sign_up_bloc.dart';
-import 'package:absher/bloc/sign_up_bloc/sign_up_event.dart';
-import 'package:absher/core/services/services_locator.dart';
+
 import 'package:absher/data/data_resource/local_resource/data_store.dart';
 import 'package:bloc/bloc.dart';
-import 'package:flutter/gestures.dart';
-
 import '../../core/app_validators.dart';
 import '../../data/repos/user_repository.dart';
 import '../../models/params/login_params.dart';

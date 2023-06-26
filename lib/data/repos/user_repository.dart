@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:absher/core/api_const.dart';
 import 'package:absher/data/data_resource/local_resource/data_store.dart';
@@ -9,6 +8,7 @@ import 'package:absher/models/params/sign_up_params.dart';
 import 'package:absher/models/sign_up_response.dart';
 import 'package:dartz/dartz.dart';
 
+import '../../core/firebase_notifications_handler.dart';
 import '../../models/login_response.dart';
 import '../../models/otp_verify_response.dart';
 import '../../models/params/login_params.dart';
@@ -17,11 +17,13 @@ import '../../models/params/reset_password_params.dart';
 class UserRepository {
   Future<Either<String, LoginResponse>> authenticate(
       {LoginParams? loginParams}) async {
+    String? token= await FirebaseNotificationsHandler().refreshFcmToken();
     return BaseApiClient.post<LoginResponse>(
         url: ApiConst.login,
         queryParameters: {
           "password": loginParams?.password,
           "phone": loginParams?.phone,
+          "device_token":token
         },
         converter: (e) {
           return LoginResponse.fromJson(e['data']);

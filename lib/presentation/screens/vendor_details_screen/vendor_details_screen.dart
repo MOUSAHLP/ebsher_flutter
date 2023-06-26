@@ -1,11 +1,10 @@
 import 'package:absher/bloc/vendor_details_bloc/vendor_details_state.dart';
-import 'package:absher/models/vendor_model.dart';
+
 import 'package:absher/presentation/resources/color_manager.dart';
 import 'package:absher/presentation/screens/location_screen/widgets/app_bar_widget.dart';
 import 'package:absher/presentation/screens/vendor_details_screen/widgets/collapsed_header.dart';
 import 'package:absher/presentation/screens/vendor_details_screen/widgets/expanded_header.dart';
 import 'package:absher/presentation/screens/vendor_details_screen/widgets/vendor_details_body.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,8 +14,8 @@ import '../../../bloc/vendor_details_bloc/vendor_details_event.dart';
 import '../../../core/services/services_locator.dart';
 import '../../widgets/custom_app_background.dart';
 import '../../widgets/custom_error_screen.dart';
-import '../edit_profile_screen/widgets/build_shimmer_profile.dart';
 
+// ignore: must_be_immutable
 class VendorDetailsScreen extends StatelessWidget {
   VendorDetailsScreen({Key? key, required this.id}) : super(key: key);
   int id;
@@ -25,7 +24,7 @@ class VendorDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<VendorDetailsBloc>(
         create: (BuildContext context) =>
-            sl<VendorDetailsBloc>()..add(getVendorDetails(id)),
+            sl<VendorDetailsBloc>()..add(GetVendorDetails(id)),
         // lazy: false,
         child: VendorDetailsScreenBody(
           id: id,
@@ -33,6 +32,7 @@ class VendorDetailsScreen extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class VendorDetailsScreenBody extends StatefulWidget {
   VendorDetailsScreenBody({Key? key, required this.id}) : super(key: key);
 
@@ -82,12 +82,12 @@ class _VendorDetailsScreenBodyState extends State<VendorDetailsScreenBody> {
         if (state is VendorDetailsLoading) {
           return Column(
             children: [
-              AppBarWidget(),
+              const AppBarWidget(),
               Expanded(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
+                  children: const [
                     Center(
                       child: CircularProgressIndicator(
                         color: ColorManager.primaryColor,
@@ -101,11 +101,11 @@ class _VendorDetailsScreenBodyState extends State<VendorDetailsScreenBody> {
         } else if (state is VendorDetailsError) {
           return Column(
             children: [
-              AppBarWidget(),
+              const AppBarWidget(),
               Center(
                 child: CustomErrorScreen(
                   onTap: () {
-                    sl<VendorDetailsBloc>().add(getVendorDetails(widget.id));
+                    sl<VendorDetailsBloc>().add(GetVendorDetails(widget.id));
                   },
                 ),
               ),
@@ -151,7 +151,7 @@ class _VendorDetailsScreenBodyState extends State<VendorDetailsScreenBody> {
             ),
           );
         } else {
-          return Text("");
+          return const Text("");
         }
       }),
     );

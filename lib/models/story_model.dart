@@ -26,12 +26,12 @@ class StoryModelDto {
   static List<StoryModelDto> listFromJson(List<dynamic>? json) {
     return json == null
         ? []
-        : json.map((value) => new StoryModelDto.fromJson(value)).toList();
+        : json.map((value) => StoryModelDto.fromJson(value)).toList();
   }
 }
 class VendorStoryModel {
   int? id;
-  localizationStringModel? name;
+  LocalizationStringModel? name;
   String? image;
   VendorStoryModel(
       {this.id,
@@ -41,7 +41,7 @@ class VendorStoryModel {
     if (json == null) return;
     id = json['id'];
     image = json['image'];
-    name =localizationStringModel.fromJson(json, "name");
+    name =LocalizationStringModel.fromJson(json, "name");
   }
 
   static List<VendorStoryModel> listFromJson(List<dynamic>? json) {

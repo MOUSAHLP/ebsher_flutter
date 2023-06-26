@@ -1,6 +1,5 @@
 import 'package:absher/bloc/privacy_bloc/privacy_event.dart';
 import 'package:absher/bloc/privacy_bloc/privacy_state.dart';
-import 'package:absher/data/data_resource/local_resource/data_store.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../data/repos/about&privacy.dart';
 

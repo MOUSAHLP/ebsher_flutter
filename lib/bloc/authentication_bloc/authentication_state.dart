@@ -14,3 +14,4 @@ class AuthenticationUnauthenticated extends AuthenticationState {}
 class AuthenticationLoggedOut extends AuthenticationState {}
 
 class AuthenticationLoading extends AuthenticationState {}
+class AuthenticationGuest extends AuthenticationState {}

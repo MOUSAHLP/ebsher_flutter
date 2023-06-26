@@ -36,7 +36,7 @@ class OnBoardingScreen extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-                    AppRouter.pushReplacement(context, AccountScreen());
+                    AppRouter.pushReplacement(context, const AccountScreen());
                   },
                   child: Container(
                     height: 54,
@@ -65,7 +65,7 @@ class OnBoardingScreen extends StatelessWidget {
                               color: ColorManager.primaryColor,
                             ),
                             child: Padding(
-                              padding: EdgeInsets.all(4.0),
+                              padding: const EdgeInsets.all(4.0),
                               child: Center(
                                 child: const Icon(
                                   Icons.arrow_forward_rounded,

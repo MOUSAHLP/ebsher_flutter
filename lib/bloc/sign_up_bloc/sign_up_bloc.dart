@@ -1,5 +1,4 @@
 
-import 'package:absher/core/app_regex.dart';
 import 'package:absher/core/app_validators.dart';
 import 'package:absher/data/data_resource/local_resource/data_store.dart';
 import 'package:absher/data/repos/user_repository.dart';
@@ -55,7 +54,6 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
 
       if (event is SignUp) {
         emit(SignUpLoading());
-        print(signUpParams.toJson().toString());
         String? validationError =
             AppValidators.validateSignUpFields(signUpParams);
         if (validationError == null) {

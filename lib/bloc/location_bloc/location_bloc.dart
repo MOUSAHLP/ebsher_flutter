@@ -1,14 +1,13 @@
-import 'dart:developer';
 
 import 'package:absher/bloc/location_bloc/location_event.dart';
 import 'package:absher/core/app_enums.dart';
-import 'package:absher/core/app_router/app_router.dart';
+
 import 'package:absher/presentation/resources/assets_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:overlay_support/overlay_support.dart';
+
 import '../../data/repos/favorite_repository.dart';
 import '../../data/repos/location_respository.dart';
 import '../../models/vendor_model.dart';
@@ -129,7 +128,7 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
         }
       }
 
-      if (event is checkIndex) {
+      if (event is CheckIndex) {
         if (pendingCategories
             .any((element) => element.id == allCategories[event.index].id)) {
           pendingCategories.remove(allCategories[event.index]);
@@ -213,7 +212,6 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
           return Future.error('Location services are disabled.');
         }
       }
-
       return await Geolocator.getCurrentPosition();
     } catch (e) {
       return null;

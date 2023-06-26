@@ -1,20 +1,21 @@
-import 'package:absher/presentation/resources/assets_manager.dart';
+
 import 'package:absher/presentation/widgets/accessories/cached_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../resources/style_app.dart';
+// ignore: must_be_immutable
 class CardSubCategory extends StatelessWidget {
   String title;
   String image;
 
-  CardSubCategory({required this.title, required this.image});
+  CardSubCategory({super.key, required this.title, required this.image});
 
   @override
   Widget build(BuildContext context) {
     var size=(1.sw-40)*98;
     return  Padding(
-      padding:  EdgeInsets.symmetric(horizontal: 20,vertical: 5),
+      padding:  const EdgeInsets.symmetric(horizontal: 20,vertical: 5),
       child: Stack(
         children: [
           Container(

@@ -24,7 +24,7 @@ class RecomindationSection extends StatelessWidget {
         Row(
           children: [
             SvgPicture.asset(IconsManager.iconLinks),
-            SizedBox(
+            const SizedBox(
               width: 8,
             ),
             Text(

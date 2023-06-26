@@ -1,10 +1,10 @@
 
 import 'package:absher/presentation/widgets/accessories/cached_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/hex_colors.dart';
 
+// ignore: must_be_immutable
 class MarkerWidget extends StatelessWidget {
   String image;
   String colors;

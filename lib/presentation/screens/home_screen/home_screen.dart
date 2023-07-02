@@ -77,9 +77,9 @@ class HomeScreen extends StatelessWidget {
                                 color: Colors.white,
                                 borderRadius:
                                     BorderRadius.circular(RadiusApp.r50)),
-                            child: Row(
+                            child: const Row(
                               mainAxisAlignment: MainAxisAlignment.end,
-                              children: const [
+                              children: [
                                 Icon(
                                   Icons.search,
                                   color: ColorManager.primaryColor,

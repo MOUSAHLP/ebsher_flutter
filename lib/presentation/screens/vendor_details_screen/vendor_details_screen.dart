@@ -80,14 +80,14 @@ class _VendorDetailsScreenBodyState extends State<VendorDetailsScreenBody> {
       child: BlocBuilder<VendorDetailsBloc, VendorDetailsState>(
           builder: (context, state) {
         if (state is VendorDetailsLoading) {
-          return Column(
+          return const Column(
             children: [
-              const AppBarWidget(),
+              AppBarWidget(),
               Expanded(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  children: const [
+                  children: [
                     Center(
                       child: CircularProgressIndicator(
                         color: ColorManager.primaryColor,

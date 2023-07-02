@@ -146,9 +146,9 @@ class _VideoScreenState extends State<VideoScreen> {
                   ),
                   if (storiesBloc.playerController != null &&
                       !storiesBloc.playerController!.value.isPlaying)
-                    Column(
+                    const Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
+                      children: [
                         SizedBox(
                           height: 40,
                           width: 40,

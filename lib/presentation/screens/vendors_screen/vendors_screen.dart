@@ -122,9 +122,9 @@ class VendorsScreenBody extends StatelessWidget {
                           )
                         ],
                       )
-                    : Column(
+                    : const Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
-                        children: const [
+                        children: [
                           SizedBox(height: 70),
                           SearchFilter(),
                           SizedBox(height: 40),

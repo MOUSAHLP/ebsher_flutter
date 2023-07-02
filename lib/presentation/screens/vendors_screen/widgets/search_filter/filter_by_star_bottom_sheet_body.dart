@@ -44,8 +44,8 @@ class FilterByStarsBottomSheetBody extends StatelessWidget {
                 color: Colors.grey,
                 height: 3,
               ),
-              Column(
-                children: const [
+              const Column(
+                children: [
                   RateStarsRadioButton(
                     rate: 5,
                   ),

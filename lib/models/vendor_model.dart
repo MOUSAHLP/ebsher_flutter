@@ -20,10 +20,10 @@ class VendorModel {
   DateTime? expireDate;
   String? avgRating;
   String? categoryId;
-  dynamic? packageId;
+  dynamic packageId;
   String? visits;
   DateTime? customDate;
-  dynamic? webiste;
+  dynamic webiste;
   DateTime? updatedAt;
   int? openStatus;
   bool favoriteStatus;
@@ -329,8 +329,8 @@ class Feature {
   String? name;
   String? nameAr;
   String? packageId;
-  dynamic? createdAt;
-  dynamic? updatedAt;
+  dynamic createdAt;
+  dynamic updatedAt;
   String? icon;
   FeaturePivot? pivot;
 
@@ -393,8 +393,8 @@ class SocialMedia {
   String? name;
   String? nameAr;
   String? image;
-  dynamic? createdAt;
-  dynamic? updatedAt;
+  dynamic createdAt;
+  dynamic updatedAt;
   SocialMediaPivot? pivot;
 
   SocialMedia({
@@ -460,8 +460,8 @@ class SubCategory {
   String? image;
   String? thumbnail;
   String? categoryId;
-  dynamic? createdAt;
-  dynamic? updatedAt;
+  dynamic createdAt;
+  dynamic updatedAt;
   SubCategoryPivot? pivot;
 
   SubCategory({
@@ -527,8 +527,8 @@ class Recomindation {
   LocalizationStringModel? name;
   LocalizationStringModel? description;
   String? image;
-  dynamic? open;
-  dynamic? close;
+  dynamic open;
+  dynamic close;
   String? phone;
   String? email;
   String? address;
@@ -539,12 +539,12 @@ class Recomindation {
   String? isOpen;
   DateTime? startDate;
   DateTime? expireDate;
-  dynamic? avgRating;
+  dynamic avgRating;
   String? categoryId;
   String? packageId;
   String? visits;
   DateTime? customDate;
-  dynamic? webiste;
+  dynamic webiste;
   DateTime? createdAt;
   DateTime? updatedAt;
   Category? category;

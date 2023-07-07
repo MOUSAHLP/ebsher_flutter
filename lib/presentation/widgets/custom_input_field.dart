@@ -1,4 +1,3 @@
-
 import 'package:absher/presentation/resources/style_app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -89,7 +88,8 @@ class CustomInputField extends StatelessWidget {
                     validator: validator,
                     inputFormatters: inputFormatters,
                     decoration: InputDecoration(
-                      fillColor: readOnly ? Colors.grey : const Color(0xFFEEF6F6),
+                      fillColor:
+                          readOnly ? Colors.grey : const Color(0xFFEEF6F6),
                       hintText: withLabel ? null : hintText,
                       floatingLabelBehavior: FloatingLabelBehavior.never,
                       label: withLabel

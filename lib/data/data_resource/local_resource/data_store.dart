@@ -25,11 +25,12 @@ class DataStore {
 
   Future<void> setLang(String value) => box.put(DataStoreKeys.lang, value);
 
-
   /// EnableNotifications
-  bool get enableNotifications => box.get(DataStoreKeys.enableNotifications, defaultValue: true);
+  bool get enableNotifications =>
+      box.get(DataStoreKeys.enableNotifications, defaultValue: true);
 
-  Future<void> setEnableNotifications(bool value) => box.put(DataStoreKeys.enableNotifications, value);
+  Future<void> setEnableNotifications(bool value) =>
+      box.put(DataStoreKeys.enableNotifications, value);
 
   /// Token
   bool get hasToken => box.containsKey(DataStoreKeys.token);

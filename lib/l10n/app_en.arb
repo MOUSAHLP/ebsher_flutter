@@ -177,5 +177,6 @@
   },
   "addNewFilters": "Add New Filters",
   "guest": "Log in as a guest",
-  "pleaseLogIn": "Please login to add items to your favorites"
+  "pleaseLogIn": "Please login to add items to your favorites",
+  "searchPlaceHolder": "Omaya / Layla / Four seasons"
 }

@@ -1,9 +1,11 @@
 import 'package:absher/presentation/resources/assets_manager.dart';
+import 'package:absher/presentation/resources/style_app.dart';
 import 'package:absher/presentation/screens/home_screen/home_widget/build_card_categories.dart';
 import 'package:absher/presentation/screens/home_screen/home_widget/build_shimmer_widget.dart';
 import 'package:absher/presentation/widgets/ads_carousel_slider.dart';
 
 import 'package:absher/presentation/widgets/custom_error_screen.dart';
+import 'package:absher/translations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -21,7 +23,9 @@ import 'home_widget/search_result_screen.dart';
 // ignore: must_be_immutable
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
+
   bool isBlue = false;
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -53,11 +57,16 @@ class HomeScreen extends StatelessWidget {
                         padding: EdgeInsets.symmetric(vertical: 2.65.h),
                         child: const BuildStoryWidget(),
                       ),
-                      state.listAdvertisments.isNotEmpty? AdsCarouselSlider(
-                        ads: state.listAdvertisments,
-                      ): AdsCarouselSlider(
-                        ads: [AdvertisementsResponse(image: ImageManager.appLogo)],
-                      ),
+                      state.listAdvertisments.isNotEmpty
+                          ? AdsCarouselSlider(
+                              ads: state.listAdvertisments,
+                            )
+                          : AdsCarouselSlider(
+                              ads: [
+                                AdvertisementsResponse(
+                                    image: ImageManager.appLogo)
+                              ],
+                            ),
                       SizedBox(height: 1.7.h),
                       InkWell(
                         onTap: () {
@@ -72,17 +81,26 @@ class HomeScreen extends StatelessWidget {
                           child: Container(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: SizeApp.s10),
-                            height: 3.5.h,
+                            height: 5.h,
                             decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius:
                                     BorderRadius.circular(RadiusApp.r50)),
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: const [
+                              children: [
                                 Icon(
                                   Icons.search,
                                   color: ColorManager.primaryColor,
+                                ),
+                                SizedBox(
+                                  width: 16,
+                                ),
+                                Text(
+                                  AppLocalizations.of(context)!
+                                      .searchPlaceHolder,
+                                  style: getBoldStyle(
+                                    color: Colors.grey,
+                                  ),
                                 ),
                               ],
                             ),
@@ -132,7 +150,6 @@ class HomeScreen extends StatelessWidget {
                             Expanded(
                               child: SingleChildScrollView(
                                 child: Column(
-                                  
                                   children: [
                                     SizedBox(
                                       width: 1.sw,

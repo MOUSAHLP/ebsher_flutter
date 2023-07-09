@@ -15,9 +15,6 @@ class BuildShimmerVendors extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const SizedBox(height: 50),
-              shimmerCategory(),
-              const SizedBox(height: 10),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: SizeApp.s16),
                 child: ListView.builder(

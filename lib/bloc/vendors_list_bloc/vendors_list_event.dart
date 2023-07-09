@@ -1,3 +1,5 @@
+import 'package:absher/models/sub_category_item_model.dart';
+
 import '../../models/params/get_vendors_params.dart';
 
 abstract class VendorsListEvent {
@@ -5,9 +7,16 @@ abstract class VendorsListEvent {
 }
 
 class GetVendorsList extends VendorsListEvent {
-  final int idCategory;
+  final int subCategoryId;
+  final List<SubCategoryItemModel>? subCategories;
 
-  GetVendorsList(this.idCategory);
+  GetVendorsList(this.subCategoryId, this.subCategories);
+}
+
+class ChangeSelectedSubCategory extends VendorsListEvent {
+  final int subCategoryId;
+
+  ChangeSelectedSubCategory(this.subCategoryId);
 }
 
 class RefreshVendorsList extends VendorsListEvent {}

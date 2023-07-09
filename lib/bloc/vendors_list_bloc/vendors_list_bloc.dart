@@ -5,32 +5,38 @@ import 'package:absher/data/repos/favorite_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:overlay_support/overlay_support.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import '../../data/repos/home_repository.dart';
 import '../../models/params/get_vendors_params.dart';
 import '../../models/vendor_model.dart';
 
 class VendorsListBloc extends Bloc<VendorsListEvent, VendorsListState> {
-  GetVendorsParams appliedFilter = GetVendorsParams();
+  GetVendorsParams appliedFilter;
   GetVendorsParams pendingFilter = GetVendorsParams();
+  ItemScrollController vendorsInnerController = ItemScrollController();
 
   List<VendorModel> vendorsList = [];
 
-  VendorsListBloc()
+  VendorsListBloc({required this.appliedFilter})
       : super(VendorsListState(
-          appliedFilters: GetVendorsParams(),
-          pendingFilters: GetVendorsParams(),
+          appliedFilters: appliedFilter,
+          pendingFilters: appliedFilter,
         )) {
     on<VendorsListEvent>((event, emit) async {
       if (event is GetVendorsList) {
-        emit(state.copyWith(screenStates: ScreenStates.loading));
+        emit(state.copyWith(
+          screenStates: ScreenStates.loading,
+        ));
         vendorsList.clear();
-        appliedFilter.subCategoryId = event.idCategory;
+        appliedFilter.subCategoryId = event.subCategoryId;
         pendingFilter = GetVendorsParams.fromGetVendorsParams(appliedFilter);
         final response = await HomeRepository.getVendorsList(
             getVendorsParams: appliedFilter);
         response.fold((l) {
-          emit(state.copyWith(screenStates: ScreenStates.error, error: l));
+          if (l != 'Cancel') {
+            emit(state.copyWith(screenStates: ScreenStates.error, error: l));
+          }
         }, (r) {
           vendorsList = [...r];
           emit(state.copyWith(
@@ -42,14 +48,22 @@ class VendorsListBloc extends Bloc<VendorsListEvent, VendorsListState> {
         });
       }
 
+      if (event is ChangeSelectedSubCategory) {
+        appliedFilter.subCategoryId = event.subCategoryId;
+        add(RefreshVendorsList());
+      }
+
       if (event is RefreshVendorsList) {
-        emit(state.copyWith(screenStates: ScreenStates.loading));
+        emit(state.copyWith(
+            screenStates: ScreenStates.loading, appliedFilters: appliedFilter));
         vendorsList.clear();
         pendingFilter = GetVendorsParams.fromGetVendorsParams(appliedFilter);
         final response = await HomeRepository.getVendorsList(
             getVendorsParams: appliedFilter);
         response.fold((l) {
-          emit(state.copyWith(screenStates: ScreenStates.error, error: l));
+          if (l != 'Cancel') {
+            emit(state.copyWith(screenStates: ScreenStates.error, error: l));
+          }
         }, (r) {
           vendorsList = [...r];
           emit(state.copyWith(

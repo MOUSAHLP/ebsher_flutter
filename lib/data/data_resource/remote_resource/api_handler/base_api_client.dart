@@ -12,6 +12,8 @@ class BaseApiClient {
   static Dio client = Dio();
   static const String _acceptHeader = 'application/json';
 
+  static CancelToken getVendorsCancelToken = CancelToken();
+
   BaseApiClient() {
     client.interceptors.add(LogInterceptor());
     if (kDebugMode) {
@@ -24,7 +26,7 @@ class BaseApiClient {
 
   static Future<Either<String, T>> post<T>(
       {required String url,
-        dynamic formData,
+      dynamic formData,
       Map<String, dynamic>? queryParameters,
       required T Function(dynamic) converter,
       dynamic returnOnError}) async {
@@ -117,6 +119,7 @@ class BaseApiClient {
     required String url,
     Map<String, dynamic>? queryParameters,
     required T Function(dynamic) converter,
+    CancelToken? cancelToken,
   }) async {
     try {
       var response = await client.get(
@@ -128,6 +131,7 @@ class BaseApiClient {
             'authorization': 'Bearer ${DataStore.instance.token ?? ''}',
           },
         ),
+        cancelToken: cancelToken,
       );
       if (response.statusCode! >= 200 || response.statusCode! <= 205) {
         if (kDebugMode) {
@@ -138,7 +142,10 @@ class BaseApiClient {
       } else {
         return left(response.data['message']);
       }
-    } on DioError catch (e) {
+    } on DioException catch (e) {
+      if (e.type == DioExceptionType.cancel) {
+        return left('Cancel');
+      }
       Map dioError = DioErrorsHandler.onError(e);
       if (kDebugMode) {
         print(e);

@@ -84,15 +84,17 @@ class SubCategoryBody extends StatelessWidget {
                               itemBuilder: (context, index) {
                                 return InkWell(
                                     onTap: () {
-                                      AppRouter.push(
+                                      AppRouter.pushReplacement(
                                         context,
                                         VendorsScreen(
-                                            title: localizationString(
-                                                context,
-                                                state.subCategories[index]
-                                                    .name!)!,
-                                            categoryId:
-                                                state.subCategories[index].id!),
+                                          title: localizationString(
+                                              context,
+                                              state
+                                                  .subCategories[index].name!)!,
+                                          subCategoryId:
+                                              state.subCategories[index].id!,
+                                          subCategories: state.subCategories,
+                                        ),
                                       );
                                     },
                                     child: CardSubCategory(

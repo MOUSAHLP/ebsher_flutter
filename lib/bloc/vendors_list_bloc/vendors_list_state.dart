@@ -1,5 +1,6 @@
 import 'package:absher/core/app_enums.dart';
 import 'package:absher/models/params/get_vendors_params.dart';
+import 'package:absher/models/sub_category_item_model.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 

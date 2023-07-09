@@ -1,4 +1,3 @@
-
 import 'package:absher/bloc/search_bloc/search_bloc.dart';
 import 'package:absher/bloc/search_bloc/search_event.dart';
 import 'package:absher/bloc/search_bloc/search_state.dart';
@@ -144,7 +143,6 @@ class CardRandomWidget extends StatelessWidget {
                       ),
                     ),
                     Column(
-//                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         IsOpenLabel(
                           isOpen: vendor.isOpen,

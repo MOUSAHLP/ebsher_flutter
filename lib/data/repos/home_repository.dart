@@ -40,12 +40,16 @@ class HomeRepository {
 
   static Future<Either<String, List<VendorModel>>> getVendorsList(
       {required GetVendorsParams getVendorsParams}) {
+    BaseApiClient.getVendorsCancelToken.cancel('CancleS');
+    BaseApiClient.getVendorsCancelToken = CancelToken();
     return BaseApiClient.get<List<VendorModel>>(
-        url: ApiConst.getVendorsList,
-        queryParameters: getVendorsParams.toJson(),
-        converter: (e) {
-          return VendorModel.listFromJson(e);
-        });
+      url: ApiConst.getVendorsList,
+      queryParameters: getVendorsParams.toJson(),
+      converter: (e) {
+        return VendorModel.listFromJson(e);
+      },
+      cancelToken: BaseApiClient.getVendorsCancelToken,
+    );
   }
 
   static Future<Either<String, SubCategoriesModel>> getSubCategory(
@@ -99,10 +103,9 @@ class HomeRepository {
       "ids": idStory,
     }.toString());
 
-
     return BaseApiClient.post<String>(
         url: ApiConst.seenStories,
-        formData:jsonEncode({
+        formData: jsonEncode({
           "ids": idStory,
         }),
         converter: (e) {

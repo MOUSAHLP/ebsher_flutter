@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
-Future dialogTransitionBuilder(BuildContext context, Widget child) {
- return showGeneralDialog(
-
+Future dialogTransitionBuilder(BuildContext context, Widget child,
+    {bool dismissible = false}) {
+  return showGeneralDialog(
+    barrierDismissible: dismissible,
+    barrierLabel: '',
     context: context,
     pageBuilder: (ctx, a1, a2) {
       return child;

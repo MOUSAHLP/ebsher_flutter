@@ -42,19 +42,11 @@ class CustomAppBar extends StatelessWidget {
               IconsManager.iconAppAbsher,
               height: 6.h,
             ),
-            sl<AuthenticationBloc>().loggedIn?  GestureDetector(
-                onTap: () {
-                  dialogTransitionBuilder(
-                      context,
-                      Stack(
-                        children: [
-                          BackdropFilter(
-                              filter:
-                                  ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
-                              //this is dependent on the import statment above
-                              child: Container(
-                                  decoration: const BoxDecoration(
-                                      color: Colors.transparent))),
+            sl<AuthenticationBloc>().loggedIn
+                ? GestureDetector(
+                    onTap: () {
+                      dialogTransitionBuilder(
+                          context,
                           Padding(
                             padding: const EdgeInsets.only(top: 20, right: 10),
                             child: AlertDialog(
@@ -74,24 +66,25 @@ class CustomAppBar extends StatelessWidget {
                                   const SizedBox(
                                     height: 5,
                                   ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      BlocBuilder<NotificationBloc,
-                                              NotificationState>(
-                                          bloc: sl<NotificationBloc>(),
-                                          builder: (context, state) {
-                                            return SizedBox(
+                                  BlocBuilder<NotificationBloc,
+                                          NotificationState>(
+                                      bloc: sl<NotificationBloc>(),
+                                      builder: (context, state) {
+                                        return Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            SizedBox(
                                                 width: 20,
                                                 child: SwitchListTile(
-                                                  value:  context
+                                                  value: context
                                                       .read<NotificationBloc>()
                                                       .isEnable,
                                                   onChanged: (v) {
-                                                    if ( context
-                                                        .read<NotificationBloc>()
-                                                        .isEnable ==
+                                                    if (context
+                                                            .read<
+                                                                NotificationBloc>()
+                                                            .isEnable ==
                                                         true) {
                                                       sl<NotificationBloc>().add(
                                                           SetNotificationEnable(
@@ -104,21 +97,30 @@ class CustomAppBar extends StatelessWidget {
                                                   },
                                                   activeColor:
                                                       ColorManager.primaryColor,
-                                                ));
-                                          }),
-                                      Text(
-                                          AppLocalizations.of(context)!
-                                              .turnNotification,
-                                          style: getMediumStyle(
-                                              color: const Color(0xff707070),
-                                              fontSize: 15)),
-                                    ],
-                                  ),
+                                                )),
+                                            Text(
+                                                context
+                                                        .read<
+                                                            NotificationBloc>()
+                                                        .isEnable
+                                                    ? AppLocalizations.of(
+                                                            context)!
+                                                        .notificationsOn
+                                                    : AppLocalizations.of(
+                                                            context)!
+                                                        .notificationsOff,
+                                                style: getMediumStyle(
+                                                    color:
+                                                        const Color(0xff707070),
+                                                    fontSize: 15)),
+                                          ],
+                                        );
+                                      }),
                                   const Center(
                                       child: Divider(
                                     color: Colors.black,
                                   )),
-                                 Center(
+                                  Center(
                                       child: GestureDetector(
                                     onTap: () {
                                       AppRouter.pushReplacement(
@@ -135,13 +137,13 @@ class CustomAppBar extends StatelessWidget {
                               )),
                             ),
                           ),
-                        ],
-                      ));
-                },
-                child: SvgPicture.asset(
-                  IconsManager.iconNotification,
-                  height: 2.64.h,
-                )):const SizedBox.shrink(),
+                          dismissible: true);
+                    },
+                    child: SvgPicture.asset(
+                      IconsManager.iconNotification,
+                      height: 2.64.h,
+                    ))
+                : const SizedBox.shrink(),
           ],
         ),
       ),

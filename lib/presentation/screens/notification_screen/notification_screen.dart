@@ -19,63 +19,57 @@ class NotificationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<NotificationBloc>(
-      create: (BuildContext context) =>
-          sl<NotificationBloc>()..add(GetNotificationList()),
-      child: const NotificationBody(),
-    );
-  }
-}
-
-class NotificationBody extends StatelessWidget {
-  const NotificationBody({super.key});
-  @override
-  Widget build(BuildContext context) {
     return CustomAppBackGround(
         child: SafeArea(
             child: Stack(
       children: [
-        sl<AuthenticationBloc>().loggedIn? BlocBuilder<NotificationBloc, NotificationState>(
-            builder: (context, state) {
-          if (state is NotificationLoading) {
-            return const BuildShimmerNotification();
-          } else if (state is NotificationError) {
-            return Center(
-              child: CustomErrorScreen(
-                onTap: () {
-                  sl<NotificationBloc>().add(GetNotificationList());
-                },
-              ),
-            );
-          } else if (state is NotificationSuccess) {
-            return   state.vendorsList.isNotEmpty? SingleChildScrollView(
-              child: Column(
-                children: [
-                  const SizedBox(height: 60),
-              ListView.separated(itemBuilder: (context, index) {
-                      return BuildNotificationWidget(
-                      isSee:   index.isOdd ? true : false,
-                        notificationModel: state.vendorsList[index],
-                      );
-                    },
-                    separatorBuilder: (context, index) => const Divider(
-                        height: 3,
-                        color: Colors.white,
-                        indent: 30,
-                        endIndent: 30),
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount:  state.vendorsList.length,
-                    shrinkWrap: true,
-                  )
-                ],
-              )
-            ):
-            const CustomNoDataScreen();
-
-          } else {
-            return const Text("");
-          }
-        }):const CustomGuest(),
+        sl<AuthenticationBloc>().loggedIn
+            ? BlocBuilder<NotificationBloc, NotificationState>(
+                bloc: sl<NotificationBloc>()..add(GetNotificationList()),
+                builder: (context, state) {
+                  if (state is NotificationLoading) {
+                    return const BuildShimmerNotification();
+                  } else if (state is NotificationError) {
+                    return Center(
+                      child: CustomErrorScreen(
+                        onTap: () {
+                          context
+                              .read<NotificationBloc>()
+                              .add(GetNotificationList());
+                        },
+                      ),
+                    );
+                  } else if (state is NotificationSuccess) {
+                    return state.vendorsList.isNotEmpty
+                        ? SingleChildScrollView(
+                            child: Column(
+                            children: [
+                              const SizedBox(height: 60),
+                              ListView.separated(
+                                itemBuilder: (context, index) {
+                                  return BuildNotificationWidget(
+                                    isSee: index.isOdd ? true : false,
+                                    notificationModel: state.vendorsList[index],
+                                  );
+                                },
+                                separatorBuilder: (context, index) =>
+                                    const Divider(
+                                        height: 3,
+                                        color: Colors.white,
+                                        indent: 30,
+                                        endIndent: 30),
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemCount: state.vendorsList.length,
+                                shrinkWrap: true,
+                              )
+                            ],
+                          ))
+                        : const CustomNoDataScreen();
+                  } else {
+                    return const Text("");
+                  }
+                })
+            : const CustomGuest(),
         Stack(
           children: [
             CustomAppBarScreens(
@@ -87,3 +81,69 @@ class NotificationBody extends StatelessWidget {
     )));
   }
 }
+
+// class NotificationBody extends StatelessWidget {
+//   const NotificationBody({super.key});
+//   @override
+//   Widget build(BuildContext context) {
+//     return CustomAppBackGround(
+//         child: SafeArea(
+//             child: Stack(
+//       children: [
+//         sl<AuthenticationBloc>().loggedIn
+//             ? BlocBuilder<NotificationBloc, NotificationState>(
+//                 builder: (context, state) {
+//                 if (state is NotificationLoading) {
+//                   return const BuildShimmerNotification();
+//                 } else if (state is NotificationError) {
+//                   return Center(
+//                     child: CustomErrorScreen(
+//                       onTap: () {
+//                         context
+//                             .read<NotificationBloc>()
+//                             .add(GetNotificationList());
+//                       },
+//                     ),
+//                   );
+//                 } else if (state is NotificationSuccess) {
+//                   return state.vendorsList.isNotEmpty
+//                       ? SingleChildScrollView(
+//                           child: Column(
+//                           children: [
+//                             const SizedBox(height: 60),
+//                             ListView.separated(
+//                               itemBuilder: (context, index) {
+//                                 return BuildNotificationWidget(
+//                                   isSee: index.isOdd ? true : false,
+//                                   notificationModel: state.vendorsList[index],
+//                                 );
+//                               },
+//                               separatorBuilder: (context, index) =>
+//                                   const Divider(
+//                                       height: 3,
+//                                       color: Colors.white,
+//                                       indent: 30,
+//                                       endIndent: 30),
+//                               physics: const NeverScrollableScrollPhysics(),
+//                               itemCount: state.vendorsList.length,
+//                               shrinkWrap: true,
+//                             )
+//                           ],
+//                         ))
+//                       : const CustomNoDataScreen();
+//                 } else {
+//                   return const Text("");
+//                 }
+//               })
+//             : const CustomGuest(),
+//         Stack(
+//           children: [
+//             CustomAppBarScreens(
+//               title: AppLocalizations.of(context)!.notification,
+//             )
+//           ],
+//         ),
+//       ],
+//     )));
+//   }
+// }

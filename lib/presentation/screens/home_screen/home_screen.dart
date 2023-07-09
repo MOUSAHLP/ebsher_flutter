@@ -54,7 +54,7 @@ class HomeScreen extends StatelessWidget {
                   child: Column(
                     children: [
                       Padding(
-                        padding: EdgeInsets.symmetric(vertical: 2.65.h),
+                        padding: EdgeInsets.symmetric(vertical: 1.5.h),
                         child: const BuildStoryWidget(),
                       ),
                       state.listAdvertisments.isNotEmpty
@@ -112,35 +112,23 @@ class HomeScreen extends StatelessWidget {
                         child: Column(
                           children: [
                             Expanded(
-                              child: SingleChildScrollView(
-                                child: Column(
+                              child: SizedBox(
+                                width: 1.sw,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    SizedBox(
-                                      width: 1.sw,
-                                      child: Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Expanded(
-                                            child: BuildCardCategories(
-                                              category: state.listCategory[0],
-                                              isBlue: true,
-                                              isEnd: true,
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            width: 9.2.w,
-                                          ),
-                                          Expanded(
-                                            child: BuildCardCategories(
-                                              category: state.listCategory[1],
-                                              isBlue: false,
-                                              isEnd: false,
-                                            ),
-                                          ),
-                                        ],
+                                    Expanded(
+                                      child: BuildCardCategories(
+                                        category: state.listCategory[0],
+                                        isBlue: true,
+                                        isEnd: true,
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: BuildCardCategories(
+                                        category: state.listCategory[1],
+                                        isBlue: false,
+                                        isEnd: false,
                                       ),
                                     ),
                                   ],
@@ -148,35 +136,23 @@ class HomeScreen extends StatelessWidget {
                               ),
                             ),
                             Expanded(
-                              child: SingleChildScrollView(
-                                child: Column(
+                              child: SizedBox(
+                                width: 1.sw,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    SizedBox(
-                                      width: 1.sw,
-                                      child: Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Expanded(
-                                            child: BuildCardCategories(
-                                              category: state.listCategory[2],
-                                              isBlue: false,
-                                              isEnd: true,
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            width: 9.2.w,
-                                          ),
-                                          Expanded(
-                                            child: BuildCardCategories(
-                                              category: state.listCategory[3],
-                                              isBlue: true,
-                                              isEnd: false,
-                                            ),
-                                          ),
-                                        ],
+                                    Expanded(
+                                      child: BuildCardCategories(
+                                        category: state.listCategory[2],
+                                        isBlue: false,
+                                        isEnd: true,
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: BuildCardCategories(
+                                        category: state.listCategory[3],
+                                        isBlue: true,
+                                        isEnd: false,
                                       ),
                                     ),
                                   ],
@@ -184,34 +160,22 @@ class HomeScreen extends StatelessWidget {
                               ),
                             ),
                             Expanded(
-                              child: SingleChildScrollView(
-                                child: Column(
+                              child: SizedBox(
+                                width: 1.sw,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    SizedBox(
-                                      width: 1.sw,
-                                      child: Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Expanded(
-                                            child: BuildCardCategories(
-                                              category: state.listCategory[4],
-                                              isBlue: true,
-                                              isEnd: true,
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            width: 9.2.w,
-                                          ),
-                                          const Expanded(
-                                            child: MoreCategoryCard(
-                                              isBlue: false,
-                                              isEnd: false,
-                                            ),
-                                          ),
-                                        ],
+                                    Expanded(
+                                      child: BuildCardCategories(
+                                        category: state.listCategory[4],
+                                        isBlue: true,
+                                        isEnd: true,
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: MoreCategoriesCard(
+                                        isBlue: false,
+                                        isEnd: false,
                                       ),
                                     ),
                                   ],

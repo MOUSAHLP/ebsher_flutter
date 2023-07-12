@@ -15,6 +15,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:overlay_support/overlay_support.dart';
 
+import '../../../core/app_validators.dart';
 import '../../../translations.dart';
 import '../../resources/color_manager.dart';
 import '../../widgets/custom_button.dart';
@@ -24,6 +25,7 @@ import '../location_screen/widgets/app_bar_widget.dart';
 class SignUpScreen extends StatelessWidget {
   SignUpScreen({Key? key}) : super(key: key);
   final _formState = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return BlocListener<SignUpBloc, SignUpState>(
@@ -50,18 +52,16 @@ class SignUpScreen extends StatelessWidget {
         children: [
           const SignUpBackGroundDecoration(),
           Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 30.0, vertical: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 0),
             child: Form(
               key: _formState,
               child: SingleChildScrollView(
+                padding: EdgeInsets.only(bottom: 40),
                 child: Column(
                   children: [
-                     SizedBox(
-                      height: 1.sh-510
-                    ),
+                    SizedBox(height: 1.sh - 510),
                     SizedBox(
-                      height: 500,
+                      // height: 500,
                       child: Column(
                         children: [
                           Text(
@@ -86,7 +86,12 @@ class SignUpScreen extends StatelessWidget {
                             withLabel: true,
                             icon: Icons.person,
                             onChange: (value) {
-                              context.read<SignUpBloc>().signUpParams.name = value;
+                              context.read<SignUpBloc>().signUpParams.name =
+                                  value;
+                            },
+                            validator: (value) {
+                              return AppValidators.validateNameFields(
+                                  context, value);
                             },
                           ),
                           const SizedBox(
@@ -94,12 +99,15 @@ class SignUpScreen extends StatelessWidget {
                           ),
                           CustomInputField(
                             hintText: AppLocalizations.of(context)!.addNumber,
-                            initValue: context.read<SignUpBloc>().signUpParams.phone,
+                            initValue:
+                                context.read<SignUpBloc>().signUpParams.phone,
                             readOnly: true,
                             withLabel: true,
                             icon: Icons.phone_android,
+                            isPhone: true,
                             onChange: (value) {
-                              context.read<SignUpBloc>().signUpParams.phone = value;
+                              context.read<SignUpBloc>().signUpParams.phone =
+                                  value;
                             },
                           ),
                           const SizedBox(
@@ -110,7 +118,12 @@ class SignUpScreen extends StatelessWidget {
                             withLabel: true,
                             icon: Icons.email,
                             onChange: (value) {
-                              context.read<SignUpBloc>().signUpParams.email = value;
+                              context.read<SignUpBloc>().signUpParams.email =
+                                  value;
+                            },
+                            validator: (value) {
+                              return AppValidators.validateEmailFields(
+                                  context, value);
                             },
                           ),
                           const SizedBox(
@@ -124,17 +137,33 @@ class SignUpScreen extends StatelessWidget {
                               context.read<SignUpBloc>().signUpParams.password =
                                   value;
                             },
+                            validator: (value) {
+                              return AppValidators.validatePasswordFields(
+                                  context, value);
+                            },
                           ),
                           const SizedBox(
                             height: 8,
                           ),
                           CustomPasswordInputField(
-                            hintText: AppLocalizations.of(context)!.confimPassword,
+                            hintText:
+                                AppLocalizations.of(context)!.confimPassword,
                             withLabel: true,
                             icon: Icons.lock_open_rounded,
                             onChange: (value) {
-                              context.read<SignUpBloc>().signUpParams.repeatPassword =
-                                  value;
+                              context
+                                  .read<SignUpBloc>()
+                                  .signUpParams
+                                  .repeatPassword = value;
+                            },
+                            validator: (value) {
+                              return AppValidators.validateRepeatPasswordFields(
+                                  context,
+                                  context
+                                      .read<SignUpBloc>()
+                                      .signUpParams
+                                      .password,
+                                  value);
                             },
                           ),
                           const SizedBox(
@@ -143,7 +172,9 @@ class SignUpScreen extends StatelessWidget {
                           CustomButton(
                             label: AppLocalizations.of(context)!.register,
                             onTap: () {
-                              context.read<SignUpBloc>().add(SignUp());
+                              if (_formState.currentState!.validate()) {
+                                context.read<SignUpBloc>().add(SignUp());
+                              }
                             },
                           ),
                           const SizedBox(
@@ -155,7 +186,8 @@ class SignUpScreen extends StatelessWidget {
                             text: TextSpan(
                               children: [
                                 TextSpan(
-                                  text: AppLocalizations.of(context)!.haveAccount,
+                                  text:
+                                      AppLocalizations.of(context)!.haveAccount,
                                   style: getBoldStyle(
                                     color: Colors.white,
                                     fontSize: FontSizeApp.s14,
@@ -170,7 +202,8 @@ class SignUpScreen extends StatelessWidget {
                                   ),
                                   recognizer: TapGestureRecognizer()
                                     ..onTap = () => AppRouter.pushReplacement(
-                                        context, const SignInConfirmationScreen()),
+                                        context,
+                                        const SignInConfirmationScreen()),
                                 ),
                               ],
                             ),
@@ -178,14 +211,12 @@ class SignUpScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-
                   ],
                 ),
               ),
             ),
           ),
           const SafeArea(child: AppBarWidget())
-
         ],
       )),
     );

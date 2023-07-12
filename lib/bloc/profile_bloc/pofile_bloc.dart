@@ -44,19 +44,12 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
         profileModel.name = nameController.text;
         profileModel.email = emailController.text;
         profileModel.avatar = imagePick?.path;
-
-        String? validationError =
-            AppValidators.validateEditeProfileFields(profileModel);
-        if (validationError == null) {
-          var response = await HomeRepository.editProfile(profileModel);
-          response.fold((l) {
-            emit(ProfileError(l));
-          }, (r) {
-            add(GetProfile());
-          });
-        } else {
-          emit(ProfileFieldsValidationFailed(validationError: validationError));
-        }
+        var response = await HomeRepository.editProfile(profileModel);
+        response.fold((l) {
+          emit(ProfileError(l));
+        }, (r) {
+          add(GetProfile());
+        });
       }
       if (event is GetProfile) {
         emit(ProfileLoading());

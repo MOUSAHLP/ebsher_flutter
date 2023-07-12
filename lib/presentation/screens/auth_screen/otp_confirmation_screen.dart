@@ -40,8 +40,7 @@ class OtpConfirmationScreen extends StatelessWidget {
           }
           if (state is SignUpOtpConfirmed) {
             resetPassword
-                ? AppRouter.pushReplacement(
-                    context, const ForgetPasswordScreen())
+                ? AppRouter.pushReplacement(context, ForgetPasswordScreen())
                 : AppRouter.pushReplacement(context, SignUpScreen());
           }
         },

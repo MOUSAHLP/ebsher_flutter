@@ -1,4 +1,3 @@
-
 import 'package:absher/core/app_validators.dart';
 import 'package:absher/data/data_resource/local_resource/data_store.dart';
 import 'package:absher/data/repos/user_repository.dart';
@@ -24,21 +23,16 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     on<SignUpEvent>((event, emit) async {
       if (event is RequestOtp) {
         emit(SignUpLoading());
-        String? validationError =
-        AppValidators.validatePhoneFields(event.phoneNumber);
-        if(validationError == null)
-      { var response =
+        var response =
             await userRepository.signUpPhoneNumber(event.phoneNumber);
         response.fold((l) {
           emit(SignUpError(error: l));
         }, (r) {
           otpVerifyResponse = r;
           emit(SignUpOtpRequested());
-        });}
-        else{
-          emit(PhoneFieldsValidationFailed(validationError: validationError));
-        }
+        });
       }
+
       if (event is ConfirmOtp) {
         emit(SignUpLoading());
         otpConfirmParams.phone = otpVerifyResponse?.phone;
@@ -54,23 +48,18 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
 
       if (event is SignUp) {
         emit(SignUpLoading());
-        String? validationError =
-            AppValidators.validateSignUpFields(signUpParams);
-        if (validationError == null) {
-          var response = await userRepository.signUp(signUpParams);
-          response.fold((l) {
-            emit(SignUpError(error: l));
-          }, (r) {
-            emit(SignUpCompleted());
-          });
-        } else {
-          emit(SignUpFieldsValidationFailed(validationError: validationError));
-        }
+        var response = await userRepository.signUp(signUpParams);
+        response.fold((l) {
+          emit(SignUpError(error: l));
+        }, (r) {
+          emit(SignUpCompleted());
+        });
       }
 
       if (event is ForgetPasswordGenerateOtp) {
         emit(SignUpLoading());
-        var response = await userRepository.forgetPasswordGenerateOtp(event.phoneNumber);
+        var response =
+            await userRepository.forgetPasswordGenerateOtp(event.phoneNumber);
         response.fold((l) {
           emit(SignUpError(error: l));
         }, (r) {
@@ -86,45 +75,28 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
           password: event.password,
           repeatPassword: event.repeatPassword,
         );
-        String? validationError =
-        AppValidators.validatePasswordFields(forgetPasswordParams );
-        if(validationError ==null)
-      {  var response = await userRepository.forgetPassword(forgetPasswordParams);
+        var response =
+            await userRepository.forgetPassword(forgetPasswordParams);
         response.fold((l) {
           emit(SignUpError(error: l));
         }, (r) {
           emit(ForgetPasswordCompleted());
-        });}
-        else
-          {
-            emit(
-                SignUpFieldsValidationFailed(validationError: validationError)
-            );
-          }
+        });
       }
       if (event is ResetPassword) {
         emit(SignUpLoading());
 
-        ResetPasswordParams forgetPasswordParams =  ResetPasswordParams(
-          phone:DataStore.instance.userInfo?.phone,
-          password: event.password,
-          repeatPassword: event.repeatPassword,
-            oldPassword: event.oldPassword
-        );
-        String? validationError = AppValidators.validatePasswordResetFields(forgetPasswordParams );
-        if(validationError ==null)
-        {  var response = await userRepository.resetPassword(forgetPasswordParams);
+        ResetPasswordParams forgetPasswordParams = ResetPasswordParams(
+            phone: DataStore.instance.userInfo?.phone,
+            password: event.password,
+            repeatPassword: event.repeatPassword,
+            oldPassword: event.oldPassword);
+        var response = await userRepository.resetPassword(forgetPasswordParams);
         response.fold((l) {
           emit(SignUpError(error: l));
         }, (r) {
           emit(ResetPasswordCompleted());
-        });}
-        else
-        {
-          emit(
-              SignUpFieldsValidationFailed(validationError: validationError)
-          );
-        }
+        });
       }
     });
   }

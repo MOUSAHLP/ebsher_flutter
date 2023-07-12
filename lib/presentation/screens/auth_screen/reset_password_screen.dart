@@ -13,9 +13,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:overlay_support/overlay_support.dart';
 
+import '../../../core/app_validators.dart';
 import '../../../translations.dart';
 import '../../widgets/dialogs/loading_dialog.dart';
 import 'package:absher/presentation/screens/location_screen/widgets/app_bar_widget.dart';
+
 class ResetPasswordScreen extends StatelessWidget {
   const ResetPasswordScreen({
     Key? key,
@@ -35,7 +37,7 @@ class ResetPasswordScreen extends StatelessWidget {
           if (state is ResetPasswordCompleted) {
             AppRouter.pop(context);
           }
-          if(state is SignUpFieldsValidationFailed){
+          if (state is SignUpFieldsValidationFailed) {
             toast(state.validationError!);
           }
         },
@@ -47,7 +49,9 @@ class _PhoneNumberSignUpScreenContent extends StatelessWidget {
   _PhoneNumberSignUpScreenContent({Key? key}) : super(key: key);
   final TextEditingController oldPasswordController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController repeatPasswordController = TextEditingController();
+  final TextEditingController repeatPasswordController =
+      TextEditingController();
+  final _formState = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -58,60 +62,76 @@ class _PhoneNumberSignUpScreenContent extends StatelessWidget {
         SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 32.0),
-            child: Column(
-              children: [
-                const SizedBox(
-                  height: 400,
-                ),
-                Text(
-                  AppLocalizations.of(context)!.changePassword,
-                  textAlign: TextAlign.center,
-                  style: getBoldStyle(
-                    color: Colors.white,
-                    fontSize: FontSizeApp.s22,
+            child: Form(
+              key: _formState,
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 400,
                   ),
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-
-                CustomPasswordInputField(
-                  controller: oldPasswordController,
-                  hintText: AppLocalizations.of(context)!.oldPassword,
-                  withLabel: true,
-                  icon: Icons.lock_open_rounded,
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                CustomPasswordInputField(
-                  controller: passwordController,
-                  hintText: AppLocalizations.of(context)!.newPassord,
-                  withLabel: true,
-                  icon: Icons.lock_open_rounded,
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                CustomPasswordInputField(
-                  controller: repeatPasswordController,
-                  hintText:  AppLocalizations.of(context)!.confimPassword,
-                  withLabel: true,
-                  icon: Icons.lock_open_rounded,
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                CustomButton(
-                  label:  AppLocalizations.of(context)!.next,
-                  onTap: () {
-                    sl<SignUpBloc>().add(ResetPassword(
-                        password: passwordController.text,
-                        repeatPassword: repeatPasswordController.text,
-                    oldPassword: oldPasswordController.text));
-                  },
-                ),
-              ],
+                  Text(
+                    AppLocalizations.of(context)!.changePassword,
+                    textAlign: TextAlign.center,
+                    style: getBoldStyle(
+                      color: Colors.white,
+                      fontSize: FontSizeApp.s22,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  CustomPasswordInputField(
+                    controller: oldPasswordController,
+                    hintText: AppLocalizations.of(context)!.oldPassword,
+                    withLabel: true,
+                    icon: Icons.lock_open_rounded,
+                    validator: (value) {
+                      return AppValidators.validatePasswordFields(
+                          context, value);
+                    },
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  CustomPasswordInputField(
+                    controller: passwordController,
+                    hintText: AppLocalizations.of(context)!.newPassord,
+                    withLabel: true,
+                    icon: Icons.lock_open_rounded,
+                    validator: (value) {
+                      return AppValidators.validatePasswordFields(
+                          context, value);
+                    },
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  CustomPasswordInputField(
+                    controller: repeatPasswordController,
+                    hintText: AppLocalizations.of(context)!.confimPassword,
+                    withLabel: true,
+                    icon: Icons.lock_open_rounded,
+                    validator: (value) {
+                      return AppValidators.validateRepeatPasswordFields(
+                          context, passwordController.text, value);
+                    },
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  CustomButton(
+                    label: AppLocalizations.of(context)!.next,
+                    onTap: () {
+                      if (_formState.currentState!.validate()) {
+                        sl<SignUpBloc>().add(ResetPassword(
+                            password: passwordController.text,
+                            repeatPassword: repeatPasswordController.text,
+                            oldPassword: oldPasswordController.text));
+                      }
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
         ),

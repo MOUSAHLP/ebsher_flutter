@@ -16,6 +16,7 @@ import '../../../bloc/bottom_bloc/bottom_event.dart';
 import '../../../bloc/profile_bloc/pofile_bloc.dart';
 import '../../../bloc/profile_bloc/profile_event.dart';
 import '../../../bloc/profile_bloc/profile_state.dart';
+import '../../../core/app_validators.dart';
 import '../../../core/services/services_locator.dart';
 import '../../widgets/accessories/cached_image.dart';
 import '../../widgets/custom_error_screen.dart';
@@ -32,13 +33,15 @@ class EditProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<ProfileBloc>(
       create: (BuildContext context) => sl<ProfileBloc>(),
-      child: const EditProfileBody(),
+      child: EditProfileBody(),
     );
   }
 }
 
 class EditProfileBody extends StatelessWidget {
-  const EditProfileBody({super.key});
+  EditProfileBody({super.key});
+
+  final _formState = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -82,155 +85,177 @@ class EditProfileBody extends StatelessWidget {
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: SingleChildScrollView(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const SizedBox(
-                                      height: 40,
-                                    ),
-                                    Text(AppLocalizations.of(context)!.profile,
-                                        style: getBoldStyle(
-                                            color: Colors.white, fontSize: 14)),
-                                    const SizedBox(
-                                      height: 20,
-                                    ),
-                                    CustomInputField(
-                                      controller: context
-                                          .read<ProfileBloc>()
-                                          .nameController,
-                                      textStyle: const TextStyle(
-                                        color: ColorManager.primaryColor,
+                                child: Form(
+                                  key: _formState,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      const SizedBox(
+                                        height: 40,
                                       ),
-                                      readOnly: !context
-                                          .read<ProfileBloc>()
-                                          .isEditing,
-                                      keyboardType: TextInputType.text,
-                                      icon: Icons.person,
-                                    ),
-                                    const SizedBox(
-                                      height: 5,
-                                    ),
-                                    CustomInputField(
-                                      textStyle: const TextStyle(
-                                        color: ColorManager.primaryColor,
+                                      Text(
+                                          AppLocalizations.of(context)!.profile,
+                                          style: getBoldStyle(
+                                              color: Colors.white,
+                                              fontSize: 14)),
+                                      const SizedBox(
+                                        height: 20,
                                       ),
-                                      controller: context
-                                          .read<ProfileBloc>()
-                                          .emailController,
-                                      readOnly: !context
-                                          .read<ProfileBloc>()
-                                          .isEditing,
-                                      keyboardType: TextInputType.text,
-                                      icon: Icons.email_rounded,
-                                    ),
-                                    const SizedBox(
-                                      height: 5,
-                                    ),
-                                    CustomInputField(
-                                      textStyle: const TextStyle(
-                                        color: ColorManager.primaryColor,
-                                      ),
-                                      initValue: context
-                                          .read<AuthenticationBloc>()
-                                          .loginResponse!
-                                          .phone,
-                                      readOnly: true,
-                                      keyboardType: TextInputType.text,
-                                      icon: Icons.phone_android,
-                                    ),
-                                    const SizedBox(
-                                      height: 5,
-                                    ),
-                                    GestureDetector(
-                                      onTap: () {
-                                        sl<BottomBloc>()
-                                            .add(NewBottomChange(1));
-                                      },
-                                      child: CustomInputField(
+                                      CustomInputField(
+                                        controller: context
+                                            .read<ProfileBloc>()
+                                            .nameController,
                                         textStyle: const TextStyle(
                                           color: ColorManager.primaryColor,
                                         ),
-                                        initValue: AppLocalizations.of(context)!
-                                            .favorite,
+                                        readOnly: !context
+                                            .read<ProfileBloc>()
+                                            .isEditing,
+                                        keyboardType: TextInputType.text,
+                                        icon: Icons.person,
+                                        validator: (value) {
+                                          return AppValidators
+                                              .validateNameFields(
+                                                  context, value);
+                                        },
+                                      ),
+                                      const SizedBox(
+                                        height: 5,
+                                      ),
+                                      CustomInputField(
+                                        textStyle: const TextStyle(
+                                          color: ColorManager.primaryColor,
+                                        ),
+                                        controller: context
+                                            .read<ProfileBloc>()
+                                            .emailController,
+                                        readOnly: !context
+                                            .read<ProfileBloc>()
+                                            .isEditing,
+                                        keyboardType: TextInputType.text,
+                                        icon: Icons.email_rounded,
+                                        validator: (value) {
+                                          return AppValidators
+                                              .validateEmailFields(
+                                                  context, value);
+                                        },
+                                      ),
+                                      const SizedBox(
+                                        height: 5,
+                                      ),
+                                      CustomInputField(
+                                        textStyle: const TextStyle(
+                                          color: ColorManager.primaryColor,
+                                        ),
+                                        initValue: context
+                                            .read<AuthenticationBloc>()
+                                            .loginResponse!
+                                            .phone,
                                         readOnly: true,
                                         keyboardType: TextInputType.text,
-                                        icon: Icons.favorite,
+                                        icon: Icons.phone_android,
                                       ),
-                                    ),
-                                    const SizedBox(
-                                      height: 5,
-                                    ),
-                                    Container(
-                                      height: 40,
-                                      width: 120,
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(50),
-                                          color: Colors.white,
-                                          border: Border.all(
-                                              color: ColorManager.softYellow,
-                                              width: 2)),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
-                                        children: [
-                                          InkWell(
-                                              onTap: () {
-                                                launchSocial(
-                                                    "https://www.facebook.com/profile.php?id=100093574429633&mibextid=ZbWKwL");
-                                              },
-                                              child: Image.asset(
-                                                  ImageManager.faceBook)),
-                                        ],
+                                      const SizedBox(
+                                        height: 5,
                                       ),
-                                    ),
-                                    const SizedBox(height: 10),
-                                    CustomButton(
-                                      label: AppLocalizations.of(context)!
-                                          .changePassword,
-                                      fillColor: ColorManager.softYellow,
-                                      onTap: () {
-                                        AppRouter.push(context,
-                                            const ResetPasswordScreen());
-                                      },
-                                    ),
-                                    const SizedBox(height: 10),
-                                    CustomButton(
-                                      label: context
+                                      GestureDetector(
+                                        onTap: () {
+                                          sl<BottomBloc>()
+                                              .add(NewBottomChange(1));
+                                        },
+                                        child: CustomInputField(
+                                          textStyle: const TextStyle(
+                                            color: ColorManager.primaryColor,
+                                          ),
+                                          initValue:
+                                              AppLocalizations.of(context)!
+                                                  .favorite,
+                                          readOnly: true,
+                                          keyboardType: TextInputType.text,
+                                          icon: Icons.favorite,
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 5,
+                                      ),
+                                      Container(
+                                        height: 40,
+                                        width: 120,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(50),
+                                            color: Colors.white,
+                                            border: Border.all(
+                                                color: ColorManager.softYellow,
+                                                width: 2)),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          children: [
+                                            InkWell(
+                                                onTap: () {
+                                                  launchSocial(
+                                                      "https://www.facebook.com/profile.php?id=100093574429633&mibextid=ZbWKwL");
+                                                },
+                                                child: Image.asset(
+                                                    ImageManager.faceBook)),
+                                          ],
+                                        ),
+                                      ),
+                                      const SizedBox(height: 10),
+                                      CustomButton(
+                                        label: AppLocalizations.of(context)!
+                                            .changePassword,
+                                        fillColor: ColorManager.softYellow,
+                                        onTap: () {
+                                          AppRouter.push(context,
+                                              const ResetPasswordScreen());
+                                        },
+                                      ),
+                                      const SizedBox(height: 10),
+                                      CustomButton(
+                                        label: context
+                                                    .read<ProfileBloc>()
+                                                    .isEditing ==
+                                                false
+                                            ? AppLocalizations.of(context)!.edit
+                                            : AppLocalizations.of(context)!
+                                                .save,
+                                        fillColor: ColorManager.softYellow,
+                                        onTap: () {
+                                          if (context
                                                   .read<ProfileBloc>()
                                                   .isEditing ==
-                                              false
-                                          ? AppLocalizations.of(context)!.edit
-                                          : AppLocalizations.of(context)!.save,
-                                      fillColor: ColorManager.softYellow,
-                                      onTap: () {
-                                        if (context
+                                              false) {
+                                            context
                                                 .read<ProfileBloc>()
-                                                .isEditing ==
-                                            false) {
-                                          context
-                                              .read<ProfileBloc>()
-                                              .add(IsEditingEvent(true));
-                                        } else {
-                                          context
-                                              .read<ProfileBloc>()
-                                              .add(IsEditingEvent(false));
-                                          context
-                                                  .read<ProfileBloc>()
-                                                  .profileModel
-                                                  .phone =
+                                                .add(IsEditingEvent(true));
+                                          } else {
+                                            if (_formState.currentState!
+                                                .validate()) {
                                               context
-                                                  .read<AuthenticationBloc>()
-                                                  .loginResponse!
-                                                  .phone;
-                                          context
-                                              .read<ProfileBloc>()
-                                              .add(UpdateProfile());
-                                        }
-                                      },
-                                    ),
-                                  ],
+                                                  .read<ProfileBloc>()
+                                                  .add(IsEditingEvent(false));
+                                              context
+                                                      .read<ProfileBloc>()
+                                                      .profileModel
+                                                      .phone =
+                                                  context
+                                                      .read<
+                                                          AuthenticationBloc>()
+                                                      .loginResponse!
+                                                      .phone;
+                                              context
+                                                  .read<ProfileBloc>()
+                                                  .add(UpdateProfile());
+                                            }
+                                          }
+                                        },
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),

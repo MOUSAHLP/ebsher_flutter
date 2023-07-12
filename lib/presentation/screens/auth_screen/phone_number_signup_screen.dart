@@ -2,6 +2,7 @@ import 'package:absher/bloc/sign_up_bloc/sign_up_bloc.dart';
 import 'package:absher/bloc/sign_up_bloc/sign_up_event.dart';
 import 'package:absher/bloc/sign_up_bloc/sign_up_state.dart';
 import 'package:absher/core/app_router/app_router.dart';
+import 'package:absher/core/app_validators.dart';
 import 'package:absher/core/services/services_locator.dart';
 import 'package:absher/presentation/resources/color_manager.dart';
 import 'package:absher/presentation/resources/font_app.dart';
@@ -24,6 +25,7 @@ class PhoneNumberSignUpScreen extends StatelessWidget {
   const PhoneNumberSignUpScreen({Key? key, required this.resetPassword})
       : super(key: key);
   final bool resetPassword;
+
   @override
   Widget build(BuildContext context) {
     return BlocListener<SignUpBloc, SignUpState>(
@@ -60,6 +62,7 @@ class _PhoneNumberSignUpScreenContent extends StatelessWidget {
       : super(key: key);
   final TextEditingController textEditingController = TextEditingController();
   final bool forgetPassword;
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -71,57 +74,67 @@ class _PhoneNumberSignUpScreenContent extends StatelessWidget {
           child: Column(
             children: [
               SizedBox(
-                height: 1.sh-350,
+                height: 1.sh - 350,
               ),
               SizedBox(
-              //  color: Colors.red,
+                //  color: Colors.red,
                 height: 250,
-                child: Column(
-                  children: [
-                    Text(
-                      AppLocalizations.of(context)!.enterPhone,
-                      style: getBoldStyle(
-                        color: Colors.white,
-                        fontSize: FontSizeApp.s22,
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      Text(
+                        AppLocalizations.of(context)!.enterPhone,
+                        style: getBoldStyle(
+                          color: Colors.white,
+                          fontSize: FontSizeApp.s22,
+                        ),
                       ),
-                    ),
-                    Text(
-                      forgetPassword
-                          ?  AppLocalizations.of(context)!.phoneForPassword
-                          :  AppLocalizations.of(context)!.phoneForCreat,
-                      textAlign: TextAlign.center,
-                      style: getBoldStyle(
-                        color: ColorManager.softYellow,
+                      Text(
+                        forgetPassword
+                            ? AppLocalizations.of(context)!.phoneForPassword
+                            : AppLocalizations.of(context)!.phoneForCreat,
+                        textAlign: TextAlign.center,
+                        style: getBoldStyle(
+                          color: ColorManager.softYellow,
+                        ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 16.0,
-                        horizontal: 32,
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 16.0,
+                          horizontal: 32,
+                        ),
+                        child: CustomInputField(
+                          controller: textEditingController,
+                          keyboardType: TextInputType.phone,
+                          hintText: AppLocalizations.of(context)!.addNumber,
+                          withLabel: true,
+                          icon: Icons.phone_android,
+                          isPhone: true,
+                          validator: (value) {
+                            return AppValidators.validatePhoneFields(
+                                context, textEditingController.text);
+                          },
+                        ),
                       ),
-                      child: CustomInputField(
-                        controller: textEditingController,
-                        keyboardType: TextInputType.phone,
-                        hintText: AppLocalizations.of(context)!.addNumber,
-                        icon: Icons.phone_android,
-                      ),
-                    ),
-                    CustomButton(
-                      label:AppLocalizations.of(context)!.send,
-                      onTap: () {
-                        if (forgetPassword) {
-                          sl<SignUpBloc>().add(ForgetPasswordGenerateOtp(
-                              phoneNumber: textEditingController.text));
-                        } else {
-                          sl<SignUpBloc>().add(
-                              RequestOtp(phoneNumber: textEditingController.text));
-                        }
-                      },
-                    )
-                  ],
+                      CustomButton(
+                        label: AppLocalizations.of(context)!.send,
+                        onTap: () {
+                          if (_formKey.currentState!.validate()) {
+                            if (forgetPassword) {
+                              sl<SignUpBloc>().add(ForgetPasswordGenerateOtp(
+                                  phoneNumber: textEditingController.text));
+                            } else {
+                              sl<SignUpBloc>().add(RequestOtp(
+                                  phoneNumber: textEditingController.text));
+                            }
+                          }
+                        },
+                      )
+                    ],
+                  ),
                 ),
               ),
-
             ],
           ),
         ),

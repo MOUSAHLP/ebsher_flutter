@@ -4,7 +4,7 @@
   "next": "Next",
   "signUp": "Sign up",
   "signIn": "Sign in",
-  "addNumber": "Add your number",
+  "addNumber": "Add your phone number",
   "register": "Sign in",
   "addDetails": "Add your details to register an account",
   "fullName": "Full name",
@@ -181,5 +181,6 @@
   "addNewFilters": "Add New Filters",
   "guest": "Log in as a guest",
   "pleaseLogIn": "Please login to add items to your favorites",
-  "searchPlaceHolder": "Omaya / Layla / Four seasons"
+  "searchPlaceHolder": "Omaya / Layla / Four seasons",
+  "or": "OR"
 }

@@ -1,5 +1,6 @@
 import 'package:absher/bloc/login_bloc/login_event.dart';
 import 'package:absher/core/app_router/app_router.dart';
+import 'package:absher/core/app_validators.dart';
 import 'package:absher/models/params/login_params.dart';
 import 'package:absher/presentation/resources/style_app.dart';
 import 'package:absher/presentation/screens/auth_screen/phone_number_signup_screen.dart';
@@ -53,6 +54,7 @@ class _SignInScreen extends StatelessWidget {
   _SignInScreen({Key? key}) : super(key: key);
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -61,67 +63,107 @@ class _SignInScreen extends StatelessWidget {
       children: [
         const LoginScreenBackGround(),
         SingleChildScrollView(
+          padding: EdgeInsets.only(bottom: 40),
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 100, horizontal: 40),
+            padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 SizedBox(
-                  height: 1.sh- 400,
+                  height: 1.sh - 350,
                 ),
                 SizedBox(
-                  height: 200,
-                  child: Column(children: [
-                    CustomInputField(
-                      controller: phoneController,
-                      keyboardType: TextInputType.phone,
-                      hintText: AppLocalizations.of(context)!.addNumber,
-                      withLabel: true,
-                      icon: Icons.phone_android,
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    CustomPasswordInputField(
-                      controller: passwordController,
-                      hintText: AppLocalizations.of(context)!.password,
-                      withLabel: true,
-                      icon: Icons.lock_open_rounded,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        AppRouter.pushReplacement(
-                          context,
-                          const PhoneNumberSignUpScreen(
-                            resetPassword: true,
+                  // height: 350,
+                  child: Form(
+                    key: _formKey,
+                    child: Column(children: [
+                      CustomInputField(
+                        controller: phoneController,
+                        keyboardType: TextInputType.phone,
+                        hintText: AppLocalizations.of(context)!.addNumber,
+                        withLabel: true,
+                        icon: Icons.phone_android,
+                        isPhone: true,
+                        validator: (value) {
+                          return AppValidators.validatePhoneFields(
+                              context, phoneController.text);
+                        },
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      CustomPasswordInputField(
+                        controller: passwordController,
+                        hintText: AppLocalizations.of(context)!.password,
+                        withLabel: true,
+                        icon: Icons.lock_open_rounded,
+                        validator: (value) {
+                          return AppValidators.validatePasswordFields(
+                              context, passwordController.text);
+                        },
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          AppRouter.pushReplacement(
+                            context,
+                            const PhoneNumberSignUpScreen(
+                              resetPassword: true,
+                            ),
+                          );
+                        },
+                        child: Text(
+                          AppLocalizations.of(context)!.forgetPassord,
+                          style: getSemiBoldStyle(
+                            color: ColorManager.softYellow,
                           ),
-                        );
-                      },
-                      child: Text(
-                        AppLocalizations.of(context)!.forgetPassord,
-                        style: getSemiBoldStyle(
-                          color: ColorManager.softYellow,
                         ),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    CustomButton(
-                      label: AppLocalizations.of(context)!.register,
-                      onTap: () {
-                        sl<LoginBloc>().add(
-                          Login(
-                            loginParams: LoginParams(
-                              phone: phoneController.text,
-                              password: passwordController.text,
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                  ]),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      CustomButton(
+                        label: AppLocalizations.of(context)!.register,
+                        onTap: () {
+                          if (_formKey.currentState!.validate()) {
+                            sl<LoginBloc>().add(
+                              Login(
+                                loginParams: LoginParams(
+                                  phone: phoneController.text,
+                                  password: passwordController.text,
+                                ),
+                              ),
+                            );
+                          }
+                        },
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      Text(
+                        AppLocalizations.of(context)!.or,
+                        style: getBoldStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      CustomButton(
+                        fillColor: Colors.white,
+                        labelColor: Colors.white,
+                        isFilled: false,
+                        label: AppLocalizations.of(context)!.signUp,
+                        onTap: () {
+                          AppRouter.pushReplacement(
+                              context,
+                              const PhoneNumberSignUpScreen(
+                                resetPassword: false,
+                              ));
+                        },
+                      ),
+                    ]),
+                  ),
                 ),
               ],
             ),

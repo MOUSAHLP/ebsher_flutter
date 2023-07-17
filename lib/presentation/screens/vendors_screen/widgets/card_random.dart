@@ -1,4 +1,3 @@
-
 import 'package:absher/bloc/search_bloc/search_bloc.dart';
 import 'package:absher/bloc/search_bloc/search_event.dart';
 import 'package:absher/bloc/search_bloc/search_state.dart';
@@ -19,6 +18,7 @@ import '../../../../core/localization_string.dart';
 import '../../../../models/vendor_model.dart';
 import '../../../resources/assets_manager.dart';
 import '../../../widgets/accessories/cached_image.dart';
+import 'package:intl/intl.dart' as intl;
 
 class CardRandomWidget extends StatelessWidget {
   final VendorModel vendor;
@@ -77,6 +77,8 @@ class CardRandomWidget extends StatelessWidget {
                         children: [
                           Text(
                             localizationString(context, vendor.name) ?? "",
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
                             style: getBoldStyle(
                               color: ColorManager.primaryColor,
                               fontSize: 16,
@@ -86,6 +88,8 @@ class CardRandomWidget extends StatelessWidget {
                             localizationString(
                                     context, vendor.category?.name) ??
                                 "",
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
                             style: getBoldStyle(
                               color: ColorManager.primaryColor,
                               fontSize: 9,
@@ -144,7 +148,6 @@ class CardRandomWidget extends StatelessWidget {
                       ),
                     ),
                     Column(
-//                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         IsOpenLabel(
                           isOpen: vendor.isOpen,
@@ -181,6 +184,28 @@ class CardRandomWidget extends StatelessWidget {
                               );
                             },
                           ),
+                        const SizedBox(height: 20),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Text(
+                              intl.NumberFormat.compact()
+                                  .format(int.parse(vendor.visits ?? '0')),
+                              style: getBoldStyle(
+                                color: ColorManager.primaryColor,
+                              )!
+                                  .copyWith(height: 1),
+                            ),
+                            const SizedBox(
+                              width: 4,
+                            ),
+                            const Icon(
+                              Icons.remove_red_eye,
+                              color: ColorManager.primaryColor,
+                              size: 16,
+                            ),
+                          ],
+                        ),
                       ],
                     )
                   ],
@@ -241,24 +266,32 @@ class InfoCardWithIcon extends StatelessWidget {
     if (label == null || value == null) return const SizedBox();
     return Row(
       children: [
-        SvgPicture.asset(
-          svgAsset,
+        SizedBox(
           height: 14,
+          width: 14,
+          child: SvgPicture.asset(
+            svgAsset,
+            height: 14,
+          ),
         ),
         const SizedBox(
           width: 8,
         ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              value!,
-              style: getBoldStyle(
-                color: ColorManager.shadowGrey,
-                fontSize: 10,
-              )?.copyWith(height: 1),
-            ),
-          ],
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                value!,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: getBoldStyle(
+                  color: ColorManager.shadowGrey,
+                  fontSize: 10,
+                )?.copyWith(height: 1),
+              ),
+            ],
+          ),
         )
       ],
     );

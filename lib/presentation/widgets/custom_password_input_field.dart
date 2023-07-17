@@ -1,4 +1,3 @@
-
 import 'package:absher/presentation/resources/style_app.dart';
 import 'package:flutter/material.dart';
 import '../resources/color_manager.dart';
@@ -16,6 +15,7 @@ class CustomPasswordInputField extends StatefulWidget {
     this.height = 50,
     this.withLabel = false,
     this.icon,
+    this.validator,
   }) : super(key: key);
 
   final String? hintText;
@@ -28,6 +28,7 @@ class CustomPasswordInputField extends StatefulWidget {
   final double? height;
   final bool withLabel;
   final IconData? icon;
+  final String? Function(String?)? validator;
 
   @override
   State<CustomPasswordInputField> createState() =>
@@ -36,10 +37,17 @@ class CustomPasswordInputField extends StatefulWidget {
 
 class _CustomPasswordInputFieldState extends State<CustomPasswordInputField> {
   bool obscure = true;
+  String? validationErrorMessage;
 
   void toggleObscure() {
     setState(() {
       obscure = !obscure;
+    });
+  }
+
+  void validateField(String? value) {
+    setState(() {
+      validationErrorMessage = widget.validator!(value);
     });
   }
 
@@ -50,8 +58,8 @@ class _CustomPasswordInputFieldState extends State<CustomPasswordInputField> {
       children: [
         Container(
           height: widget.height,
-          decoration:const BoxDecoration(
-            borderRadius:  BorderRadius.all(Radius.circular(28.0)),
+          decoration: const BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(28.0)),
             color: Color(0xFFEEF6F6),
           ),
           child: Padding(
@@ -71,6 +79,11 @@ class _CustomPasswordInputFieldState extends State<CustomPasswordInputField> {
                     controller: widget.controller,
                     onChanged: widget.onChange,
                     obscureText: obscure,
+                    validator: (value) {
+                      if (widget.validator == null) return null;
+                      validateField(value);
+                      return widget.validator!(value);
+                    },
                     decoration: InputDecoration(
                       fillColor: const Color(0xFFEEF6F6),
                       floatingLabelBehavior: FloatingLabelBehavior.never,
@@ -78,11 +91,16 @@ class _CustomPasswordInputFieldState extends State<CustomPasswordInputField> {
                       label: widget.withLabel
                           ? Text(
                               widget.hintText!,
-                              style: getBoldStyle(
-                                color: ColorManager.primaryColor,
-                              ),
+                              style: TextStyle(
+                                  color: ColorManager.primaryColor,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold),
                             )
                           : null,
+                      errorStyle: TextStyle(
+                        fontSize: 0,
+                        height: 0.1,
+                      ),
                       suffixIcon: GestureDetector(
                         onTap: () => toggleObscure(),
                         child: Icon(
@@ -114,12 +132,12 @@ class _CustomPasswordInputFieldState extends State<CustomPasswordInputField> {
             ),
           ),
         ),
-        if (widget.errorMessage != null)
+        if (widget.errorMessage != null || validationErrorMessage != null)
           Padding(
             padding: const EdgeInsets.only(top: 4.0, right: 18, left: 18),
             child: Text(
-              widget.errorMessage ?? '',
-              style: const TextStyle(
+              widget.errorMessage ?? validationErrorMessage ?? '',
+              style: getBoldStyle(
                 color: Colors.red,
               ),
             ),

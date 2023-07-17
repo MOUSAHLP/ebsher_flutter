@@ -40,8 +40,7 @@ class OtpConfirmationScreen extends StatelessWidget {
           }
           if (state is SignUpOtpConfirmed) {
             resetPassword
-                ? AppRouter.pushReplacement(
-                    context, const ForgetPasswordScreen())
+                ? AppRouter.pushReplacement(context, ForgetPasswordScreen())
                 : AppRouter.pushReplacement(context, SignUpScreen());
           }
         },
@@ -66,8 +65,8 @@ class _OtpConfirmationScreenContent extends StatelessWidget {
         SingleChildScrollView(
           child: Column(
             children: [
-               SizedBox(
-                height: 1.sh-350,
+              SizedBox(
+                height: 1.sh - 350,
               ),
               SizedBox(
                 height: 350,
@@ -84,16 +83,13 @@ class _OtpConfirmationScreenContent extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 32.0),
                       child: Text(
                         !resetPassword
-                            ? AppLocalizations.of(context)!.verifyMobileCreat(
-                            encodePhoneNumber(context
-                                .read<SignUpBloc>()
-                                .otpVerifyResponse
-                                ?.phone))
-                            : AppLocalizations.of(context)!.verifyMobilePassword(
-                            encodePhoneNumber(context
-                                .read<SignUpBloc>()
-                                .otpVerifyResponse
-                                ?.phone)),
+                            ? AppLocalizations.of(context)!
+                                .verifyMobileCreat(4242)
+                            : AppLocalizations.of(context)!
+                                .verifyMobilePassword(encodePhoneNumber(context
+                                    .read<SignUpBloc>()
+                                    .otpVerifyResponse
+                                    ?.phone)),
                         textAlign: TextAlign.center,
                         style: getBoldStyle(
                           color: ColorManager.softYellow,
@@ -115,20 +111,18 @@ class _OtpConfirmationScreenContent extends StatelessWidget {
                       padding: const EdgeInsets.all(32.0),
                       child: PinFieldAutoFill(
                         decoration: UnderlineDecoration(
-                          textStyle:
-                          const TextStyle(fontSize: 20, color: Colors.white),
+                          textStyle: const TextStyle(
+                              fontSize: 20, color: Colors.white),
                           colorBuilder: const FixedColorBuilder(Colors.white),
                         ),
                         currentCode: textEditingController.text,
                         codeLength: 6,
                         onCodeChanged: (String? code) {
-
                           if (code != null) {
-
                             textEditingController.text = code;
                             if (code.length == 6) {
-                              sl<SignUpBloc>()
-                                  .add(ConfirmOtp(code: textEditingController.text));
+                              sl<SignUpBloc>().add(
+                                  ConfirmOtp(code: textEditingController.text));
                             }
                           }
                         },
@@ -138,8 +132,8 @@ class _OtpConfirmationScreenContent extends StatelessWidget {
                       label: AppLocalizations.of(context)!.send,
                       onTap: () {
                         if (textEditingController.text.length == 6) {
-                          sl<SignUpBloc>()
-                              .add(ConfirmOtp(code: textEditingController.text));
+                          sl<SignUpBloc>().add(
+                              ConfirmOtp(code: textEditingController.text));
                         } else {
                           toast("ادخال كافة الحقول");
                         }
@@ -148,11 +142,10 @@ class _OtpConfirmationScreenContent extends StatelessWidget {
                   ],
                 ),
               )
-
             ],
           ),
         ),
-   const  AppBarWidget()
+        const AppBarWidget()
       ],
     ));
   }

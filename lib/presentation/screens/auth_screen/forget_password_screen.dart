@@ -13,6 +13,7 @@ import 'package:absher/presentation/widgets/dialogs/error_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:overlay_support/overlay_support.dart';
+import '../../../core/app_validators.dart';
 import '../../../translations.dart';
 import '../../widgets/dialogs/loading_dialog.dart';
 import '../location_screen/widgets/app_bar_widget.dart';
@@ -21,6 +22,7 @@ class ForgetPasswordScreen extends StatelessWidget {
   const ForgetPasswordScreen({
     Key? key,
   }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return BlocListener<SignUpBloc, SignUpState>(
@@ -34,9 +36,10 @@ class ForgetPasswordScreen extends StatelessWidget {
             ErrorDialog.openDialog(context, null);
           }
           if (state is ForgetPasswordCompleted) {
-            AppRouter.pushReplacement(context, const SignInConfirmationScreen());
+            AppRouter.pushReplacement(
+                context, const SignInConfirmationScreen());
           }
-          if(state is SignUpFieldsValidationFailed){
+          if (state is SignUpFieldsValidationFailed) {
             toast(state.validationError!);
           }
         },
@@ -50,6 +53,8 @@ class _PhoneNumberSignUpScreenContent extends StatelessWidget {
   final TextEditingController repeatPasswordController =
       TextEditingController();
 
+  final _formState = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,49 +64,61 @@ class _PhoneNumberSignUpScreenContent extends StatelessWidget {
         SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 32.0),
-            child: Column(
-              children: [
-                const SizedBox(
-                  height: 400,
-                ),
-                Text(
-                  AppLocalizations.of(context)!.newPassordSet,
-                  textAlign: TextAlign.center,
-                  style: getBoldStyle(
-                    color: Colors.white,
-                    fontSize: FontSizeApp.s22,
+            child: Form(
+              key: _formState,
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 400,
                   ),
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                CustomPasswordInputField(
-                  controller: passwordController,
-                  hintText: AppLocalizations.of(context)!.password,
-                  withLabel: true,
-                  icon: Icons.lock_open_rounded,
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                CustomPasswordInputField(
-                  controller: repeatPasswordController,
-                  hintText:  AppLocalizations.of(context)!.confimPassword,
-                  withLabel: true,
-                  icon: Icons.lock_open_rounded,
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                CustomButton(
-                  label:  AppLocalizations.of(context)!.next,
-                  onTap: () {
-                    sl<SignUpBloc>().add(ForgetPassword(
-                        password: passwordController.text,
-                        repeatPassword: repeatPasswordController.text));
-                  },
-                ),
-              ],
+                  Text(
+                    AppLocalizations.of(context)!.newPassordSet,
+                    textAlign: TextAlign.center,
+                    style: getBoldStyle(
+                      color: Colors.white,
+                      fontSize: FontSizeApp.s22,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  CustomPasswordInputField(
+                    controller: passwordController,
+                    hintText: AppLocalizations.of(context)!.password,
+                    withLabel: true,
+                    icon: Icons.lock_open_rounded,
+                    validator: (value) {
+                      return AppValidators.validatePasswordFields(
+                          context, value);
+                    },
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  CustomPasswordInputField(
+                    controller: repeatPasswordController,
+                    hintText: AppLocalizations.of(context)!.confimPassword,
+                    withLabel: true,
+                    icon: Icons.lock_open_rounded,
+                    validator: (value) {
+                      return AppValidators.validateRepeatPasswordFields(
+                          context, passwordController.text, value);
+                    },
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  CustomButton(
+                    label: AppLocalizations.of(context)!.next,
+                    onTap: () {
+                      if (_formState.currentState!.validate())
+                        sl<SignUpBloc>().add(ForgetPassword(
+                            password: passwordController.text,
+                            repeatPassword: repeatPasswordController.text));
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
         ),

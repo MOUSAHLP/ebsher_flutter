@@ -29,185 +29,182 @@ class FilterBottomSheetBody extends StatelessWidget {
         LoadingDialog().closeDialog(context);
       }
     }, builder: (context, state) {
-      if (state.screenStates == ScreenStates.success) {
-        return SizedBox(
-          height: 400,
-          child: PageView.builder(
-            controller: pageController,
-            itemCount: 2,
-            physics: const NeverScrollableScrollPhysics(),
-            itemBuilder: (context, index) {
-              switch (index) {
-                case 1:
-                  return FilterByStarsBottomSheetBody(
-                    pageController: pageController,
-                  );
-              }
-              return Padding(
-                padding: const EdgeInsets.all(32.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Text(
-                          AppLocalizations.of(context)!.filterBy,
-                          style: getBoldStyle(color: ColorManager.primaryColor),
+      return SizedBox(
+        height: 400,
+        child: PageView.builder(
+          controller: pageController,
+          itemCount: 2,
+          physics: const NeverScrollableScrollPhysics(),
+          itemBuilder: (context, index) {
+            switch (index) {
+              case 1:
+                return FilterByStarsBottomSheetBody(
+                  pageController: pageController,
+                );
+            }
+            return Padding(
+              padding: const EdgeInsets.all(32.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Text(
+                        AppLocalizations.of(context)!.filterBy,
+                        style: getBoldStyle(color: ColorManager.primaryColor),
+                      ),
+                      const Spacer(),
+                      GestureDetector(
+                        onTap: () {
+                          vendorsListBloc.add(ClearFilterValues());
+                        },
+                        child: const Icon(
+                          Icons.filter_alt_off_outlined,
+                          color: ColorManager.primaryColor,
                         ),
-                        const Spacer(),
-                        GestureDetector(
-                          onTap: () {
-                            vendorsListBloc.add(ClearFilterValues());
-                          },
-                          child: const Icon(
-                            Icons.filter_alt_off_outlined,
+                      )
+                    ],
+                  ),
+                  const Divider(
+                    thickness: 2,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      pageController.jumpToPage(1);
+                    },
+                    child: Container(
+                      width: 1.sw,
+                      color: Colors.transparent,
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                AppLocalizations.of(context)!.byRate,
+                                style:
+                                    vendorsListBloc.pendingFilter.rate != null
+                                        ? getBoldStyle(
+                                            color: ColorManager.primaryColor)
+                                        : getBoldStyle(
+                                            color: ColorManager.primaryColor),
+                              ),
+                              if (vendorsListBloc.pendingFilter.rate != null)
+                                Row(
+                                  children: [
+                                    const Icon(
+                                      Icons.star,
+                                      color: ColorManager.softYellow,
+                                      size: 20,
+                                    ),
+                                    Icon(
+                                      Icons.star,
+                                      color: state.pendingFilters.rate! >= 2
+                                          ? ColorManager.softYellow
+                                          : Colors.grey,
+                                      size: 20,
+                                    ),
+                                    Icon(
+                                      Icons.star,
+                                      color: state.pendingFilters.rate! >= 3
+                                          ? ColorManager.softYellow
+                                          : Colors.grey,
+                                      size: 20,
+                                    ),
+                                    Icon(
+                                      Icons.star,
+                                      color: state.pendingFilters.rate! >= 4
+                                          ? ColorManager.softYellow
+                                          : Colors.grey,
+                                      size: 20,
+                                    ),
+                                    Icon(
+                                      Icons.star,
+                                      color: state.pendingFilters.rate! >= 5
+                                          ? ColorManager.softYellow
+                                          : Colors.grey,
+                                      size: 20,
+                                    ),
+                                  ],
+                                )
+                            ],
+                          ),
+                          const Divider(
+                            thickness: 2,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  FilterButton(
+                    label: AppLocalizations.of(context)!.nearby,
+                    isSelected: state.pendingFilters.lon != null,
+                    onTab: () {
+                      vendorsListBloc.add(ToggleNearByFilter());
+                    },
+                  ),
+                  FilterButton(
+                    label: AppLocalizations.of(context)!.isOpen,
+                    isSelected: state.pendingFilters.isOpen == true,
+                    onTab: () {
+                      vendorsListBloc.add(ToggleIsOpenFilter());
+                    },
+                  ),
+                  const Spacer(),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: CustomButton(
+                      fillColor: ColorManager.softYellow,
+                      label: AppLocalizations.of(context)!.apply,
+                      onTap: () {
+                        Navigator.of(context).pop();
+                        vendorsListBloc.add(SetAppliedFilter());
+                        vendorsListBloc.add(RefreshVendorsList());
+                      },
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 8.0, horizontal: 64),
+                    child: SizedBox(
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          shadowColor: Colors.transparent,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(
+                                50), // Set the border radius to 50 to make it circular
+                          ),
+                          backgroundColor: Colors.white,
+                          side: const BorderSide(
                             color: ColorManager.primaryColor,
                           ),
-                        )
-                      ],
-                    ),
-                    const Divider(
-                      thickness: 2,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        pageController.jumpToPage(1);
-                      },
-                      child: Container(
-                        width: 1.sw,
-                        color: Colors.transparent,
-                        child: Column(
+                        ),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  AppLocalizations.of(context)!.byRate,
-                                  style:
-                                      vendorsListBloc.pendingFilter.rate != null
-                                          ? getBoldStyle(
-                                              color: ColorManager.primaryColor)
-                                          : getBoldStyle(
-                                              color: ColorManager.primaryColor),
-                                ),
-                                if (vendorsListBloc.pendingFilter.rate != null)
-                                  Row(
-                                    children: [
-                                      const Icon(
-                                        Icons.star,
-                                        color: ColorManager.softYellow,
-                                        size: 20,
-                                      ),
-                                      Icon(
-                                        Icons.star,
-                                        color: state.pendingFilters.rate! >= 2
-                                            ? ColorManager.softYellow
-                                            : Colors.grey,
-                                        size: 20,
-                                      ),
-                                      Icon(
-                                        Icons.star,
-                                        color: state.pendingFilters.rate! >= 3
-                                            ? ColorManager.softYellow
-                                            : Colors.grey,
-                                        size: 20,
-                                      ),
-                                      Icon(
-                                        Icons.star,
-                                        color: state.pendingFilters.rate! >= 4
-                                            ? ColorManager.softYellow
-                                            : Colors.grey,
-                                        size: 20,
-                                      ),
-                                      Icon(
-                                        Icons.star,
-                                        color: state.pendingFilters.rate! >= 5
-                                            ? ColorManager.softYellow
-                                            : Colors.grey,
-                                        size: 20,
-                                      ),
-                                    ],
-                                  )
-                              ],
-                            ),
-                            const Divider(
-                              thickness: 2,
+                            Expanded(
+                              child: Text(
+                                AppLocalizations.of(context)!.close,
+                                style: getBoldStyle(
+                                    color: ColorManager.primaryColor),
+                                textAlign: TextAlign.center,
+                              ),
                             ),
                           ],
                         ),
                       ),
                     ),
-                    FilterButton(
-                      label: AppLocalizations.of(context)!.nearby,
-                      isSelected: state.pendingFilters.lon != null,
-                      onTab: () {
-                        vendorsListBloc.add(ToggleNearByFilter());
-                      },
-                    ),
-                    FilterButton(
-                      label: AppLocalizations.of(context)!.isOpen,
-                      isSelected: state.pendingFilters.isOpen == true,
-                      onTab: () {
-                        vendorsListBloc.add(ToggleIsOpenFilter());
-                      },
-                    ),
-                    const Spacer(),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: CustomButton(
-                        fillColor: ColorManager.softYellow,
-                        label: AppLocalizations.of(context)!.apply,
-                        onTap: () {
-                          Navigator.of(context).pop();
-                          vendorsListBloc.add(SetAppliedFilter());
-                          vendorsListBloc.add(RefreshVendorsList());
-                        },
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 8.0, horizontal: 64),
-                      child: SizedBox(
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            shadowColor: Colors.transparent,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(
-                                  50), // Set the border radius to 50 to make it circular
-                            ),
-                            backgroundColor: Colors.white,
-                            side: const BorderSide(
-                              color: ColorManager.primaryColor,
-                            ),
-                          ),
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Expanded(
-                                child: Text(
-                                  AppLocalizations.of(context)!.close,
-                                  style: getBoldStyle(
-                                      color: ColorManager.primaryColor),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              );
-              // Return different screens based on index
-            },
-          ),
-        );
-      }
-      return const SizedBox();
+                  ),
+                ],
+              ),
+            );
+            // Return different screens based on index
+          },
+        ),
+      );
     });
   }
 }

@@ -7,7 +7,7 @@ ImageProvider cachedImageProvider(
 ) {
   try {
     if (url == null) {
-      return const AssetImage(ImageManager.appLogo);
+      return const AssetImage(ImageManager.test1);
     } else {
       return ExtendedNetworkImageProvider(
         url,
@@ -17,6 +17,6 @@ ImageProvider cachedImageProvider(
       );
     }
   } catch (error) {
-    return const AssetImage(ImageManager.appLogo);
+    return const AssetImage(ImageManager.midPlaceholder);
   }
 }

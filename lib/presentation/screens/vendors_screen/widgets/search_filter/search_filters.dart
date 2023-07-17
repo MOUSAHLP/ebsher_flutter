@@ -11,6 +11,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../../../../bloc/vendors_list_bloc/vendors_list_state.dart';
+
 class SearchFilter extends StatelessWidget {
   const SearchFilter({
     Key? key,
@@ -64,13 +66,15 @@ class SearchFilter extends StatelessWidget {
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                          child: Text(
-                            sortBarLabel(context,
-                                context.read<VendorsListBloc>().appliedFilter),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: getBoldStyle(color: Colors.black),
-                          ),
+                          child: BlocBuilder<VendorsListBloc, VendorsListState>(
+                              builder: (context, state) {
+                            return Text(
+                              sortBarLabel(context, state.appliedFilters),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: getBoldStyle(color: Colors.black),
+                            );
+                          }),
                         ),
                       ],
                     ),
@@ -121,16 +125,15 @@ class SearchFilter extends StatelessWidget {
                             child: Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 8.0),
-                              child: Text(
-                                filterBarLabel(
-                                    context,
-                                    context
-                                        .read<VendorsListBloc>()
-                                        .appliedFilter),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: getBoldStyle(color: Colors.black),
-                              ),
+                              child: BlocBuilder<VendorsListBloc,
+                                  VendorsListState>(builder: (context, state) {
+                                return Text(
+                                  filterBarLabel(context, state.appliedFilters),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: getBoldStyle(color: Colors.black),
+                                );
+                              }),
                             ),
                           ),
                         ],

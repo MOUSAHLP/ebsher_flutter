@@ -106,7 +106,7 @@ class _ReelsScreenBodyState extends State<ReelsScreenBody>
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   GestureDetector(
-                    onTap: (){
+                    onTap: () {
                       AppRouter.pop(context);
                     },
                     child: const Icon(
@@ -119,7 +119,6 @@ class _ReelsScreenBodyState extends State<ReelsScreenBody>
                     AppLocalizations.of(context)!.reels,
                     style: getBoldStyle(color: Colors.white, fontSize: 16),
                   ),
-
                 ],
               ),
             )

@@ -1,5 +1,3 @@
-
-
 import 'package:absher/bloc/authentication_bloc/authentication_event.dart';
 import 'package:absher/bloc/authentication_bloc/authentication_state.dart';
 import 'package:absher/data/data_resource/local_resource/data_store.dart';
@@ -42,6 +40,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       minTextAdapt: true,
+      useInheritedMediaQuery: true,
       designSize: const Size(100, 100),
       builder: (context, ctx) {
         return MultiBlocProvider(
@@ -117,7 +116,6 @@ class _MyAppState extends State<MyApp> {
                   // home: const SplashScreen(),
                 );
               }
-
             }))));
       },
     );

@@ -1,181 +1,196 @@
 {
   "title": "Absher",
-  "password" : "Password",
-  "next":"Next",
-  "signUp":"Sign up",
-  "signIn":"Sign in",
-  "addNumber":"Add your number",
-  "register":"Sign in",
-  "addDetails":"Add your details to register an account",
-  "fullName":"Full name",
-  "haveAccount":"do you have an account?",
-  "gender":"Gender",
-  "noResult":"Sorry no results found",
+  "password": "Password",
+  "next": "Next",
+  "signUp": "Sign up",
+  "signIn": "Sign in",
+  "addNumber": "Add your phone number",
+  "register": "Sign in",
+  "addDetails": "Add your details to register an account",
+  "fullName": "Full name",
+  "haveAccount": "do you have an account?",
+  "gender": "Gender",
+  "noResult": "Sorry no results found",
   "justNow": "Just now",
-    "secondsAgo": "{number} Seconds ago",
-    "@secondsAgo": {
-      "placeholders": {
-        "number": {}
-      }
-    },
-    "secondsAgoPost": "{number}s",
-    "@secondsAgoPost": {
-      "placeholders": {
-        "number": {}
-      }
-    },
-    "aMinuteAgo": "A minute ago",
-    "minutesAgo": "{number} Minutes ago",
-    "@minutesAgo": {
-      "placeholders": {
-        "number": {}
-      }
-    },
-    "minutesAgoPost": "{number}m",
-    "@minutesAgoPost": {
-      "placeholders": {
-        "number": {}
-      }
-    },
-    "anHourAgo": "An hour ago",
-    "anHourAgoPost": "1h",
-    "hoursAgo": "{number} Hours ago",
-    "@hoursAgo": {
-      "placeholders": {
-        "number": {}
-      }
-    },
-    "hoursAgoPost": "{number}h",
-    "@hoursAgoPost": {
-      "placeholders": {
-        "number": {}
-      }
-    },
-    "yesterday": "Yesterday",
-    "daysAgo": "{number} Days ago",
-    "@daysAgo": {
-      "placeholders": {
-        "number": {}
-      }
-    },
-    "daysAgoPost": "{number}d",
-    "@daysAgoPost": {
-      "placeholders": {
-        "number": {}
-      }
-    },
-    "lastWeek": "Last week",
-    "oneMinuteAgo": "1 min ago",
-  "noResult":"Sorry no results found",
-  "turnNotification":"Turn on notifications",
-  "notification":"Notifications",
-  "showNotication":"View all notifications",
-   "profile":"Profile personly",
-    "favorite":"Favorite",
-    "language":"Language",
-    "about":"About the application",
-    "privacy":"Privacy policy",
-    "logOut":"Log out",
-    "address":"Address",
-    "phone":"Phone number",
-    "calling":"Calling",
-    "more":"More",
-    "confimSignOut":"Confirm sign out?",
-    "signOut":"Sign out",
-    "stay":"Stay",
-    "sureShutDown":"Will be shut down Absher, Are you sure ?",
-    "forgetPassord":"Forgot your password?",
-    "send":"Send",
-    "enterPhone":"Enter a phone number",
-    "phoneForPassword":"Please enter your phone number to receive a \n code to create a new password via phone number",
-    "phoneForCreat":"Please enter your phone number to receive a \n code to create an account via phone number",
-    "error":"An error occurred, please try again later",
-    "close":"Close",
-    "processing":"Processing",
-    "sendCode":"We have sent the code to your phone.",
-    "yourCode":"Your Code is {number}",
-     "@yourCode": {
-          "placeholders": {
-            "number": {}
-          }
-        },
-    "enterEmail":"Enter your email",
-    "confimPassword":"Confirm password",
-    "reqName":"Name field is required",
-    "reqEmail":"Email field is required",
-    "reqEmailValid":"This is not a valid email address",
-    "reqPassword":"Password field is required",
-    "reqPassordMatch":"Password does not match",
-    "verifyMobileCreat":"Please verify your mobile phone number {number} To continue creating your account",
-     "@verifyMobileCreat": {
-          "placeholders": {
-            "number": {}
-          }
-        },
-          "verifyMobilePassword":"Please verify your mobile phone number {number} To continue resetting your password",
-             "@verifyMobilePassword": {
-                  "placeholders": {
-                    "number": {}
-                  }
-                },
-    "hello":"Hello\nAbsher",
-    "profile":" My profile ",
-    "loading":"Loading ...",
-    "allCategory":"All categories",
-    "sort":"Sort by",
-    "cancel":"Cancel",
-    "app":"Apply",
-    "latest":"Latest",
-    "oldest":"Oldest",
-    "descending":"Descending Order",
-    "open":"Open",
-    "closeVendor":"Close",
-    "wrong":"Something went wrong.",
-    "location":"Your location is being determined ....",
-    "selectLocation":" Select your location",
-    "tryAgain":"Try Again",
-    "email":"Email",
-    "web":"Web",
-    "timeOpen":"Opening timing",
-    "social":"social media sites",
-    "craatDate":"Date of Establishment",
-    "services":"Services",
-    "edit":"Edit",
-    "save":"Save",
-    "reels":"Reels",
-    "newPassordSet":"Set a new password",
-    "newPassord":"new password",
-     "changePassword":"Change password",
-     "oldPassword":"Old password",
-     "agreeCond":"I agree to Terms And Conditions.",
-     "acceptCond":"Please accept Terms and Conditions in order to continue.",
-     "closeApp":"Close App",
-     "noThing":"No thing",
-     "continuee":"Continue",
-     "recomindation":"Recomindation",
-     "exit":"Exit",
-     "noItem":"There are no items",
-     "filterBy" : "Filter By",
-     "byRate" : "By Rate",
-     "nearby" : "Nearby",
-     "isOpen" : "Is Open",
-     "apply" : "Apply",
-     "close" : "Close",
-     "filterByRate" : "Filter By Rate",
-     "clearRateFilter" : "Clear Rate Filter",
-     "sortBy" : "Sort By",
-     "byVisits" : "Most Visited",
-     "az" : "A - Z",
-      "za" : "Z - A",
-      "oldest" : "Oldest",
-      "latest" : "Latest",
-      "starsCount":"{number} Stars",
-           "@starsCount": {
-                "placeholders": {
-                  "number": {}
-                }
-              },
-     "addNewFilters" : "Add New Filters",
-     "guest":"Log in as a guest",
-     "pleaseLogIn":"Please login to add items to your favorites"
+  "secondsAgo": "{number} Seconds ago",
+  "@secondsAgo": {
+    "placeholders": {
+      "number": {}
+    }
+  },
+  "secondsAgoPost": "{number}s",
+  "@secondsAgoPost": {
+    "placeholders": {
+      "number": {}
+    }
+  },
+  "aMinuteAgo": "A minute ago",
+  "minutesAgo": "{number} Minutes ago",
+  "@minutesAgo": {
+    "placeholders": {
+      "number": {}
+    }
+  },
+  "minutesAgoPost": "{number}m",
+  "@minutesAgoPost": {
+    "placeholders": {
+      "number": {}
+    }
+  },
+  "anHourAgo": "An hour ago",
+  "anHourAgoPost": "1h",
+  "hoursAgo": "{number} Hours ago",
+  "@hoursAgo": {
+    "placeholders": {
+      "number": {}
+    }
+  },
+  "hoursAgoPost": "{number}h",
+  "@hoursAgoPost": {
+    "placeholders": {
+      "number": {}
+    }
+  },
+  "yesterday": "Yesterday",
+  "daysAgo": "{number} Days ago",
+  "@daysAgo": {
+    "placeholders": {
+      "number": {}
+    }
+  },
+  "daysAgoPost": "{number}d",
+  "@daysAgoPost": {
+    "placeholders": {
+      "number": {}
+    }
+  },
+  "lastWeek": "Last week",
+  "oneMinuteAgo": "1 min ago",
+  "noResult": "Sorry no results found",
+  "turnNotification": "Turn on notifications",
+  "turnOffNotification": "Turn off notifications",
+  "notificationsOn": "Notifications On",
+  "notificationsOff": "Notifications Off",
+  "notification": "Notifications",
+  "showNotication": "View all notifications",
+  "profile": "Profile personly",
+  "favorite": "Favorite",
+  "language": "Language",
+  "about": "About the application",
+  "privacy": "Privacy policy",
+  "logOut": "Log out",
+  "address": "Address",
+  "phone": "Phone number",
+  "calling": "Calling",
+  "more": "More",
+  "confimSignOut": "Confirm sign out?",
+  "signOut": "Sign out",
+  "stay": "Stay",
+  "sureShutDown": "Will be shut down Absher, Are you sure ?",
+  "forgetPassord": "Forgot your password?",
+  "send": "Send",
+  "enterPhone": "Enter a phone number",
+  "phoneForPassword": "Please enter your phone number to receive a \n code to create a new password via phone number",
+  "phoneForCreat": "Please enter your phone number to receive a \n code to create an account via phone number",
+  "error": "An error occurred, please try again later",
+  "close": "Close",
+  "processing": "Processing",
+  "sendCode": "We have sent the code to your phone.",
+  "yourCode": "Your Code is {number}",
+  "@yourCode": {
+    "placeholders": {
+      "number": {}
+    }
+  },
+  "enterEmail": "Enter your email",
+  "confimPassword": "Confirm password",
+  "reqName": "Name field is required",
+  "reqEmail": "Email field is required",
+  "reqEmailValid": "This is not a valid email address",
+  "reqPassword": "Password field is required",
+  "reqPassordMatch": "Password does not match",
+  "verifyMobileCreat": "Please verify your mobile phone number {number} To continue creating your account",
+  "@verifyMobileCreat": {
+    "placeholders": {
+      "number": {}
+    }
+  },
+  "verifyMobilePassword": "Please verify your mobile phone number {number} To continue resetting your password",
+  "@verifyMobilePassword": {
+    "placeholders": {
+      "number": {}
+    }
+  },
+  "hello": "Hello\nAbsher",
+  "profile": " My profile ",
+  "loading": "Loading ...",
+  "allCategory": "All categories",
+  "sort": "Sort by",
+  "cancel": "Cancel",
+  "app": "Apply",
+  "latest": "Latest",
+  "oldest": "Oldest",
+  "descending": "Descending Order",
+  "open": "Open",
+  "closeVendor": "Close",
+  "wrong": "Something went wrong.",
+  "location": "Your location is being determined ....",
+  "selectLocation": " Select your location",
+  "tryAgain": "Try Again",
+  "email": "Email",
+  "web": "Web",
+  "timeOpen": "Opening timing",
+  "social": "social media sites",
+  "craatDate": "Date of Establishment",
+  "services": "Services",
+  "edit": "Edit",
+  "save": "Save",
+  "reels": "Reels",
+  "newPassordSet": "Set a new password",
+  "newPassord": "new password",
+  "changePassword": "Change password",
+  "oldPassword": "Old password",
+  "agreeCond": "I agree to Terms And Conditions.",
+  "acceptCond": "Please accept Terms and Conditions in order to continue.",
+  "closeApp": "Close App",
+  "noThing": "No thing",
+  "continuee": "Continue",
+  "recomindation": "Recomindation",
+  "exit": "Exit",
+  "noItem": "There are no items",
+  "filterBy": "Filter By",
+  "byRate": "By Rate",
+  "nearby": "Nearby",
+  "isOpen": "Is Open",
+  "apply": "Apply",
+  "close": "Close",
+  "filterByRate": "Filter By Rate",
+  "clearRateFilter": "Clear Rate Filter",
+  "sortBy": "Sort By",
+  "byVisits": "Most Visited",
+  "az": "A - Z",
+  "za": "Z - A",
+  "oldest": "Oldest",
+  "latest": "Latest",
+  "starsCount": "{number} Stars",
+  "@starsCount": {
+    "placeholders": {
+      "number": {}
+    }
+  },
+  "addNewFilters": "Add New Filters",
+  "guest": "Log in as a guest",
+  "pleaseLogIn": "Please login to add items to your favorites",
+  "searchPlaceHolder": "Omaya / Layla / Four seasons",
+  "or": "OR",
+  "nameFieldIsRequired": "Name Field Is Required.",
+  "passwordFieldIsRequired": "Password Field Is Required.",
+  "passwordShouldBeEightCharacter": "Password must have at least 8 characters.",
+  "pleaseConfirmYourPassword": "Please confirm your password.",
+  "passwordsDoesNotMatch": "Passwords does not match.",
+  "emailFieldIsRequired": "E-mail Field Is Required",
+  "emailIsNotValid": "This Email is not a Valid Email.",
+  "phoneFieldIsRequired": "Phone Number Field Is Required",
+  "wrongPhoneNumber": "Wrong Phone Number, ex 9******** ",
+  "addYourDetailsToSignIn": "Add your details to sign in"
 }

@@ -28,7 +28,6 @@ class ServicesLocator {
     sl.registerLazySingleton(() => LoginBloc(sl(), sl()));
     sl.registerLazySingleton(() => HomeBloc());
     sl.registerLazySingleton(() => SearchBloc());
-    sl.registerFactory(() => VendorsListBloc());
     sl.registerFactory(() => SubCategoryBloc());
     sl.registerFactory(() => ProfileBloc());
     sl.registerFactory(() => ReelsBloc());

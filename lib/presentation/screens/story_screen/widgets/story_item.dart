@@ -61,9 +61,9 @@ class _StoryItemState extends State<StoryItem> {
                 switch (state.extendedImageLoadState) {
                   case LoadState.loading:
                     storiesBloc.animationController.stop();
-                    return Column(
+                    return const Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
+                      children: [
                         SizedBox(
                           height: 40,
                           width: 40,

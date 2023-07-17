@@ -104,17 +104,20 @@ class _PhoneNumberSignUpScreenContent extends StatelessWidget {
                           vertical: 16.0,
                           horizontal: 32,
                         ),
-                        child: CustomInputField(
-                          controller: textEditingController,
-                          keyboardType: TextInputType.phone,
-                          hintText: AppLocalizations.of(context)!.addNumber,
-                          withLabel: true,
-                          icon: Icons.phone_android,
-                          isPhone: true,
-                          validator: (value) {
-                            return AppValidators.validatePhoneFields(
-                                context, textEditingController.text);
-                          },
+                        child: Directionality(
+                          textDirection: TextDirection.ltr,
+                          child: CustomInputField(
+                            controller: textEditingController,
+                            keyboardType: TextInputType.phone,
+                            hintText: AppLocalizations.of(context)!.addNumber,
+                            withLabel: true,
+                            icon: Icons.phone_android,
+                            isPhone: true,
+                            validator: (value) {
+                              return AppValidators.validatePhoneFields(
+                                  context, textEditingController.text);
+                            },
+                          ),
                         ),
                       ),
                       CustomButton(

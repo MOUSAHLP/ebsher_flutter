@@ -53,165 +53,173 @@ class SignUpScreen extends StatelessWidget {
           const SignUpBackGroundDecoration(),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 0),
-            child: Form(
-              key: _formState,
-              child: SingleChildScrollView(
-                padding: EdgeInsets.only(bottom: 40),
-                child: Column(
-                  children: [
-                    SizedBox(height: 1.sh - 510),
-                    SizedBox(
-                      // height: 500,
-                      child: Column(
-                        children: [
-                          Text(
-                            AppLocalizations.of(context)!.signUp,
-                            style: getBoldStyle(
-                              color: Colors.white,
-                              fontSize: FontSizeApp.s36,
+            child: Directionality(
+              textDirection: TextDirection.ltr,
+              child: Form(
+                key: _formState,
+                child: SingleChildScrollView(
+                  padding: EdgeInsets.only(bottom: 40),
+                  child: Column(
+                    children: [
+                      SizedBox(height: 1.sh - 510),
+                      SizedBox(
+                        // height: 500,
+                        child: Column(
+                          children: [
+                            Text(
+                              AppLocalizations.of(context)!.signUp,
+                              style: getBoldStyle(
+                                color: Colors.white,
+                                fontSize: FontSizeApp.s36,
+                              ),
                             ),
-                          ),
-                          Text(
-                            AppLocalizations.of(context)!.addDetails,
-                            style: getBoldStyle(
-                              color: Colors.white,
-                              fontSize: FontSizeApp.s14,
+                            Text(
+                              AppLocalizations.of(context)!
+                                  .addYourDetailsToSignIn,
+                              style: getBoldStyle(
+                                color: Colors.white,
+                                fontSize: FontSizeApp.s14,
+                              ),
                             ),
-                          ),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          CustomInputField(
-                            hintText: AppLocalizations.of(context)!.fullName,
-                            withLabel: true,
-                            icon: Icons.person,
-                            onChange: (value) {
-                              context.read<SignUpBloc>().signUpParams.name =
-                                  value;
-                            },
-                            validator: (value) {
-                              return AppValidators.validateNameFields(
-                                  context, value);
-                            },
-                          ),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          CustomInputField(
-                            hintText: AppLocalizations.of(context)!.addNumber,
-                            initValue:
-                                context.read<SignUpBloc>().signUpParams.phone,
-                            readOnly: true,
-                            withLabel: true,
-                            icon: Icons.phone_android,
-                            isPhone: true,
-                            onChange: (value) {
-                              context.read<SignUpBloc>().signUpParams.phone =
-                                  value;
-                            },
-                          ),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          CustomInputField(
-                            hintText: AppLocalizations.of(context)!.enterEmail,
-                            withLabel: true,
-                            icon: Icons.email,
-                            onChange: (value) {
-                              context.read<SignUpBloc>().signUpParams.email =
-                                  value;
-                            },
-                            validator: (value) {
-                              return AppValidators.validateEmailFields(
-                                  context, value);
-                            },
-                          ),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          CustomPasswordInputField(
-                            hintText: AppLocalizations.of(context)!.password,
-                            withLabel: true,
-                            icon: Icons.lock_open_rounded,
-                            onChange: (value) {
-                              context.read<SignUpBloc>().signUpParams.password =
-                                  value;
-                            },
-                            validator: (value) {
-                              return AppValidators.validatePasswordFields(
-                                  context, value);
-                            },
-                          ),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          CustomPasswordInputField(
-                            hintText:
-                                AppLocalizations.of(context)!.confimPassword,
-                            withLabel: true,
-                            icon: Icons.lock_open_rounded,
-                            onChange: (value) {
-                              context
-                                  .read<SignUpBloc>()
-                                  .signUpParams
-                                  .repeatPassword = value;
-                            },
-                            validator: (value) {
-                              return AppValidators.validateRepeatPasswordFields(
-                                  context,
-                                  context
-                                      .read<SignUpBloc>()
-                                      .signUpParams
-                                      .password,
-                                  value);
-                            },
-                          ),
-                          const SizedBox(
-                            height: 16,
-                          ),
-                          CustomButton(
-                            label: AppLocalizations.of(context)!.register,
-                            onTap: () {
-                              if (_formState.currentState!.validate()) {
-                                context.read<SignUpBloc>().add(SignUp());
-                              }
-                            },
-                          ),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          RichText(
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            text: TextSpan(
-                              children: [
-                                TextSpan(
-                                  text:
-                                      AppLocalizations.of(context)!.haveAccount,
-                                  style: getBoldStyle(
-                                    color: Colors.white,
-                                    fontSize: FontSizeApp.s14,
-                                  ),
-                                ),
-                                const TextSpan(text: ' '),
-                                TextSpan(
-                                  text: AppLocalizations.of(context)!.signIn,
-                                  style: getBoldStyle(
-                                    color: ColorManager.softYellow,
-                                    fontSize: FontSizeApp.s14,
-                                  ),
-                                  recognizer: TapGestureRecognizer()
-                                    ..onTap = () => AppRouter.pushReplacement(
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            CustomInputField(
+                              hintText: AppLocalizations.of(context)!.fullName,
+                              withLabel: true,
+                              icon: Icons.person,
+                              onChange: (value) {
+                                context.read<SignUpBloc>().signUpParams.name =
+                                    value;
+                              },
+                              validator: (value) {
+                                return AppValidators.validateNameFields(
+                                    context, value);
+                              },
+                            ),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            CustomInputField(
+                              hintText: AppLocalizations.of(context)!.addNumber,
+                              initValue:
+                                  context.read<SignUpBloc>().signUpParams.phone,
+                              readOnly: true,
+                              withLabel: true,
+                              icon: Icons.phone_android,
+                              isPhone: true,
+                              onChange: (value) {
+                                context.read<SignUpBloc>().signUpParams.phone =
+                                    value;
+                              },
+                            ),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            CustomInputField(
+                              hintText:
+                                  AppLocalizations.of(context)!.enterEmail,
+                              withLabel: true,
+                              icon: Icons.email,
+                              onChange: (value) {
+                                context.read<SignUpBloc>().signUpParams.email =
+                                    value;
+                              },
+                              validator: (value) {
+                                return AppValidators.validateEmailFields(
+                                    context, value);
+                              },
+                            ),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            CustomPasswordInputField(
+                              hintText: AppLocalizations.of(context)!.password,
+                              withLabel: true,
+                              icon: Icons.lock_open_rounded,
+                              onChange: (value) {
+                                context
+                                    .read<SignUpBloc>()
+                                    .signUpParams
+                                    .password = value;
+                              },
+                              validator: (value) {
+                                return AppValidators.validatePasswordFields(
+                                    context, value);
+                              },
+                            ),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            CustomPasswordInputField(
+                              hintText:
+                                  AppLocalizations.of(context)!.confimPassword,
+                              withLabel: true,
+                              icon: Icons.lock_open_rounded,
+                              onChange: (value) {
+                                context
+                                    .read<SignUpBloc>()
+                                    .signUpParams
+                                    .repeatPassword = value;
+                              },
+                              validator: (value) {
+                                return AppValidators
+                                    .validateRepeatPasswordFields(
                                         context,
-                                        const SignInConfirmationScreen()),
-                                ),
-                              ],
+                                        context
+                                            .read<SignUpBloc>()
+                                            .signUpParams
+                                            .password,
+                                        value);
+                              },
                             ),
-                          ),
-                        ],
+                            const SizedBox(
+                              height: 16,
+                            ),
+                            CustomButton(
+                              label: AppLocalizations.of(context)!.register,
+                              onTap: () {
+                                if (_formState.currentState!.validate()) {
+                                  context.read<SignUpBloc>().add(SignUp());
+                                }
+                              },
+                            ),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            RichText(
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              text: TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: AppLocalizations.of(context)!
+                                        .haveAccount,
+                                    style: getBoldStyle(
+                                      color: Colors.white,
+                                      fontSize: FontSizeApp.s14,
+                                    ),
+                                  ),
+                                  const TextSpan(text: ' '),
+                                  TextSpan(
+                                    text: AppLocalizations.of(context)!.signIn,
+                                    style: getBoldStyle(
+                                      color: ColorManager.softYellow,
+                                      fontSize: FontSizeApp.s14,
+                                    ),
+                                    recognizer: TapGestureRecognizer()
+                                      ..onTap = () => AppRouter.pushReplacement(
+                                          context,
+                                          const SignInConfirmationScreen()),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),

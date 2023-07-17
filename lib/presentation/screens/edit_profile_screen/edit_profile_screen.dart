@@ -308,20 +308,20 @@ class EditProfileBody extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              context.read<ProfileBloc>().isEditing == true
-                                  ? Positioned(
-                                      bottom: 1,
-                                      child: InkWell(
-                                          onTap: () {
-                                            context
-                                                .read<ProfileBloc>()
-                                                .add(GetImageGallery());
-                                          },
-                                          child: const Icon(
-                                            Icons.camera_alt_outlined,
-                                            color: Colors.white,
-                                          )))
-                                  : const SizedBox.shrink()
+                              // context.read<ProfileBloc>().isEditing == true
+                              //     ? Positioned(
+                              //         bottom: 1,
+                              //         child: InkWell(
+                              //             onTap: () {
+                              //               context
+                              //                   .read<ProfileBloc>()
+                              //                   .add(GetImageGallery());
+                              //             },
+                              //             child: const Icon(
+                              //               Icons.camera_alt_outlined,
+                              //               color: Colors.white,
+                              //             )))
+                              //     : const SizedBox.shrink()
                             ],
                           ),
                         )

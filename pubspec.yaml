@@ -1,7 +1,7 @@
 name: absher
 description: A new Flutter project.
 
-version: 0.0.02+1
+version: 0.0.06+1
 
 environment:
   sdk: '>=3.0.5 <4.0.0'

@@ -182,5 +182,15 @@
   "guest": "Log in as a guest",
   "pleaseLogIn": "Please login to add items to your favorites",
   "searchPlaceHolder": "Omaya / Layla / Four seasons",
-  "or": "OR"
+  "or": "OR",
+  "nameFieldIsRequired": "Name Field Is Required.",
+  "passwordFieldIsRequired": "Password Field Is Required.",
+  "passwordShouldBeEightCharacter": "Password must have at least 8 characters.",
+  "pleaseConfirmYourPassword": "Please confirm your password.",
+  "passwordsDoesNotMatch": "Passwords does not match.",
+  "emailFieldIsRequired": "E-mail Field Is Required",
+  "emailIsNotValid": "This Email is not a Valid Email.",
+  "phoneFieldIsRequired": "Phone Number Field Is Required",
+  "wrongPhoneNumber": "Wrong Phone Number, ex 9******** ",
+  "addYourDetailsToSignIn": "Add your details to sign in"
 }

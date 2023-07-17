@@ -92,7 +92,7 @@ class VendorsScreenBody extends StatelessWidget {
                   prev.appliedFilters.subCategoryId !=
                       current.appliedFilters.subCategoryId;
             }, builder: (context, state) {
-              Future.delayed(const Duration(milliseconds: 100)).then((value) {
+              Future.delayed(const Duration(milliseconds: 200)).then((value) {
                 context.read<VendorsListBloc>().vendorsInnerController.scrollTo(
                       index: subCategories.indexWhere(
                         (SubCategoryItemModel p0) =>
@@ -109,66 +109,74 @@ class VendorsScreenBody extends StatelessWidget {
                   const SizedBox(height: 20),
                   SizedBox(
                       height: 50,
-                      child: ScrollablePositionedList.builder(
-                        itemCount: subCategories.length,
-                        scrollDirection: Axis.horizontal,
-                        padding: EdgeInsets.zero,
-                        physics: const ClampingScrollPhysics(),
-                        itemScrollController: context
-                            .read<VendorsListBloc>()
-                            .vendorsInnerController,
-                        itemBuilder: (context, index) {
-                          return GestureDetector(
-                            onTap: () {
-                              context.read<VendorsListBloc>().add(
-                                  ChangeSelectedSubCategory(
-                                      subCategories[index].id!));
-                            },
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 8.0),
-                              child: Container(
-                                // width: 100,
-                                // height: 50,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(22),
-                                    color: Colors.grey[900],
-                                    border: Border.all(
-                                        color: state.appliedFilters
-                                                    .subCategoryId ==
-                                                subCategories[index].id
-                                            ? ColorManager.primaryColor
-                                            : ColorManager.softYellow,
-                                        width: 3),
-                                    image: DecorationImage(
-                                        image: cachedImageProvider(
-                                            subCategories[index].image),
-                                        colorFilter: ColorFilter.mode(
-                                            Colors.black.withOpacity(0.4),
-                                            BlendMode.dstATop),
-                                        fit: BoxFit.cover)),
-                                child: Stack(
-                                  children: [
-                                    Center(
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 16.0, vertical: 8),
-                                        child: Text(
-                                          localizationString(context,
-                                              subCategories[index].name)!,
-                                          style: getBoldStyle(
-                                            color: Colors.white,
-                                            fontSize: FontSizeApp.s12,
+                      child: Directionality(
+                        textDirection: TextDirection.ltr,
+                        child: ScrollablePositionedList.separated(
+                          reverse:
+                              Directionality.of(context) == TextDirection.rtl,
+                          itemCount: subCategories.length,
+                          scrollDirection: Axis.horizontal,
+                          padding: EdgeInsets.zero,
+                          physics: const ClampingScrollPhysics(),
+                          itemScrollController: context
+                              .read<VendorsListBloc>()
+                              .vendorsInnerController,
+                          itemBuilder: (context, index) {
+                            return GestureDetector(
+                              onTap: () {
+                                context.read<VendorsListBloc>().add(
+                                    ChangeSelectedSubCategory(
+                                        subCategories[index].id!));
+                              },
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 8.0),
+                                child: Container(
+                                  // width: 100,
+                                  // height: 50,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(22),
+                                      color: Colors.grey[900],
+                                      border: Border.all(
+                                          color: state.appliedFilters
+                                                      .subCategoryId ==
+                                                  subCategories[index].id
+                                              ? ColorManager.primaryColor
+                                              : ColorManager.softYellow,
+                                          width: 3),
+                                      image: DecorationImage(
+                                          image: cachedImageProvider(
+                                              subCategories[index].image),
+                                          colorFilter: ColorFilter.mode(
+                                              Colors.black.withOpacity(0.4),
+                                              BlendMode.dstATop),
+                                          fit: BoxFit.cover)),
+                                  child: Stack(
+                                    children: [
+                                      Center(
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 16.0, vertical: 8),
+                                          child: Text(
+                                            localizationString(context,
+                                                subCategories[index].name)!,
+                                            style: getBoldStyle(
+                                              color: Colors.white,
+                                              fontSize: FontSizeApp.s12,
+                                            ),
                                           ),
                                         ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
-                          );
-                        },
+                            );
+                          },
+                          separatorBuilder: (BuildContext context, int index) {
+                            return SizedBox();
+                          },
+                        ),
                       )),
                   const SizedBox(height: 20),
                   Expanded(

@@ -2,6 +2,7 @@ import 'package:absher/bloc/login_bloc/login_event.dart';
 import 'package:absher/core/app_router/app_router.dart';
 import 'package:absher/core/app_validators.dart';
 import 'package:absher/models/params/login_params.dart';
+import 'package:absher/presentation/resources/font_app.dart';
 import 'package:absher/presentation/resources/style_app.dart';
 import 'package:absher/presentation/screens/auth_screen/phone_number_signup_screen.dart';
 import 'package:absher/presentation/screens/auth_screen/widgets/login_screen_background.dart';
@@ -63,7 +64,10 @@ class _SignInScreen extends StatelessWidget {
       children: [
         const LoginScreenBackGround(),
         SingleChildScrollView(
-          padding: EdgeInsets.only(bottom: 40),
+          physics: AlwaysScrollableScrollPhysics(),
+          padding: EdgeInsets.only(
+            bottom: 40,
+          ),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 0),
             child: Column(
@@ -71,98 +75,121 @@ class _SignInScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 SizedBox(
-                  height: 1.sh - 350,
+                  height: 1.sh - 420,
                 ),
                 SizedBox(
                   // height: 350,
-                  child: Form(
-                    key: _formKey,
-                    child: Column(children: [
-                      CustomInputField(
-                        controller: phoneController,
-                        keyboardType: TextInputType.phone,
-                        hintText: AppLocalizations.of(context)!.addNumber,
-                        withLabel: true,
-                        icon: Icons.phone_android,
-                        isPhone: true,
-                        validator: (value) {
-                          return AppValidators.validatePhoneFields(
-                              context, phoneController.text);
-                        },
-                      ),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      CustomPasswordInputField(
-                        controller: passwordController,
-                        hintText: AppLocalizations.of(context)!.password,
-                        withLabel: true,
-                        icon: Icons.lock_open_rounded,
-                        validator: (value) {
-                          return AppValidators.validatePasswordFields(
-                              context, passwordController.text);
-                        },
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          AppRouter.pushReplacement(
-                            context,
-                            const PhoneNumberSignUpScreen(
-                              resetPassword: true,
-                            ),
-                          );
-                        },
-                        child: Text(
-                          AppLocalizations.of(context)!.forgetPassord,
-                          style: getSemiBoldStyle(
-                            color: ColorManager.softYellow,
+                  child: Directionality(
+                    textDirection: TextDirection.ltr,
+                    child: Form(
+                      key: _formKey,
+                      child: Column(children: [
+                        // SizedBox(
+                        //   height: 400,
+                        // ),
+                        Text(
+                          AppLocalizations.of(context)!.signIn,
+                          style: getBoldStyle(
+                            color: Colors.white,
+                            fontSize: FontSizeApp.s36,
                           ),
                         ),
-                      ),
-                      const SizedBox(
-                        height: 16,
-                      ),
-                      CustomButton(
-                        label: AppLocalizations.of(context)!.register,
-                        onTap: () {
-                          if (_formKey.currentState!.validate()) {
-                            sl<LoginBloc>().add(
-                              Login(
-                                loginParams: LoginParams(
-                                  phone: phoneController.text,
-                                  password: passwordController.text,
-                                ),
-                              ),
-                            );
-                          }
-                        },
-                      ),
-                      const SizedBox(
-                        height: 16,
-                      ),
-                      Text(
-                        AppLocalizations.of(context)!.or,
-                        style: getBoldStyle(
-                          color: Colors.white,
+                        Text(
+                          AppLocalizations.of(context)!.addDetails,
+                          style: getBoldStyle(
+                            color: Colors.white,
+                            fontSize: FontSizeApp.s14,
+                          ),
                         ),
-                      ),
-                      const SizedBox(
-                        height: 16,
-                      ),
-                      CustomButton(
-                        fillColor: Colors.white,
-                        labelColor: Colors.white,
-                        isFilled: false,
-                        label: AppLocalizations.of(context)!.signUp,
-                        onTap: () {
-                          AppRouter.pushReplacement(
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        CustomInputField(
+                          controller: phoneController,
+                          keyboardType: TextInputType.phone,
+                          hintText: AppLocalizations.of(context)!.addNumber,
+                          withLabel: true,
+                          icon: Icons.phone_android,
+                          isPhone: true,
+                          validator: (value) {
+                            return AppValidators.validatePhoneFields(
+                                context, phoneController.text);
+                          },
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        CustomPasswordInputField(
+                          controller: passwordController,
+                          hintText: AppLocalizations.of(context)!.password,
+                          withLabel: true,
+                          icon: Icons.lock_open_rounded,
+                          validator: (value) {
+                            return AppValidators.validatePasswordFields(
+                                context, passwordController.text);
+                          },
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            AppRouter.pushReplacement(
                               context,
                               const PhoneNumberSignUpScreen(
-                                resetPassword: false,
-                              ));
-                        },
-                      ),
-                    ]),
+                                resetPassword: true,
+                              ),
+                            );
+                          },
+                          child: Text(
+                            AppLocalizations.of(context)!.forgetPassord,
+                            style: getSemiBoldStyle(
+                              color: ColorManager.softYellow,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        CustomButton(
+                          label: AppLocalizations.of(context)!.register,
+                          onTap: () {
+                            if (_formKey.currentState!.validate()) {
+                              sl<LoginBloc>().add(
+                                Login(
+                                  loginParams: LoginParams(
+                                    phone: phoneController.text,
+                                    password: passwordController.text,
+                                  ),
+                                ),
+                              );
+                            }
+                          },
+                        ),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        Text(
+                          AppLocalizations.of(context)!.or,
+                          style: getBoldStyle(
+                            color: Colors.white,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        CustomButton(
+                          fillColor: Colors.white,
+                          labelColor: Colors.white,
+                          isFilled: false,
+                          label: AppLocalizations.of(context)!.signUp,
+                          onTap: () {
+                            AppRouter.pushReplacement(
+                                context,
+                                const PhoneNumberSignUpScreen(
+                                  resetPassword: false,
+                                ));
+                          },
+                        ),
+                      ]),
+                    ),
                   ),
                 ),
               ],

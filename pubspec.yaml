@@ -24,7 +24,7 @@ dependencies:
   overlay_support: ^2.1.0
   sms_autofill: ^2.3.0
   flutter_spinkit: ^5.2.0
-  shimmer:
+  shimmer: ^3.0.0
   package_info_plus: ^4.0.0
   dismissible_page: ^1.0.2
   extended_image: ^8.0.2

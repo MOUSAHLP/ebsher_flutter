@@ -47,7 +47,6 @@ class ToggleNearByFilter extends VendorsListEvent {}
 
 class SetByRateFilter extends VendorsListEvent {
   int? newRateValue;
-
   SetByRateFilter(this.newRateValue);
 }
 

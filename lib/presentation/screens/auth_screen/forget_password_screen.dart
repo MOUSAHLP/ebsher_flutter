@@ -25,25 +25,11 @@ class ForgetPasswordScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<SignUpBloc, SignUpState>(
+    return BlocConsumer<SignUpBloc, SignUpState>(
         listener: (context, state) {
-          if (state is SignUpLoading) {
-            LoadingDialog().openDialog(context);
-          } else {
-            LoadingDialog().closeDialog(context);
-          }
-          if (state is SignUpError) {
-            ErrorDialog.openDialog(context, null);
-          }
-          if (state is ForgetPasswordCompleted) {
-            AppRouter.pushReplacement(
-                context, const SignInConfirmationScreen());
-          }
-          if (state is SignUpFieldsValidationFailed) {
-            toast(state.validationError!);
-          }
+
         },
-        child: _PhoneNumberSignUpScreenContent());
+        builder:(context, state) =>  _PhoneNumberSignUpScreenContent());
   }
 }
 

@@ -108,8 +108,8 @@ class ReelsModel {
   String? video;
   String? description;
   String? title;
-  String? views;
-  String? vendorId;
+  int? views;
+  int? vendorId;
   DateTime? createdAt;
   DateTime? updatedAt;
   int? seen;

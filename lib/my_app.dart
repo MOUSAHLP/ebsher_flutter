@@ -14,6 +14,7 @@ import 'package:overlay_support/overlay_support.dart';
 import 'bloc/authentication_bloc/authertication_bloc.dart';
 import 'bloc/bottom_bloc/bottom_bloc.dart';
 import 'bloc/favorites_list_bloc/favorites_list_bloc.dart';
+import 'bloc/favorites_list_bloc/favorites_list_event.dart';
 import 'bloc/home_bloc/home_bloc.dart';
 import 'bloc/language_bloc/language_bloc.dart';
 import 'bloc/language_bloc/language_state.dart';
@@ -72,6 +73,10 @@ class _MyAppState extends State<MyApp> {
               ),
               BlocProvider(
                 create: (BuildContext context) => sl<NotificationBloc>(),
+              ),
+              BlocProvider(
+                lazy: false,
+                create: (context) => sl<FavoritesListBloc>()..add(GetFavoritesList()),
               ),
             ],
             child: OverlaySupport.global(

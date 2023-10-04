@@ -33,7 +33,7 @@ class ServicesLocator {
     sl.registerFactory(() => ProfileBloc());
     sl.registerFactory(() => ReelsBloc());
     sl.registerFactory(() => SearchBloc());
-    sl.registerLazySingleton(() => FavoritesListBloc());
+   // sl.registerLazySingleton(() => FavoritesListBloc());
     sl.registerLazySingleton(() => NotificationBloc());
     sl.registerFactory(() => AboutBloc());
     sl.registerFactory(() => PrivacyBloc());
@@ -42,7 +42,7 @@ class ServicesLocator {
     // sl.registerFactory(() => VendorsListBloc(appliedFilter: GetVendorsParams()));
     sl.registerLazySingleton(() => BottomBloc());
     sl.registerLazySingleton(() => LanguageBloc());
-
+    sl.registerFactory(() => FavoritesListBloc());
     /// Repository
     sl.registerLazySingleton<UserRepository>(() => UserRepository());
   }

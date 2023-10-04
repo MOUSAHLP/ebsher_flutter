@@ -1,6 +1,7 @@
 import 'package:absher/models/sub_category_item_model.dart';
 
 import '../../models/params/get_vendors_params.dart';
+import '../../models/vendor_model.dart';
 
 abstract class VendorsListEvent {
   VendorsListEvent([List props = const []]) : super();
@@ -63,3 +64,7 @@ class SetAppliedFilter extends VendorsListEvent {}
 class ClearSortValue extends VendorsListEvent {}
 
 class ClearFilterValues extends VendorsListEvent {}
+class ChangeStatusList extends VendorsListEvent {
+  VendorModel vendorFavorit;
+  ChangeStatusList(this.vendorFavorit);
+}

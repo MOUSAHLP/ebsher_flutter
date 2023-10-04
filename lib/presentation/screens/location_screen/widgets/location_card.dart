@@ -9,6 +9,9 @@ import 'package:absher/translations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../../bloc/favorites_list_bloc/favorites_list_bloc.dart';
+import '../../../../bloc/favorites_list_bloc/favorites_list_event.dart';
+import '../../../../bloc/favorites_list_bloc/favorites_list_state.dart';
 import '../../../../bloc/location_bloc/location_bloc.dart';
 import '../../../../bloc/location_bloc/location_state.dart';
 import '../../../../core/localization_string.dart';
@@ -34,6 +37,7 @@ class LocationCard extends StatelessWidget {
               context,
               VendorDetailsScreen(
                 id: vendorModel.id!,
+
               ));
         },
         child: Stack(
@@ -149,31 +153,28 @@ class LocationCard extends StatelessWidget {
               textDirection: Directionality.of(context),
               end: -10,
               bottom: -14,
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  const CustomShapeContainer(),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 6),
-                    child: BlocBuilder<LocationBloc, LocationState>(
-                      builder: (context, state) {
-                        int targetedIndex = state.vendorSelected.indexWhere(
-                            (element) => element.id == vendorModel.id!);
-                        return FavoriteHeart(
-                          id: state.vendorSelected[targetedIndex].id!,
-                          isToggled: state
-                              .vendorSelected[targetedIndex].favoriteStatus,
-                          onTap: () {
-                            context.read<LocationBloc>().add(
-                                ChangeLocationListFavoriteStatus(
-                                    state.vendorSelected[targetedIndex].id!));
-                          },
-                        );
-                      },
-                    ),
-                  ),
-                ],
-              ),
+              child:  Stack(
+               alignment: Alignment.center,
+               children: [
+                 const CustomShapeContainer(),
+                 Padding(
+                   padding: const EdgeInsets.only(right: 6),
+                   child: BlocBuilder<FavoritesListBloc, FavoritesListState>(
+                     builder: (context, state) {
+                       return FavoriteHeart(
+                         id:  vendorModel.id!,
+                         isToggled: context.read<FavoritesListBloc>().isFavoriteRestaurant(vendorModel.id!),
+                         onTap: () {
+                           context.read<FavoritesListBloc>().add(
+                               ChangeFavoriteStatusRestaurant(
+                                   vendorModel.id!));
+                         },
+                       );
+                     },
+                   ),
+                 ),
+               ],
+                ),
             ),
           ],
         ),

@@ -12,6 +12,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../bloc/vendor_details_bloc/vendor_details_bloc.dart';
 import '../../../bloc/vendor_details_bloc/vendor_details_event.dart';
 import '../../../core/services/services_locator.dart';
+import '../../../models/vendor_model.dart';
 import '../../widgets/custom_app_background.dart';
 import '../../widgets/custom_error_screen.dart';
 
@@ -19,6 +20,7 @@ import '../../widgets/custom_error_screen.dart';
 class VendorDetailsScreen extends StatelessWidget {
   VendorDetailsScreen({Key? key, required this.id}) : super(key: key);
   int id;
+
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +30,7 @@ class VendorDetailsScreen extends StatelessWidget {
         // lazy: false,
         child: VendorDetailsScreenBody(
           id: id,
+
         ));
   }
 }
@@ -131,6 +134,7 @@ class _VendorDetailsScreenBodyState extends State<VendorDetailsScreenBody> {
                         collapseMode: CollapseMode.pin,
                         background: ExpandedHeader(
                           vendor: state.vendorModel,
+
                         ),
                       ),
                       actions: _isShrink

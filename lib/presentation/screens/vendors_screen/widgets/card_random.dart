@@ -13,6 +13,9 @@ import 'package:absher/translations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import '../../../../bloc/favorites_list_bloc/favorites_list_bloc.dart';
+import '../../../../bloc/favorites_list_bloc/favorites_list_event.dart';
+import '../../../../bloc/favorites_list_bloc/favorites_list_state.dart';
 import '../../../../bloc/vendors_list_bloc/vendors_list_state.dart';
 import '../../../../core/app_type/type_image.dart';
 import '../../../../core/localization_string.dart';
@@ -169,32 +172,29 @@ class CardRandomWidget extends StatelessWidget {
                         ),
                         const SizedBox(height: 20),
                         if (!fromSearch)
-                          BlocBuilder<VendorsListBloc, VendorsListState>(
+                          BlocBuilder<FavoritesListBloc, FavoritesListState>(
                             builder: (context, state) {
                               return FavoriteHeart(
                                 id: vendor.id!,
-                                isToggled: state.vendorsList
-                                    .firstWhere(
-                                        (element) => element.id == vendor.id!)
-                                    .favoriteStatus,
+                                isToggled: context.read<FavoritesListBloc>().isFavoriteRestaurant(vendor.id!),
                                 onTap: () {
-                                  context.read<VendorsListBloc>().add(
-                                      ChangeVendorsListFavoriteStatus(
+                                  context.read<FavoritesListBloc>().add(
+                                      ChangeFavoriteStatusRestaurant(
                                           vendor.id!));
                                 },
                               );
                             },
                           ),
                         if (fromSearch)
-                          BlocBuilder<SearchBloc, SearchState>(
+                          BlocBuilder<FavoritesListBloc, FavoritesListState>(
                             builder: (context, state) {
                               return FavoriteHeart(
                                 id: vendor.id!,
-                                isToggled: vendor.favoriteStatus,
+                                isToggled:  context.read<FavoritesListBloc>().isFavoriteRestaurant(vendor.id!),
                                 onTap: () {
-                                  context
-                                      .read<SearchBloc>()
-                                      .add(ChangeFavoriteStatus(vendor.id!));
+                                  context.read<FavoritesListBloc>().add(
+                                      ChangeFavoriteStatusRestaurant(
+                                          vendor.id!));
                                 },
                               );
                             },

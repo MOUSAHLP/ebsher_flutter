@@ -191,7 +191,19 @@ class VendorsListBloc extends Bloc<VendorsListEvent, VendorsListState> {
         pendingFilter.visits = null;
         emit(state.copyWith(pendingFilters: pendingFilter));
       }
-    });
+      if(event is ChangeStatusList){
+        event.vendorFavorit.favoriteStatus=!event.vendorFavorit.favoriteStatus;
+        emit(state.copyWith(
+          screenStates: ScreenStates.success,
+        ));
+      }
+    }
+
+
+
+    );
+
+
   }
 
   Future<Position?> getLocation() async {

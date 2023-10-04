@@ -5,7 +5,7 @@ class SubCategoryItemModel {
   LocalizationStringModel? name;
   String? image;
   String? thumbnail;
-  String? categoryId;
+  int? categoryId;
 
   SubCategoryItemModel({
     this.id,

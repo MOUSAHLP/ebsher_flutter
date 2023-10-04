@@ -14,7 +14,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../../../bloc/vendors_list_bloc/vendors_list_state.dart';
+import '../../../../core/app_type/type_image.dart';
 import '../../../../core/localization_string.dart';
+
 import '../../../../models/vendor_model.dart';
 import '../../../resources/assets_manager.dart';
 import '../../../widgets/accessories/cached_image.dart';
@@ -27,11 +29,13 @@ class CardRandomWidget extends StatelessWidget {
   const CardRandomWidget(
       {super.key, required this.vendor, this.fromSearch = false});
 
+
+
   @override
   Widget build(BuildContext context) {
     List<Widget> card = [
-      CircularCard(image: vendor.image!),
-      RectangleCard(image: vendor.image!),
+      CircularCard(image: vendor.image??""),
+      RectangleCard(image: vendor.image??""),
     ];
     card.shuffle();
     return GestureDetector(
@@ -75,14 +79,25 @@ class CardRandomWidget extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            localizationString(context, vendor.name) ?? "",
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: getBoldStyle(
-                              color: ColorManager.primaryColor,
-                              fontSize: 16,
-                            ),
+                          Row(
+                            children: [
+                              Text(
+                                localizationString(context, vendor.name) ?? "",
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: getBoldStyle(
+                                  color: ColorManager.primaryColor,
+                                  fontSize: 16,
+                                ),
+                              ),
+                              const SizedBox(width: 5,),
+
+            vendor.package?.colorCode ==null?
+                               Image.asset(
+                                imageTypeName(0) ,  height:20,width:20,):
+                              Image.asset(
+                                imageTypeName(vendor.package!.colorCode??0)  ,  height:30,width:30,),
+                            ],
                           ),
                           Text(
                             localizationString(
@@ -190,7 +205,7 @@ class CardRandomWidget extends StatelessWidget {
                           children: [
                             Text(
                               intl.NumberFormat.compact()
-                                  .format(int.parse(vendor.visits ?? '0')),
+                                  .format(vendor.visits?? 0),
                               style: getBoldStyle(
                                 color: ColorManager.primaryColor,
                               )!
@@ -222,11 +237,12 @@ class CardRandomWidget extends StatelessWidget {
       ),
     );
   }
+
 }
 
 class IsOpenLabel extends StatelessWidget {
   const IsOpenLabel({Key? key, required this.isOpen}) : super(key: key);
-  final String? isOpen;
+  final int? isOpen;
 
   @override
   Widget build(BuildContext context) {
@@ -235,17 +251,17 @@ class IsOpenLabel extends StatelessWidget {
       width: 64,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
-          color: isOpen == "1" ? ColorManager.darkRed : null,
+          color: isOpen == 1 ? ColorManager.darkRed : null,
           border: Border.all(
             color: ColorManager.darkRed,
           )),
       child: Center(
           child: Text(
-        isOpen == "1"
+        isOpen == 1
             ? AppLocalizations.of(context)!.open
             : AppLocalizations.of(context)!.closeVendor,
         style: getBoldStyle(
-          color: isOpen == "1" ? Colors.white : ColorManager.darkRed,
+          color: isOpen == 1 ? Colors.white : ColorManager.darkRed,
           fontSize: FontSizeApp.s8,
         ),
       )),

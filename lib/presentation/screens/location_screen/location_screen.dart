@@ -13,6 +13,7 @@ import 'package:absher/translations.dart';
 import 'package:custom_map_markers/custom_map_markers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../../../bloc/location_bloc/location_bloc.dart';
@@ -295,34 +296,38 @@ class LocationScreenBody extends StatelessWidget {
                   ),
                   BlocBuilder<LocationBloc, LocationState>(
                     builder: (context, state) {
+                      print("sssssssss");
                       if (state.index == -1) return const SizedBox();
                       return Positioned(
                         left: 10,
                         right: 10,
                         bottom: 15,
-                        child: Row(
-                          children: [
-                            ArrowButton(
-                                image: IconsManager.iconLeftArrow,
-                                onTap: () {
-                                  context
-                                      .read<LocationBloc>()
-                                      .add(IndexIncrement());
-                                }),
-                            const SizedBox(width: 5),
-                            LocationCard(
-                                vendorModel: state.vendorSelected[state.index]),
-                            const SizedBox(
-                              width: 5,
-                            ),
-                            ArrowButton(
-                                image: IconsManager.iconRightArrow,
-                                onTap: () {
-                                  context
-                                      .read<LocationBloc>()
-                                      .add(IndexDecrement());
-                                })
-                          ],
+                        child: Container(
+
+                          child: Row(
+                            children: [
+                              ArrowButton(
+                                  image: IconsManager.iconLeftArrow,
+                                  onTap: () {
+                                    context
+                                        .read<LocationBloc>()
+                                        .add(IndexIncrement());
+                                  }),
+                              const SizedBox(width: 5),
+                              LocationCard(
+                                  vendorModel: state.vendorSelected[state.index]),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              ArrowButton(
+                                  image: IconsManager.iconRightArrow,
+                                  onTap: () {
+                                    context
+                                        .read<LocationBloc>()
+                                        .add(IndexDecrement());
+                                  })
+                            ],
+                          ),
                         ),
                       );
                     },

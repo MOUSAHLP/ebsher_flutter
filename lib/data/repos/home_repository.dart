@@ -7,6 +7,7 @@ import 'package:dio/dio.dart';
 import '../../core/api_const.dart';
 import '../../models/home_model.dart';
 import '../../models/params/get_vendors_params.dart';
+import '../../models/params/search_params.dart';
 import '../../models/profile_model.dart';
 import '../../models/sub_category_response.dart';
 import '../data_resource/remote_resource/api_handler/base_api_client.dart';
@@ -30,9 +31,12 @@ class HomeRepository {
   }
 
   static Future<Either<String, List<VendorModel>>> getSearchCategory(
-      {required String text}) {
+      {required GetSearchParams text}) {
+    print("text.toJson()");
+    print(text.toJson());
     return BaseApiClient.get<List<VendorModel>>(
-        url: ApiConst.search + text,
+        url: ApiConst.search,
+              queryParameters:text.toJson() ,
         converter: (e) {
           return VendorModel.listFromJson(e);
         });
@@ -42,6 +46,8 @@ class HomeRepository {
       {required GetVendorsParams getVendorsParams}) {
     BaseApiClient.getVendorsCancelToken.cancel('CancleS');
     BaseApiClient.getVendorsCancelToken = CancelToken();
+    print( "getVendorsParams.toJson()");
+    print( getVendorsParams.toJson());
     return BaseApiClient.get<List<VendorModel>>(
       url: ApiConst.getVendorsList,
       queryParameters: getVendorsParams.toJson(),

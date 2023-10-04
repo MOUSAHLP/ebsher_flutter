@@ -6,7 +6,7 @@ class StoryModelDto {
   int? id;
   List<StoryItemModel>? stories;
   List<VendorStoryModel>? vendor;
-  double? views;
+  int? views;
   StoryModelDto({
 
     this.id,
@@ -20,7 +20,7 @@ class StoryModelDto {
     id = json['id'];
     stories = StoryItemModel.listFromJson(json['storyDetails']?? []);
     vendor = VendorStoryModel.listFromJson(json['vendor']?? []);
-    views = double.tryParse(json['views']) ;
+    views = json['views'];
   }
 
   static List<StoryModelDto> listFromJson(List<dynamic>? json) {

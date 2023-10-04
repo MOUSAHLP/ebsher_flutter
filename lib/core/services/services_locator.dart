@@ -17,6 +17,8 @@ import '../../bloc/reels_bloc/reels_bloc.dart';
 import '../../bloc/search_bloc/search_bloc.dart';
 import '../../bloc/sub_category_bloc/sub_category_bloc.dart';
 import '../../bloc/vendors_list_bloc/vendors_list_bloc.dart';
+import '../../models/params/get_vendors_params.dart';
+
 
 final sl = GetIt.instance;
 
@@ -27,16 +29,17 @@ class ServicesLocator {
     sl.registerLazySingleton(() => SignUpBloc(sl()));
     sl.registerLazySingleton(() => LoginBloc(sl(), sl()));
     sl.registerLazySingleton(() => HomeBloc());
-    sl.registerLazySingleton(() => SearchBloc());
     sl.registerFactory(() => SubCategoryBloc());
     sl.registerFactory(() => ProfileBloc());
     sl.registerFactory(() => ReelsBloc());
+    sl.registerFactory(() => SearchBloc());
     sl.registerLazySingleton(() => FavoritesListBloc());
     sl.registerLazySingleton(() => NotificationBloc());
     sl.registerFactory(() => AboutBloc());
     sl.registerFactory(() => PrivacyBloc());
     sl.registerFactory(() => LocationBloc());
     sl.registerFactory(() => VendorDetailsBloc());
+    // sl.registerFactory(() => VendorsListBloc(appliedFilter: GetVendorsParams()));
     sl.registerLazySingleton(() => BottomBloc());
     sl.registerLazySingleton(() => LanguageBloc());
 

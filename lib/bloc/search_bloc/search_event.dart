@@ -3,9 +3,14 @@ abstract class SearchEvent {
 }
 
 class SearchCategory extends SearchEvent {
-  final String textSearch;
 
-  SearchCategory(this.textSearch);
+
+  SearchCategory(
+      );
+}
+class SearchCategoryPage extends SearchEvent {
+  SearchCategoryPage(
+      );
 }
 
 class ChangeFavoriteStatus extends SearchEvent {
@@ -14,4 +19,11 @@ class ChangeFavoriteStatus extends SearchEvent {
   ChangeFavoriteStatus(
     this.vendorId,
   );
+}
+class Clear extends SearchEvent {
+  final String vendorId;
+
+  Clear(
+      this.vendorId,
+      );
 }

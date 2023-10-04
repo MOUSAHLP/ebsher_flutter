@@ -4,6 +4,7 @@ const String iconPath = "assets/icons";
 class ImageManager {
   static const String fullAppLogo = "$imagePath/full_logo.png";
   static const String appLogo = "$imagePath/logo.png";
+  static const String appGolden= "$imagePath/golden.png";
 
   static const String onBoarding1 = "$imagePath/on_boarding_1.png";
   static const String accountAsset = "$imagePath/account_asset.png";
@@ -33,6 +34,11 @@ class ImageManager {
   static const String largePlaceholder = "$imagePath/large_placeholder.png";
   static const String midPlaceholder = "$imagePath/mid_placeholder.png";
   static const String smallPlaceholder = "$imagePath/small_placeholder.png";
+  static const String sliverDark = "$imagePath/sliver_dark.png";
+  static const String sliverLight = "$imagePath/sliver_light.png";
+  static const String goldenLight = "$imagePath/golden_light.png";
+  static const String goldenDark = "$imagePath/golden_dark.png";
+  static const String bluePackage = "$imagePath/blue_package.png";
 }
 
 class IconsManager {

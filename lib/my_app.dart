@@ -19,7 +19,7 @@ import 'bloc/language_bloc/language_bloc.dart';
 import 'bloc/language_bloc/language_state.dart';
 import 'bloc/login_bloc/login_bloc.dart';
 import 'bloc/notification_bloc/notification_bloc.dart';
-import 'bloc/search_bloc/search_bloc.dart';
+
 import 'bloc/sign_up_bloc/sign_up_bloc.dart';
 import 'core/services/services_locator.dart';
 
@@ -58,9 +58,9 @@ class _MyAppState extends State<MyApp> {
               BlocProvider(
                 create: (BuildContext context) => sl<HomeBloc>(),
               ),
-              BlocProvider(
-                create: (BuildContext context) => sl<SearchBloc>(),
-              ),
+              // BlocProvider(
+              //   create: (BuildContext context) => sl<SearchBloc>(),
+              // ),
               BlocProvider(
                 create: (BuildContext context) => sl<BottomBloc>(),
               ),

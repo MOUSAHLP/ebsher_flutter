@@ -12,7 +12,7 @@ import 'package:absher/presentation/widgets/custom_password_input_field.dart';
 import 'package:absher/presentation/widgets/dialogs/error_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:overlay_support/overlay_support.dart';
+
 import '../../../core/app_validators.dart';
 import '../../../translations.dart';
 import '../../widgets/dialogs/loading_dialog.dart';
@@ -27,6 +27,18 @@ class ForgetPasswordScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<SignUpBloc, SignUpState>(
         listener: (context, state) {
+          if (state is SignUpLoading) {
+            LoadingDialog().openDialog(context);
+          } else {
+            LoadingDialog().closeDialog(context);
+          }
+          if (state is SignUpError) {
+            ErrorDialog.openDialog(context, null);
+          }
+          if (state is ForgetPasswordCompleted) {
+            AppRouter.pushReplacement(context, SignInConfirmationScreen());
+
+          }
 
         },
         builder:(context, state) =>  _PhoneNumberSignUpScreenContent());

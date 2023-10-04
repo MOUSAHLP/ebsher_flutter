@@ -122,7 +122,7 @@ class _CustomInputFieldState extends State<CustomInputField> {
                       inputFormatters: widget.inputFormatters,
                       decoration: InputDecoration(
                         prefix: widget.isPhone
-                            ? Text(
+                            ? const Text(
                                 "+963 - ",
                               )
                             : null,
@@ -134,19 +134,19 @@ class _CustomInputFieldState extends State<CustomInputField> {
                         label: widget.withLabel
                             ? Text(
                                 widget.hintText!,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     color: ColorManager.primaryColor,
                                     fontSize: 14,
                                     fontWeight: FontWeight.bold),
                               )
                             : null,
                         suffixIcon: widget.suffixIcon,
-                        errorStyle: TextStyle(
+                        errorStyle: const TextStyle(
                           fontSize: 0,
                           height: 0.1,
                         ),
                         contentPadding: widget.contentPadding,
-                        hintStyle: TextStyle(
+                        hintStyle: const TextStyle(
                             color: ColorManager.primaryColor,
                             fontSize: 14,
                             fontWeight: FontWeight.bold),

@@ -8,9 +8,15 @@ abstract class VendorsListEvent {
 
 class GetVendorsList extends VendorsListEvent {
   final int subCategoryId;
+   final List<SubCategoryItemModel>? subCategories;
+  GetVendorsList(this.subCategoryId,
+       this.subCategories
+      );
+}
+class GetVendorsListPagination extends VendorsListEvent {
+  final int subCategoryId;
   final List<SubCategoryItemModel>? subCategories;
-
-  GetVendorsList(this.subCategoryId, this.subCategories);
+  GetVendorsListPagination(this.subCategoryId, this.subCategories);
 }
 
 class ChangeSelectedSubCategory extends VendorsListEvent {

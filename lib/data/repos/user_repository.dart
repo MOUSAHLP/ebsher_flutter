@@ -47,6 +47,7 @@ class UserRepository {
         url: ApiConst.signUpPhoneNumber,
         queryParameters: {"phone": phoneNumber},
         converter: (e) {
+          print(OtpVerifyResponse.fromJson(e['data']));
           return OtpVerifyResponse.fromJson(e['data']);
         });
   }

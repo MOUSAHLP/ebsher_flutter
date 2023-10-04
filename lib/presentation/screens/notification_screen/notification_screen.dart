@@ -29,7 +29,8 @@ class NotificationScreen extends StatelessWidget {
                 builder: (context, state) {
                   if (state is NotificationLoading) {
                     return const BuildShimmerNotification();
-                  } else if (state is NotificationError) {
+                  }
+                  else if (state is NotificationError) {
                     return Center(
                       child: CustomErrorScreen(
                         onTap: () {

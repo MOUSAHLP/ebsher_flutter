@@ -64,8 +64,8 @@ class _SignInScreen extends StatelessWidget {
       children: [
         const LoginScreenBackGround(),
         SingleChildScrollView(
-          physics: AlwaysScrollableScrollPhysics(),
-          padding: EdgeInsets.only(
+          physics: const AlwaysScrollableScrollPhysics(),
+          padding: const EdgeInsets.only(
             bottom: 40,
           ),
           child: Padding(

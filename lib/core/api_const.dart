@@ -1,5 +1,6 @@
 class ApiConst {
-  static const String baseUrl = "http://absher.peaklinkdemo.com/api";
+  // static const String baseUrl = "http://absher.peaklinkdemo.com/api";
+  static const String baseUrl = "https://dashboard.ebsher.sy/api";
   static const String login = "/login";
   static const String signUpPhoneNumber = "/sign-up";
   static const String signUpVerifyOtp = "/verify-otp";
@@ -13,7 +14,7 @@ class ApiConst {
 
   static const String home = "/home";
   static const String profile = "/profile";
-  static const String search = "/search?is_active=1&keyword=";
+  static const String search = "/search";
   static const String reels = "/reels";
   static const String seenStories = "/seen-stories";
   static const String getFavorite = "/get-favorite-vendors";

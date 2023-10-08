@@ -29,7 +29,7 @@ class GetVendorsParams extends Equatable {
   });
 
   Map<String, dynamic> toJson() => {
-        "is_active":0,
+        "is_active":1,
         "subcategories[]": subCategoryId,
         "is_open": isOpen == null
             ? null

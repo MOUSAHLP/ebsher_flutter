@@ -5,11 +5,11 @@ String imageTypeName(int? id) {
     case TypesPackage.noPackage:
       return ImageManager.bluePackage;
     case TypesPackage.onePackage:
-      return ImageManager.goldenLight;
+      return ImageManager.sliverDark;
     case TypesPackage.twoPackage:
-      return ImageManager.goldenLight;
+      return ImageManager.appGolden;
     case TypesPackage.threePackage:
-      return ImageManager.goldenDark;
+      return ImageManager.sliverLight;
   }
   return ImageManager.bluePackage;
 }

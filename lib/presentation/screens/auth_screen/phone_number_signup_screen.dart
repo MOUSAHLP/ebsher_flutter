@@ -36,7 +36,7 @@ class PhoneNumberSignUpScreen extends StatelessWidget {
             LoadingDialog().closeDialog(context);
           }
           if (state is SignUpError) {
-            ErrorDialog.openDialog(context, null);
+            ErrorDialog.openDialog(context, state.error);
           }
           if (state is SignUpOtpRequested) {
             AppRouter.pushReplacement(

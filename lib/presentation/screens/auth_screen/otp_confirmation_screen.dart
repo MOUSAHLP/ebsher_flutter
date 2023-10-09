@@ -84,7 +84,10 @@ class _OtpConfirmationScreenContent extends StatelessWidget {
                       child: Text(
                         !resetPassword
                             ? AppLocalizations.of(context)!
-                                .verifyMobileCreat(4242)
+                                .verifyMobileCreat(encodePhoneNumber(context
+                            .read<SignUpBloc>()
+                            .otpVerifyResponse
+                            ?.phone))
                             : AppLocalizations.of(context)!
                                 .verifyMobilePassword(encodePhoneNumber(context
                                     .read<SignUpBloc>()
@@ -96,17 +99,17 @@ class _OtpConfirmationScreenContent extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Text(
-                      AppLocalizations.of(context)!.yourCode(context
-                          .read<SignUpBloc>()
-                          .otpVerifyResponse
-                          ?.code as Object),
-//                'Your Code is ${context.read<SignUpBloc>().otpVerifyResponse?.code}',
-                      textAlign: TextAlign.center,
-                      style: getBoldStyle(
-                        color: ColorManager.softYellow,
-                      ),
-                    ),
+//                     Text(
+//                       AppLocalizations.of(context)!.yourCode(context
+//                           .read<SignUpBloc>()
+//                           .otpVerifyResponse
+//                           ?.code as Object),
+// //                'Your Code is ${context.read<SignUpBloc>().otpVerifyResponse?.code}',
+//                       textAlign: TextAlign.center,
+//                       style: getBoldStyle(
+//                         color: ColorManager.softYellow,
+//                       ),
+//                     ),
                     Padding(
                       padding: const EdgeInsets.all(32.0),
                       child: PinFieldAutoFill(

@@ -40,7 +40,6 @@
             android:taskAffinity=""
             android:allowTaskReparenting="false"
             android:allowBackup="false"
-            android:excludeFromRecents="true"
             android:requestLegacyExternalStorage="true"
             >
 

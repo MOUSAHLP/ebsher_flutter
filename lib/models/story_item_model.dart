@@ -4,7 +4,7 @@ class StoryItemModel {
   String? video;
   String? description;
   DateTime? createdAt;
-  String? seen;
+  int? seen;
   StoryItemModel(
       {this.id,
       this.image,

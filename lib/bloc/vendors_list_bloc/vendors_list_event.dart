@@ -1,6 +1,7 @@
 import 'package:absher/models/sub_category_item_model.dart';
 
 import '../../models/params/get_vendors_params.dart';
+import '../../models/vendor_model.dart';
 
 abstract class VendorsListEvent {
   VendorsListEvent([List props = const []]) : super();
@@ -8,9 +9,15 @@ abstract class VendorsListEvent {
 
 class GetVendorsList extends VendorsListEvent {
   final int subCategoryId;
+   final List<SubCategoryItemModel>? subCategories;
+  GetVendorsList(this.subCategoryId,
+       this.subCategories
+      );
+}
+class GetVendorsListPagination extends VendorsListEvent {
+  final int subCategoryId;
   final List<SubCategoryItemModel>? subCategories;
-
-  GetVendorsList(this.subCategoryId, this.subCategories);
+  GetVendorsListPagination(this.subCategoryId, this.subCategories);
 }
 
 class ChangeSelectedSubCategory extends VendorsListEvent {
@@ -47,7 +54,6 @@ class ToggleNearByFilter extends VendorsListEvent {}
 
 class SetByRateFilter extends VendorsListEvent {
   int? newRateValue;
-
   SetByRateFilter(this.newRateValue);
 }
 
@@ -58,3 +64,7 @@ class SetAppliedFilter extends VendorsListEvent {}
 class ClearSortValue extends VendorsListEvent {}
 
 class ClearFilterValues extends VendorsListEvent {}
+class ChangeStatusList extends VendorsListEvent {
+  VendorModel vendorFavorit;
+  ChangeStatusList(this.vendorFavorit);
+}

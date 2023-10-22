@@ -20,7 +20,6 @@ class VendorDetailsBloc extends Bloc<VendorDetailsEvent, VendorDetailsState> {
           emit(VendorDetailsSuccess(vendor!));
         });
       }
-
       if (event is ChangeDetailsFavoriteStatus) {
         if (vendor!.favoriteStatus) {
           vendor!.favoriteStatus = false;
@@ -37,9 +36,12 @@ class VendorDetailsBloc extends Bloc<VendorDetailsEvent, VendorDetailsState> {
           response.fold((l) {
             vendor!.favoriteStatus = false;
             emit(VendorDetailsSuccess(vendor!));
-          }, (r) {});
+          }, (r) {
+
+          });
         }
       }
+
     });
   }
 }

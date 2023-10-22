@@ -29,8 +29,8 @@ class BuildShimmerVendors extends StatelessWidget {
                       color: Color.fromRGBO(45, 45, 45, 1.0),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadiusDirectional.only(
-                          topEnd: Radius.circular(50),
-                          bottomEnd: Radius.circular(50),
+                          topStart: Radius.circular(50),
+                          bottomStart: Radius.circular(50),
                         ),
                       ),
                       clipBehavior: Clip.antiAliasWithSaveLayer,

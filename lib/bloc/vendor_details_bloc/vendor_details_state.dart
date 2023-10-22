@@ -10,6 +10,6 @@ class VendorDetailsError extends VendorDetailsState {
 }
 class VendorDetailsSuccess extends VendorDetailsState {
   VendorModel vendorModel;
-
   VendorDetailsSuccess(this.vendorModel,);
 }
+class ChangeState extends VendorDetailsState{}

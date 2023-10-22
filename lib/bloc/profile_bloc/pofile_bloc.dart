@@ -7,7 +7,7 @@ import 'package:absher/models/login_response.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import '../../core/app_validators.dart';
+
 import '../../core/services/services_locator.dart';
 import '../../data/data_resource/local_resource/data_store.dart';
 import '../../data/repos/home_repository.dart';

@@ -29,7 +29,7 @@ class GetVendorsParams extends Equatable {
   });
 
   Map<String, dynamic> toJson() => {
-        "is_active": 1,
+        "is_active":1,
         "subcategories[]": subCategoryId,
         "is_open": isOpen == null
             ? null
@@ -40,8 +40,8 @@ class GetVendorsParams extends Equatable {
         "longitude": lon,
         "category_id": categoryId,
         "rate": rate,
-        "skip_count": skipCount,
-        "max_count": maxCount,
+        "skip_count":skipCount,
+        "max_count":maxCount,
         "sort_by_name": sortByName == null
             ? null
             : sortByName!

@@ -14,11 +14,11 @@ class CategoyResponse {
   int? id;
   LocalizationStringModel? name;
   LocalizationStringModel? description;
-  String? isActive;
+  int? isActive;
   String? image;
   String? thumbnail;
   String? color;
-  String? featured;
+  int? featured;
   String? vendorsCount;
   dynamic createdAt;
   dynamic updatedAt;

@@ -38,7 +38,7 @@ class _BuildCardCategoriesState extends State<BuildCardCategories> {
       mainAxisAlignment:
           widget.isEnd ? MainAxisAlignment.end : MainAxisAlignment.start,
       children: [
-        Container(
+        SizedBox(
           width: 18.h,
           child: GestureDetector(
             onTap: () {
@@ -145,7 +145,7 @@ class _MoreCategoriesCardState extends State<MoreCategoriesCard> {
                 pressed = true;
               });
               Future.delayed(const Duration(milliseconds: 300)).then((value) {
-                AppRouter.push(context, CategoriesScreen());
+                AppRouter.push(context, const CategoriesScreen());
                 setState(() {
                   pressed = false;
                 });

@@ -91,13 +91,13 @@ class _CustomPasswordInputFieldState extends State<CustomPasswordInputField> {
                       label: widget.withLabel
                           ? Text(
                               widget.hintText!,
-                              style: TextStyle(
+                              style: const TextStyle(
                                   color: ColorManager.primaryColor,
                                   fontSize: 14,
                                   fontWeight: FontWeight.bold),
                             )
                           : null,
-                      errorStyle: TextStyle(
+                      errorStyle: const TextStyle(
                         fontSize: 0,
                         height: 0.1,
                       ),

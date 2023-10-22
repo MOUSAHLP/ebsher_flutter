@@ -13,15 +13,15 @@ class VendorModel {
   String? address2;
   String? latitude;
   String? longitude;
-  String? isActive;
-  String? isOpen;
+  int? isActive;
+  int? isOpen;
   DateTime? createdAt;
   DateTime? startDate;
   DateTime? expireDate;
   String? avgRating;
-  String? categoryId;
-  dynamic packageId;
-  String? visits;
+  int? categoryId;
+  int? packageId;
+  int? visits;
   DateTime? customDate;
   dynamic webiste;
   DateTime? updatedAt;
@@ -34,6 +34,8 @@ class VendorModel {
   List<Feature>? features;
   List<Banner>? banners;
   List<VendorModel>? recomindation;
+  Package? package;
+
   VendorModel(
       {this.id,
       this.name,
@@ -67,72 +69,77 @@ class VendorModel {
       this.socialMedia,
       this.features,
       this.banners,
-      this.recomindation});
+      this.recomindation,
+      this.package});
 
   factory VendorModel.fromJson(Map<String, dynamic> json) {
+    print("Package.fromJson");
+    print(Package.fromJson(json["package"]).colorCode);
     return VendorModel(
-      id: json["id"],
-      name: LocalizationStringModel.fromJson(json, "name"),
-      description: LocalizationStringModel.fromJson(json, "description"),
-      open: json["open"],
-      image: json["image"],
-      close: json["close"],
-      phone: json["phone"],
-      email: json["email"],
-      address: json["address"],
-      address2: json["address2"],
-      latitude: json["latitude"],
-      longitude: json["longitude"],
-      isActive: json["is_active"],
-      isOpen: json["is_open"],
-      createdAt: json["created_at"] == null
-          ? null
-          : DateTime.parse(json["created_at"]),
-      startDate: json["start_date"] == null
-          ? null
-          : DateTime.parse(json["start_date"]),
-      expireDate: json["expire_date"] == null
-          ? null
-          : DateTime.parse(json["expire_date"]),
-      avgRating: json["avg_rating"],
-      categoryId: json["category_id"],
-      packageId: json["package_id"],
-      visits: json["visits"],
-      customDate: json["custom_date"] == null
-          ? null
-          : DateTime.parse(json["custom_date"]),
-      webiste: json["webiste"],
-      updatedAt: json["updated_at"] == null
-          ? null
-          : DateTime.parse(json["updated_at"]),
-      openStatus: json["open_status"],
-      favoriteStatus: json["favorite_status"] == 1 ? true : false,
-      category:
-          json["category"] == null ? null : Category.fromJson(json["category"]),
-      days: json["days"] == null
-          ? null
-          : List<Day>.from(json["days"].map((x) => Day.fromJson(x))),
-      subCategories: json["sub_categories"] == null
-          ? null
-          : List<SubCategory>.from(
-              json["sub_categories"].map((x) => SubCategory.fromJson(x))),
-      socialMedia: json["social_media"] == null
-          ? null
-          : List<SocialMedia>.from(
-              json["social_media"].map((x) => SocialMedia.fromJson(x))),
-      features: json["features"] == null
-          ? null
-          : List<Feature>.from(
-              json["features"].map((x) => Feature.fromJson(x))),
-      banners: json["banners"] == null
-          ? null
-          : List<Banner>.from(json["banners"].map((x) => Banner.fromJson(x))),
-      recomindation: json["recomindation"] == null
-          ? null
-          : List<VendorModel>.from(
-              json["recomindation"].map((x) => VendorModel.fromJson(x))),
-    );
+        id: json["id"],
+        name: LocalizationStringModel.fromJson(json, "name"),
+        description: LocalizationStringModel.fromJson(json, "description"),
+        open: json["open"],
+        image: json["image"],
+        close: json["close"],
+        phone: json["phone"],
+        email: json["email"],
+        address: json["address"],
+        address2: json["address2"],
+        latitude: json["latitude"],
+        longitude: json["longitude"],
+        isActive: json["is_active"],
+        isOpen: json["is_open"],
+        createdAt: json["created_at"] == null
+            ? null
+            : DateTime.parse(json["created_at"]),
+        startDate: json["start_date"] == null
+            ? null
+            : DateTime.parse(json["start_date"]),
+        expireDate: json["expire_date"] == null
+            ? null
+            : DateTime.parse(json["expire_date"]),
+        avgRating: json["avg_rating"],
+        categoryId: json["category_id"],
+        packageId: json["package_id"],
+        visits: json["visits"],
+        customDate: json["custom_date"] == null
+            ? null
+            : DateTime.parse(json["custom_date"]),
+        webiste: json["webiste"],
+        updatedAt: json["updated_at"] == null
+            ? null
+            : DateTime.parse(json["updated_at"]),
+        openStatus: json["open_status"],
+        favoriteStatus: json["favorite_status"] == 1 ? true : false,
+        category: json["category"] == null
+            ? null
+            : Category.fromJson(json["category"]),
+        days: json["days"] == null
+            ? null
+            : List<Day>.from(json["days"].map((x) => Day.fromJson(x))),
+        subCategories: json["sub_categories"] == null
+            ? []
+            : List<SubCategory>.from(
+                json["sub_categories"].map((x) => SubCategory.fromJson(x))),
+        socialMedia: json["social_media"] == null
+            ? []
+            : List<SocialMedia>.from(
+                json["social_media"].map((x) => SocialMedia.fromJson(x))),
+        features: json["features"] == null
+            ? []
+            : List<Feature>.from(
+                json["features"].map((x) => Feature.fromJson(x))),
+        banners: json["banners"] == null
+            ? []
+            : List<Banner>.from(json["banners"].map((x) => Banner.fromJson(x))),
+        recomindation: json["recomindation"] == null
+            ? []
+            : List<VendorModel>.from(
+                json["recomindation"].map((x) => VendorModel.fromJson(x))),
+        package: Package.fromJson(json["package"]));
   }
+
   static List<VendorModel> listFromJson(Map<String, dynamic> json) {
     return json == null
         ? []
@@ -142,15 +149,26 @@ class VendorModel {
   }
 }
 
+class Package {
+  int? colorCode;
+
+  Package({this.colorCode});
+
+  Package.fromJson(Map<String, dynamic>? json) {
+    if (json == null) return;
+    colorCode = json['color_code'];
+  }
+}
+
 class Category {
   int? id;
   LocalizationStringModel? name;
   LocalizationStringModel? description;
-  String? isActive;
+  int? isActive;
   String? image;
   String? thumbnail;
   String? color;
-  String? featured;
+  int? featured;
   dynamic createdAt;
   dynamic updatedAt;
 
@@ -198,13 +216,13 @@ class Banner {
   int? id;
   String? name;
   String? description;
-  String? vendorId;
+  int? vendorId;
   DateTime? startDate;
   DateTime? endDate;
-  String? isActive;
+  int? isActive;
   String? priority;
   String? url;
-  String? clickCounts;
+  int? clickCounts;
   String? image;
   DateTime? createdAt;
   DateTime? updatedAt;
@@ -297,8 +315,8 @@ class Day {
 }
 
 class DayPivot {
-  String? vendorId;
-  String? dayId;
+  int? vendorId;
+  int? dayId;
   String? openAt;
   String? closeAt;
 
@@ -328,7 +346,7 @@ class Feature {
   int? id;
   String? name;
   String? nameAr;
-  String? packageId;
+  int? packageId;
   dynamic createdAt;
   dynamic updatedAt;
   String? icon;
@@ -369,8 +387,8 @@ class Feature {
 }
 
 class FeaturePivot {
-  String? vendorId;
-  String? featureId;
+  int? vendorId;
+  int? featureId;
 
   FeaturePivot({
     this.vendorId,
@@ -429,8 +447,8 @@ class SocialMedia {
 }
 
 class SocialMediaPivot {
-  String? vendorId;
-  String? socialMediaId;
+  int? vendorId;
+  int? socialMediaId;
   String? link;
 
   SocialMediaPivot({
@@ -459,7 +477,7 @@ class SubCategory {
   String? nameAr;
   String? image;
   String? thumbnail;
-  String? categoryId;
+  int? categoryId;
   dynamic createdAt;
   dynamic updatedAt;
   SubCategoryPivot? pivot;
@@ -502,8 +520,8 @@ class SubCategory {
 }
 
 class SubCategoryPivot {
-  String? vendorId;
-  String? subCategoryId;
+  int? vendorId;
+  int? subCategoryId;
 
   SubCategoryPivot({
     this.vendorId,

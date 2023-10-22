@@ -1,7 +1,6 @@
 import 'package:absher/bloc/vendors_list_bloc/vendors_list_bloc.dart';
 import 'package:absher/bloc/vendors_list_bloc/vendors_list_event.dart';
 import 'package:absher/bloc/vendors_list_bloc/vendors_list_state.dart';
-import 'package:absher/core/app_enums.dart';
 import 'package:absher/models/params/get_vendors_params.dart';
 import 'package:absher/presentation/resources/color_manager.dart';
 import 'package:absher/presentation/resources/style_app.dart';
@@ -123,9 +122,7 @@ class SortBottomSheetBody extends StatelessWidget {
                     Navigator.of(context).pop();
                     context.read<VendorsListBloc>().add(SetAppliedFilter());
                     vendorsListBloc.add(RefreshVendorsList());
-                    // context
-                    //     .read<VendorsListBloc>()
-                    //     .add(ChangeFilterIndexEvent());
+      ;
                   },
                 ),
               ),

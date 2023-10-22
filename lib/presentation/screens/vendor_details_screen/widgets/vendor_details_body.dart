@@ -9,7 +9,7 @@ import 'package:absher/presentation/screens/vendor_details_screen/widgets/social
 import 'package:absher/presentation/screens/vendors_screen/widgets/card_random.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
+import '../../../../core/app_type/type_image.dart';
 import '../../../resources/color_manager.dart';
 import '../../../resources/style_app.dart';
 import 'details_section.dart';
@@ -37,16 +37,27 @@ class VendorDetailsBody extends StatelessWidget {
                 Row(
                   children: [
                     Expanded(
-                      child: Text(
-                        localizationString(context, vendor.name) ?? '',
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: getBoldStyle(
-                          color: ColorManager.primaryColor,
-                          fontSize: FontSizeApp.s26,
-                        ),
+                      child: Row(
+                        children: [
+                          Text(
+                            localizationString(context, vendor.name) ?? '',
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: getBoldStyle(
+                              color: ColorManager.primaryColor,
+                              fontSize: FontSizeApp.s26,
+                            ),
+                          ),
+                          const SizedBox(width: 5,),
+                          vendor.package?.colorCode ==null?
+                          Image.asset(
+                            imageTypeName(0) ,  height:20,width:20,):
+                          Image.asset(
+                            imageTypeName(vendor.package!.colorCode??0)  ,  height:30,width:30,),
+                        ],
                       ),
                     ),
+
                     IsOpenLabel(
                       isOpen: vendor.isOpen,
                     ),

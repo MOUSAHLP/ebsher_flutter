@@ -1,3 +1,4 @@
+import 'package:absher/core/app_router/app_router.dart';
 import 'package:absher/presentation/resources/assets_manager.dart';
 import 'package:absher/presentation/resources/style_app.dart';
 import 'package:absher/presentation/screens/home_screen/home_widget/build_card_categories.dart';
@@ -18,7 +19,7 @@ import '../../resources/values_app.dart';
 import 'package:flutter/material.dart';
 import '../../resources/color_manager.dart';
 import 'home_widget/build_story_widget.dart';
-import 'home_widget/search_result_screen.dart';
+import 'home_widget/search_vendor.dart';
 
 // ignore: must_be_immutable
 class HomeScreen extends StatelessWidget {
@@ -70,10 +71,8 @@ class HomeScreen extends StatelessWidget {
                       SizedBox(height: 1.7.h),
                       InkWell(
                         onTap: () {
-                          showSearch(
-                              context: context,
-                              delegate:
-                                  CustomSearchDelegate(state.listCategory));
+                          AppRouter.push(context, const SearchVendor());
+
                         },
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
@@ -88,11 +87,11 @@ class HomeScreen extends StatelessWidget {
                                     BorderRadius.circular(RadiusApp.r50)),
                             child: Row(
                               children: [
-                                Icon(
+                                const Icon(
                                   Icons.search,
                                   color: ColorManager.primaryColor,
-                                ),
-                                SizedBox(
+                                ) ,
+                                const SizedBox(
                                   width: 16,
                                 ),
                                 Text(
@@ -172,7 +171,7 @@ class HomeScreen extends StatelessWidget {
                                         isEnd: true,
                                       ),
                                     ),
-                                    Expanded(
+                                    const Expanded(
                                       child: MoreCategoriesCard(
                                         isBlue: false,
                                         isEnd: false,

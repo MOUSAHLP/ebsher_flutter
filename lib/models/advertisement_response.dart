@@ -14,9 +14,9 @@ class AdvertisementsResponse {
   DateTime? endTime;
   String? priority;
   String? url;
-  String? clicksCount;
+  int? clicksCount;
   String? image;
-  String? isActive;
+  int? isActive;
   dynamic createdAt;
   dynamic updatedAt;
 

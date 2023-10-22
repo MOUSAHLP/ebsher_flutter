@@ -133,5 +133,6 @@
   "emailIsNotValid": "هذا ليس عنوان بريد إلكتروني صالح",
   "phoneFieldIsRequired": "حقل رقم الهاتف مطلوب",
   "wrongPhoneNumber": "رقم الهاتف خاطئ, مثال ********9 ",
-  "addYourDetailsToSignIn": "أضف التفاصيل الخاصة بك لتسجيل الدخول"
+  "addYourDetailsToSignIn": "أضف التفاصيل الخاصة بك لتسجيل الدخول",
+  "search": "البحث"
 }

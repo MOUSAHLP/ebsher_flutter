@@ -14,3 +14,10 @@ class RemoveFavorite extends FavoritesListEvent{
   int idVendor;
   RemoveFavorite(this.idVendor);
 }
+class ChangeFavoriteStatusRestaurant extends FavoritesListEvent {
+  final int id;
+  ChangeFavoriteStatusRestaurant(
+      this.id
+
+      );
+}

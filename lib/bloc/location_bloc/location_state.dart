@@ -5,7 +5,6 @@ import 'package:equatable/equatable.dart';
 
 class LocationState extends Equatable {
   ScreenStates screenStates;
-
   String error;
   final double latitude;
   final double longitude;

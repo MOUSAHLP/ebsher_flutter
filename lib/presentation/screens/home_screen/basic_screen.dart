@@ -72,14 +72,13 @@ class BasicScreen extends StatelessWidget {
                 },
                 child: SvgPicture.asset(
                   IconsManager.iconHome,
-
                   color: state.index == 0
                       ? ColorManager.softYellow
                       : ColorManager.lightBlueColor,
                 )),
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerFloat,
-            drawer:  CustomAppDrawer(),
+            drawer: CustomAppDrawer(),
           ),
         );
       } else {

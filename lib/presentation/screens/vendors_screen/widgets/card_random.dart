@@ -291,7 +291,7 @@ class InfoCardWithIcon extends StatelessWidget {
     if (label == null || value == null || value == "") return const SizedBox();
     return Row(
       children: [
-        SizedBox(
+        SizedBox( 
           height: 14,
           width: 14,
           child: SvgPicture.asset(

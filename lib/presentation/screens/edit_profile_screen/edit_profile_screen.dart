@@ -40,8 +40,7 @@ class EditProfileScreen extends StatelessWidget {
 
 class EditProfileBody extends StatelessWidget {
   EditProfileBody({super.key});
-
-  final _formState = GlobalKey<FormState>();
+  static final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +85,7 @@ class EditProfileBody extends StatelessWidget {
                               padding: const EdgeInsets.all(8.0),
                               child: SingleChildScrollView(
                                 child: Form(
-                                  key: _formState,
+                                  key: _formKey,
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
@@ -233,7 +232,7 @@ class EditProfileBody extends StatelessWidget {
                                                 .read<ProfileBloc>()
                                                 .add(IsEditingEvent(true));
                                           } else {
-                                            if (_formState.currentState!
+                                            if (_formKey.currentState!
                                                 .validate()) {
                                               context
                                                   .read<ProfileBloc>()

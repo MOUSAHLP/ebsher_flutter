@@ -76,7 +76,8 @@ class _MyAppState extends State<MyApp> {
               ),
               BlocProvider(
                 lazy: false,
-                create: (context) => sl<FavoritesListBloc>()..add(GetFavoritesList()),
+                create: (context) =>
+                    sl<FavoritesListBloc>()..add(GetFavoritesList()),
               ),
             ],
             child: OverlaySupport.global(

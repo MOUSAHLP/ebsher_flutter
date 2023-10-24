@@ -19,7 +19,7 @@ class CustomAppBottomNavigation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<BottomBloc, BottomState>(
-        bloc:  sl<BottomBloc>()..add(NewBottomChange(0)),
+        // bloc:  sl<BottomBloc>()..add(NewBottomChange(0)),
         builder: (context, state) {
           if(state is NewButtom)
        { return Container(

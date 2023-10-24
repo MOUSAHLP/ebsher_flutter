@@ -19,13 +19,13 @@ class CardFavorite extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: (){
+      onTap: () {
         AppRouter.push(context, VendorDetailsScreen(id: vendorModel.id!));
       },
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Container(
-          width:150 ,
+          width: 150,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
             color: Colors.white,
@@ -38,7 +38,7 @@ class CardFavorite extends StatelessWidget {
                 child: CachedImage(
                   height: 150,
                   width: (MediaQuery.of(context).size.width / 2) - 16,
-                  imageUrl: vendorModel.image!,
+                  imageUrl: vendorModel.image ?? '',
                   fit: BoxFit.cover,
                   imageSize: ImageSize.mid,
                 ),
@@ -57,7 +57,8 @@ class CardFavorite extends StatelessWidget {
                           child: Text(
                             localizationString(context, vendorModel.name) ?? "",
                             style: getBoldStyle(
-                                color: ColorManager.lightBlueColor, fontSize: 12),
+                                color: ColorManager.lightBlueColor,
+                                fontSize: 12),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
@@ -79,7 +80,8 @@ class CardFavorite extends StatelessWidget {
                             color: ColorManager.softYellow,
                           ),
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 8.0),
                             child: Text(
                               double.tryParse(vendorModel.avgRating ?? '0')!
                                   .toStringAsFixed(1),
@@ -106,13 +108,13 @@ class CardFavorite extends StatelessWidget {
                     InfoCardWithIcon(
                       svgAsset: IconsManager.iconLocation,
                       label: AppLocalizations.of(context)!.address,
-                      value: vendorModel.address!,
+                      value: vendorModel.address ?? "",
                     ),
                     const SizedBox(height: 5),
                     InfoCardWithIcon(
                       svgAsset: IconsManager.iconPhone,
                       label: AppLocalizations.of(context)!.phone,
-                      value: vendorModel.phone!,
+                      value: vendorModel.phone ?? "",
                     ),
                   ],
                 ),

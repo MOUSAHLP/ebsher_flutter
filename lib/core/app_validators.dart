@@ -19,6 +19,7 @@ class AppValidators {
     if (password.length < 8) {
       return AppLocalizations.of(context)!.passwordShouldBeEightCharacter;
     }
+    
     return null;
   }
 

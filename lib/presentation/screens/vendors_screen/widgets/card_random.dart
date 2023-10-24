@@ -32,13 +32,11 @@ class CardRandomWidget extends StatelessWidget {
   const CardRandomWidget(
       {super.key, required this.vendor, this.fromSearch = false});
 
-
-
   @override
   Widget build(BuildContext context) {
     List<Widget> card = [
-      CircularCard(image: vendor.image??""),
-      RectangleCard(image: vendor.image??""),
+      CircularCard(image: vendor.image ?? ""),
+      RectangleCard(image: vendor.image ?? ""),
     ];
     card.shuffle();
     return GestureDetector(
@@ -93,13 +91,21 @@ class CardRandomWidget extends StatelessWidget {
                                   fontSize: 16,
                                 ),
                               ),
-                              const SizedBox(width: 5,),
-
-            vendor.package?.colorCode ==null?
-                               Image.asset(
-                                imageTypeName(0) ,  height:20,width:20,):
-                              Image.asset(
-                                imageTypeName(vendor.package!.colorCode??0)  ,  height:30,width:30,),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              vendor.package?.colorCode == null
+                                  ? Image.asset(
+                                      imageTypeName(0),
+                                      height: 20,
+                                      width: 20,
+                                    )
+                                  : Image.asset(
+                                      imageTypeName(
+                                          vendor.package!.colorCode ?? 0),
+                                      height: 30,
+                                      width: 30,
+                                    ),
                             ],
                           ),
                           Text(
@@ -176,7 +182,9 @@ class CardRandomWidget extends StatelessWidget {
                             builder: (context, state) {
                               return FavoriteHeart(
                                 id: vendor.id!,
-                                isToggled: context.read<FavoritesListBloc>().isFavoriteRestaurant(vendor.id!),
+                                isToggled: context
+                                    .read<FavoritesListBloc>()
+                                    .isFavoriteRestaurant(vendor.id!),
                                 onTap: () {
                                   context.read<FavoritesListBloc>().add(
                                       ChangeFavoriteStatusRestaurant(
@@ -190,7 +198,9 @@ class CardRandomWidget extends StatelessWidget {
                             builder: (context, state) {
                               return FavoriteHeart(
                                 id: vendor.id!,
-                                isToggled:  context.read<FavoritesListBloc>().isFavoriteRestaurant(vendor.id!),
+                                isToggled: context
+                                    .read<FavoritesListBloc>()
+                                    .isFavoriteRestaurant(vendor.id!),
                                 onTap: () {
                                   context.read<FavoritesListBloc>().add(
                                       ChangeFavoriteStatusRestaurant(
@@ -205,7 +215,7 @@ class CardRandomWidget extends StatelessWidget {
                           children: [
                             Text(
                               intl.NumberFormat.compact()
-                                  .format(vendor.visits?? 0),
+                                  .format(vendor.visits ?? 0),
                               style: getBoldStyle(
                                 color: ColorManager.primaryColor,
                               )!
@@ -237,7 +247,6 @@ class CardRandomWidget extends StatelessWidget {
       ),
     );
   }
-
 }
 
 class IsOpenLabel extends StatelessWidget {
@@ -279,7 +288,7 @@ class InfoCardWithIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (label == null || value == null) return const SizedBox();
+    if (label == null || value == null || value == "") return const SizedBox();
     return Row(
       children: [
         SizedBox(

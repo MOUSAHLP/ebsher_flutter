@@ -32,11 +32,14 @@ class HomeRepository {
 
   static Future<Either<String, List<VendorModel>>> getSearchCategory(
       {required GetSearchParams text}) {
-    print("text.toJson()");
+    BaseApiClient.getVendorsCancelToken.cancel('CancleS');
+    BaseApiClient.getVendorsCancelToken = CancelToken();
+    log("text.toJson()");
     print(text.toJson());
     return BaseApiClient.get<List<VendorModel>>(
         url: ApiConst.search,
-              queryParameters:text.toJson() ,
+        cancelToken: BaseApiClient.getVendorsCancelToken,
+        queryParameters: text.toJson(),
         converter: (e) {
           return VendorModel.listFromJson(e);
         });
@@ -46,11 +49,11 @@ class HomeRepository {
       {required GetVendorsParams getVendorsParams}) {
     BaseApiClient.getVendorsCancelToken.cancel('CancleS');
     BaseApiClient.getVendorsCancelToken = CancelToken();
-    print( "getVendorsParams.toJson()");
-    print( getVendorsParams.toJson());
+    print("getVendorsParams.toJson()");
+    print(getVendorsParams.toJson());
     return BaseApiClient.get<List<VendorModel>>(
       url: ApiConst.getVendorsList,
-      queryParameters: getVendorsParams.toJson(),
+      queryParameters: getVendorsParams.toJson(), 
       converter: (e) {
         return VendorModel.listFromJson(e);
       },

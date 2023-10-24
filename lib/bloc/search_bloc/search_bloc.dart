@@ -12,7 +12,7 @@ import '../../models/vendor_model.dart';
 class SearchBloc extends Bloc<SearchEvent, SearchState> {
   List<VendorModel> vendorsList = [];
   GetSearchParams pendingFilter = GetSearchParams();
-  int maxCount =10;
+  int maxCount = 10;
   bool isFirstLoading = true;
   bool isLast = false;
   TextEditingController searchController = TextEditingController();
@@ -20,6 +20,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     on<SearchEvent>((event, emit) async {
       if (event is SearchCategory) {
         emit(state.copyWith(screenStates: ScreenStates.loading));
+        isFirstLoading = true;
         pendingFilter.skipCount = 0;
         pendingFilter.maxCount = maxCount;
         pendingFilter.textSearch = searchController.text;
@@ -27,9 +28,11 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
         final response =
             await HomeRepository.getSearchCategory(text: pendingFilter);
         response.fold((l) {
-          emit(state.copyWith(screenStates: ScreenStates.error, error: l));
+          if (l != 'Cancel') {
+            emit(state.copyWith(screenStates: ScreenStates.error, error: l));
+          }
         }, (r) {
-          isFirstLoading=false;
+          isFirstLoading = false;
           vendorsList.addAll(r);
           emit(state.copyWith(
               screenStates: ScreenStates.success, vendorsList: vendorsList));
@@ -45,10 +48,10 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
         response.fold((l) {
           emit(state.copyWith(screenStates: ScreenStates.error, error: l));
         }, (r) {
-          isFirstLoading=false;
+          isFirstLoading = false;
           if (r.isEmpty) {
             isLast = true;
-            pendingFilter.skipCount=0;
+            // pendingFilter.skipCount = 0;
           }
           vendorsList.addAll(r);
           emit(state.copyWith(
@@ -83,7 +86,6 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
           }, (r) {});
         }
       }
-
     });
   }
 }

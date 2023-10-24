@@ -16,8 +16,8 @@ class VendorsListBloc extends Bloc<VendorsListEvent, VendorsListState> {
   GetVendorsParams pendingFilter = GetVendorsParams();
   ItemScrollController vendorsInnerController = ItemScrollController();
   final ScrollController scrollController = ScrollController();
-  List<SubCategoryItemModel> subCategories=[];
-  int maxCount=10;
+  List<SubCategoryItemModel> subCategories = [];
+  int maxCount = 10;
   VendorsListBloc({required this.appliedFilter})
       : super(VendorsListState(
           appliedFilters: appliedFilter,
@@ -25,57 +25,51 @@ class VendorsListBloc extends Bloc<VendorsListEvent, VendorsListState> {
         )) {
     scrollController.addListener(_scrollListener);
     on<VendorsListEvent>((event, emit) async {
-
       if (event is GetVendorsList) {
+        emit(state.copyWith(screenStates: ScreenStates.loading));
+        appliedFilter.maxCount = maxCount;
+        appliedFilter.skipCount = state.vendorsList.length;
+        appliedFilter.subCategoryId = event.subCategoryId;
+        pendingFilter = GetVendorsParams.fromGetVendorsParams(appliedFilter);
+        final response = await HomeRepository.getVendorsList(
+            getVendorsParams: appliedFilter);
+        response.fold((l) {
+          if (l != 'Cancel') {
+            emit(state.copyWith(screenStates: ScreenStates.error, error: l));
+          }
+        }, (r) {
+          final hasMoreData = r.length == appliedFilter.maxCount;
           emit(state.copyWith(
-              screenStates: ScreenStates.loading
+            screenStates: ScreenStates.success,
+            vendorsList: r,
+            pendingFilters: pendingFilter,
+            appliedFilters: appliedFilter,
+            hasMoreData: hasMoreData,
           ));
-          appliedFilter.maxCount =maxCount;
-          appliedFilter.skipCount =state.vendorsList.length;
-          appliedFilter.subCategoryId = event.subCategoryId;
-          pendingFilter = GetVendorsParams.fromGetVendorsParams(appliedFilter);
-          final response = await HomeRepository.getVendorsList(
-              getVendorsParams: appliedFilter);
-          response.fold((l) {
-            if (l != 'Cancel') {
-              emit(state.copyWith(screenStates: ScreenStates.error, error: l));
-            }
-          }, (r) {
-            final hasMoreData = r.length == appliedFilter.maxCount;
-            emit(state.copyWith(
-              screenStates: ScreenStates.success,
-              vendorsList:r,
-               pendingFilters: pendingFilter,
-               appliedFilters: appliedFilter,
-              hasMoreData: hasMoreData,
-            ));
-          });
+        });
       }
       if (event is GetVendorsListPagination) {
+        emit(state.copyWith(isLoading: true));
+        appliedFilter.maxCount = maxCount;
+        appliedFilter.skipCount = state.vendorsList.length;
+        appliedFilter.subCategoryId = event.subCategoryId;
+        pendingFilter = GetVendorsParams.fromGetVendorsParams(appliedFilter);
+        final response = await HomeRepository.getVendorsList(
+            getVendorsParams: appliedFilter);
+        response.fold((l) {
+          if (l != 'Cancel') {
+            emit(state.copyWith(screenStates: ScreenStates.error, error: l));
+          }
+        }, (r) {
+          final hasMoreData = r.length == appliedFilter.maxCount;
           emit(state.copyWith(
-              isLoading: true
-          ));
-          appliedFilter.maxCount =maxCount;
-          appliedFilter.skipCount =state.vendorsList.length;
-          appliedFilter.subCategoryId = event.subCategoryId;
-          pendingFilter = GetVendorsParams.fromGetVendorsParams(appliedFilter);
-          final response = await HomeRepository.getVendorsList(
-              getVendorsParams: appliedFilter);
-          response.fold((l) {
-            if (l != 'Cancel') {
-              emit(state.copyWith(screenStates: ScreenStates.error, error: l));
-            }
-          }, (r) {
-            final hasMoreData = r.length == appliedFilter.maxCount;
-            emit(state.copyWith(
               screenStates: ScreenStates.success,
               vendorsList: [...state.vendorsList, ...r],
-               pendingFilters: pendingFilter,
-               appliedFilters: appliedFilter,
-                hasMoreData: hasMoreData,
-              isLoading: false
-            ));
-          });
+              pendingFilters: pendingFilter,
+              appliedFilters: appliedFilter,
+              hasMoreData: hasMoreData,
+              isLoading: false));
+        });
       }
       if (event is ChangeSelectedSubCategory) {
         appliedFilter.subCategoryId = event.subCategoryId;
@@ -85,8 +79,9 @@ class VendorsListBloc extends Bloc<VendorsListEvent, VendorsListState> {
         emit(state.copyWith(
             screenStates: ScreenStates.loading, appliedFilters: appliedFilter));
         state.vendorsList.clear();
-        appliedFilter.maxCount =maxCount;
+        appliedFilter.maxCount = maxCount;
         appliedFilter.skipCount = state.vendorsList.length;
+        print(appliedFilter.subCategoryId);
         pendingFilter = GetVendorsParams.fromGetVendorsParams(appliedFilter);
         final response = await HomeRepository.getVendorsList(
             getVendorsParams: appliedFilter);
@@ -106,8 +101,8 @@ class VendorsListBloc extends Bloc<VendorsListEvent, VendorsListState> {
         });
       }
       if (event is ChangeVendorsListFavoriteStatus) {
-        int targetedIndex =
-        state.vendorsList.indexWhere((element) => element.id == event.vendorId);
+        int targetedIndex = state.vendorsList
+            .indexWhere((element) => element.id == event.vendorId);
         print("state.vendorsList");
         print(state.vendorsList);
         if (state.vendorsList[targetedIndex].favoriteStatus) {
@@ -191,19 +186,14 @@ class VendorsListBloc extends Bloc<VendorsListEvent, VendorsListState> {
         pendingFilter.visits = null;
         emit(state.copyWith(pendingFilters: pendingFilter));
       }
-      if(event is ChangeStatusList){
-        event.vendorFavorit.favoriteStatus=!event.vendorFavorit.favoriteStatus;
+      if (event is ChangeStatusList) {
+        event.vendorFavorit.favoriteStatus =
+            !event.vendorFavorit.favoriteStatus;
         emit(state.copyWith(
           screenStates: ScreenStates.success,
         ));
       }
-    }
-
-
-
-    );
-
-
+    });
   }
 
   Future<Position?> getLocation() async {
@@ -234,14 +224,14 @@ class VendorsListBloc extends Bloc<VendorsListEvent, VendorsListState> {
       return null;
     }
   }
-void _scrollListener() {
-  if (scrollController.position.pixels ==
-      scrollController.position.maxScrollExtent) {
-   if (state.isLoading != true && state.hasMoreData) {
-    add(GetVendorsListPagination(appliedFilter.subCategoryId??0,subCategories));
-  }
 
+  void _scrollListener() {
+    if (scrollController.position.pixels ==
+        scrollController.position.maxScrollExtent) {
+      if (state.isLoading != true && state.hasMoreData) {
+        add(GetVendorsListPagination(
+            appliedFilter.subCategoryId ?? 0, subCategories));
+      }
+    }
   }
-
-}
 }

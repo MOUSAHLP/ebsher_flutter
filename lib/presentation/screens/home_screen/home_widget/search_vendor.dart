@@ -17,20 +17,21 @@ import '../../../resources/values_app.dart';
 import '../../../widgets/custom_app_background.dart';
 import '../../../widgets/custom_app_bar_screens.dart';
 import '../../vendors_screen/widgets/card_random.dart';
+
 class SearchVendor extends StatelessWidget {
   const SearchVendor({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return  BlocProvider<SearchBloc>(
-        create:  (BuildContext context) => sl<SearchBloc>(),
-    child:const SearchVendorBody() ,);
+    return BlocProvider<SearchBloc>(
+      create: (BuildContext context) => sl<SearchBloc>(),
+      child: const SearchVendorBody(),
+    );
   }
 }
 
-
 class SearchVendorBody extends StatelessWidget {
-   const SearchVendorBody({
+  const SearchVendorBody({
     Key? key,
     this.label,
   }) : super(key: key);
@@ -43,116 +44,130 @@ class SearchVendorBody extends StatelessWidget {
       child: CustomAppBackGround(
         child: Column(
           children: [
-           //
+            //
             CustomAppBarScreens(
               title: AppLocalizations.of(context)!.search,
             ),
-            const SizedBox(height: 10,),
+            const SizedBox(
+              height: 10,
+            ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30.0),
               child: Row(
                 children: [
                   Expanded(
-                    child: SizedBox(
-                      height: 50,
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 0, right: 0),
-                        child: Container( decoration: BoxDecoration(
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 0, right: 0),
+                      child: Container(
+                        decoration: BoxDecoration(
                             color: Colors.white,
-                            borderRadius:
-                            BorderRadius.circular(RadiusApp.r50)),
-                          height: 50,
-                          width: double.infinity,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                            child: Row(
-                              children: [
-                                InkWell(
-                                  onTap: (){
-                                    context.read<SearchBloc>().add(SearchCategory());
-                                  },
-                                  child:const Icon(
-                                    Icons.search,
-                                    color: ColorManager.primaryColor,
-                                  ),
+                            borderRadius: BorderRadius.circular(RadiusApp.r50)),
+                        height: 50,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                          child: Row(
+                            children: [
+                              InkWell(
+                                onTap: () {
+                                  context
+                                      .read<SearchBloc>()
+                                      .add(SearchCategory());
+                                },
+                                child: const Icon(
+                                  Icons.search,
+                                  color: ColorManager.primaryColor,
                                 ),
-                                Expanded(
-                                  child: Padding(
-                                    padding:
-                                        const EdgeInsets.symmetric(horizontal: 8.0),
-                                    child: Container(
-                                      height: 50,
-                                      width: MediaQuery.of(context).size.width - 100,
-                                      decoration: BoxDecoration(
-                                        border:
-                                            Border.all(color: Colors.white, width: 3),
-                                        borderRadius:
-                                            const BorderRadiusDirectional.only(
-                                                topStart: Radius.circular(20),
-                                                bottomStart: Radius.circular(20)),
-                                        color: Colors.white.withOpacity(0.7),
-                                      ),
-                                      child: Row(
-                                        children: [
-                                          Expanded(
-                                            child: TextFormField(
-                                           controller: context.read<SearchBloc>().searchController,
-                                              minLines: 1,
-                                              maxLines: 1,
-                                              textAlign: TextAlign.start,
-                                              onEditingComplete: () {
-                                             context.read<SearchBloc>().add(SearchCategory());
-                                               },
-                                              decoration: InputDecoration(
-                                                fillColor: const Color(0xFFEEF6F6),
-                                                hintText:  AppLocalizations.of(context)!
-                                                    .searchPlaceHolder,
-                                                floatingLabelBehavior:
-                                                    FloatingLabelBehavior.never,
-                                                contentPadding: const EdgeInsets.symmetric(
-                                                    horizontal: 0),
-                                                labelStyle: getRegularStyle(
-                                                    color: Colors.white),
-                                                hintStyle: getBoldStyle(
-                                                    color: Colors.grey,
-                                                  ),
-                                                border: const OutlineInputBorder(
-                                                  borderRadius: BorderRadius.all(
-                                                      Radius.circular(28.0)),
-                                                  borderSide: BorderSide.none,
-                                                ),
-                                                enabledBorder:
-                                                    const OutlineInputBorder(
-                                                  borderRadius: BorderRadius.all(
-                                                      Radius.circular(28.0)),
-                                                  borderSide: BorderSide.none,
-                                                ),
-                                                focusedBorder:
-                                                    const OutlineInputBorder(
-                                                  borderRadius: BorderRadius.all(
-                                                      Radius.circular(28.0)),
-                                                  borderSide: BorderSide.none,
-                                                ),
+                              ),
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 8.0),
+                                  child: Container(
+                                    height: 50,
+                                    width:
+                                        MediaQuery.of(context).size.width - 100,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                          color: Colors.white, width: 3),
+                                      borderRadius:
+                                          const BorderRadiusDirectional.only(
+                                              topStart: Radius.circular(20),
+                                              bottomStart: Radius.circular(20)),
+                                      color: Colors.white.withOpacity(0.7),
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        Expanded(
+                                          child: TextFormField(
+                                            controller: context
+                                                .read<SearchBloc>()
+                                                .searchController,
+                                            minLines: 1,
+                                            maxLines: 1,
+                                            textAlign: TextAlign.start,
+                                            onEditingComplete: () {
+                                              context
+                                                  .read<SearchBloc>()
+                                                  .add(SearchCategory());
+                                            },
+                                            decoration: InputDecoration(
+                                              fillColor:
+                                                  const Color(0xFFEEF6F6),
+                                              hintText:
+                                                  AppLocalizations.of(context)!
+                                                      .searchPlaceHolder,
+                                              floatingLabelBehavior:
+                                                  FloatingLabelBehavior.never,
+                                              contentPadding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 0),
+                                              labelStyle: getRegularStyle(
+                                                  color: Colors.white),
+                                              hintStyle: getBoldStyle(
+                                                color: Colors.grey,
+                                              ),
+                                              border: const OutlineInputBorder(
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(28.0)),
+                                                borderSide: BorderSide.none,
+                                              ),
+                                              enabledBorder:
+                                                  const OutlineInputBorder(
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(28.0)),
+                                                borderSide: BorderSide.none,
+                                              ),
+                                              focusedBorder:
+                                                  const OutlineInputBorder(
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(28.0)),
+                                                borderSide: BorderSide.none,
                                               ),
                                             ),
                                           ),
-                                        ],
-                                      ),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ),
-                                InkWell(
-                                  onTap: (){
-                                    context.read<SearchBloc>().searchController.clear();
-                                    context.read<SearchBloc>().pendingFilter.skipCount=0;
-                                  },
-                                  child:const Icon(
-                                    Icons.clear,
-                                    color: ColorManager.primaryColor,
-                                  ),
-                                )
-                              ],
-                            ),
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  context
+                                      .read<SearchBloc>()
+                                      .searchController
+                                      .clear();
+                                  context
+                                      .read<SearchBloc>()
+                                      .pendingFilter
+                                      .skipCount = 0;
+                                },
+                                child: const Icon(
+                                  Icons.clear,
+                                  color: ColorManager.primaryColor,
+                                ),
+                              )
+                            ],
                           ),
                         ),
                       ),
@@ -161,37 +176,36 @@ class SearchVendorBody extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(height: 10,),
+            const SizedBox(
+              height: 10,
+            ),
             Expanded(
               child: BlocBuilder<SearchBloc, SearchState>(
-                 builder: (context, state) {
-                    if (state.screenStates == ScreenStates.loading && context.read<SearchBloc>().isFirstLoading) {
-                      return const Center(
-                          child: CircularProgressIndicator(
-                            backgroundColor: Colors.white,
-                            color: ColorManager.whiteColor,
-                          ));
-                    }
-                    else if (state.screenStates == ScreenStates.error) {
-                      return Center(
-                        child: Text(state.error),
-                      );
-                    }
-                    else if (state.screenStates == ScreenStates.init){
-                      return const SizedBox();
-                    }
-                   else{
-                      return
-                        state.vendorsList.isEmpty
-                            ? whenSearchResultEmpty(context)
-                            :
-                        LazyLoadScrollView(
+                  builder: (context, state) {
+                if (state.screenStates == ScreenStates.loading &&
+                    context.read<SearchBloc>().isFirstLoading) {
+                  return const Center(
+                      child: CircularProgressIndicator(
+                    color: ColorManager.whiteColor,
+                  ));
+                } else if (state.screenStates == ScreenStates.error) {
+                  return Center(
+                    child: Text(state.error),
+                  );
+                } else if (state.screenStates == ScreenStates.init) {
+                  return const SizedBox();
+                } else {
+                  return state.vendorsList.isEmpty
+                      ? whenSearchResultEmpty(context)
+                      : LazyLoadScrollView(
                           onEndOfPage: () {
-                            if( context.read<SearchBloc>().isLast==false){
-                              context.read<SearchBloc>().add(SearchCategoryPage());
+                            if (context.read<SearchBloc>().isLast == false) {
+                              context
+                                  .read<SearchBloc>()
+                                  .add(SearchCategoryPage());
                             }
                           },
-                          isLoading: state.screenStates != ScreenStates.loading,
+                          isLoading: !context.read<SearchBloc>().isLast,
                           child: ListView.builder(
                             itemCount: state.vendorsList.length,
                             itemBuilder: (context, index) {
@@ -201,42 +215,50 @@ class SearchVendorBody extends StatelessWidget {
                                     vendor: state.vendorsList[index],
                                     fromSearch: true,
                                   ),
-                                  state.screenStates == ScreenStates.loading && index==state.vendorsList.length-1                                    ?  Center(
-                                    child:  Shimmer.fromColors(
-                                      baseColor: const Color(0xFFd3d7de),
-                                      highlightColor: const Color(0xFFe2e4e9),
-                                      child: const Card(
-                                        elevation: 0.0,
-                                        color: Color.fromRGBO(45, 45, 45, 1.0),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadiusDirectional.only(
-                                            topStart: Radius.circular(50),
-                                            bottomStart: Radius.circular(50),
+                                  state.screenStates == ScreenStates.loading &&
+                                          index == state.vendorsList.length - 1
+                                      ? Center(
+                                          child: Shimmer.fromColors(
+                                            baseColor: const Color(0xFFd3d7de),
+                                            highlightColor:
+                                                const Color(0xFFe2e4e9),
+                                            child: const Card(
+                                              elevation: 0.0,
+                                              color: Color.fromRGBO(
+                                                  45, 45, 45, 1.0),
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadiusDirectional
+                                                        .only(
+                                                  topStart: Radius.circular(50),
+                                                  bottomStart:
+                                                      Radius.circular(50),
+                                                ),
+                                              ),
+                                              clipBehavior:
+                                                  Clip.antiAliasWithSaveLayer,
+                                              child: SizedBox(
+                                                width: 350,
+                                                height: 100,
+                                              ),
+                                            ),
                                           ),
-                                        ),
-                                        clipBehavior: Clip.antiAliasWithSaveLayer,
-                                        child: SizedBox(
-                                          width: 350,
-                                          height: 100,
-                                        ),
-                                      ),
-                                    ),
-                                  )
+                                        )
                                       : const SizedBox()
                                 ],
                               );
                             },
                           ),
                         );
-                    }
-
-                  }),
+                }
+              }),
             )
           ],
         ),
       ),
     );
   }
+
   Widget whenSearchResultEmpty(BuildContext context) {
     return CustomAppBackGround(
       child: Center(
@@ -265,5 +287,4 @@ class SearchVendorBody extends StatelessWidget {
       ),
     );
   }
-
 }

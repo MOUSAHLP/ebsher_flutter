@@ -193,5 +193,6 @@
   "phoneFieldIsRequired": "Phone Number Field Is Required",
   "wrongPhoneNumber": "Wrong Phone Number, ex 9******** ",
   "addYourDetailsToSignIn": "Add your details to sign in",
-  "search": "Search"
+  "search": "Search",
+  "description": "Description"
 }

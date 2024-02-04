@@ -4,13 +4,17 @@ class VendorModel {
   int? id;
   LocalizationStringModel? name;
   LocalizationStringModel? description;
+  LocalizationStringModel? shortDescription;
   String? image;
+  String? logo;
   String? open;
   String? close;
   String? phone;
+  String? phone1;
   String? email;
+  String? facebook;
   String? address;
-  String? address2;
+  String? address1;
   String? latitude;
   String? longitude;
   int? isActive;
@@ -41,10 +45,13 @@ class VendorModel {
       this.name,
       this.description,
       this.image,
+      this.logo,
       this.open,
       this.close,
       this.phone,
+      this.phone1,
       this.email,
+      this.facebook,
       this.address,
       this.latitude,
       this.longitude,
@@ -63,29 +70,34 @@ class VendorModel {
       this.openStatus,
       required this.favoriteStatus,
       this.category,
-      this.address2,
+      this.address1,
       this.days,
       this.subCategories,
       this.socialMedia,
       this.features,
       this.banners,
       this.recomindation,
-      this.package});
+      this.package,
+      this.shortDescription});
 
   factory VendorModel.fromJson(Map<String, dynamic> json) {
     print("Package.fromJson");
-    print(Package.fromJson(json["package"]).colorCode);
+    print(json);
     return VendorModel(
         id: json["id"],
         name: LocalizationStringModel.fromJson(json, "name"),
         description: LocalizationStringModel.fromJson(json, "description"),
+       shortDescription: LocalizationStringModel.fromJson(json, "short_description"),
         open: json["open"],
         image: json["image"],
+        logo: json["logo"],
         close: json["close"],
         phone: json["phone"],
+        phone1: json["phone1"],
         email: json["email"],
+        facebook: json["Facebook"],
         address: json["address"],
-        address2: json["address2"],
+        address1: json["address1"],
         latitude: json["latitude"],
         longitude: json["longitude"],
         isActive: json["is_active"],
@@ -106,12 +118,12 @@ class VendorModel {
         customDate: json["custom_date"] == null
             ? null
             : DateTime.parse(json["custom_date"]),
-        webiste: json["webiste"],
+        webiste: json["website"],
         updatedAt: json["updated_at"] == null
             ? null
             : DateTime.parse(json["updated_at"]),
-        openStatus: json["open_status"],
-        favoriteStatus: json["favorite_status"] == 1 ? true : false,
+        openStatus: json["open_status"]
+        ,favoriteStatus: json["favorite_status"] == 1 ? true : false,
         category: json["category"] == null
             ? null
             : Category.fromJson(json["category"]),
@@ -137,7 +149,8 @@ class VendorModel {
             ? []
             : List<VendorModel>.from(
                 json["recomindation"].map((x) => VendorModel.fromJson(x))),
-        package: Package.fromJson(json["package"]));
+        package: Package.fromJson(json["package"])
+    );
   }
 
   static List<VendorModel> listFromJson(Map<String, dynamic> json) {

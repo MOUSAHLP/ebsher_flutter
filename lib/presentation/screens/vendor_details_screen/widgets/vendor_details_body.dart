@@ -3,6 +3,7 @@ import 'package:absher/core/localization_string.dart';
 import 'package:absher/models/vendor_model.dart';
 import 'package:absher/presentation/resources/assets_manager.dart';
 import 'package:absher/presentation/resources/font_app.dart';
+import 'package:absher/presentation/screens/vendor_details_screen/widgets/custom_date.dart';
 import 'package:absher/presentation/screens/vendor_details_screen/widgets/recomindation_section.dart';
 import 'package:absher/presentation/screens/vendor_details_screen/widgets/services_section.dart';
 import 'package:absher/presentation/screens/vendor_details_screen/widgets/social_media_links.dart';
@@ -12,6 +13,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../../../core/app_type/type_image.dart';
 import '../../../resources/color_manager.dart';
 import '../../../resources/style_app.dart';
+import 'card_description.dart';
 import 'details_section.dart';
 import 'open_hours_section.dart';
 
@@ -58,16 +60,16 @@ class VendorDetailsBody extends StatelessWidget {
                       ),
                     ),
 
-                    IsOpenLabel(
+                    vendor.isOpen!=null? IsOpenLabel(
                       isOpen: vendor.isOpen,
-                    ),
+                    ):const SizedBox(),
                   ],
                 ),
                 Row(
                   children: [
                     Expanded(
                       child: Text(
-                        localizationString(context, vendor.description) ?? '',
+                        localizationString(context, vendor.shortDescription) ?? '',
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: getRegularStyle(
@@ -125,6 +127,8 @@ class VendorDetailsBody extends StatelessWidget {
                 SocialMediaLinksSection(
                   vendor: vendor,
                 ),
+               vendor.customDate!=null? CustomDate(vendor: vendor):SizedBox(),
+                vendor.description!=null?  CardDescription(vendor: vendor):SizedBox(),
       vendor.socialMedia!.isNotEmpty?   const Divider(
                   thickness: 2,
                 ):const SizedBox.shrink(),

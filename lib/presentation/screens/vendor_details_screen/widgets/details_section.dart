@@ -20,12 +20,17 @@ class DetailsSection extends StatelessWidget {
         InfoDetails(
           svgAsset: IconsManager.iconLocation,
           label:AppLocalizations.of(context)!.address,
-          value: vendor.address2,
+          value: vendor.address1,
         ),
         InfoDetails(
           svgAsset: IconsManager.iconPhone,
           label: AppLocalizations.of(context)!.phone,
           value: vendor.phone,
+        ),
+        InfoDetails(
+          svgAsset: IconsManager.iconPhone,
+          label: AppLocalizations.of(context)!.phone,
+          value: vendor.phone1,
         ),
         InfoDetails(
           svgAsset: IconsManager.iconEmail,

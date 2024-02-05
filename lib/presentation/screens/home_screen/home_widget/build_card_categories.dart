@@ -4,10 +4,8 @@ import 'package:absher/presentation/resources/values_app.dart';
 import 'package:absher/presentation/screens/categories_screen/categories_screen.dart';
 import 'package:absher/presentation/screens/sub_categories_screen/sub_categories_screen.dart';
 import 'package:absher/translations.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../../../../core/app_router/app_router.dart';
 import '../../../../core/localization_string.dart';
 import '../../../../models/category_response.dart';

@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <network-security-config>
-    <base-config cleartextTrafficPermitted="false">
+    <base-config cleartextTrafficPermitted="true">
         <trust-anchors>
             <certificates src="system" />
             <certificates src="user" />
         </trust-anchors>
     </base-config>
     <domain-config cleartextTrafficPermitted="false">
-        <domain includeSubdomains="true">secure.absher.peaklinkdemo.com</domain>
+        <domain includeSubdomains="true">secure.dashboard.ebsher.sy</domain>
     </domain-config>
     <domain-config>
-        <domain includeSubdomains="true">absher.peaklinkdemo.com</domain>
+        <domain includeSubdomains="true">absher.dashboard.ebsher.sy</domain>
         <pin-set expiration="2025-05-17">
             <pin digest="SHA-256">WW6dzXQW74e6uLYELV47/18TJ3bs6if6ICwc2vrzguc=</pin>
             <!-- backup pin -->

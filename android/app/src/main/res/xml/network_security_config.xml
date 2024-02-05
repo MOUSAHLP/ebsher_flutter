@@ -10,11 +10,11 @@
         <domain includeSubdomains="true">secure.dashboard.ebsher.sy</domain>
     </domain-config>
     <domain-config>
-        <domain includeSubdomains="true">absher.dashboard.ebsher.sy</domain>
+        <domain includeSubdomains="true">dashboard.ebsher.sy</domain>
         <pin-set expiration="2025-05-17">
-            <pin digest="SHA-256">WW6dzXQW74e6uLYELV47/18TJ3bs6if6ICwc2vrzguc=</pin>
+            <pin digest="SHA-256">rAjn6NHwkB0B8Pte+2YkH9o9mABiGIBSePo2+IE4CJs=</pin>
             <!-- backup pin -->
-            <pin digest="SHA-256">hOF1upiO+xevnDEQ13g3aY3M3Uqa44RN5rVlwvU2WC8=</pin>
+            <pin digest="SHA-256">jQJTbIh0grw0/1TkHSumWb+Fs0Ggogr621gT3PvPKG0=</pin>
         </pin-set>
     </domain-config>
     <debug-overrides>

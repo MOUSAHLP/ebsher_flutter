@@ -26,10 +26,10 @@ class MyLocation extends StatelessWidget {
       borderRadius: BorderRadius.circular(26),
       child:  InkWell(
         onTap: (){
-         // AppRouter.push(context: context, destination:
-         //  MapScreen(
-         //    lat:latitude ?? 0,
-         //    lng:longtitude ?? 0,));
+         AppRouter.push(context,
+          MapScreen(
+            lat:latitude ?? 0,
+            lng:longtitude ?? 0,));
         },
         child: SizedBox(
           height: 134,

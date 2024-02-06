@@ -1,3 +1,4 @@
+import 'package:absher/presentation/resources/color_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -8,6 +9,7 @@ class MapScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(backgroundColor: ColorManager.primaryColor),
       body: ClipRRect(
         borderRadius: BorderRadius.circular(20.0),
         child: SizedBox(
@@ -22,7 +24,7 @@ class MapScreen extends StatelessWidget {
                     lat,
                     lng
                   ),
-                  icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueOrange),
+                  icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
               ),
             },
             initialCameraPosition: CameraPosition(

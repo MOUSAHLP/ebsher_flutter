@@ -4,6 +4,7 @@ import 'package:absher/models/vendor_model.dart';
 import 'package:absher/presentation/resources/assets_manager.dart';
 import 'package:absher/presentation/resources/font_app.dart';
 import 'package:absher/presentation/screens/vendor_details_screen/widgets/custom_date.dart';
+import 'package:absher/presentation/screens/vendor_details_screen/widgets/location_details_widget.dart';
 import 'package:absher/presentation/screens/vendor_details_screen/widgets/recomindation_section.dart';
 import 'package:absher/presentation/screens/vendor_details_screen/widgets/services_section.dart';
 import 'package:absher/presentation/screens/vendor_details_screen/widgets/my_location.dart';
@@ -127,32 +128,11 @@ class VendorDetailsBody extends StatelessWidget {
                   vendor: vendor,
                 ),
 
-                Container(
-                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                    width: double.infinity,
-                    decoration: const BoxDecoration(
-                      //color: Colors.red,
-                      borderRadius: BorderRadius.all(Radius.circular(8)),
-                    ),
-                    child:Padding(
-                      padding: const EdgeInsets.only(top: 12),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                        //  const SizedBox(height:8,),
-
-                            SizedBox(
-                                height: 150,
-                               child: MyLocation(latitude:33.5004896, longtitude:36.332656,)
-                               )
-                        ],
-                      ),
-                    )),
                 SocialMediaLinksSection(
                   vendor: vendor,
                 ),
               // vendor.customDate!=null? CustomDate(vendor: vendor):SizedBox(),
-                vendor.description!=null?  CardDescription(vendor: vendor):SizedBox(),
+                vendor.description!=null?  CardDescription(vendor: vendor):const SizedBox(),
       vendor.socialMedia!.isNotEmpty?   const Divider(
                   thickness: 2,
                 ):const SizedBox.shrink(),
@@ -162,6 +142,8 @@ class VendorDetailsBody extends StatelessWidget {
                 vendor.features!.isNotEmpty?  const Divider(
                   thickness: 2,
                 ):const SizedBox.shrink(),
+                vendor.latitude!=null?  LocationDetailsWidget(longitude: double.parse(vendor.longitude??"0"), latitude: double.parse(vendor.latitude??"0")):const SizedBox()
+                ,
                 RecomindationSection(vendor: vendor)
               ],
             ),

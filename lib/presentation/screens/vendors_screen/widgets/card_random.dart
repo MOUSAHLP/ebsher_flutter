@@ -213,7 +213,7 @@ class CardRandomWidget extends StatelessWidget {
                             },
                           ),
                         const SizedBox(height: 20),
-                        Row(
+                        vendor.package?.colorCode == null ||vendor.package?.colorCode ==0?SizedBox():  Row(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Text(

@@ -135,5 +135,6 @@
   "wrongPhoneNumber": "رقم الهاتف خاطئ, مثال ********9 ",
   "addYourDetailsToSignIn": "أضف التفاصيل الخاصة بك لتسجيل الدخول",
   "search": "البحث",
-  "description": "الوصف"
+  "description": "الوصف",
+  "validatePasswordMsg2" : "استخدم أحرف كبيرة وصغيرة أرقام & رموز"
 }

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import '../../../../core/utils/app_router.dart';
-import '../cached_image.dart';
-import 'MapScreen.dart';
 
+import 'package:absher/presentation/widgets/accessories/cached_image.dart';
+import 'MapScreen.dart';
+import 'package:absher/core/app_router/app_router.dart';
 class MyLocation extends StatelessWidget {
   final double? latitude;
   final double? longtitude;
@@ -26,10 +26,10 @@ class MyLocation extends StatelessWidget {
       borderRadius: BorderRadius.circular(26),
       child:  InkWell(
         onTap: (){
-          AppRouter.navigateTo(context: context, destination:
-          MapScreen(
-            lat:latitude ?? 0,
-            lng:longtitude ?? 0,));
+         // AppRouter.push(context: context, destination:
+         //  MapScreen(
+         //    lat:latitude ?? 0,
+         //    lng:longtitude ?? 0,));
         },
         child: SizedBox(
           height: 134,

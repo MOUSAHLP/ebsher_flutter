@@ -6,6 +6,7 @@ import 'package:absher/presentation/resources/font_app.dart';
 import 'package:absher/presentation/screens/vendor_details_screen/widgets/custom_date.dart';
 import 'package:absher/presentation/screens/vendor_details_screen/widgets/recomindation_section.dart';
 import 'package:absher/presentation/screens/vendor_details_screen/widgets/services_section.dart';
+import 'package:absher/presentation/screens/vendor_details_screen/widgets/my_location.dart';
 import 'package:absher/presentation/screens/vendor_details_screen/widgets/social_media_links.dart';
 import 'package:absher/presentation/screens/vendor_details_screen/widgets/vendor_details_body.dart';
 import 'package:absher/presentation/screens/vendors_screen/widgets/card_random.dart';
@@ -125,8 +126,28 @@ class VendorDetailsBody extends StatelessWidget {
                 OpenHourSection(
                   vendor: vendor,
                 ),
-              //  LocationDetailsWidget(address: vendor.address??"", longitude: 12345, latitude:345456),
 
+                Container(
+                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                    width: double.infinity,
+                    decoration: const BoxDecoration(
+                      //color: Colors.red,
+                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                    ),
+                    child:Padding(
+                      padding: const EdgeInsets.only(top: 12),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                        //  const SizedBox(height:8,),
+
+                            SizedBox(
+                                height: 150,
+                               child: MyLocation(latitude:33.5004896, longtitude:36.332656,)
+                               )
+                        ],
+                      ),
+                    )),
                 SocialMediaLinksSection(
                   vendor: vendor,
                 ),

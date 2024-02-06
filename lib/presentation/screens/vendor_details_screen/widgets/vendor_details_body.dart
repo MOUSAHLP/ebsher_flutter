@@ -7,6 +7,7 @@ import 'package:absher/presentation/screens/vendor_details_screen/widgets/custom
 import 'package:absher/presentation/screens/vendor_details_screen/widgets/recomindation_section.dart';
 import 'package:absher/presentation/screens/vendor_details_screen/widgets/services_section.dart';
 import 'package:absher/presentation/screens/vendor_details_screen/widgets/social_media_links.dart';
+import 'package:absher/presentation/screens/vendor_details_screen/widgets/vendor_details_body.dart';
 import 'package:absher/presentation/screens/vendors_screen/widgets/card_random.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -124,10 +125,12 @@ class VendorDetailsBody extends StatelessWidget {
                 OpenHourSection(
                   vendor: vendor,
                 ),
+              //  LocationDetailsWidget(address: vendor.address??"", longitude: 12345, latitude:345456),
+
                 SocialMediaLinksSection(
                   vendor: vendor,
                 ),
-               vendor.customDate!=null? CustomDate(vendor: vendor):SizedBox(),
+              // vendor.customDate!=null? CustomDate(vendor: vendor):SizedBox(),
                 vendor.description!=null?  CardDescription(vendor: vendor):SizedBox(),
       vendor.socialMedia!.isNotEmpty?   const Divider(
                   thickness: 2,

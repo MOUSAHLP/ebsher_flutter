@@ -10,6 +10,7 @@
         <domain includeSubdomains="true">secure.dashboard.ebsher.sy</domain>
     </domain-config>
     <domain-config>
+
         <domain includeSubdomains="true">dashboard.ebsher.sy</domain>
         <pin-set expiration="2025-05-17">
             <pin digest="SHA-256">rAjn6NHwkB0B8Pte+2YkH9o9mABiGIBSePo2+IE4CJs=</pin>

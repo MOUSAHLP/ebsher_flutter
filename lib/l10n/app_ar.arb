@@ -134,5 +134,7 @@
   "phoneFieldIsRequired": "حقل رقم الهاتف مطلوب",
   "wrongPhoneNumber": "رقم الهاتف خاطئ, مثال ********9 ",
   "addYourDetailsToSignIn": "أضف التفاصيل الخاصة بك لتسجيل الدخول",
-  "search": "البحث"
+  "search": "البحث",
+  "description": "الوصف",
+  "validatePasswordMsg2" : "استخدم أحرف كبيرة وصغيرة أرقام & رموز"
 }

@@ -8,6 +8,7 @@ import 'package:absher/presentation/widgets/accessories/cached_image.dart';
 import 'package:absher/translations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../core/formatter.dart';
 
@@ -52,8 +53,15 @@ class SocialMediaLinksSection extends StatelessWidget {
                       itemCount: vendor.socialMedia?.length,
                       itemBuilder: (context, index) {
                         return InkWell(
-                          onTap: (){
-                            launchSocial( vendor.socialMedia![index].pivot!.link??"");
+                          onTap: ()async{
+                            if(vendor.socialMedia![index].name=="Whatsapp")
+                              {
+                                launchWhatsApp( vendor.socialMedia![index].pivot!.link ?? "");
+                              }
+                            else {
+                              launchSocial(
+                                  vendor.socialMedia![index].pivot!.link ?? "");
+                            }
                           },
                           child: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -70,28 +78,28 @@ class SocialMediaLinksSection extends StatelessWidget {
             ],
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                AppLocalizations.of(context)!.craatDate,
-                style: getRegularStyle(
-                  color: Colors.black,
-                  fontSize: FontSizeApp.s12,
-                ),
-              ),
-              Text(
-                Formatter.formatDateOnly(context, vendor.customDate!),
-                style: getBoldStyle(
-                  color: ColorManager.primaryColor,
-                  fontSize: FontSizeApp.s12,
-                ),
-              ),
-            ],
-          ),
-        ),
+        // Padding(
+        //   padding: const EdgeInsets.all(16.0),
+        //   child: Column(
+        //     crossAxisAlignment: CrossAxisAlignment.start,
+        //     children: [
+        //       Text(
+        //         AppLocalizations.of(context)!.craatDate,
+        //         style: getRegularStyle(
+        //           color: Colors.black,
+        //           fontSize: FontSizeApp.s12,
+        //         ),
+        //       ),
+        //       Text(
+        //         Formatter.formatDateOnly(context, vendor.customDate!),
+        //         style: getBoldStyle(
+        //           color: ColorManager.primaryColor,
+        //           fontSize: FontSizeApp.s12,
+        //         ),
+        //       ),
+        //     ],
+        //   ),
+        // ),
       ],
     );
   }

@@ -35,18 +35,21 @@ class CardRandomWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Widget> card = [
-      CircularCard(image: vendor.image ?? ""),
-      RectangleCard(image: vendor.image ?? ""),
+      CircularCard(image: vendor.logo ?? vendor.image??""),
+      RectangleCard(image: vendor.logo ?? vendor.image??""),
     ];
     card.shuffle();
     return GestureDetector(
       onTap: () {
-        AppRouter.push(
+        if(vendor.package?.colorCode != 0  && vendor.package?.colorCode !=null) {
+          AppRouter.push(
           context,
           VendorDetailsScreen(
             id: vendor.id!,
           ),
         );
+        }
+
       },
       child: Padding(
         padding: const EdgeInsetsDirectional.only(

@@ -123,23 +123,23 @@ class CategoryCover extends StatelessWidget {
           ClipRRect(
             borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(50)),
             child:
-            Container(
-                width: 1.sw,
-                height: 200,
-              color:Colors.black,
-                child:Image.asset(
-    ImageManager.fullAppLogo,
-                  color:ColorManager.primaryColor
-    )
-
-            )
-            // CachedImage(
-            //   imageUrl: category.image,
-            //   width: 1.sw,
-            //   height: 200,
-            //   imageSize: ImageSize.mid,
-            //   fit: BoxFit.cover,
-            // ),
+    //         Container(
+    //             width: 1.sw,
+    //             height: 200,
+    //           color:Colors.black,
+    //             child:Image.asset(
+    // ImageManager.fullAppLogo,
+    //               color:ColorManager.primaryColor
+    // )
+    //
+    //         )
+            CachedImage(
+              imageUrl: category.image,
+              width: 1.sw,
+              height: 1.sw*0.55,
+              imageSize: ImageSize.mid,
+              fit: BoxFit.cover,
+            ),
           ),
           Padding(
             padding: const EdgeInsets.all(24.0),

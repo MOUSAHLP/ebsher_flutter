@@ -84,7 +84,7 @@ class SubCategoryBody extends StatelessWidget {
                               itemBuilder: (context, index) {
                                 return InkWell(
                                     onTap: () {
-                                      AppRouter.pushReplacement(
+                                      AppRouter.push(
                                         context,
                                         VendorsScreen(
                                           title: localizationString(

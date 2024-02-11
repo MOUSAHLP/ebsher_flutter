@@ -1,16 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <network-security-config>
-    <base-config cleartextTrafficPermitted="true">
-        <trust-anchors>
-            <certificates src="system" />
-            <certificates src="user" />
-        </trust-anchors>
-    </base-config>
     <domain-config cleartextTrafficPermitted="false">
         <domain includeSubdomains="true">secure.dashboard.ebsher.sy</domain>
     </domain-config>
     <domain-config>
-
         <domain includeSubdomains="true">dashboard.ebsher.sy</domain>
         <pin-set expiration="2025-05-17">
             <pin digest="SHA-256">rAjn6NHwkB0B8Pte+2YkH9o9mABiGIBSePo2+IE4CJs=</pin>
@@ -18,9 +11,5 @@
             <pin digest="SHA-256">jQJTbIh0grw0/1TkHSumWb+Fs0Ggogr621gT3PvPKG0=</pin>
         </pin-set>
     </domain-config>
-    <debug-overrides>
-        <trust-anchors>
-            <certificates src="@raw/debug_cas"/>
-        </trust-anchors>
-    </debug-overrides>
 </network-security-config>
+

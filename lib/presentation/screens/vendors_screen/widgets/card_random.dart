@@ -100,8 +100,8 @@ class CardRandomWidget extends StatelessWidget {
                               ),
                               vendor.package?.colorCode == 0
                                   ? SizedBox(
-                                      height: 20,
-                                      width: 20,
+                                      height: 30,
+                                      width: 30,
                                       child: Image.asset(
                                         imageTypeName(0),
                                         // fit:BoxFit.fill

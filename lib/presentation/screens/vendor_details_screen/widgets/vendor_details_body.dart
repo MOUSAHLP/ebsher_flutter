@@ -1,4 +1,3 @@
-
 import 'package:absher/core/localization_string.dart';
 import 'package:absher/models/vendor_model.dart';
 import 'package:absher/presentation/resources/assets_manager.dart';
@@ -53,26 +52,36 @@ class VendorDetailsBody extends StatelessWidget {
                               fontSize: FontSizeApp.s26,
                             ),
                           ),
-                          const SizedBox(width: 5,),
-                          vendor.package?.colorCode ==null?
-                          Image.asset(
-                            imageTypeName(0) ,  height:20,width:20,):
-                          Image.asset(
-                            imageTypeName(vendor.package!.colorCode??0)  ,  height:30,width:30,),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          vendor.package?.colorCode == null
+                              ? Image.asset(
+                                  imageTypeName(0),
+                                  height: 20,
+                                  width: 20,
+                                )
+                              : Image.asset(
+                                  imageTypeName(vendor.package!.colorCode ?? 0),
+                                  height: 30,
+                                  width: 30,
+                                ),
                         ],
                       ),
                     ),
-
-                    vendor.isOpen!=null? IsOpenLabel(
-                      isOpen: vendor.isOpen,
-                    ):const SizedBox(),
+                    vendor.isOpen != null
+                        ? IsOpenLabel(
+                            isOpen: vendor.isOpen,
+                          )
+                        : const SizedBox(),
                   ],
                 ),
                 Row(
                   children: [
                     Expanded(
                       child: Text(
-                        localizationString(context, vendor.shortDescription) ?? '',
+                        localizationString(context, vendor.shortDescription) ??
+                            '',
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: getRegularStyle(
@@ -83,12 +92,8 @@ class VendorDetailsBody extends StatelessWidget {
                     ),
                     Row(
                       children: [
-                        StaticRate(
-                          rate: vendor.avgRating,
-                        ),
-                        const SizedBox(
-                          width: 8,
-                        ),
+                        StaticRate(rate: vendor.avgRating),
+                        const SizedBox(width: 8),
                         Container(
                           decoration: const BoxDecoration(
                             borderRadius: BorderRadiusDirectional.only(
@@ -98,16 +103,15 @@ class VendorDetailsBody extends StatelessWidget {
                             color: ColorManager.softYellow,
                           ),
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 8.0),
                             child: Text(
                               double.tryParse(vendor.avgRating ?? '0')!
                                   .toStringAsFixed(1),
                               style: getBoldStyle(
                                 color: Colors.white,
                                 fontSize: FontSizeApp.s12,
-                              )?.copyWith(
-                                height: 1.4,
-                              ),
+                              )?.copyWith(height: 1.4),
                             ),
                           ),
                         )
@@ -115,35 +119,28 @@ class VendorDetailsBody extends StatelessWidget {
                     ),
                   ],
                 ),
-                const Divider(
-                  thickness: 2,
-                ),
-                DetailsSection(
-                  vendor: vendor,
-                ),
-                const Divider(
-                  thickness: 2,
-                ),
-                OpenHourSection(
-                  vendor: vendor,
-                ),
+                const Divider(thickness: 2),
+                DetailsSection(vendor: vendor),
+                const Divider(thickness: 2),
+                OpenHourSection(vendor: vendor),
 
-                SocialMediaLinksSection(
-                  vendor: vendor,
-                ),
-              // vendor.customDate!=null? CustomDate(vendor: vendor):SizedBox(),
-                vendor.description!=null?  CardDescription(vendor: vendor):const SizedBox(),
-      vendor.socialMedia!.isNotEmpty?   const Divider(
-                  thickness: 2,
-                ):const SizedBox.shrink(),
-                ServicesSection(
-                  vendor: vendor,
-                ),
-                vendor.features!.isNotEmpty?  const Divider(
-                  thickness: 2,
-                ):const SizedBox.shrink(),
-                vendor.latitude!=null?  LocationDetailsWidget(longitude: double.parse(vendor.longitude??"0"), latitude: double.parse(vendor.latitude??"0")):const SizedBox()
-                ,
+                SocialMediaLinksSection(vendor: vendor),
+                // vendor.customDate!=null? CustomDate(vendor: vendor):SizedBox(),
+                vendor.description != null
+                    ? CardDescription(vendor: vendor)
+                    : const SizedBox(),
+                vendor.socialMedia!.isNotEmpty
+                    ? const Divider(thickness: 2)
+                    : const SizedBox.shrink(),
+                ServicesSection(vendor: vendor),
+                vendor.features!.isNotEmpty
+                    ? const Divider(thickness: 2)
+                    : const SizedBox.shrink(),
+                vendor.latitude != null
+                    ? LocationDetailsWidget(
+                        longitude: double.parse(vendor.longitude ?? "0"),
+                        latitude: double.parse(vendor.latitude ?? "0"))
+                    : const SizedBox(),
                 RecomindationSection(vendor: vendor)
               ],
             ),

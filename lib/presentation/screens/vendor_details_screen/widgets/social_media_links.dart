@@ -53,18 +53,18 @@ class SocialMediaLinksSection extends StatelessWidget {
                       itemCount: vendor.socialMedia?.length,
                       itemBuilder: (context, index) {
                         return InkWell(
-                          onTap: ()async{
-                            if(vendor.socialMedia![index].name=="Whatsapp")
-                              {
-                                launchWhatsApp( vendor.socialMedia![index].pivot!.link ?? "");
-                              }
-                            else {
+                          onTap: () async {
+                            if (vendor.socialMedia![index].name == "Whatsapp") {
+                              launchWhatsApp(
+                                  vendor.socialMedia![index].pivot!.link ?? "");
+                            } else {
                               launchSocial(
                                   vendor.socialMedia![index].pivot!.link ?? "");
                             }
                           },
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 8.0),
                             child: CachedImage(
                               imageUrl: vendor.socialMedia![index].image,
                               height: 50,
@@ -103,5 +103,4 @@ class SocialMediaLinksSection extends StatelessWidget {
       ],
     );
   }
-
 }

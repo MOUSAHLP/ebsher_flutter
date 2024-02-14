@@ -10,11 +10,13 @@ class InfoDetails extends StatelessWidget {
     required this.label,
     required this.value,
     this.extraValue,
+    this.onTap,
   }) : super(key: key);
   final String svgAsset;
   final String? label;
   final String? value;
   final String? extraValue;
+  final Function? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -31,30 +33,29 @@ class InfoDetails extends StatelessWidget {
               color: ColorManager.softYellow,
             ),
           ),
-          const SizedBox(
-            width: 16,
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                label!,
-                style: getRegularStyle(
-                  color: ColorManager.labelGrey,
-                  fontSize: 12,
-                )?.copyWith(height: 1),
-              ),
-              const SizedBox(
-                height: 2,
-              ),
-              Text(
-                value!,
-                style: getRegularStyle(
-                  color: ColorManager.shadowGrey,
-                  fontSize: 14,
-                )?.copyWith(height: 1),
-              ),
-            ],
+          const SizedBox(width: 16),
+          InkWell(
+            onTap: onTap != null ? () => onTap!() : null,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  label!,
+                  style: getRegularStyle(
+                    color: ColorManager.labelGrey,
+                    fontSize: 12,
+                  )?.copyWith(height: 1),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  value!,
+                  style: getRegularStyle(
+                    color: ColorManager.shadowGrey,
+                    fontSize: 14,
+                  )?.copyWith(height: 1),
+                ),
+              ],
+            ),
           )
         ],
       ),

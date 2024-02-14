@@ -1,3 +1,4 @@
+
 import 'package:absher/core/localization_string.dart';
 import 'package:absher/models/vendor_model.dart';
 import 'package:absher/presentation/resources/assets_manager.dart';
@@ -41,31 +42,33 @@ class VendorDetailsBody extends StatelessWidget {
                 Row(
                   children: [
                     Expanded(
-                      child: Row(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            localizationString(context, vendor.name) ?? '',
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: getBoldStyle(
-                              color: ColorManager.primaryColor,
-                              fontSize: FontSizeApp.s26,
+                          IntrinsicWidth(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                  localizationString(context, vendor.name) ?? '',
+                                  maxLines:2,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: getBoldStyle(
+                                    color: ColorManager.primaryColor,
+                                    fontSize: FontSizeApp.s26,
+                                  ),
+                                  ),
+                                )
+                                 ,const SizedBox(width: 5,),
+                                vendor.package?.colorCode ==null?
+                                Image.asset(
+                                  imageTypeName(0) ,  height:20,width:20,):
+                                Image.asset(
+                                  imageTypeName(vendor.package!.colorCode??0)  ,  height:30,width:30,),
+                              ],
                             ),
                           ),
-                          const SizedBox(
-                            width: 5,
-                          ),
-                          vendor.package?.colorCode == null
-                              ? Image.asset(
-                                  imageTypeName(0),
-                                  height: 20,
-                                  width: 20,
-                                )
-                              : Image.asset(
-                                  imageTypeName(vendor.package!.colorCode ?? 0),
-                                  height: 30,
-                                  width: 30,
-                                ),
                         ],
                       ),
                     ),

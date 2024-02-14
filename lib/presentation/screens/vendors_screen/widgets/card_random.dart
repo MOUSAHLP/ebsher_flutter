@@ -35,21 +35,21 @@ class CardRandomWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Widget> card = [
-      CircularCard(image: vendor.logo ?? vendor.image??""),
-      RectangleCard(image: vendor.logo ?? vendor.image??""),
+      CircularCard(image: vendor.logo ?? vendor.image ?? ""),
+      RectangleCard(image: vendor.logo ?? vendor.image ?? ""),
     ];
     card.shuffle();
     return GestureDetector(
       onTap: () {
-        if(vendor.package?.colorCode != 0  && vendor.package?.colorCode !=null) {
+        if (vendor.package?.colorCode != 0 &&
+            vendor.package?.colorCode != null) {
           AppRouter.push(
-          context,
-          VendorDetailsScreen(
-            id: vendor.id!,
-          ),
-        );
+            context,
+            VendorDetailsScreen(
+              id: vendor.id!,
+            ),
+          );
         }
-
       },
       child: Padding(
         padding: const EdgeInsetsDirectional.only(
@@ -83,34 +83,49 @@ class CardRandomWidget extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Row(
+                          IntrinsicWidth (child:   Row(
                             children: [
-                              Text(
+                           Expanded(
+                               child:   Text(
                                 localizationString(context, vendor.name) ?? "",
-                                maxLines: 1,
+                                maxLines:1,
                                 overflow: TextOverflow.ellipsis,
                                 style: getBoldStyle(
                                   color: ColorManager.primaryColor,
                                   fontSize: 16,
                                 ),
-                              ),
+                              )),
                               const SizedBox(
                                 width: 5,
                               ),
-                              vendor.package?.colorCode == null
-                                  ? Image.asset(
-                                      imageTypeName(0),
+                              vendor.package?.colorCode == 0
+                                  ? SizedBox(
                                       height: 20,
                                       width: 20,
+                                      child: Image.asset(
+                                        imageTypeName(0),
+                                        // fit:BoxFit.fill
+                                      ),
                                     )
-                                  : Image.asset(
-                                      imageTypeName(
-                                          vendor.package!.colorCode ?? 0),
-                                      height: 30,
-                                      width: 30,
+                                  : FittedBox(
+                                      // height: 30,
+                                      // width: 30,
+                                      // decoration: BoxDecoration(
+                                      //     image: DecorationImage(
+                                      //
+                                      //         image: AssetImage(imageTypeName(
+                                      //             vendor.package!.colorCode ??
+                                      //                 0)))),
+                                      child: Image.asset(
+                                          imageTypeName(
+                                              vendor.package!.colorCode ?? 0),
+                                          fit:BoxFit.cover,
+                                        height: 30,
+                                        width: 30,
+                                        ),
                                     ),
                             ],
-                          ),
+                          )),
                           Text(
                             localizationString(
                                     context, vendor.category?.name) ??
@@ -213,27 +228,30 @@ class CardRandomWidget extends StatelessWidget {
                             },
                           ),
                         const SizedBox(height: 20),
-                        vendor.package?.colorCode == null ||vendor.package?.colorCode ==0?SizedBox():  Row(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Text(
-                              intl.NumberFormat.compact()
-                                  .format(vendor.visits ?? 0),
-                              style: getBoldStyle(
-                                color: ColorManager.primaryColor,
-                              )!
-                                  .copyWith(height: 1),
-                            ),
-                            const SizedBox(
-                              width: 4,
-                            ),
-                            const Icon(
-                              Icons.remove_red_eye,
-                              color: ColorManager.primaryColor,
-                              size: 16,
-                            ),
-                          ],
-                        ),
+                        vendor.package?.colorCode == null ||
+                                vendor.package?.colorCode == 0
+                            ? SizedBox()
+                            : Row(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Text(
+                                    intl.NumberFormat.compact()
+                                        .format(vendor.visits ?? 0),
+                                    style: getBoldStyle(
+                                      color: ColorManager.primaryColor,
+                                    )!
+                                        .copyWith(height: 1),
+                                  ),
+                                  const SizedBox(
+                                    width: 4,
+                                  ),
+                                  const Icon(
+                                    Icons.remove_red_eye,
+                                    color: ColorManager.primaryColor,
+                                    size: 16,
+                                  ),
+                                ],
+                              ),
                       ],
                     )
                   ],
@@ -294,7 +312,7 @@ class InfoCardWithIcon extends StatelessWidget {
     if (label == null || value == null || value == "") return const SizedBox();
     return Row(
       children: [
-        SizedBox( 
+        SizedBox(
           height: 14,
           width: 14,
           child: SvgPicture.asset(

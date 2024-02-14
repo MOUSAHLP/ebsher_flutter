@@ -13,7 +13,9 @@ class CardSubCategory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     var size = (1.sw - 40) * 98;
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
       child: Stack(

@@ -15,6 +15,11 @@ mixin Formatter {
     final NumberFormat dateFormat = NumberFormat("#,###.#");
     return dateFormat.format(number);
   }
+ static String formatTime(String time) {
+    final dateTime = DateTime.parse('1970-01-01 $time');
+    final formattedTime = DateFormat('hh:mm a').format(dateTime);
+    return formattedTime;
+  }
 
 
 }

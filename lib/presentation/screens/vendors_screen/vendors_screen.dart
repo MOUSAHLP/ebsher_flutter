@@ -39,7 +39,7 @@ class VendorsScreen extends StatelessWidget {
     return BlocProvider<VendorsListBloc>(
       create: (BuildContext context) => VendorsListBloc(
           appliedFilter: GetVendorsParams(subCategoryId: subCategoryId))
-        ..add(GetVendorsList(subCategoryId,subCategories )),
+        ..add(GetVendorsList(subCategoryId, subCategories)),
       child: VendorsScreenBody(
         title: title,
         subCategoryId: subCategoryId,
@@ -91,8 +91,7 @@ class VendorsScreenBody extends StatelessWidget {
               return (prev.screenStates != current.screenStates) ||
                   prev.appliedFilters.subCategoryId !=
                       current.appliedFilters.subCategoryId;
-            },
-                builder: (context, state) {
+            }, builder: (context, state) {
               Future.delayed(const Duration(milliseconds: 200)).then((value) {
                 context.read<VendorsListBloc>().vendorsInnerController.scrollTo(
                       index: subCategories.indexWhere(
@@ -123,61 +122,59 @@ class VendorsScreenBody extends StatelessWidget {
                               .read<VendorsListBloc>()
                               .vendorsInnerController,
                           itemBuilder: (context, index1) {
-
-                            if (index1 >= 0 && index1 <  subCategories.length) {
-                              return
-                              GestureDetector(
-                              onTap: () {
-                                context.read<VendorsListBloc>().add(
-                                    ChangeSelectedSubCategory(
-                                        subCategories[index1].id!));
-                              },
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 8.0),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(22),
-                                      color: Colors.grey[900],
-                                      border: Border.all(
-                                          color: state.appliedFilters
-                                                      .subCategoryId ==
-                                                  subCategories[index1].id
-                                              ? ColorManager.primaryColor
-                                              : ColorManager.softYellow,
-                                          width: 3),
-                                      image: DecorationImage(
-                                          image: cachedImageProvider(
-                                              subCategories[index1].image),
-                                          colorFilter: ColorFilter.mode(
-                                              Colors.black.withOpacity(0.4),
-                                              BlendMode.dstATop),
-                                          fit: BoxFit.cover)),
-                                  child: Stack(
-                                    children: [
-                                      Center(
-                                        child: Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 16.0, vertical: 8),
-                                          child: Text(
-                                            localizationString(context,
-                                                subCategories[index1].name)??'',
-                                            style: getBoldStyle(
-                                              color: Colors.white,
-                                              fontSize: FontSizeApp.s12,
+                            if (index1 >= 0 && index1 < subCategories.length) {
+                              return GestureDetector(
+                                onTap: () {
+                                  context.read<VendorsListBloc>().add(
+                                      ChangeSelectedSubCategory(
+                                          subCategories[index1].id!));
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 8.0),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(22),
+                                        color: Colors.grey[900],
+                                        border: Border.all(
+                                            color: state.appliedFilters
+                                                        .subCategoryId ==
+                                                    subCategories[index1].id
+                                                ? ColorManager.primaryColor
+                                                : ColorManager.softYellow,
+                                            width: 3),
+                                        image: DecorationImage(
+                                            image: cachedImageProvider(
+                                                subCategories[index1].image),
+                                            colorFilter: ColorFilter.mode(
+                                                Colors.black.withOpacity(0.4),
+                                                BlendMode.dstATop),
+                                            fit: BoxFit.cover)),
+                                    child: Stack(
+                                      children: [
+                                        Center(
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 16.0, vertical: 8),
+                                            child: Text(
+                                              localizationString(
+                                                      context,
+                                                      subCategories[index1]
+                                                          .name) ??
+                                                  '',
+                                              style: getBoldStyle(
+                                                color: Colors.white,
+                                                fontSize: FontSizeApp.s12,
+                                              ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
                                 ),
-                              ),
-                            );
-
-                            }
-                            else{
-
+                              );
+                            } else {
                               return const Text("");
                             }
                           },
@@ -189,28 +186,24 @@ class VendorsScreenBody extends StatelessWidget {
                   const SizedBox(height: 20),
                   Expanded(
                     child: BlocConsumer<VendorsListBloc, VendorsListState>(
-                      listener: (context, state){
-                      },
-                      builder:(context, state) {
+                      listener: (context, state) {},
+                      builder: (context, state) {
                         if (state.screenStates == ScreenStates.loading) {
                           return const BuildShimmerVendors();
-                        }
-                         else if (state.screenStates == ScreenStates.error) {
+                        } else if (state.screenStates == ScreenStates.error) {
                           return Column(
                             children: [
                               CustomErrorScreen(
                                 onTap: () {
                                   context.read<VendorsListBloc>().add(
                                       GetVendorsList(
-                                          subCategoryId,subCategories ));
+                                          subCategoryId, subCategories));
                                 },
                               ),
                             ],
                           );
-                        }
-
-                         else {
-                           return state.vendorsList.isNotEmpty
+                        } else {
+                          return state.vendorsList.isNotEmpty
                               ? Column(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
@@ -223,38 +216,51 @@ class VendorsScreenBody extends StatelessWidget {
                                         },
                                         child: RefreshIndicator(
                                           onRefresh: () async {
-                                            context
-                                                .read<VendorsListBloc>()
-                                                .add(GetVendorsList(
-                                                    subCategoryId,subCategories
-                                                    ));
+                                            context.read<VendorsListBloc>().add(
+                                                GetVendorsList(subCategoryId,
+                                                    subCategories));
                                           },
                                           child: ListView.builder(
-                                            controller:context.read<VendorsListBloc>().scrollController ,
-                                            physics: const BouncingScrollPhysics(),
+                                            controller: context
+                                                .read<VendorsListBloc>()
+                                                .scrollController,
+                                            physics:
+                                                const BouncingScrollPhysics(),
                                             itemBuilder: (context, index) {
-                                              if (index < state.vendorsList.length) {
-                                                return
-                                                CardRandomWidget(
-                                                  vendor: state
-                                                      .vendorsList[index],
-                                                );}
-                                              else if (state.isLoading ) {
-                                                return  Padding(
-                                                  padding: const EdgeInsets.all(15),
+                                              if (index <
+                                                  state.vendorsList.length) {
+                                                return CardRandomWidget(
+                                                  vendor:
+                                                      state.vendorsList[index],
+                                                );
+                                              } else if (state.isLoading) {
+                                                return Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(15),
                                                   child: Shimmer.fromColors(
-                                                    baseColor: const Color(0xFFd3d7de),
-                                                    highlightColor: const Color(0xFFe2e4e9),
+                                                    baseColor:
+                                                        const Color(0xFFd3d7de),
+                                                    highlightColor:
+                                                        const Color(0xFFe2e4e9),
                                                     child: const Card(
                                                       elevation: 0.0,
-                                                      color: Color.fromRGBO(45, 45, 45, 1.0),
-                                                      shape: RoundedRectangleBorder(
-                                                        borderRadius: BorderRadiusDirectional.only(
-                                                          topStart: Radius.circular(50),
-                                                          bottomStart: Radius.circular(50),
+                                                      color: Color.fromRGBO(
+                                                          45, 45, 45, 1.0),
+                                                      shape:
+                                                          RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadiusDirectional
+                                                                .only(
+                                                          topStart:
+                                                              Radius.circular(
+                                                                  50),
+                                                          bottomStart:
+                                                              Radius.circular(
+                                                                  50),
                                                         ),
                                                       ),
-                                                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                                                      clipBehavior: Clip
+                                                          .antiAliasWithSaveLayer,
                                                       child: SizedBox(
                                                         width: 350,
                                                         height: 100,
@@ -262,19 +268,23 @@ class VendorsScreenBody extends StatelessWidget {
                                                     ),
                                                   ),
                                                 );
-                                              }
-                                              else if (state.hasMoreData) {
-                                                return const Center(child:Padding(
+                                              } else if (state.hasMoreData) {
+                                                return const Center(
+                                                    child: Padding(
                                                   padding: EdgeInsets.all(8.0),
-                                                  child: Icon(Icons.arrow_circle_down,color: ColorManager.primaryColor,),
-                                                ) );
-                                              }
-                                              else {
+                                                  child: Icon(
+                                                    Icons.arrow_circle_down,
+                                                    color: ColorManager
+                                                        .primaryColor,
+                                                  ),
+                                                ));
+                                              } else {
                                                 return Container(); // Return an empty container for other cases
                                               }
                                             },
                                             itemCount:
-                                                state.vendorsList.length + (state.hasMoreData ? 1 : 0),
+                                                state.vendorsList.length +
+                                                    (state.hasMoreData ? 1 : 0),
                                           ),
                                         ),
                                       ),
@@ -289,8 +299,7 @@ class VendorsScreenBody extends StatelessWidget {
                                     )
                                   ],
                                 );
-                         }
-
+                        }
                       },
                     ),
                   )

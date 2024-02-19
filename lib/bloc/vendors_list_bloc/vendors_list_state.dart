@@ -17,17 +17,17 @@ class VendorsListState extends Equatable {
   bool isLoading;
   final bool hasMoreData;
   int currentPage;
-   VendorsListState({
+
+  VendorsListState({
     this.screenStates = ScreenStates.loading,
     this.vendorsList = const [],
     required this.appliedFilters,
     required this.pendingFilters,
     this.error = 'Unknown Error',
     this.showLoadingDialog = false,
-    this.hasMoreData=false,
-    this.isLoading=false,
-     this.currentPage=0,
-
+    this.hasMoreData = false,
+    this.isLoading = false,
+    this.currentPage = 0,
   }) : super();
 
   VendorsListState copyWith({
@@ -53,10 +53,10 @@ class VendorsListState extends Equatable {
           : this.pendingFilters,
       error: error ?? this.error,
       showLoadingDialog: showLoadingDialog ?? this.showLoadingDialog,
-
-      isLoading: isLoading ??this.isLoading,
+      isLoading: isLoading ?? this.isLoading,
       hasMoreData: hasMoreData ?? this.hasMoreData,
-      currentPage: currentPage ??this.currentPage,);
+      currentPage: currentPage ?? this.currentPage,
+    );
   }
 
   @override
@@ -68,8 +68,8 @@ class VendorsListState extends Equatable {
         screenStates,
         error,
         showLoadingDialog,
-    hasMoreData,
-    isLoading,
-    currentPage
+        hasMoreData,
+        isLoading,
+        currentPage
       ];
 }

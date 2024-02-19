@@ -1,5 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../translations.dart';
 
 Future<void> launchSocial(String url) async {
   try {
@@ -11,15 +16,39 @@ Future<void> launchSocial(String url) async {
   }
 }
 
-void launchWhatsApp(String url) async {
-  String phoneNumber = url;
-  String whatsappUrl = 'https://wa.me/$phoneNumber';
+// void launchWhatsApp(String url) async {
+//   print(url);
+//   String phoneNumber = "963954847026";
+//   String whatsappUrl = 'https://wa.me/$phoneNumber';
+//
+//   if (await canLaunchUrl(Uri.parse(whatsappUrl))) {
+//     await launchUrl(Uri.parse(whatsappUrl));
+//   } else {
+//     if (kDebugMode) {
+//       print('Could not launch WhatsApp.');
+//     }
+//   }
+// }
 
-  if (await canLaunchUrl(Uri.parse(whatsappUrl))) {
-    await launchUrl(Uri.parse(whatsappUrl));
+openWhatsApp(String whatsapp, context) async {
+  var whatsappURlAndroid = "whatsapp://send?phone=$whatsapp";
+  var whatappURLIos = "https://wa.me/$whatsapp?text=${Uri.parse("")}";
+  if (Platform.isIOS) {
+    // for iOS phone only
+    if (await canLaunchUrl(Uri.parse(whatappURLIos))) {
+      await launchUrl(Uri.parse(whatappURLIos));
+    } else {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text("Can not open Whatsapp")));
+    }
   } else {
-    if (kDebugMode) {
-      print('Could not launch WhatsApp.');
+    // android , web
+    print("ghina");
+    if (await canLaunchUrl(Uri.parse(whatsappURlAndroid))) {
+      await launchUrl(Uri.parse(whatsappURlAndroid));
+    } else {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text("Can not open Whatsapp")));
     }
   }
 }

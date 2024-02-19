@@ -127,14 +127,12 @@ class VendorsListBloc extends Bloc<VendorsListEvent, VendorsListState> {
           }, (r) {});
         }
       }
-
       if (event is SetPendingSortingValue) {
         pendingFilter = pendingFilter.setNewSortingValue(
           getVendorsParams: event.getVendorsParams,
         );
         emit(state.copyWith(pendingFilters: pendingFilter));
       }
-
       if (event is ToggleIsOpenFilter) {
         if (pendingFilter.isOpen == true) {
           pendingFilter.isOpen = null;
@@ -143,7 +141,6 @@ class VendorsListBloc extends Bloc<VendorsListEvent, VendorsListState> {
         }
         emit(state.copyWith(pendingFilters: pendingFilter));
       }
-
       if (event is ToggleNearByFilter) {
         if (pendingFilter.lat == null) {
           emit(state.copyWith(showLoadingDialog: true));
@@ -161,7 +158,6 @@ class VendorsListBloc extends Bloc<VendorsListEvent, VendorsListState> {
         pendingFilter.rate = event.newRateValue;
         emit(state.copyWith(pendingFilters: pendingFilter));
       }
-
       if (event is ResetPendingFilterParams) {
         pendingFilter = GetVendorsParams.fromGetVendorsParams(appliedFilter);
         emit(state.copyWith(pendingFilters: pendingFilter));

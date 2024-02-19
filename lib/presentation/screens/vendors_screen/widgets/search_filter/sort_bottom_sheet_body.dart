@@ -113,50 +113,53 @@ class SortBottomSheetBody extends StatelessWidget {
                 },
               ),
               const Spacer(),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: CustomButton(
-                  fillColor: ColorManager.softYellow,
-                  label: AppLocalizations.of(context)!.apply,
-                  onTap: () {
-                    Navigator.of(context).pop();
-                    context.read<VendorsListBloc>().add(SetAppliedFilter());
-                    vendorsListBloc.add(RefreshVendorsList());
-      ;
-                  },
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: CustomButton(
+                    fillColor: ColorManager.softYellow,
+                    label: AppLocalizations.of(context)!.apply,
+                    onTap: () {
+                      Navigator.of(context).pop();
+                      context.read<VendorsListBloc>().add(SetAppliedFilter());
+                      vendorsListBloc.add(RefreshVendorsList());
+                    },
+                  ),
                 ),
               ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 8.0, horizontal: 64),
-                child: SizedBox(
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      shadowColor: Colors.transparent,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(
-                            50), // Set the border radius to 50 to make it circular
-                      ),
-                      backgroundColor: Colors.white,
-                      side: const BorderSide(
-                        color: ColorManager.primaryColor,
-                      ),
-                    ),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Expanded(
-                          child: Text(
-                            AppLocalizations.of(context)!.close,
-                            style:
-                                getBoldStyle(color: ColorManager.primaryColor),
-                            textAlign: TextAlign.center,
-                          ),
+              Center(
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 8.0, horizontal: 64),
+                  child: SizedBox(
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        shadowColor: Colors.transparent,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(
+                              50), // Set the border radius to 50 to make it circular
                         ),
-                      ],
+                        backgroundColor: Colors.white,
+                        side: const BorderSide(
+                          color: ColorManager.primaryColor,
+                        ),
+                      ),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            child: Text(
+                              AppLocalizations.of(context)!.close,
+                              style: getBoldStyle(
+                                  color: ColorManager.primaryColor),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),

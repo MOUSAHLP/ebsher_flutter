@@ -1,4 +1,3 @@
-
 import 'package:absher/core/localization_string.dart';
 import 'package:absher/models/vendor_model.dart';
 import 'package:absher/presentation/resources/assets_manager.dart';

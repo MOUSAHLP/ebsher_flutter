@@ -55,7 +55,6 @@ class BaseApiClient {
         }
         return right(converter(response.data));
       } else {
-
         return left(response.data['message']);
       }
     } on DioError catch (e) {

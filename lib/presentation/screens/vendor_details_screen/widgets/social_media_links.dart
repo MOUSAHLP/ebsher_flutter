@@ -55,8 +55,8 @@ class SocialMediaLinksSection extends StatelessWidget {
                         return InkWell(
                           onTap: () async {
                             if (vendor.socialMedia![index].name == "Whatsapp") {
-                              launchWhatsApp(
-                                  vendor.socialMedia![index].pivot!.link ?? "");
+                              openWhatsApp(
+                                  vendor.socialMedia![index].pivot!.link ?? "",context);
                             } else {
                               launchSocial(
                                   vendor.socialMedia![index].pivot!.link ?? "");

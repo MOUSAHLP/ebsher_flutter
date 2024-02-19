@@ -172,7 +172,6 @@ class Package {
     // colorCode = json['package_id'];
 
     colorCode = json['color_code'];
-    print(" ggg ggg   \n ggg ggg ggg \n \n \n ${colorCode}");
   }
 }
 

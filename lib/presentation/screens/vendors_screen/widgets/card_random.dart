@@ -83,12 +83,13 @@ class CardRandomWidget extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          IntrinsicWidth (child:   Row(
+                          IntrinsicWidth(
+                              child: Row(
                             children: [
-                           Expanded(
-                               child:   Text(
+                              Expanded(
+                                  child: Text(
                                 localizationString(context, vendor.name) ?? "",
-                                maxLines:1,
+                                maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: getBoldStyle(
                                   color: ColorManager.primaryColor,
@@ -117,12 +118,12 @@ class CardRandomWidget extends StatelessWidget {
                                       //             vendor.package!.colorCode ??
                                       //                 0)))),
                                       child: Image.asset(
-                                          imageTypeName(
-                                              vendor.package!.colorCode ?? 0),
-                                          fit:BoxFit.cover,
+                                        imageTypeName(
+                                            vendor.package!.colorCode ?? 0),
+                                        fit: BoxFit.cover,
                                         height: 30,
                                         width: 30,
-                                        ),
+                                      ),
                                     ),
                             ],
                           )),
@@ -281,9 +282,11 @@ class IsOpenLabel extends StatelessWidget {
       width: 64,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
-          color: isOpen == 1 ? ColorManager.darkRed : null,
+          color: isOpen == 1 ? ColorManager.backgroundStartColor : null,
           border: Border.all(
-            color: ColorManager.darkRed,
+            color: isOpen == 1
+                ? ColorManager.backgroundStartColor
+                : ColorManager.darkRed,
           )),
       child: Center(
           child: Text(

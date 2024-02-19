@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import '../../data/repos/home_repository.dart';
 import '../../models/params/get_vendors_params.dart';
 import '../../models/sub_category_item_model.dart';
+import '../../models/vendor_model.dart';
 
 class VendorsListBloc extends Bloc<VendorsListEvent, VendorsListState> {
   GetVendorsParams appliedFilter;
@@ -17,7 +18,7 @@ class VendorsListBloc extends Bloc<VendorsListEvent, VendorsListState> {
   ItemScrollController vendorsInnerController = ItemScrollController();
   final ScrollController scrollController = ScrollController();
   List<SubCategoryItemModel> subCategories = [];
-  int maxCount = 10;
+  int maxCount =10;
   VendorsListBloc({required this.appliedFilter})
       : super(VendorsListState(
           appliedFilters: appliedFilter,
@@ -39,9 +40,11 @@ class VendorsListBloc extends Bloc<VendorsListEvent, VendorsListState> {
           }
         }, (r) {
           final hasMoreData = r.length == appliedFilter.maxCount;
+
           emit(state.copyWith(
             screenStates: ScreenStates.success,
-            vendorsList: r,
+            vendorsList: [...state.vendorsList, ...r],
+            // vendorsList: r,
             pendingFilters: pendingFilter,
             appliedFilters: appliedFilter,
             hasMoreData: hasMoreData,

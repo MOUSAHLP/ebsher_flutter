@@ -87,7 +87,8 @@ class VendorModel {
         id: json["id"],
         name: LocalizationStringModel.fromJson(json, "name"),
         description: LocalizationStringModel.fromJson(json, "description"),
-       shortDescription: LocalizationStringModel.fromJson(json, "short_description"),
+        shortDescription:
+            LocalizationStringModel.fromJson(json, "short_description"),
         open: json["open"],
         image: json["image"],
         logo: json["logo"],
@@ -122,8 +123,8 @@ class VendorModel {
         updatedAt: json["updated_at"] == null
             ? null
             : DateTime.parse(json["updated_at"]),
-        openStatus: json["open_status"]
-        ,favoriteStatus: json["favorite_status"] == 1 ? true : false,
+        openStatus: json["open_status"],
+        favoriteStatus: json["favorite_status"] == 1 ? true : false,
         category: json["category"] == null
             ? null
             : Category.fromJson(json["category"]),
@@ -149,8 +150,7 @@ class VendorModel {
             ? []
             : List<VendorModel>.from(
                 json["recomindation"].map((x) => VendorModel.fromJson(x))),
-        package: Package.fromJson(json["package"])
-    );
+        package: Package.fromJson(json["package"]));
   }
 
   static List<VendorModel> listFromJson(Map<String, dynamic> json) {
@@ -170,6 +170,7 @@ class Package {
   Package.fromJson(Map<String, dynamic>? json) {
     if (json == null) return;
     // colorCode = json['package_id'];
+
     colorCode = json['color_code'];
   }
 }

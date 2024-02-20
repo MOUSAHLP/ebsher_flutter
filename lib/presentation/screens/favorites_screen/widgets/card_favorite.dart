@@ -20,7 +20,10 @@ class CardFavorite extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        AppRouter.push(context, VendorDetailsScreen(id: vendorModel.id!));
+        if (vendorModel.package?.colorCode != 0 &&
+            vendorModel.package?.colorCode != null) {
+          AppRouter.push(context, VendorDetailsScreen(id: vendorModel.id!));
+        }
       },
       child: Padding(
         padding: const EdgeInsets.all(8.0),

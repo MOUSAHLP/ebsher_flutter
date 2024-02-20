@@ -36,12 +36,9 @@ class VendorDetailsBloc extends Bloc<VendorDetailsEvent, VendorDetailsState> {
           response.fold((l) {
             vendor!.favoriteStatus = false;
             emit(VendorDetailsSuccess(vendor!));
-          }, (r) {
-
-          });
+          }, (r) {});
         }
       }
-
     });
   }
 }

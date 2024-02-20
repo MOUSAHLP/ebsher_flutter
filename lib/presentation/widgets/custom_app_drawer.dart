@@ -32,15 +32,18 @@ class CustomAppDrawer extends StatelessWidget {
     return Stack(
       children: [
         InkWell(
-          onTap: (){
-            AppRouter.pop(context);
+          onTap: () {
+            if (Navigator.canPop(context)) {
+              AppRouter.pop(context);
+            }
           },
           child: BackdropFilter(
-              filter: ImageFilter.blur(
-                  sigmaX: 5.0,
-                  sigmaY: 5.0), //this is dependent on the import statment above
-              child: Container(
-                  decoration: const BoxDecoration(color: Colors.transparent)),),
+            filter: ImageFilter.blur(
+                sigmaX: 5.0,
+                sigmaY: 5.0), //this is dependent on the import statment above
+            child: Container(
+                decoration: const BoxDecoration(color: Colors.transparent)),
+          ),
         ),
         Padding(
           padding: const EdgeInsets.only(
@@ -57,7 +60,7 @@ class CustomAppDrawer extends StatelessWidget {
                   children: [
                     Column(
                       children: [
-                           Container(
+                        Container(
                           height: 250,
                           decoration: const BoxDecoration(
                             image: DecorationImage(
@@ -69,46 +72,51 @@ class CustomAppDrawer extends StatelessWidget {
                             borderRadius: BorderRadiusDirectional.only(
                                 bottomStart: Radius.circular(50)),
                           ),
-                          child: sl<AuthenticationBloc>().loggedIn? Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                SizedBox(
-                                  width: 80,
-                                  height: 80,
-                                  child: ClipRRect(
-                                      borderRadius:
-                                          BorderRadius.circular(RadiusApp.r50),
-                                      child: CachedImage(
-                                        imageUrl: context
-                                            .read<AuthenticationBloc>()
-                                            .loginResponse!
-                                            .image,
-                                        imageSize: ImageSize.small,
-
-                                      )),
-                                ),
-                                const SizedBox(width: 10),
-                                Column(
+                          child: sl<AuthenticationBloc>().loggedIn
+                              ? Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Text(
-                                      context
-                                          .read<AuthenticationBloc>()
-                                          .loginResponse!
-                                          .name,
-                                      style: getBoldStyle(
-                                          color: Colors.white, fontSize: 23),
-                                    ),
-                                    Text(
-                                        "+963 - ${context.read<AuthenticationBloc>().loginResponse!.phone}",
-                                        textDirection: TextDirection.ltr,
-                                        style: getLightStyle(
-                                            color: Colors.white, fontSize: 17)),
-                                  ],
-                                ),
-                              ]):Container(),
+                                      SizedBox(
+                                        width: 80,
+                                        height: 80,
+                                        child: ClipRRect(
+                                            borderRadius: BorderRadius.circular(
+                                                RadiusApp.r50),
+                                            child: CachedImage(
+                                              imageUrl: context
+                                                  .read<AuthenticationBloc>()
+                                                  .loginResponse!
+                                                  .image,
+                                              imageSize: ImageSize.small,
+                                            )),
+                                      ),
+                                      const SizedBox(width: 10),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            context
+                                                .read<AuthenticationBloc>()
+                                                .loginResponse!
+                                                .name,
+                                            style: getBoldStyle(
+                                                color: Colors.white,
+                                                fontSize: 23),
+                                          ),
+                                          Text(
+                                              "+963 - ${context.read<AuthenticationBloc>().loginResponse!.phone}",
+                                              textDirection: TextDirection.ltr,
+                                              style: getLightStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 17)),
+                                        ],
+                                      ),
+                                    ])
+                              : Container(),
                         ),
                         const SizedBox(
                           height: 10,
@@ -182,44 +190,46 @@ class CustomAppDrawer extends StatelessWidget {
                           AppRouter.push(context, const PrivacyScreen());
                         }),
                         const SizedBox(height: 90),
-                        sl<AuthenticationBloc>().loggedIn?     GestureDetector(
-                          onTap: () {
-                            LogoutConfirmationDialog.handle(context);
-                          },
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                AppLocalizations.of(context)!.logOut,
-                                style: getBoldStyle(
-                                    fontSize: 15,
-                                    color: ColorManager.shadowGrey),
+                        sl<AuthenticationBloc>().loggedIn
+                            ? GestureDetector(
+                                onTap: () {
+                                  LogoutConfirmationDialog.handle(context);
+                                },
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      AppLocalizations.of(context)!.logOut,
+                                      style: getBoldStyle(
+                                          fontSize: 15,
+                                          color: ColorManager.shadowGrey),
+                                    ),
+                                    const SizedBox(width: 10),
+                                    SvgPicture.asset(IconsManager.iconCheckout,
+                                        width: 28, height: 28),
+                                  ],
+                                ),
+                              )
+                            : GestureDetector(
+                                onTap: () {
+                                  AppRouter.push(context,
+                                      const SignInConfirmationScreen());
+                                },
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      AppLocalizations.of(context)!.signIn,
+                                      style: getBoldStyle(
+                                          fontSize: 15,
+                                          color: ColorManager.shadowGrey),
+                                    ),
+                                    const SizedBox(width: 10),
+                                    SvgPicture.asset(IconsManager.iconCheckout,
+                                        width: 28, height: 28),
+                                  ],
+                                ),
                               ),
-                              const SizedBox(width: 10),
-                              SvgPicture.asset(IconsManager.iconCheckout,
-                                  width: 28, height: 28),
-                            ],
-                          ),
-                        ):
-                        GestureDetector(
-                          onTap: () {
-                            AppRouter.push(context, const SignInConfirmationScreen());
-                          },
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                AppLocalizations.of(context)!.signIn,
-                                style: getBoldStyle(
-                                    fontSize: 15,
-                                    color: ColorManager.shadowGrey),
-                              ),
-                              const SizedBox(width: 10),
-                              SvgPicture.asset(IconsManager.iconCheckout,
-                                  width: 28, height: 28),
-                            ],
-                          ),
-                        ),
                       ],
                     ),
                   ],
@@ -245,7 +255,6 @@ class CustomAppDrawer extends StatelessWidget {
             }),
         GestureDetector(
             onTap: () {
-
               DataStore.instance.setLang("ar");
             },
             child: Text("عربي",

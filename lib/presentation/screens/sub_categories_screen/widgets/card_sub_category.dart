@@ -13,7 +13,6 @@ class CardSubCategory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     var size = (1.sw - 40) * 98;
 
     return Padding(

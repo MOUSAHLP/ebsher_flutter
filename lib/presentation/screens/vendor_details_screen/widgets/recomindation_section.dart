@@ -1,4 +1,3 @@
-
 import 'package:absher/presentation/resources/font_app.dart';
 import 'package:absher/presentation/resources/style_app.dart';
 import 'package:absher/presentation/screens/favorites_screen/widgets/card_favorite.dart';
@@ -11,6 +10,7 @@ import '../../../../models/vendor_model.dart';
 
 import '../../../resources/assets_manager.dart';
 import '../../../resources/color_manager.dart';
+
 class RecomindationSection extends StatelessWidget {
   const RecomindationSection({Key? key, required this.vendor})
       : super(key: key);
@@ -28,7 +28,7 @@ class RecomindationSection extends StatelessWidget {
               width: 8,
             ),
             Text(
-             AppLocalizations.of(context)!.recomindation,
+              AppLocalizations.of(context)!.recomindation,
               style: getRegularStyle(
                 color: ColorManager.primaryColor,
                 fontSize: FontSizeApp.s12,
@@ -51,5 +51,4 @@ class RecomindationSection extends StatelessWidget {
       ],
     );
   }
-  }
-
+}

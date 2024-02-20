@@ -21,7 +21,6 @@ class VendorDetailsScreen extends StatelessWidget {
   VendorDetailsScreen({Key? key, required this.id}) : super(key: key);
   int id;
 
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider<VendorDetailsBloc>(
@@ -30,7 +29,6 @@ class VendorDetailsScreen extends StatelessWidget {
         // lazy: false,
         child: VendorDetailsScreenBody(
           id: id,
-
         ));
   }
 }
@@ -134,7 +132,6 @@ class _VendorDetailsScreenBodyState extends State<VendorDetailsScreenBody> {
                         collapseMode: CollapseMode.pin,
                         background: ExpandedHeader(
                           vendor: state.vendorModel,
-
                         ),
                       ),
                       actions: _isShrink

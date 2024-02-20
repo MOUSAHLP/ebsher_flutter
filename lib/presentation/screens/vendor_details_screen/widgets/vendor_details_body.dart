@@ -50,21 +50,31 @@ class VendorDetailsBody extends StatelessWidget {
                               children: [
                                 Expanded(
                                   child: Text(
-                                  localizationString(context, vendor.name) ?? '',
-                                  maxLines:2,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: getBoldStyle(
-                                    color: ColorManager.primaryColor,
-                                    fontSize: FontSizeApp.s26,
+                                    localizationString(context, vendor.name) ??
+                                        '',
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: getBoldStyle(
+                                      color: ColorManager.primaryColor,
+                                      fontSize: FontSizeApp.s26,
+                                    ),
                                   ),
-                                  ),
-                                )
-                                 ,const SizedBox(width: 5,),
-                                vendor.package?.colorCode ==null?
-                                Image.asset(
-                                  imageTypeName(0) ,  height:20,width:20,):
-                                Image.asset(
-                                  imageTypeName(vendor.package!.colorCode??0)  ,  height:30,width:30,),
+                                ),
+                                const SizedBox(
+                                  width: 5,
+                                ),
+                                vendor.package?.colorCode == null
+                                    ? Image.asset(
+                                        imageTypeName(0),
+                                        height: 20,
+                                        width: 20,
+                                      )
+                                    : Image.asset(
+                                        imageTypeName(
+                                            vendor.package!.colorCode ?? 0),
+                                        height: 30,
+                                        width: 30,
+                                      ),
                               ],
                             ),
                           ),

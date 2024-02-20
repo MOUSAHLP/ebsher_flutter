@@ -12,6 +12,7 @@ import 'package:absher/presentation/widgets/favorite_heart.dart';
 import 'package:absher/translations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../../../bloc/favorites_list_bloc/favorites_list_bloc.dart';
 import '../../../../bloc/favorites_list_bloc/favorites_list_event.dart';
@@ -189,70 +190,75 @@ class CardRandomWidget extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Column(
-                      children: [
-                        IsOpenLabel(
-                          isOpen: vendor.isOpen,
-                        ),
-                        const SizedBox(height: 20),
-                        if (!fromSearch)
-                          BlocBuilder<FavoritesListBloc, FavoritesListState>(
-                            builder: (context, state) {
-                              return FavoriteHeart(
-                                id: vendor.id!,
-                                isToggled: context
-                                    .read<FavoritesListBloc>()
-                                    .isFavoriteRestaurant(vendor.id!),
-                                onTap: () {
-                                  context.read<FavoritesListBloc>().add(
-                                      ChangeFavoriteStatusRestaurant(
-                                          vendor.id!));
-                                },
-                              );
-                            },
+                    SizedBox(
+                      width: 70,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          if(vendor.packageId == 43)
+                          IsOpenLabel(
+                            isOpen: vendor.isOpen,
                           ),
-                        if (fromSearch)
-                          BlocBuilder<FavoritesListBloc, FavoritesListState>(
-                            builder: (context, state) {
-                              return FavoriteHeart(
-                                id: vendor.id!,
-                                isToggled: context
-                                    .read<FavoritesListBloc>()
-                                    .isFavoriteRestaurant(vendor.id!),
-                                onTap: () {
-                                  context.read<FavoritesListBloc>().add(
-                                      ChangeFavoriteStatusRestaurant(
-                                          vendor.id!));
-                                },
-                              );
-                            },
-                          ),
-                        const SizedBox(height: 20),
-                        vendor.package?.colorCode == null ||
-                                vendor.package?.colorCode == 0
-                            ? SizedBox()
-                            : Row(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  Text(
-                                    intl.NumberFormat.compact()
-                                        .format(vendor.visits ?? 0),
-                                    style: getBoldStyle(
+                          const SizedBox(height: 20),
+                          if (!fromSearch)
+                            BlocBuilder<FavoritesListBloc, FavoritesListState>(
+                              builder: (context, state) {
+                                return FavoriteHeart(
+                                  id: vendor.id!,
+                                  isToggled: context
+                                      .read<FavoritesListBloc>()
+                                      .isFavoriteRestaurant(vendor.id!),
+                                  onTap: () {
+                                    context.read<FavoritesListBloc>().add(
+                                        ChangeFavoriteStatusRestaurant(
+                                            vendor.id!));
+                                  },
+                                );
+                              },
+                            ),
+                          if (fromSearch)
+                            BlocBuilder<FavoritesListBloc, FavoritesListState>(
+                              builder: (context, state) {
+                                return FavoriteHeart(
+                                  id: vendor.id!,
+                                  isToggled: context
+                                      .read<FavoritesListBloc>()
+                                      .isFavoriteRestaurant(vendor.id!),
+                                  onTap: () {
+                                    context.read<FavoritesListBloc>().add(
+                                        ChangeFavoriteStatusRestaurant(
+                                            vendor.id!));
+                                  },
+                                );
+                              },
+                            ),
+                          const SizedBox(height: 20),
+                          vendor.package?.colorCode == null ||
+                                  vendor.package?.colorCode == 0
+                              ? SizedBox()
+                              : Row(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    Text(
+                                      intl.NumberFormat.compact()
+                                          .format(vendor.visits ?? 0),
+                                      style: getBoldStyle(
+                                        color: ColorManager.primaryColor,
+                                      )!
+                                          .copyWith(height: 1),
+                                    ),
+                                    const SizedBox(
+                                      width: 4,
+                                    ),
+                                    const Icon(
+                                      Icons.remove_red_eye,
                                       color: ColorManager.primaryColor,
-                                    )!
-                                        .copyWith(height: 1),
-                                  ),
-                                  const SizedBox(
-                                    width: 4,
-                                  ),
-                                  const Icon(
-                                    Icons.remove_red_eye,
-                                    color: ColorManager.primaryColor,
-                                    size: 16,
-                                  ),
-                                ],
-                              ),
-                      ],
+                                      size: 16,
+                                    ),
+                                  ],
+                                ),
+                        ],
+                      ),
                     )
                   ],
                 ),

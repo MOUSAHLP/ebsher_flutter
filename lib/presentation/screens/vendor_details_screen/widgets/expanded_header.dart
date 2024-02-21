@@ -34,10 +34,28 @@ class ExpandedHeader extends StatelessWidget {
       color: Colors.white,
       child: Stack(
         children: [
-          CachedImage(
-            imageUrl: vendor.image??vendor.logo,
-            height: 1.sw,
-            width: 1.sw,
+          InkWell(
+            onTap: (){
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    backgroundColor: Colors.transparent,
+                    content:  CachedImage(
+                      imageUrl: vendor.image??vendor.logo,
+                      height: 1.sw,
+                      width: 1.sw,
+                    ),
+
+                  );
+                },
+              );
+            },
+            child: CachedImage(
+              imageUrl: vendor.image??vendor.logo,
+              height: 1.sw,
+              width: 1.sw,
+            ),
           ),
           Positioned(
             top: window.padding.top / window.devicePixelRatio,

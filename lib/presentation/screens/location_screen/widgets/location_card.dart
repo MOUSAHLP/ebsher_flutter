@@ -32,13 +32,16 @@ class LocationCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: GestureDetector(
-        onTap: () {
+        onTap: () { if (
+        vendorModel.package?.colorCode != 0 &&
+            vendorModel.package?.colorCode != null) {
           AppRouter.push(
               context,
               VendorDetailsScreen(
                 id: vendorModel.id!,
 
               ));
+        }
         },
         child: Stack(
           alignment: AlignmentDirectional.bottomEnd,

@@ -8,6 +8,8 @@ import '../translations.dart';
 
 Future<void> launchSocial(String url) async {
   try {
+    print("launchSocial");
+    print(url);
     await launchUrl(Uri.parse(url));
   } catch (e) {
     if (kDebugMode) {
@@ -81,4 +83,12 @@ void launchBrowser(String link) async {
   } else {
     throw 'Could not launch $link';
   }
+}
+
+
+void launchUrlFaceBook(String urlFaceBook) async{
+  var url = 'fb://facewebmodal/f?href=$urlFaceBook';
+  if (await canLaunchUrl(Uri.parse(url))) {
+    await launchUrl(Uri.parse( url), );
+  } else { throw 'There was a problem to open the url: $url'; }
 }

@@ -10,7 +10,7 @@ class LocationRepository {
   static Future<Either<String, List<VendorModel>>> getVendorsNear(
       {required double latitude, required double longitude}) {
     return BaseApiClient.get<List<VendorModel>>(
-        url: ApiConst.getNearByVendors(latitude: 33.33, longitude: 36.34),
+        url: ApiConst.getNearByVendors(latitude: latitude, longitude: longitude),
         converter: (e) {
           return VendorModel.listFromJson(e);
         });

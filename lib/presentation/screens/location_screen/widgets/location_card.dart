@@ -130,13 +130,13 @@ class LocationCard extends StatelessWidget {
                                         svgAsset: IconsManager.iconLocation,
                                         label:
                                             AppLocalizations.of(context)!.address,
-                                        value: vendorModel.address!,
+                                        value: vendorModel.address??"",
                                       ),
                                       const SizedBox(height: 7),
                                       InfoCardWithIcon(
                                         svgAsset: IconsManager.iconPhone,
                                         label: AppLocalizations.of(context)!.phone,
-                                        value: vendorModel.phone!,
+                                        value: vendorModel.phone??"",
                                       ),
                                     ],
                                   ),

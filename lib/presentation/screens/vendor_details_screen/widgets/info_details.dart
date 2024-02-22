@@ -1,6 +1,7 @@
 import 'package:absher/presentation/resources/color_manager.dart';
 import 'package:absher/presentation/resources/style_app.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class InfoDetails extends StatelessWidget {
@@ -26,7 +27,7 @@ class InfoDetails extends StatelessWidget {
       child: Row(
         children: [
           SizedBox(
-            height: 23,
+          height: 23,
             width: 23,
             child: SvgPicture.asset(
               svgAsset,
@@ -38,6 +39,7 @@ class InfoDetails extends StatelessWidget {
             onTap: onTap != null ? () => onTap!() : null,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
                   label!,
@@ -45,14 +47,21 @@ class InfoDetails extends StatelessWidget {
                     color: ColorManager.labelGrey,
                     fontSize: 12,
                   )?.copyWith(height: 1),
+
                 ),
                 const SizedBox(height: 2),
-                Text(
-                  value!,
-                  style: getRegularStyle(
-                    color: ColorManager.shadowGrey,
-                    fontSize: 14,
-                  )?.copyWith(height: 1),
+                SizedBox(
+                  width: 1.sw-80,
+
+                  child: Text(
+                    value!,
+                    style: getRegularStyle(
+                      color: ColorManager.shadowGrey,
+                      fontSize: 14,
+                    )?.copyWith(height: 1),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
               ],
             ),

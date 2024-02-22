@@ -1,4 +1,5 @@
 
+import 'package:absher/presentation/resources/color_manager.dart';
 import 'package:absher/presentation/widgets/accessories/cached_image.dart';
 import 'package:flutter/material.dart';
 
@@ -17,7 +18,7 @@ class MarkerWidget extends StatelessWidget {
       children: [
         Icon(
           Icons.add_location,
-          color: HexColor.fromHex(colors),
+        color: colors=="null"||colors.isEmpty?ColorManager.primaryColor:HexColor.fromHex(colors),
           size: 50,
         ),
         Positioned(
@@ -27,12 +28,13 @@ class MarkerWidget extends StatelessWidget {
             width: 20,
             height: 20,
             decoration: BoxDecoration(
-                shape: BoxShape.circle, color: HexColor.fromHex(colors)),
+                shape: BoxShape.circle,
+                color:colors=="null"||colors.isEmpty?ColorManager.primaryColor:HexColor.fromHex(colors)
+            ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(50),
-              child: CachedImage(
-                imageUrl: image,
-
+              child:  CachedImage(
+                imageUrl: image=="null"||image.isEmpty?"":image,
               ),
             ),
           ),

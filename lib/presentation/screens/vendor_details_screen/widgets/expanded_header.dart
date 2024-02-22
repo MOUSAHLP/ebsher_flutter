@@ -42,9 +42,12 @@ class ExpandedHeader extends StatelessWidget {
                   return AlertDialog(
                     backgroundColor: Colors.transparent,
                     content:  CachedImage(
+
                       imageUrl: vendor.image??vendor.logo,
-                      height: 1.sw,
-                      width: 1.sw,
+
+fit: BoxFit.cover,
+
+
                     ),
 
                   );

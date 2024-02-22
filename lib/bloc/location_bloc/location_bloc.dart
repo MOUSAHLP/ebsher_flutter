@@ -44,9 +44,14 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
           }, (r) {
             allVendors = r;
             for (VendorModel vendor in allVendors) {
-              if (!allCategories
-                  .any((element) => element.id == vendor.category!.id)) {
-                allCategories.add(vendor.category!);
+              if(vendor.category!=null) {
+                if (!allCategories
+                    .any((element) => element.id == vendor.category?.id)) {
+                  print("vvvvvvvvvvv");
+                  // print(vendor.categoryId);
+                  // print(vendor.category);
+                  allCategories.add(vendor.category!);
+                }
               }
             }
             selectedCategories.addAll(allCategories);
@@ -181,9 +186,11 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
   void refreshSelectedVendorsList() {
     selectedVendors.clear();
     for (VendorModel vendor in allVendors) {
-      if (selectedCategories
-          .any((element) => element.id == vendor.category!.id)) {
-        selectedVendors.add(vendor);
+      if(vendor.category!=null) {
+        if (selectedCategories
+            .any((element) => element.id == vendor.category!.id)) {
+          selectedVendors.add(vendor);
+        }
       }
     }
   }
@@ -242,9 +249,9 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
               onTap: () {
                 add(ClickMarker(i));
               }),
-          child: MarkerWidget(
+          child:selectedVendors[i].category!=null? MarkerWidget(
               image: selectedVendors[i].category!.thumbnail!,
-              colors: selectedVendors[i].category!.color!)));
+              colors: selectedVendors[i].category!.color!):SizedBox()));
     }
   }
 }

@@ -15,6 +15,7 @@ class AdsCarouselSlider extends StatefulWidget {
 
 class _AdsCarouselSliderState extends State<AdsCarouselSlider> {
   int currentIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return Column(

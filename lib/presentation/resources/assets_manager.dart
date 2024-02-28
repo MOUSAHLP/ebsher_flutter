@@ -70,6 +70,7 @@ class IconsManager {
   static const String iconLeftArrow = "$iconPath/leftArrow.svg";
   static const String iconRightArrow = "$iconPath/rightArrow.svg";
 
+  static const String iconBook = "$iconPath/book_user.svg";
   static const String iconDogs = "$iconPath/dogs_icon.svg";
   static const String iconEmail = "$iconPath/email_icon.svg";
   static const String iconFax = "$iconPath/fax_icon.svg";

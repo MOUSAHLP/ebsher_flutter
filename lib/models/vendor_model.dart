@@ -39,6 +39,7 @@ class VendorModel {
   List<Banner>? banners;
   List<VendorModel>? recomindation;
   Package? package;
+  String? url;
 
   VendorModel(
       {this.id,
@@ -78,12 +79,16 @@ class VendorModel {
       this.banners,
       this.recomindation,
       this.package,
-      this.shortDescription});
+      this.shortDescription,
+
+      this.url
+      });
 
   factory VendorModel.fromJson(Map<String, dynamic> json) {
     print("Package.fromJson");
     print(json);
     return VendorModel(
+     // url: json["url"],
         id: json["id"],
         name: LocalizationStringModel.fromJson(json, "name"),
         description: LocalizationStringModel.fromJson(json, "description"),

@@ -2,20 +2,20 @@ import 'package:absher/core/localization_string.dart';
 import 'package:absher/models/vendor_model.dart';
 import 'package:absher/presentation/resources/assets_manager.dart';
 import 'package:absher/presentation/resources/font_app.dart';
-import 'package:absher/presentation/screens/vendor_details_screen/widgets/custom_date.dart';
 import 'package:absher/presentation/screens/vendor_details_screen/widgets/location_details_widget.dart';
 import 'package:absher/presentation/screens/vendor_details_screen/widgets/recomindation_section.dart';
 import 'package:absher/presentation/screens/vendor_details_screen/widgets/services_section.dart';
-import 'package:absher/presentation/screens/vendor_details_screen/widgets/my_location.dart';
 import 'package:absher/presentation/screens/vendor_details_screen/widgets/social_media_links.dart';
-import 'package:absher/presentation/screens/vendor_details_screen/widgets/vendor_details_body.dart';
 import 'package:absher/presentation/screens/vendors_screen/widgets/card_random.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../../../core/app_type/type_image.dart';
+import '../../../../models/advertisement_response.dart';
 import '../../../resources/color_manager.dart';
 import '../../../resources/style_app.dart';
+import '../../../widgets/ads_carousel_slider.dart';
 import 'card_description.dart';
+import 'company_profile.dart';
 import 'details_section.dart';
 import 'open_hours_section.dart';
 
@@ -138,6 +138,7 @@ class VendorDetailsBody extends StatelessWidget {
                 OpenHourSection(vendor: vendor),
 
                 SocialMediaLinksSection(vendor: vendor),
+                CompanyProfile(vendor: vendor,),
                 // vendor.customDate!=null? CustomDate(vendor: vendor):SizedBox(),
                 vendor.description != null
                     ? CardDescription(vendor: vendor)
@@ -154,7 +155,12 @@ class VendorDetailsBody extends StatelessWidget {
                         longitude: double.parse(vendor.longitude ?? "0"),
                         latitude: double.parse(vendor.latitude ?? "0"))
                     : const SizedBox(),
-                RecomindationSection(vendor: vendor)
+                const SizedBox(height: 20,),
+                const Divider(thickness: 2),
+                const SizedBox(height: 15,),
+                AdsCarouselSlider(  ads: [AdvertisementsResponse(
+                    image: ImageManager.appLogo)]),
+                //RecomindationSection(vendor: vendor)
               ],
             ),
           ),

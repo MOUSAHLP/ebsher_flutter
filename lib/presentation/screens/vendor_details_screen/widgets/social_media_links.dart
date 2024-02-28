@@ -1,18 +1,13 @@
-import 'package:absher/core/app_router/app_router.dart';
 import 'package:absher/core/launcher.dart';
 import 'package:absher/models/vendor_model.dart';
 import 'package:absher/presentation/resources/assets_manager.dart';
 import 'package:absher/presentation/resources/color_manager.dart';
 import 'package:absher/presentation/resources/font_app.dart';
 import 'package:absher/presentation/resources/style_app.dart';
-import 'package:absher/presentation/screens/vendor_details_screen/widgets/web_view_page.dart';
 import 'package:absher/presentation/widgets/accessories/cached_image.dart';
 import 'package:absher/translations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:url_launcher/url_launcher.dart';
-
-import '../../../../core/formatter.dart';
 
 class SocialMediaLinksSection extends StatelessWidget {
   const SocialMediaLinksSection({Key? key, required this.vendor})

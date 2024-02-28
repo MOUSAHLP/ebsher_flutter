@@ -7,7 +7,7 @@ class VendorModel {
   LocalizationStringModel? shortDescription;
   String? image;
   String? logo;
-  String? open;
+
   String? close;
   String? phone;
   String? phone1;
@@ -46,7 +46,7 @@ class VendorModel {
       this.description,
       this.image,
       this.logo,
-      this.open,
+
       this.close,
       this.phone,
       this.phone1,
@@ -89,7 +89,7 @@ class VendorModel {
         description: LocalizationStringModel.fromJson(json, "description"),
         shortDescription:
             LocalizationStringModel.fromJson(json, "short_description"),
-        open: json["open"],
+
         image: json["image"],
         logo: json["logo"],
         close: json["close"],

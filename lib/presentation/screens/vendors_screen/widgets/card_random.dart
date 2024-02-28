@@ -196,7 +196,7 @@ class CardRandomWidget extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          if(vendor.packageId == 43)
+                         if(vendor.packageId == 43)
                           IsOpenLabel(
                             isOpen: vendor.isOpen,
                           ),

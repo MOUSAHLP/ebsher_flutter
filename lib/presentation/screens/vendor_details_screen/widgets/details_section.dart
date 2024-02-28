@@ -28,6 +28,7 @@ class DetailsSection extends StatelessWidget {
           svgAsset: IconsManager.iconPhone,
           label: AppLocalizations.of(context)!.phone,
           value: vendor.phone,
+          onTap: () => launchPhoneCall(vendor.phone ?? ""),
         ),
         InfoDetails(
           svgAsset: IconsManager.iconPhone,

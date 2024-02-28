@@ -37,6 +37,7 @@ class VendorModel {
   List<SocialMedia>? socialMedia;
   List<Feature>? features;
   List<Banner>? banners;
+  List<Images>? images;
   List<VendorModel>? recomindation;
   Package? package;
   String? url;
@@ -82,13 +83,14 @@ class VendorModel {
       this.shortDescription,
 
       this.url
+     ,
+      this.images
       });
 
   factory VendorModel.fromJson(Map<String, dynamic> json) {
     print("Package.fromJson");
     print(json);
     return VendorModel(
-     // url: json["url"],
         id: json["id"],
         name: LocalizationStringModel.fromJson(json, "name"),
         description: LocalizationStringModel.fromJson(json, "description"),
@@ -155,7 +157,11 @@ class VendorModel {
             ? []
             : List<VendorModel>.from(
                 json["recomindation"].map((x) => VendorModel.fromJson(x))),
-        package: Package.fromJson(json["package"]));
+        package: Package.fromJson(json["package"]),
+      images: json["images"] == null
+          ? []
+          : List<Images>.from(json["images"].map((x) => Images.fromJson(x))),
+    );
   }
 
   static List<VendorModel> listFromJson(Map<String, dynamic> json) {
@@ -489,6 +495,24 @@ class SocialMediaPivot {
         "social_media_id": socialMediaId,
         "link": link,
       };
+}
+class Images {
+  int? id;
+  int? vendorId;
+  String? image;
+
+  Images({
+    this.id,
+    this.vendorId,
+    this.image,
+  });
+
+  factory Images.fromJson(Map<String, dynamic> json) =>
+      Images(
+        id: json["id"],
+        vendorId: json["vendor_id"],
+        image: json["image"],
+      );
 }
 
 class SubCategory {

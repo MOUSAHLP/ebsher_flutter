@@ -5,6 +5,10 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../core/app_router/app_router.dart';
+import '../../core/launcher.dart';
+import '../screens/vendor_details_screen/vendor_details_screen.dart';
+
 class AdsCarouselSlider extends StatefulWidget {
   const AdsCarouselSlider({Key? key, required this.ads}) : super(key: key);
   final List<AdvertisementsResponse> ads;
@@ -43,9 +47,27 @@ class _AdsCarouselSliderState extends State<AdsCarouselSlider> {
                   ),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(RadiusApp.r27),
-                    child: CachedImage(
-                      imageUrl: ad.image,
-                      fit: BoxFit.fill,
+                    child: GestureDetector(
+                      onTap: () {
+
+                        if(ad.url!=null)
+                          {
+                            if(ad.url.toString().contains("http"))
+                            {
+                              launchBrowser(ad.url??"");
+                            }
+                            else
+                            {
+                              AppRouter.pushReplacement(context, VendorDetailsScreen(id: int.parse(ad.url??'')));
+                            }
+                          }
+
+
+                      },
+                      child: CachedImage(
+                        imageUrl: ad.image,
+                        fit: BoxFit.fill,
+                      ),
                     ),
                   ),
                 );

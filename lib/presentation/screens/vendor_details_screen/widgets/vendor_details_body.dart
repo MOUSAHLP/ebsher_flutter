@@ -138,6 +138,7 @@ class VendorDetailsBody extends StatelessWidget {
                 OpenHourSection(vendor: vendor),
 
                 SocialMediaLinksSection(vendor: vendor),
+                if(vendor.companyProfile!=null)
                 CompanyProfile(vendor: vendor,),
                 // vendor.customDate!=null? CustomDate(vendor: vendor):SizedBox(),
                 vendor.description != null
@@ -158,8 +159,8 @@ class VendorDetailsBody extends StatelessWidget {
                 const SizedBox(height: 20,),
                 const Divider(thickness: 2),
                 const SizedBox(height: 15,),
-                AdsCarouselSlider(  ads: [AdvertisementsResponse(
-                    image: ImageManager.appLogo)]),
+                if(vendor.images!=null && vendor.images?.isNotEmpty==true)
+                AdsCarouselSlider(  ads: vendor.images?.map((e) => AdvertisementsResponse(image: e.image??'')).toList()??[]),
                 //RecomindationSection(vendor: vendor)
               ],
             ),

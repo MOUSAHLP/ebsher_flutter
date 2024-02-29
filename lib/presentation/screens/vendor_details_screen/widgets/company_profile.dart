@@ -46,10 +46,14 @@ class CompanyProfile extends StatelessWidget {
           padding:  const EdgeInsets.symmetric(vertical: 8.0),
           child: CustomButton(
             onTap: () {
-              launchUrl(
-                  Uri.parse("http://www.chrome.com"),
-                  mode: LaunchMode.externalApplication
-              );
+
+
+                  launchUrl(
+                      Uri.parse(vendor.companyProfile??''),
+                      mode: LaunchMode.externalApplication
+                  );
+
+
             },
             label: "view",
             fillColor: ColorManager.lightBlueColor,

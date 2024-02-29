@@ -39,7 +39,9 @@ class VendorModel {
   List<Banner>? banners;
   List<VendorModel>? recomindation;
   Package? package;
-  String? url;
+  String? companyProfile;
+  List<ImageModel>? images;
+
 
   VendorModel(
       {this.id,
@@ -81,7 +83,8 @@ class VendorModel {
       this.package,
       this.shortDescription,
 
-      this.url
+      this.companyProfile,
+        this.images
       });
 
   factory VendorModel.fromJson(Map<String, dynamic> json) {
@@ -90,6 +93,7 @@ class VendorModel {
     return VendorModel(
      // url: json["url"],
         id: json["id"],
+        companyProfile: json['company_profile'],
         name: LocalizationStringModel.fromJson(json, "name"),
         description: LocalizationStringModel.fromJson(json, "description"),
         shortDescription:
@@ -155,7 +159,12 @@ class VendorModel {
             ? []
             : List<VendorModel>.from(
                 json["recomindation"].map((x) => VendorModel.fromJson(x))),
-        package: Package.fromJson(json["package"]));
+        package: Package.fromJson(json["package"]),
+    images: json["images"] == null
+    ? []
+        : List<ImageModel>.from(
+    json["images"].map((x) => ImageModel.fromJson(x))),
+    );
   }
 
   static List<VendorModel> listFromJson(Map<String, dynamic> json) {
@@ -654,4 +663,28 @@ class Recomindation {
             ? null
             : Category.fromJson(json["category"]),
       );
+}
+
+class ImageModel {
+  int? id;
+  int? vendorId;
+  String? image;
+
+  ImageModel({
+    this.id,
+    this.vendorId,
+    this.image,
+  });
+
+  factory ImageModel.fromJson(Map<String, dynamic> json) => ImageModel(
+    id: json["id"],
+    vendorId: json["vendor_id"],
+    image: json["image"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "id":id,
+    "vendor_id": vendorId,
+    "image": image,
+  };
 }

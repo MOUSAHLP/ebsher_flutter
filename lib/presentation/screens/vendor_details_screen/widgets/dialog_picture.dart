@@ -12,7 +12,7 @@ class CustomDilog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (photosUrls.banners!.isEmpty) return Center(child: Text(AppLocalizations.of(context)!.noThing,style: getBoldStyle(color: Colors.white),));
+    if (photosUrls.images!.isEmpty) return Center(child: Text(AppLocalizations.of(context)!.noThing,style: getBoldStyle(color: Colors.white),));
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -28,10 +28,10 @@ class CustomDilog extends StatelessWidget {
               viewportFraction: 1.0,
               scrollDirection: Axis.horizontal,
               onPageChanged: (index, reason) {}),
-          items: List.generate(photosUrls.banners!.length, (index) {
+          items: List.generate(photosUrls.images!.length, (index) {
             return ClipRRect(
               borderRadius: BorderRadius.circular(21),
-              child: CachedImage(imageUrl:photosUrls.banners![index].image ),
+              child: CachedImage(imageUrl:photosUrls.images![index].image),
             );
           }),
         ),

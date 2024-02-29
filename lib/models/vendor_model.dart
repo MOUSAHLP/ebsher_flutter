@@ -91,7 +91,6 @@ class VendorModel {
     print("Package.fromJson");
     print(json);
     return VendorModel(
-     // url: json["url"],
         id: json["id"],
         companyProfile: json['company_profile'],
         name: LocalizationStringModel.fromJson(json, "name"),

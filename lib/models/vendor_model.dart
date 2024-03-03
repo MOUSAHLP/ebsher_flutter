@@ -164,7 +164,7 @@ class VendorModel {
     );
   }
 
-  static List<VendorModel> listFromJson(Map<String, dynamic> json) {
+  static List<VendorModel>  listFromJson(Map<String, dynamic> json) {
     return json == null
         ? []
         : json["data"]

@@ -14,6 +14,7 @@ class GetVendorsList extends VendorsListEvent {
        this.subCategories
       );
 }
+
 class GetVendorsListPagination extends VendorsListEvent {
   final int subCategoryId;
   final List<SubCategoryItemModel>? subCategories;
@@ -64,7 +65,23 @@ class SetAppliedFilter extends VendorsListEvent {}
 class ClearSortValue extends VendorsListEvent {}
 
 class ClearFilterValues extends VendorsListEvent {}
+
 class ChangeStatusList extends VendorsListEvent {
   VendorModel vendorFavorit;
   ChangeStatusList(this.vendorFavorit);
 }
+
+class GetCityNameEvent extends VendorsListEvent{
+
+}
+
+class SelectedCityNameEvent extends VendorsListEvent {}
+
+class GetRegionNameEvent extends VendorsListEvent {}
+
+class SelectedRegionNameEvent extends VendorsListEvent {}
+
+
+
+
+

@@ -45,8 +45,7 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
             allVendors = r;
             for (VendorModel vendor in allVendors) {
               if(vendor.category!=null) {
-                if (!allCategories
-                    .any((element) => element.id == vendor.category?.id)) {
+                if (!allCategories.any((element) => element.id == vendor.category?.id)) {
                   print("vvvvvvvvvvv");
                   // print(vendor.categoryId);
                   // print(vendor.category);

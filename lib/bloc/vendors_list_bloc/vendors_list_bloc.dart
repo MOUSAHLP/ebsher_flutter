@@ -2,6 +2,7 @@ import 'package:absher/bloc/vendors_list_bloc/vendors_list_event.dart';
 import 'package:absher/bloc/vendors_list_bloc/vendors_list_state.dart';
 import 'package:absher/core/app_enums.dart';
 import 'package:absher/data/repos/favorite_repository.dart';
+import 'package:absher/models/city_name_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:overlay_support/overlay_support.dart';
@@ -18,7 +19,8 @@ class VendorsListBloc extends Bloc<VendorsListEvent, VendorsListState> {
   ItemScrollController vendorsInnerController = ItemScrollController();
   final ScrollController scrollController = ScrollController();
   List<SubCategoryItemModel> subCategories = [];
-  int maxCount =10;
+  int maxCount = 10;
+
   VendorsListBloc({required this.appliedFilter})
       : super(VendorsListState(
           appliedFilters: appliedFilter,
@@ -79,12 +81,15 @@ class VendorsListBloc extends Bloc<VendorsListEvent, VendorsListState> {
         add(RefreshVendorsList());
       }
       if (event is RefreshVendorsList) {
-        emit(state.copyWith(
-            screenStates: ScreenStates.loading, appliedFilters: appliedFilter));
+        emit(state.copyWith(screenStates: ScreenStates.loading, appliedFilters: appliedFilter));
         state.vendorsList.clear();
         appliedFilter.maxCount = maxCount;
         appliedFilter.skipCount = state.vendorsList.length;
-        print(appliedFilter.subCategoryId);
+        print('-----------regionIdPara---------------');
+        print('-----------regionIdPara---------------');
+        print('-----------regionIdPara---------------');
+        print(appliedFilter.regionIdPara);
+        print(appliedFilter.cityIdPara);
         pendingFilter = GetVendorsParams.fromGetVendorsParams(appliedFilter);
         final response = await HomeRepository.getVendorsList(
             getVendorsParams: appliedFilter);
@@ -103,6 +108,7 @@ class VendorsListBloc extends Bloc<VendorsListEvent, VendorsListState> {
           ));
         });
       }
+
       if (event is ChangeVendorsListFavoriteStatus) {
         int targetedIndex = state.vendorsList
             .indexWhere((element) => element.id == event.vendorId);
@@ -136,6 +142,7 @@ class VendorsListBloc extends Bloc<VendorsListEvent, VendorsListState> {
         );
         emit(state.copyWith(pendingFilters: pendingFilter));
       }
+
       if (event is ToggleIsOpenFilter) {
         if (pendingFilter.isOpen == true) {
           pendingFilter.isOpen = null;
@@ -165,12 +172,10 @@ class VendorsListBloc extends Bloc<VendorsListEvent, VendorsListState> {
         pendingFilter = GetVendorsParams.fromGetVendorsParams(appliedFilter);
         emit(state.copyWith(pendingFilters: pendingFilter));
       }
-
       if (event is SetAppliedFilter) {
         appliedFilter = GetVendorsParams.fromGetVendorsParams(pendingFilter);
         emit(state.copyWith(appliedFilters: appliedFilter));
       }
-
       if (event is ClearFilterValues) {
         pendingFilter.lat = null;
         pendingFilter.lon = null;
@@ -178,7 +183,6 @@ class VendorsListBloc extends Bloc<VendorsListEvent, VendorsListState> {
         pendingFilter.rate = null;
         emit(state.copyWith(pendingFilters: pendingFilter));
       }
-
       if (event is ClearSortValue) {
         pendingFilter.sortByName = null;
         pendingFilter.recent = null;
@@ -191,6 +195,45 @@ class VendorsListBloc extends Bloc<VendorsListEvent, VendorsListState> {
         emit(state.copyWith(
           screenStates: ScreenStates.success,
         ));
+      }
+
+
+      if (event is GetCityNameEvent) {
+
+        final response = await HomeRepository.getCityName();
+        response.fold((l) {
+          if (l != 'Cancel') {
+            emit(state.copyWith(screenStates: ScreenStates.error, error: l));
+          }
+        }, (r) {
+          emit(state.copyWith(cityName: r));
+        });
+      }
+      //// Todo
+      if (event is SelectedCityNameEvent) {
+        emit(state.copyWith(selectedTheCityName: state.selectedTheCityName,isSelectedTheCityName: false));
+        pendingFilter.cityIdPara = state.idCityName;
+      }
+
+      if( event is GetRegionNameEvent) {
+        final response = await HomeRepository.getRegionsName(state.idCityName!);
+        response.fold((l) {
+          if (l != 'Cancel') {
+            emit(state.copyWith(screenStates: ScreenStates.error, error: l));
+          }
+        }, (r) {
+          emit(state.copyWith(regionsName: r));
+        });
+        print("qqqqqqqqqqqqqqqqqqq");
+        print(state.regionsName!.data);
+        emit(state.copyWith(selectedTheRegionsName: state.regionsName!.data[state.idCityName!].name,isSelectedTheCityName: true));
+
+      }
+
+      if (event is SelectedRegionNameEvent) {
+        emit(state.copyWith(selectedTheRegionsName: state.selectedTheRegionsName));
+        pendingFilter.regionIdPara = state.idRegionsName;
+
       }
     });
   }

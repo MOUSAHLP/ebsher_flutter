@@ -8,8 +8,7 @@ class ApiConst {
   static const String updateProfile = "/update-profile";
   static const String resetPassword = "/reset-password";
   static const String forgetPassword = "/forget-password";
-  static const String forgetPasswordGenerateOtp =
-      "/forget-password-generate-otp";
+  static const String forgetPasswordGenerateOtp = "/forget-password-generate-otp";
 
 
   static const String home = "/home";
@@ -24,10 +23,9 @@ class ApiConst {
   static const String getAbout = "/about";
   static const String getPrivacy = "/privacy";
   static String getVendorsList = '/vendors';
+  static String getCityName = '/city-regions';
   static String notificationEnable = '/notification-enable';
   static String getSubCategories(int id) => '/subcategories?category_id=$id';
   static String getVendorDetails(int id) => '/vendor?id=$id&recomindation=1';
-  static String getNearByVendors(
-          {required double latitude, required double longitude}) =>
-      '/nearby-vendors?latitude=$latitude&longitude=$longitude';
+  static String getNearByVendors({required double latitude, required double longitude}) => '/nearby-vendors?latitude=$latitude&longitude=$longitude';
 }

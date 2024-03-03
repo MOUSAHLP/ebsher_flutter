@@ -6,6 +6,8 @@ import 'package:absher/presentation/resources/color_manager.dart';
 import 'package:absher/presentation/resources/style_app.dart';
 import 'package:absher/presentation/screens/vendors_screen/widgets/search_filter/filter_button.dart';
 import 'package:absher/presentation/screens/vendors_screen/widgets/search_filter/filter_by_star_bottom_sheet_body.dart';
+import 'package:absher/presentation/screens/vendors_screen/widgets/search_filter/filter_dropdown_city_name_button_sheet_body.dart';
+import 'package:absher/presentation/screens/vendors_screen/widgets/search_filter/filter_dropdown_regions_name_button_sheet_body.dart';
 import 'package:absher/presentation/widgets/dialogs/loading_dialog.dart';
 import 'package:absher/translations.dart';
 import 'package:flutter/material.dart';
@@ -29,6 +31,9 @@ class FilterBottomSheetBody extends StatelessWidget {
         LoadingDialog().closeDialog(context);
       }
     }, builder: (context, state) {
+      print('============= FilterBottomSheetBody ================');
+      print('============= FilterBottomSheetBody ================');
+      print(state.isSelectedTheCityName);
       return SizedBox(
         height: 400,
         child: PageView.builder(
@@ -85,9 +90,11 @@ class FilterBottomSheetBody extends StatelessWidget {
                                 style:
                                     vendorsListBloc.pendingFilter.rate != null
                                         ? getBoldStyle(
-                                            color: ColorManager.primaryColor)
+                                            color: ColorManager.primaryColor,
+                                          )
                                         : getBoldStyle(
-                                            color: ColorManager.primaryColor),
+                                            color: ColorManager.primaryColor,
+                                          ),
                               ),
                               if (vendorsListBloc.pendingFilter.rate != null)
                                 Row(
@@ -150,6 +157,46 @@ class FilterBottomSheetBody extends StatelessWidget {
                       vendorsListBloc.add(ToggleIsOpenFilter());
                     },
                   ),
+                  FilterDropDownCity(
+                    onChanged: (value) {
+                      print(state.isSelectedTheCityName);
+                      vendorsListBloc.add(SelectedCityNameEvent());
+                      // state.isSelectedTheCityName = false;
+                      print(state.cityName!.data.firstWhere((element) => element.name == value.toString()).id);
+                      state.idCityName = state.cityName!.data.firstWhere((element) => element.name == value.toString()).id;
+                      state.selectedTheCityName = value.toString();
+                      vendorsListBloc.add(GetRegionNameEvent());
+                      // state.selectedTheRegionsName = state.regionsName!.data[0].name;
+                      // state.isSelectedTheCityName = true;
+                      print('4444444444444444444444444444444444444444444');
+                      print(state.selectedTheRegionsName);
+
+
+                    },
+                    cityNameModel: state.cityName!,
+                  ),
+                  const Divider(
+                    thickness: 2,
+                  ),
+                  state.isSelectedTheCityName
+                      ?  FilterDropDownRegions(
+                          onChanged: (value) {
+                            //// get id selected
+
+                            // print(state.cityName!.data.firstWhere((element) => element.name==value.toString()).id);
+
+                            state.selectedTheRegionsName = value.toString();
+                            state.idRegionsName = state.regionsName!.data.firstWhere((element) => element.name==value.toString()).id;
+                            vendorsListBloc.add(SelectedRegionNameEvent());
+
+                            print('============ selectedTheRegionsName =============');
+                            print('============ selectedTheRegionsName =============');
+                            print('============ selectedTheRegionsName =============');
+                            print(state.idRegionsName);
+                          },
+                          cityNameModel: state.regionsName! ,
+                        )
+                      : Center(child: SizedBox(height: 2.h,width: 5.w,child: const CircularProgressIndicator(color: ColorManager.primaryColor))),
                   const Spacer(),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -164,8 +211,7 @@ class FilterBottomSheetBody extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 8.0, horizontal: 64),
+                    padding: const EdgeInsets.symmetric(horizontal: 64),
                     child: SizedBox(
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(

@@ -12,7 +12,7 @@ class CustomDilog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (photosUrls.images!.isEmpty) return Center(child: Text(AppLocalizations.of(context)!.noThing,style: getBoldStyle(color: Colors.white),));
+    // if (photosUrls.images!.isEmpty) return Center(child: Text(AppLocalizations.of(context)!.noThing,style: getBoldStyle(color: Colors.white),));
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [

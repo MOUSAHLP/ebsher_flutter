@@ -75,6 +75,7 @@ class CollapsedHeader extends StatelessWidget {
                       const SizedBox(
                         width: 24,
                       ),
+                      if(vendor.images==null||vendor.images!.isEmpty)
                       GestureDetector(
                         onTap: () {
                           showDialog(

@@ -159,8 +159,8 @@ class VendorDetailsBody extends StatelessWidget {
                 const SizedBox(height: 20,),
                 const Divider(thickness: 2),
                 const SizedBox(height: 15,),
-                if(vendor.images!=null && vendor.images?.isNotEmpty==true)
-                AdsCarouselSlider(  ads: vendor.images?.map((e) => AdvertisementsResponse(image: e.image??'')).toList()??[]),
+                // if(vendor.images!=null && vendor.images?.isNotEmpty==true)
+                // AdsCarouselSlider(  ads: vendor.images?.map((e) => AdvertisementsResponse(image: e.image??'')).toList()??[]),
                 //RecomindationSection(vendor: vendor)
               ],
             ),

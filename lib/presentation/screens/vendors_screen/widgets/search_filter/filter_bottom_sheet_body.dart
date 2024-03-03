@@ -35,7 +35,7 @@ class FilterBottomSheetBody extends StatelessWidget {
       print('============= FilterBottomSheetBody ================');
       print(state.isSelectedTheCityName);
       return SizedBox(
-        height: 400,
+        height: 500,
         child: PageView.builder(
           controller: pageController,
           itemCount: 2,

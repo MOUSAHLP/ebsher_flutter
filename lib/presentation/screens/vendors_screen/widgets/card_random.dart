@@ -40,6 +40,9 @@ class CardRandomWidget extends StatelessWidget {
       RectangleCard(image: vendor.logo ?? vendor.image ?? ""),
     ];
     card.shuffle();
+
+
+
     return GestureDetector(
       onTap: () {
         if (vendor.package?.colorCode != 0 &&
@@ -403,6 +406,7 @@ class CircularCard extends StatelessWidget {
       child: ClipRRect(
           borderRadius: BorderRadius.circular(50),
           child: CachedImage(
+            isCircle: true,
             width: 70,
             height: 70,
             imageUrl: image,

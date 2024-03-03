@@ -69,12 +69,7 @@ class SubCategoryBody extends StatelessWidget {
                       ? AdsCarouselSlider(
                           ads: state.mainAds,
                         )
-                      : AdsCarouselSlider(
-                          ads: [
-                            AdvertisementsResponse(
-                                image: ImageManager.fullAppLogo)
-                          ],
-                        ),
+                      :const SizedBox(),
                   const SizedBox(height: 10),
                   Expanded(
                     child: SizedBox(

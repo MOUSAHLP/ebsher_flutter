@@ -1,6 +1,7 @@
 import 'package:absher/presentation/resources/assets_manager.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 
 enum ImageSize { large, mid, small }
 
@@ -16,6 +17,7 @@ class CachedImage extends StatelessWidget {
   final String? fallbackPlaceHolder;
   final bool removeOnDispose;
   final ImageSize imageSize;
+ final bool? isCircle;
 
   const CachedImage({
     Key? key,
@@ -29,6 +31,7 @@ class CachedImage extends StatelessWidget {
     this.color,
     this.fallbackPlaceHolder,
     this.removeOnDispose = true,
+    this.isCircle = false,
     this.imageSize = ImageSize.large,
   }) : super(key: key);
 
@@ -47,14 +50,25 @@ class CachedImage extends StatelessWidget {
       loadStateChanged: (ExtendedImageState state) {
         switch (state.extendedImageLoadState) {
           case LoadState.loading:
-            return ExtendedImage(
-              image: AssetImage(
-                fallbackPlaceHolder ?? getPlaceHolderSize(),
+            return  isCircle==true?Shimmer.fromColors(
+              baseColor: const Color(0xFFd3d7de),
+              highlightColor: const Color(0xFFe2e4e9),
+              child: Card(
+                elevation: 0.0,
+                color: const Color.fromRGBO(45, 45, 45, 1.0),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(50),
+                ),
+                clipBehavior: Clip.antiAliasWithSaveLayer,
+                child: const SizedBox(
+                ),
               ),
-              clearMemoryCacheWhenDispose: true,
-              fit: imageSize == ImageSize.small ? BoxFit.contain : BoxFit.cover,
-              color: color,
-            );
+            ):Shimmer.fromColors(
+        baseColor: const Color(0xFFd3d7de),
+        highlightColor: const Color(0xFFe2e4e9),
+        child:
+        const Card(),
+        );
           case LoadState.completed:
             return state.completedWidget;
           case LoadState.failed:

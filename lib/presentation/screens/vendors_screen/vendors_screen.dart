@@ -39,9 +39,8 @@ class VendorsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<VendorsListBloc>(
-      create: (BuildContext context) => VendorsListBloc(
-          appliedFilter: GetVendorsParams(subCategoryId: subCategoryId))
-        ..add(GetVendorsList(subCategoryId, subCategories)),
+      create: (BuildContext context) => VendorsListBloc(appliedFilter: GetVendorsParams(subCategoryId: subCategoryId))..add(GetVendorsList(subCategoryId, subCategories))..add(GetCityNameEvent()),
+
       child: VendorsScreenBody(
         title: title,
         subCategoryId: subCategoryId,
@@ -95,6 +94,8 @@ class VendorsScreenBody extends StatelessWidget {
                             current.appliedFilters.subCategoryId;
                   },
                   builder: (context, state) {
+                    print('===================== VendorsScreen ======================');
+                    // print(state.cityName!.data[0].name);
                     Future.delayed(const Duration(milliseconds: 200))
                         .then((value) {
                       context

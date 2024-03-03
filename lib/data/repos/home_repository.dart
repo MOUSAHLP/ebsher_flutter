@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'package:absher/models/city_name_model.dart';
 import 'package:absher/models/reels_model.dart';
 import 'package:absher/models/vendor_model.dart';
 import 'package:dartz/dartz.dart';
@@ -22,16 +23,14 @@ class HomeRepository {
         });
   }
 
-  static Future<Either<String, ProfileModel>> getProfile() {
-    return BaseApiClient.get<ProfileModel>(
+  static Future<Either<String, ProfileModel>> getProfile() {return BaseApiClient.get<ProfileModel>(
         url: ApiConst.profile,
         converter: (e) {
           return ProfileModel.fromJson(e['data']);
         });
   }
 
-  static Future<Either<String, List<VendorModel>>> getSearchCategory(
-      {required GetSearchParams text}) {
+  static Future<Either<String, List<VendorModel>>> getSearchCategory({required GetSearchParams text}) {
     BaseApiClient.getVendorsCancelToken.cancel('CancleS');
     BaseApiClient.getVendorsCancelToken = CancelToken();
     log("text.toJson()");
@@ -45,15 +44,14 @@ class HomeRepository {
         });
   }
 
-  static Future<Either<String, List<VendorModel>>> getVendorsList(
-      {required GetVendorsParams getVendorsParams}) {
+  static Future<Either<String, List<VendorModel>>> getVendorsList({required GetVendorsParams getVendorsParams}) {
     BaseApiClient.getVendorsCancelToken.cancel('CancleS');
     BaseApiClient.getVendorsCancelToken = CancelToken();
     print("getVendorsParams.toJson()");
     print(getVendorsParams.toJson());
     return BaseApiClient.get<List<VendorModel>>(
       url: ApiConst.getVendorsList,
-      queryParameters: getVendorsParams.toJson(), 
+      queryParameters: getVendorsParams.toJson(),
       converter: (e) {
         return VendorModel.listFromJson(e);
       },
@@ -61,8 +59,7 @@ class HomeRepository {
     );
   }
 
-  static Future<Either<String, SubCategoriesModel>> getSubCategory(
-      {required int categoryId}) {
+  static Future<Either<String, SubCategoriesModel>> getSubCategory({required int categoryId}) {
     return BaseApiClient.get<SubCategoriesModel>(
         url: ApiConst.getSubCategories(categoryId),
         converter: (e) {
@@ -78,8 +75,7 @@ class HomeRepository {
         });
   }
 
-  static Future<Either<String, VendorModel>> getVendorDetails(
-      {required int id}) {
+  static Future<Either<String, VendorModel>> getVendorDetails({required int id}) {
     return BaseApiClient.get<VendorModel>(
         url: ApiConst.getVendorDetails(id),
         converter: (e) {
@@ -87,8 +83,7 @@ class HomeRepository {
         });
   }
 
-  static Future<Either<String, ProfileModel>> editProfile(
-      ProfileModel? profileModel) async {
+  static Future<Either<String, ProfileModel>> editProfile(ProfileModel? profileModel) async {
     String? imageFileName = profileModel?.avatar != null
         ? profileModel?.avatar?.split('/').last
         : '';
@@ -119,6 +114,32 @@ class HomeRepository {
         }),
         converter: (e) {
           return e['data'].toString();
+        });
+  }
+
+  static Future<Either<String, CityNameModel>> getCityName() async {
+    return BaseApiClient.get<CityNameModel>(
+        url: ApiConst.getCityName,
+        converter: (p0) {
+          print('============ getCityName ==============');
+          print('============ getCityName ==============');
+          print('============ getCityName ==============');
+          print('============ getCityName ==============');
+          print(CityNameModel.fromJson(p0).data[0].name);
+          return CityNameModel.fromJson(p0);
+        });
+  }
+
+  static Future<Either<String, CityNameModel>> getRegionsName(int id) async {
+    return BaseApiClient.get<CityNameModel>(
+        url: "${ApiConst.getCityName}/$id",
+        converter: (p0) {
+          print('============ getRegionsName ==============');
+          print('============ getRegionsName ==============');
+          print('============ getRegionsName ==============');
+          print('============ getRegionsName ==============');
+          print(CityNameModel.fromJson(p0).data[0].name);
+          return CityNameModel.fromJson(p0);
         });
   }
 }

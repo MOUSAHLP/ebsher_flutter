@@ -122,26 +122,27 @@ class BaseApiClient {
     CancelToken? cancelToken,
   }) async {
     // try {
-      var response = await client.get(
-        url,
-        queryParameters: queryParameters,
-        options: Options(
-          headers: {
-            'accept': _acceptHeader,
-            'authorization': 'Bearer ${DataStore.instance.token ?? ''}',
-          },
-        ),
-        cancelToken: cancelToken,
-      );
-      if (response.statusCode! >= 200 || response.statusCode! <= 205) {
-        if (kDebugMode) {
-          log(response.data.toString());
-          print(response);
-        }
-        return right(converter(response.data));
-      } else {
-        return left(response.data['message']);
+    var response = await client.get(
+      url,
+      queryParameters: queryParameters,
+      options: Options(
+        headers: {
+          'accept': _acceptHeader,
+          'authorization': 'Bearer ${DataStore.instance.token ?? ''}',
+        },
+      ),
+      cancelToken: cancelToken,
+    );
+    if (response.statusCode! >= 200 || response.statusCode! <= 205) {
+      if (kDebugMode) {
+        log(response.data.toString());
+        print('================== BaseApiClient ========================');
+        print(response);
       }
+      return right(converter(response.data));
+    } else {
+      return left(response.data['message']);
+    }
     // } on DioException catch (e) {
     //   if (e.type == DioExceptionType.cancel) {
     //     return left('Cancel');

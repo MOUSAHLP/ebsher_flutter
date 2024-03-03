@@ -13,6 +13,8 @@ class GetVendorsParams extends Equatable {
   bool? sortByName;
   bool? recent;
   bool? visits;
+  int? cityIdPara;
+  int? regionIdPara;
 
   GetVendorsParams({
     this.subCategoryId,
@@ -26,10 +28,12 @@ class GetVendorsParams extends Equatable {
     this.sortByName,
     this.recent,
     this.visits,
+    this.cityIdPara,
+    this.regionIdPara,
   });
 
   Map<String, dynamic> toJson() => {
-        "is_active":1,
+        "is_active": 1,
         "subcategories[]": subCategoryId,
         "is_open": isOpen == null
             ? null
@@ -40,8 +44,13 @@ class GetVendorsParams extends Equatable {
         "longitude": lon,
         "category_id": categoryId,
         "rate": rate,
-        "skip_count":skipCount,
-        "max_count":maxCount,
+
+        ///TODO
+        "cityIdPara": cityIdPara,
+        "regionIdPara": regionIdPara,
+
+        "skip_count": skipCount,
+        "max_count": maxCount,
         "sort_by_name": sortByName == null
             ? null
             : sortByName!
@@ -72,6 +81,8 @@ class GetVendorsParams extends Equatable {
         sortByName: params.sortByName,
         recent: params.recent,
         visits: params.visits,
+        cityIdPara: params.cityIdPara,
+        regionIdPara: params.regionIdPara,
       );
 
   GetVendorsParams setNewSortingValue(
@@ -85,6 +96,8 @@ class GetVendorsParams extends Equatable {
       lat: getVendorsParams.lat ?? lat,
       lon: getVendorsParams.lon ?? lon,
       rate: getVendorsParams.rate ?? rate,
+      cityIdPara: getVendorsParams.cityIdPara ?? cityIdPara,
+      regionIdPara: getVendorsParams.regionIdPara ?? regionIdPara,
 
       /// SORTING
       recent: getVendorsParams.recent,
@@ -108,6 +121,8 @@ class GetVendorsParams extends Equatable {
       lat: getVendorsParams.lat,
       lon: getVendorsParams.lon,
       rate: getVendorsParams.rate,
+      cityIdPara: getVendorsParams.cityIdPara ?? cityIdPara,
+      regionIdPara: getVendorsParams.regionIdPara ?? regionIdPara,
 
       /// SORTING
       recent: recent,
@@ -132,6 +147,8 @@ class GetVendorsParams extends Equatable {
     bool? sortByName,
     bool? recent,
     bool? visits,
+    int? cityIdPara,
+    int? regionIdPara,
   }) {
     return GetVendorsParams(
       subCategoryId: subCategoryId ?? this.subCategoryId,
@@ -142,6 +159,8 @@ class GetVendorsParams extends Equatable {
       lat: lat,
       lon: lon,
       rate: rate,
+      cityIdPara: categoryId,
+      regionIdPara: regionIdPara,
 
       /// SORTING
       recent: recent ?? this.recent,
@@ -167,5 +186,7 @@ class GetVendorsParams extends Equatable {
         sortByName,
         maxCount,
         skipCount,
+        regionIdPara,
+        cityIdPara,
       ];
 }

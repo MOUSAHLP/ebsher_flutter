@@ -57,7 +57,7 @@ class BaseApiClient {
       } else {
         return left(response.data['message']);
       }
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       Map dioError = DioErrorsHandler.onError(e);
       if (kDebugMode) {
         print(e);

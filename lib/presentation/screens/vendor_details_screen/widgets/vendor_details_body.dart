@@ -81,12 +81,12 @@ class VendorDetailsBody extends StatelessWidget {
                         ],
                       ),
                     ),
-                    if(vendor.packageId == 43)
-                    vendor.isOpen != null
-                        ? IsOpenLabel(
-                            isOpen: vendor.isOpen,
-                          )
-                        : const SizedBox(),
+                    if (vendor.packageId == 43)
+                      vendor.isOpen != null
+                          ? IsOpenLabel(
+                              isOpen: vendor.isOpen,
+                            )
+                          : const SizedBox(),
                   ],
                 ),
                 Row(
@@ -138,8 +138,10 @@ class VendorDetailsBody extends StatelessWidget {
                 OpenHourSection(vendor: vendor),
 
                 SocialMediaLinksSection(vendor: vendor),
-                if(vendor.companyProfile!=null)
-                CompanyProfile(vendor: vendor,),
+                if (vendor.companyProfile != null)
+                  CompanyProfile(
+                    vendor: vendor,
+                  ),
                 // vendor.customDate!=null? CustomDate(vendor: vendor):SizedBox(),
                 vendor.description != null
                     ? CardDescription(vendor: vendor)
@@ -156,11 +158,21 @@ class VendorDetailsBody extends StatelessWidget {
                         longitude: double.parse(vendor.longitude ?? "0"),
                         latitude: double.parse(vendor.latitude ?? "0"))
                     : const SizedBox(),
-                const SizedBox(height: 20,),
+                const SizedBox(
+                  height: 20,
+                ),
                 const Divider(thickness: 2),
-                const SizedBox(height: 15,),
-                if(vendor.images!=null && vendor.images?.isNotEmpty==true)
-                AdsCarouselSlider(  ads: vendor.images?.map((e) => AdvertisementsResponse(image: e.image??'')).toList()??[]),
+                const SizedBox(
+                  height: 15,
+                ),
+                if (vendor.banners != null &&
+                    vendor.banners?.isNotEmpty == true)
+                  AdsCarouselSlider(
+                      ads: vendor.banners
+                              ?.map((e) =>
+                                  AdvertisementsResponse(image: e.image ?? ''))
+                              .toList() ??
+                          []),
                 //RecomindationSection(vendor: vendor)
               ],
             ),

@@ -125,10 +125,10 @@ class SignUpScreen extends StatelessWidget {
                                 context.read<SignUpBloc>().signUpParams.email =
                                     value;
                               },
-                              validator: (value) {
-                                return AppValidators.validateEmailFields(
-                                    context, value);
-                              },
+                              // validator: (value) {
+                              //   return AppValidators.validateEmailFields(
+                              //       context, value);
+                              // },
                             ),
                             const SizedBox(
                               height: 8,

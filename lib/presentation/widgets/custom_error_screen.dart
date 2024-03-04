@@ -17,7 +17,7 @@ class CustomErrorScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Lottie.asset(IconsManager.iconNoInternet),
-          const SizedBox(height: 100),
+          const SizedBox(height: 80),
           CustomButton(label: AppLocalizations.of(context)!.tryAgain,onTap: (){
             onTap!();
           },)

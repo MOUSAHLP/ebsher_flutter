@@ -52,7 +52,7 @@ class VendorDetailsBody extends StatelessWidget {
                                   child: Text(
                                     localizationString(context, vendor.name) ??
                                         '',
-                                    maxLines: 2,
+                                    maxLines: 5,
                                     overflow: TextOverflow.ellipsis,
                                     style: getBoldStyle(
                                       color: ColorManager.primaryColor,
@@ -95,7 +95,7 @@ class VendorDetailsBody extends StatelessWidget {
                       child: Text(
                         localizationString(context, vendor.shortDescription) ??
                             '',
-                        maxLines: 1,
+                        maxLines: 5,
                         overflow: TextOverflow.ellipsis,
                         style: getRegularStyle(
                           color: ColorManager.primaryColor,
@@ -173,7 +173,7 @@ class VendorDetailsBody extends StatelessWidget {
                                   AdvertisementsResponse(image: e.image ?? ''))
                               .toList() ??
                           []),
-                //RecomindationSection(vendor: vendor)
+               RecomindationSection(vendor: vendor)
               ],
             ),
           ),

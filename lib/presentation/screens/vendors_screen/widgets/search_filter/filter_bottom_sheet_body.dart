@@ -31,9 +31,7 @@ class FilterBottomSheetBody extends StatelessWidget {
         LoadingDialog().closeDialog(context);
       }
     }, builder: (context, state) {
-      print('============= FilterBottomSheetBody ================');
-      print('============= FilterBottomSheetBody ================');
-      print(state.isSelectedTheCityName);
+
       return SizedBox(
         height: 500,
         child: PageView.builder(

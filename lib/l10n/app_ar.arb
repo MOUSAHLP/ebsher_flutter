@@ -138,5 +138,6 @@
   "search": "البحث",
   "description": "الوصف",
   "validatePasswordMsg2" : "استخدم أحرف كبيرة وصغيرة أرقام & رموز",
-  "location_vendor": "الموقع"
+  "location_vendor": "الموقع",
+  "exhibitions": "المعارض"
 }

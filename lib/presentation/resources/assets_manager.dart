@@ -19,7 +19,7 @@ class ImageManager {
   static const String resetPasswordAsset3 =
       "$imagePath/reset_password_asset_3.png";
   static const String signUpAsset = "$imagePath/signup_asset.png";
-  static const String test = "$imagePath/test.png";
+
   static const String test1 = "$imagePath/test1.png";
   static const String profile = "$imagePath/profile.png";
 

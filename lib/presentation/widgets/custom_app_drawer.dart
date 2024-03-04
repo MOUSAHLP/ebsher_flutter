@@ -5,6 +5,7 @@ import 'package:absher/bloc/language_bloc/language_event.dart';
 import 'package:absher/core/app_router/app_router.dart';
 import 'package:absher/presentation/resources/assets_manager.dart';
 import 'package:absher/presentation/resources/values_app.dart';
+import 'package:absher/presentation/screens/exhibitions_screen/exhibitions_screen.dart';
 
 import 'package:absher/presentation/widgets/accessories/cached_image.dart';
 import 'package:absher/translations.dart';
@@ -126,6 +127,11 @@ class CustomAppDrawer extends StatelessWidget {
                             IconsManager.iconUserSetting, () {
                           sl<BottomBloc>().add(NewBottomChange(4));
                           AppRouter.pop(context);
+                        }),
+                        buildElevatedButton(
+                            AppLocalizations.of(context)!.exhibitions,
+                            IconsManager.iconGallery, () {
+                          AppRouter.push(context, const ExhibitionsScreen());
                         }),
                         buildElevatedButton(
                             AppLocalizations.of(context)!.favorite,
@@ -287,7 +293,7 @@ class CustomAppDrawer extends StatelessWidget {
       ),
       child: Row(
         children: [
-          SvgPicture.asset(image, width: 28, height: 28),
+          SvgPicture.asset(image, width: 28, height: 28,color: ColorManager.softYellow),
           const SizedBox(width: 10),
           Text(
             title,

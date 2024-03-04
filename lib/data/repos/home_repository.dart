@@ -103,9 +103,7 @@ class HomeRepository {
   }
 
   static Future<Either<String, String>> seeStories(List<int> idStory) async {
-    print({
-      "ids": idStory,
-    }.toString());
+
 
     return BaseApiClient.post<String>(
         url: ApiConst.seenStories,
@@ -121,11 +119,7 @@ class HomeRepository {
     return BaseApiClient.get<CityNameModel>(
         url: ApiConst.getCityName,
         converter: (p0) {
-          print('============ getCityName ==============');
-          print('============ getCityName ==============');
-          print('============ getCityName ==============');
-          print('============ getCityName ==============');
-          print(CityNameModel.fromJson(p0).data[0].name);
+
           return CityNameModel.fromJson(p0);
         });
   }
@@ -134,11 +128,7 @@ class HomeRepository {
     return BaseApiClient.get<CityNameModel>(
         url: "${ApiConst.getCityName}/$id",
         converter: (p0) {
-          print('============ getRegionsName ==============');
-          print('============ getRegionsName ==============');
-          print('============ getRegionsName ==============');
-          print('============ getRegionsName ==============');
-          print(CityNameModel.fromJson(p0).data[0].name);
+
           return CityNameModel.fromJson(p0);
         });
   }

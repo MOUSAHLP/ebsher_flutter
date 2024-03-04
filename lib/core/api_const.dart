@@ -21,8 +21,10 @@ class ApiConst {
   static const String removeFavorite = "/remove-favorite-vendor";
   static const String getNotifications = "/notifications";
   static const String getAbout = "/about";
+  static const String getExhibitions = "/events";
   static const String getPrivacy = "/privacy";
   static String getVendorsList = '/vendors';
+  static String getVendorsExhibitionsList = '/event_vendors';
   static String getCityName = '/city-regions';
   static String notificationEnable = '/notification-enable';
   static String getSubCategories(int id) => '/subcategories?category_id=$id';

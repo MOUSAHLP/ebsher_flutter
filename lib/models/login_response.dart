@@ -12,7 +12,7 @@ class LoginResponse {
   @HiveField(2)
   String phone;
   @HiveField(3)
-  String email;
+  String? email;
   @HiveField(4)
   String token;
   @HiveField(5)
@@ -22,7 +22,7 @@ class LoginResponse {
     required this.id,
     required this.name,
     required this.phone,
-    required this.email,
+     this.email,
     required this.token,
     this.image,
   });

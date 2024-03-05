@@ -20,7 +20,7 @@ class VendorsListBloc extends Bloc<VendorsListEvent, VendorsListState> {
   final ScrollController scrollController = ScrollController();
   List<SubCategoryItemModel> subCategories = [];
   int maxCount = 10;
-
+  bool showRegin=false;
   VendorsListBloc({required this.appliedFilter})
       : super(VendorsListState(
           appliedFilters: appliedFilter,
@@ -203,7 +203,7 @@ class VendorsListBloc extends Bloc<VendorsListEvent, VendorsListState> {
         final response = await HomeRepository.getCityName();
         response.fold((l) {
           if (l != 'Cancel') {
-            emit(state.copyWith(screenStates: ScreenStates.error, error: l));
+        //    emit(state.copyWith(screenStates: ScreenStates.error, error: l));
           }
         }, (r) {
           emit(state.copyWith(cityName: r));
@@ -211,21 +211,24 @@ class VendorsListBloc extends Bloc<VendorsListEvent, VendorsListState> {
       }
       //// Todo
       if (event is SelectedCityNameEvent) {
-        emit(state.copyWith(selectedTheCityName: state.selectedTheCityName,isSelectedTheCityName: false));
+        showRegin=true;
         pendingFilter.cityIdPara = state.idCityName;
+        emit(state.copyWith(selectedTheCityName: state.selectedTheCityName,isSelectedTheCityName: false));
+
       }
 
       if( event is GetRegionNameEvent) {
         final response = await HomeRepository.getRegionsName(state.idCityName!);
         response.fold((l) {
           if (l != 'Cancel') {
-            emit(state.copyWith(screenStates: ScreenStates.error, error: l));
+         //   emit(state.copyWith(screenStates: ScreenStates.error, error: l));
           }
         }, (r) {
           emit(state.copyWith(regionsName: r));
         });
-
-        emit(state.copyWith(selectedTheRegionsName: state.regionsName!.data[state.idCityName!].name,isSelectedTheCityName: true));
+print("state.regionsName");
+print(state.regionsName);
+        emit(state.copyWith(selectedTheRegionsName:state.regionsName!=null? state.regionsName?.data[state.idCityName!].name:'',isSelectedTheCityName: true));
 
       }
 

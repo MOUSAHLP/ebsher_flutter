@@ -224,8 +224,7 @@ class VendorsListBloc extends Bloc<VendorsListEvent, VendorsListState> {
         }, (r) {
           emit(state.copyWith(regionsName: r));
         });
-        print("qqqqqqqqqqqqqqqqqqq");
-        print(state.regionsName!.data);
+
         emit(state.copyWith(selectedTheRegionsName: state.regionsName!.data[state.idCityName!].name,isSelectedTheCityName: true));
 
       }

@@ -37,7 +37,9 @@ class SocialMediaLinksSection extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 8.0),
-          child: Row(
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Padding(
@@ -46,6 +48,7 @@ class SocialMediaLinksSection extends StatelessWidget {
                     height: 50,
                     child: ListView.builder(
                       shrinkWrap: true,
+
                       scrollDirection: Axis.horizontal,
                       itemCount: vendor.socialMedia?.length,
                       itemBuilder: (context, index) {
@@ -76,8 +79,8 @@ class SocialMediaLinksSection extends StatelessWidget {
                     ),
                   )),
             ],
-          ),
-        ),
+            ),
+          )),
         // Padding(
         //   padding: const EdgeInsets.all(16.0),
         //   child: Column(

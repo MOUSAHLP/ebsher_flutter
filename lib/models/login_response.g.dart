@@ -20,7 +20,7 @@ class LoginResponseAdapter extends TypeAdapter<LoginResponse> {
       id: fields[0] as int,
       name: fields[1] as String,
       phone: fields[2] as String,
-      email: fields[3] as String,
+      email: fields[3] as String?,
       token: fields[4] as String,
       image: fields[5] as String?,
 

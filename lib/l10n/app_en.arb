@@ -81,6 +81,7 @@
   "logOut": "Log out",
   "address": "Address",
   "phone": "Phone number",
+  "additionalPhone": "Additional Phone Number",
   "calling": "Calling",
   "more": "More",
   "confimSignOut": "Confirm sign out?",

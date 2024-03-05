@@ -41,8 +41,6 @@ class CardRandomWidget extends StatelessWidget {
     ];
     card.shuffle();
 
-
-
     return GestureDetector(
       onTap: () {
         if (vendor.package?.colorCode != 0 &&
@@ -199,10 +197,10 @@ class CardRandomWidget extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                         if(vendor.packageId == 43)
-                          IsOpenLabel(
-                            isOpen: vendor.isOpen,
-                          ),
+                          if (vendor.packageId == 43)
+                            IsOpenLabel(
+                              isOpen: vendor.isOpen,
+                            ),
                           const SizedBox(height: 20),
                           if (!fromSearch)
                             BlocBuilder<FavoritesListBloc, FavoritesListState>(
@@ -321,6 +319,10 @@ class InfoCardWithIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("InfoCardWithIcon");
+    print(label);
+    print(value);
+    print("InfoCardWithIcon");
     if (label == null || value == null || value == "") return const SizedBox();
     return Row(
       children: [

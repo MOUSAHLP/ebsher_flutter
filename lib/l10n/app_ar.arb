@@ -42,6 +42,7 @@
   "oneMinuteAgo": "منذ دقيقة",
   "address": "العنوان",
   "phone": "رقم الهاتف",
+  "additionalPhone": "رقم هاتف اضافي",
   "calling": "جاري الاتصال",
   "more": "المزيد",
   "confimSignOut": "تأكيد تسجيل الخروج؟",

@@ -11,6 +11,7 @@ class VendorModel {
   String? close;
   String? phone;
   String? phone1;
+  String? additionalPhone;
   String? email;
   String? facebook;
   String? address;
@@ -42,17 +43,16 @@ class VendorModel {
   String? companyProfile;
   List<ImageModel>? images;
 
-
   VendorModel(
       {this.id,
       this.name,
       this.description,
       this.image,
       this.logo,
-
       this.close,
       this.phone,
       this.phone1,
+      this.additionalPhone,
       this.email,
       this.facebook,
       this.address,
@@ -82,91 +82,88 @@ class VendorModel {
       this.recomindation,
       this.package,
       this.shortDescription,
-
       this.companyProfile,
-        this.images
-      });
+      this.images});
 
   factory VendorModel.fromJson(Map<String, dynamic> json) {
     print("Package.fromJson");
     print(json);
     return VendorModel(
-        id: json["id"],
-        companyProfile: json['company_profile'],
-        name: LocalizationStringModel.fromJson(json, "name"),
-        description: LocalizationStringModel.fromJson(json, "description"),
-        shortDescription:
-            LocalizationStringModel.fromJson(json, "short_description"),
-
-        image: json["image"],
-        logo: json["logo"],
-        close: json["close"],
-        phone: json["phone"],
-        phone1: json["phone1"],
-        email: json["email"],
-        facebook: json["Facebook"],
-        address: json["address"],
-        address1: json["address1"],
-        latitude: json["latitude"],
-        longitude: json["longitude"],
-        isActive: json["is_active"],
-        isOpen: json["is_open"],
-        createdAt: json["created_at"] == null
-            ? null
-            : DateTime.parse(json["created_at"]),
-        startDate: json["start_date"] == null
-            ? null
-            : DateTime.parse(json["start_date"]),
-        expireDate: json["expire_date"] == null
-            ? null
-            : DateTime.parse(json["expire_date"]),
-        avgRating: json["avg_rating"],
-        categoryId: json["category_id"],
-        packageId: json["package_id"],
-        visits: json["visits"],
-        customDate: json["custom_date"] == null
-            ? null
-            : DateTime.parse(json["custom_date"]),
-        webiste: json["website"],
-        updatedAt: json["updated_at"] == null
-            ? null
-            : DateTime.parse(json["updated_at"]),
-        openStatus: json["open_status"],
-        favoriteStatus: json["favorite_status"] == 1 ? true : false,
-        category: json["category"] == null
-            ? null
-            : Category.fromJson(json["category"]),
-        days: json["days"] == null
-            ? null
-            : List<Day>.from(json["days"].map((x) => Day.fromJson(x))),
-        subCategories: json["sub_categories"] == null
-            ? []
-            : List<SubCategory>.from(
-                json["sub_categories"].map((x) => SubCategory.fromJson(x))),
-        socialMedia: json["social_media"] == null
-            ? []
-            : List<SocialMedia>.from(
-                json["social_media"].map((x) => SocialMedia.fromJson(x))),
-        features: json["features"] == null
-            ? []
-            : List<Feature>.from(
-                json["features"].map((x) => Feature.fromJson(x))),
-        banners: json["banners"] == null
-            ? []
-            : List<Banner>.from(json["banners"].map((x) => Banner.fromJson(x))),
-        recomindation: json["recomindation"] == null
-            ? []
-            : List<VendorModel>.from(
-                json["recomindation"].map((x) => VendorModel.fromJson(x))),
-        package: Package.fromJson(json["package"]),
-    images: json["images"] == null
-    ? []
-        : List<ImageModel>.from(
-    json["images"].map((x) => ImageModel.fromJson(x))),
+      id: json["id"],
+      companyProfile: json['company_profile'],
+      name: LocalizationStringModel.fromJson(json, "name"),
+      description: LocalizationStringModel.fromJson(json, "description"),
+      shortDescription:
+          LocalizationStringModel.fromJson(json, "short_description"),
+      image: json["image"],
+      logo: json["logo"],
+      close: json["close"],
+      phone: json["phone"],
+      phone1: json["phone1"],
+      additionalPhone: json["additional_phone"],
+      email: json["email"],
+      facebook: json["Facebook"],
+      address: json["address"],
+      address1: json["address1"],
+      latitude: json["latitude"],
+      longitude: json["longitude"],
+      isActive: json["is_active"],
+      isOpen: json["is_open"],
+      createdAt: json["created_at"] == null
+          ? null
+          : DateTime.parse(json["created_at"]),
+      startDate: json["start_date"] == null
+          ? null
+          : DateTime.parse(json["start_date"]),
+      expireDate: json["expire_date"] == null
+          ? null
+          : DateTime.parse(json["expire_date"]),
+      avgRating: json["avg_rating"],
+      categoryId: json["category_id"],
+      packageId: json["package_id"],
+      visits: json["visits"],
+      customDate: json["custom_date"] == null
+          ? null
+          : DateTime.parse(json["custom_date"]),
+      webiste: json["website"],
+      updatedAt: json["updated_at"] == null
+          ? null
+          : DateTime.parse(json["updated_at"]),
+      openStatus: json["open_status"],
+      favoriteStatus: json["favorite_status"] == 1 ? true : false,
+      category:
+          json["category"] == null ? null : Category.fromJson(json["category"]),
+      days: json["days"] == null
+          ? null
+          : List<Day>.from(json["days"].map((x) => Day.fromJson(x))),
+      subCategories: json["sub_categories"] == null
+          ? []
+          : List<SubCategory>.from(
+              json["sub_categories"].map((x) => SubCategory.fromJson(x))),
+      socialMedia: json["social_media"] == null
+          ? []
+          : List<SocialMedia>.from(
+              json["social_media"].map((x) => SocialMedia.fromJson(x))),
+      features: json["features"] == null
+          ? []
+          : List<Feature>.from(
+              json["features"].map((x) => Feature.fromJson(x))),
+      banners: json["banners"] == null
+          ? []
+          : List<Banner>.from(json["banners"].map((x) => Banner.fromJson(x))),
+      recomindation: json["recomindation"] == null
+          ? []
+          : List<VendorModel>.from(
+              json["recomindation"].map((x) => VendorModel.fromJson(x))),
+      package: Package.fromJson(json["package"]),
+      images: json["images"] == null
+          ? []
+          : List<ImageModel>.from(
+              json["images"].map((x) => ImageModel.fromJson(x))),
     );
   }
 
-  static List<VendorModel>  listFromJson(Map<String, dynamic> json) {
+  static List<VendorModel> listFromJson(Map<String, dynamic> json) {
     return json == null
         ? []
         : json["data"]
@@ -676,14 +673,14 @@ class ImageModel {
   });
 
   factory ImageModel.fromJson(Map<String, dynamic> json) => ImageModel(
-    id: json["id"],
-    vendorId: json["vendor_id"],
-    image: json["image"],
-  );
+        id: json["id"],
+        vendorId: json["vendor_id"],
+        image: json["image"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "id":id,
-    "vendor_id": vendorId,
-    "image": image,
-  };
+        "id": id,
+        "vendor_id": vendorId,
+        "image": image,
+      };
 }

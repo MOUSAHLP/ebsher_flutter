@@ -68,37 +68,38 @@ class CardFavorite extends StatelessWidget {
                         ),
                       ],
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        StaticRate(
-                          rate: vendorModel.avgRating,
-                        ),
-                        Container(
-                          decoration: const BoxDecoration(
-                            borderRadius: BorderRadiusDirectional.only(
-                              bottomEnd: Radius.circular(20),
-                              topEnd: Radius.circular(20),
-                            ),
-                            color: ColorManager.softYellow,
-                          ),
-                          child: Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 8.0),
-                            child: Text(
-                              double.tryParse(vendorModel.avgRating ?? '0')!
-                                  .toStringAsFixed(1),
-                              style: getBoldStyle(
-                                color: Colors.white,
-                                fontSize: FontSizeApp.s12,
-                              )?.copyWith(
-                                height: 1.4,
-                              ),
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
+                    const Divider(),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.end,
+                    //   children: [
+                    //     StaticRate(
+                    //       rate: vendorModel.avgRating,
+                    //     ),
+                    //     Container(
+                    //       decoration: const BoxDecoration(
+                    //         borderRadius: BorderRadiusDirectional.only(
+                    //           bottomEnd: Radius.circular(20),
+                    //           topEnd: Radius.circular(20),
+                    //         ),
+                    //         color: ColorManager.softYellow,
+                    //       ),
+                    //       child: Padding(
+                    //         padding:
+                    //             const EdgeInsets.symmetric(horizontal: 8.0),
+                    //         child: Text(
+                    //           double.tryParse(vendorModel.avgRating ?? '0')!
+                    //               .toStringAsFixed(1),
+                    //           style: getBoldStyle(
+                    //             color: Colors.white,
+                    //             fontSize: FontSizeApp.s12,
+                    //           )?.copyWith(
+                    //             height: 1.4,
+                    //           ),
+                    //         ),
+                    //       ),
+                    //     )
+                    //   ],
+                    // ),
 //                  Text(
 //                    LocalixationString(context, vendorModel.category?.name) ?? "",
 //                    style: getBoldStyle(
@@ -111,9 +112,20 @@ class CardFavorite extends StatelessWidget {
                     InfoCardWithIcon(
                       svgAsset: IconsManager.iconLocation,
                       label: AppLocalizations.of(context)!.address,
+                      value: vendorModel.address1 ?? "",
+                    ),
+                    InfoCardWithIcon(
+                      svgAsset: IconsManager.iconLocation,
+                      label: AppLocalizations.of(context)!.address,
                       value: vendorModel.address ?? "",
                     ),
                     const SizedBox(height: 5),
+                    InfoCardWithIcon(
+                      svgAsset: IconsManager.iconPhone,
+                      label: AppLocalizations.of(context)!.phone,
+                      value: vendorModel.phone1 ?? "",
+                    ),
+
                     InfoCardWithIcon(
                       svgAsset: IconsManager.iconPhone,
                       label: AppLocalizations.of(context)!.phone,

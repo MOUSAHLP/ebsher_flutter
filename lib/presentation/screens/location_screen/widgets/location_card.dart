@@ -86,40 +86,40 @@ class LocationCard extends StatelessWidget {
                             const SizedBox(
                               height: 2,
                             ),
-                            Row(
-                              children: [
-                                StaticRate(
-                                  rate: vendorModel.avgRating,
-                                ),
-                                Container(
-                                  decoration: const BoxDecoration(
-                                    borderRadius: BorderRadiusDirectional.only(
-                                      bottomEnd: Radius.circular(20),
-                                      topEnd: Radius.circular(20),
-                                    ),
-                                    color: ColorManager.softYellow,
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 8.0),
-                                    child: Text(
-                                      double.tryParse(
-                                              vendorModel.avgRating ?? '0')!
-                                          .toStringAsFixed(1),
-                                      style: getBoldStyle(
-                                        color: Colors.white,
-                                        fontSize: FontSizeApp.s12,
-                                      )?.copyWith(
-                                        height: 1.4,
-                                      ),
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 2,
-                            ),
+                            // Row(
+                            //   children: [
+                            //     StaticRate(
+                            //       rate: vendorModel.avgRating,
+                            //     ),
+                            //     Container(
+                            //       decoration: const BoxDecoration(
+                            //         borderRadius: BorderRadiusDirectional.only(
+                            //           bottomEnd: Radius.circular(20),
+                            //           topEnd: Radius.circular(20),
+                            //         ),
+                            //         color: ColorManager.softYellow,
+                            //       ),
+                            //       child: Padding(
+                            //         padding: const EdgeInsets.symmetric(
+                            //             horizontal: 8.0),
+                            //         child: Text(
+                            //           double.tryParse(
+                            //                   vendorModel.avgRating ?? '0')!
+                            //               .toStringAsFixed(1),
+                            //           style: getBoldStyle(
+                            //             color: Colors.white,
+                            //             fontSize: FontSizeApp.s12,
+                            //           )?.copyWith(
+                            //             height: 1.4,
+                            //           ),
+                            //         ),
+                            //       ),
+                            //     )
+                            //   ],
+                            // ),
+                            // const SizedBox(
+                            //   height: 2,
+                            // ),
                             Row(
                               children: [
                                 Expanded(

@@ -319,10 +319,6 @@ class InfoCardWithIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("InfoCardWithIcon");
-    print(label);
-    print(value);
-    print("InfoCardWithIcon");
     if (label == null || value == null || value == "") return const SizedBox();
     return Row(
       children: [

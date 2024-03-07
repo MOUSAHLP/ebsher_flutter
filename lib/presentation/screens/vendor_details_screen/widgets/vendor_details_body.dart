@@ -25,12 +25,6 @@ class VendorDetailsBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(vendor.days!.first.name!.valueAr);
-    print(vendor.days!.first.pivot!.openAt);
-    print(vendor.days!.first.pivot!.closeAt);
-    print(vendor.days!.first.pivot!.vendorId);
-    print(vendor.isOpen);
-    print(vendor.openStatus);
     return NotificationListener<OverscrollIndicatorNotification>(
       onNotification: (over) {
         over.disallowIndicator();

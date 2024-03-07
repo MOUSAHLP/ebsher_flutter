@@ -21,7 +21,7 @@ class InfoDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (label == null || value == null) return const SizedBox();
+    if (label == null || value == null||value == "null") return const SizedBox();
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Row(

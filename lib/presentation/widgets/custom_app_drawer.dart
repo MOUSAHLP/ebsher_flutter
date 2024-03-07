@@ -230,6 +230,7 @@ class CustomAppDrawer extends StatelessWidget {
                                   ],
                                 ),
                               ),
+                        const SizedBox(height: 10),
                       ],
                     ),
                   ],

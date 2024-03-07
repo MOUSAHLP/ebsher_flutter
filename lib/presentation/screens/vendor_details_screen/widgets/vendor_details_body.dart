@@ -25,6 +25,12 @@ class VendorDetailsBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(vendor.days!.first.name!.valueAr);
+    print(vendor.days!.first.pivot!.openAt);
+    print(vendor.days!.first.pivot!.closeAt);
+    print(vendor.days!.first.pivot!.vendorId);
+    print(vendor.isOpen);
+    print(vendor.openStatus);
     return NotificationListener<OverscrollIndicatorNotification>(
       onNotification: (over) {
         over.disallowIndicator();
@@ -81,12 +87,10 @@ class VendorDetailsBody extends StatelessWidget {
                         ],
                       ),
                     ),
-                    if (vendor.packageId == 43)
-                      vendor.isOpen != null
-                          ? IsOpenLabel(
-                              isOpen: vendor.isOpen,
-                            )
-                          : const SizedBox(),
+                    if (vendor.packageId == 43 && vendor.isOpen != null)
+                      IsOpenLabel(
+                        isOpen: vendor.isOpen,
+                      ),
                   ],
                 ),
                 Row(
@@ -173,7 +177,7 @@ class VendorDetailsBody extends StatelessWidget {
                                   AdvertisementsResponse(image: e.image ?? ''))
                               .toList() ??
                           []),
-               RecomindationSection(vendor: vendor)
+                RecomindationSection(vendor: vendor)
               ],
             ),
           ),

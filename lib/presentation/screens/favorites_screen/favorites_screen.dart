@@ -70,7 +70,7 @@ class FavoritesScreenBody extends StatelessWidget {
                                       gridDelegate:
                                           const SliverGridDelegateWithFixedCrossAxisCount(
                                         crossAxisCount: 2,
-                                        mainAxisExtent: 270,
+                                        mainAxisExtent: 280,
                                       ),
                                     )
                                   ],

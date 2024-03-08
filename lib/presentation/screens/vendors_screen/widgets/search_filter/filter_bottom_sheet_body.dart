@@ -18,6 +18,7 @@ import '../../../../widgets/custom_button.dart';
 
 class FilterBottomSheetBody extends StatelessWidget {
   FilterBottomSheetBody({Key? key}) : super(key: key);
+
   final PageController pageController = PageController();
 
   @override
@@ -158,10 +159,10 @@ class FilterBottomSheetBody extends StatelessWidget {
                     ),
                     FilterDropDownCity(
                       onChanged: (value) {
-
                         vendorsListBloc.add(SelectedCityNameEvent());
                             state.idCityName = state.cityName!.data.firstWhere((element) => element.name == value.toString()).id;
                         state.selectedTheCityName = value.toString();
+
                         vendorsListBloc.add(GetRegionNameEvent());
                       },
                       cityNameModel: state.cityName!,
@@ -169,17 +170,21 @@ class FilterBottomSheetBody extends StatelessWidget {
                     const Divider(
                       thickness: 2,
                     ),
-                    state.isSelectedTheCityName
-                        ?  FilterDropDownRegions(
+
+                    vendorsListBloc.showRegin?   state.isSelectedTheCityName
+                        ?  state.regionsName!=null?FilterDropDownRegions(
                             onChanged: (value) {
                           state.selectedTheRegionsName = value.toString();
                               state.idRegionsName = state.regionsName!.data.firstWhere((element) => element.name==value.toString()).id;
                               vendorsListBloc.add(SelectedRegionNameEvent());
                             },
                             cityNameModel: state.regionsName! ,
-                          )
-                        : Center(child: SizedBox(height:20,width:20,child: const CircularProgressIndicator(color: ColorManager.primaryColor))),
-                    const Spacer(),
+                          ):Text("")
+                        : const Center(
+              child: SizedBox(height:20,
+              width:20,child: CircularProgressIndicator(
+              color: ColorManager.primaryColor)))
+                  :Text(""),  const Spacer(),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: CustomButton(

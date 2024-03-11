@@ -77,27 +77,29 @@ class CustomAppDrawer extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                      SizedBox(
-                                        width: 80,
-                                        height: 80,
-                                        child: ClipRRect(
-                                            borderRadius: BorderRadius.circular(
-                                                RadiusApp.r50),
-                                            child: CachedImage(
-                                              imageUrl: context
-                                                  .read<AuthenticationBloc>()
-                                                  .loginResponse!
-                                                  .image,
-                                              imageSize: ImageSize.small,
-                                            )),
-                                      ),
-                                      const SizedBox(width: 10),
                                       Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.center,
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
+                                          SizedBox(
+                                            width: 80,
+                                            height: 80,
+                                            child: ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        RadiusApp.r50),
+                                                child: CachedImage(
+                                                  imageUrl: context
+                                                      .read<
+                                                          AuthenticationBloc>()
+                                                      .loginResponse!
+                                                      .image,
+                                                  imageSize: ImageSize.small,
+                                                )),
+                                          ),
+                                          const SizedBox(height: 10),
                                           Text(
                                             context
                                                 .read<AuthenticationBloc>()

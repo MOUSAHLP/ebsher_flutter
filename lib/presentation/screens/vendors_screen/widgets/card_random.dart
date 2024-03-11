@@ -37,7 +37,7 @@ class CardRandomWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Widget> card = [
       CircularCard(image: vendor.logo ?? vendor.image ?? ""),
-      RectangleCard(image: vendor.logo ?? vendor.image ?? ""),
+      // RectangleCard(image: vendor.logo ?? vendor.image ?? ""),
     ];
     card.shuffle();
 

@@ -1,7 +1,5 @@
 import 'dart:ui';
 
-import 'package:absher/bloc/vendor_details_bloc/vendor_details_event.dart';
-import 'package:absher/bloc/vendors_list_bloc/vendors_list_event.dart';
 import 'package:absher/core/app_router/app_router.dart';
 import 'package:absher/models/vendor_model.dart';
 import 'package:absher/presentation/screens/vendor_details_screen/widgets/vendor_details_body.dart';
@@ -13,9 +11,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../bloc/favorites_list_bloc/favorites_list_bloc.dart';
 import '../../../../bloc/favorites_list_bloc/favorites_list_event.dart';
 import '../../../../bloc/favorites_list_bloc/favorites_list_state.dart';
-import '../../../../bloc/vendor_details_bloc/vendor_details_bloc.dart';
-import '../../../../bloc/vendors_list_bloc/vendors_list_bloc.dart';
-import '../../../../core/services/services_locator.dart';
 import '../../../resources/assets_manager.dart';
 import '../../../widgets/favorite_heart.dart';
 import 'dialog_picture.dart';

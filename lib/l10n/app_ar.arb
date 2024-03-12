@@ -139,5 +139,11 @@
   "description": "الوصف",
   "validatePasswordMsg2" : "استخدم أحرف كبيرة وصغيرة أرقام & رموز",
   "location_vendor": "الموقع",
-  "exhibitions": "المعارض"
+  "exhibitions": "المعارض",
+  "exhibition_name": "اسم المعرض :",
+  "from_date": "من تاريخ :",
+  "to_date": "الى تاريخ :",
+  "organizing_company": "الشركة المنظمة :",
+  "place": "المكان :",
+  "visiting_times": "أوقات الزيارة :"
 }

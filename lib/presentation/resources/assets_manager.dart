@@ -39,6 +39,8 @@ class ImageManager {
   static const String goldenLight = "$imagePath/golden_light.png";
   static const String goldenDark = "$imagePath/golden_dark.png";
   static const String bluePackage = "$imagePath/blue_package.png";
+  static const String arrow = "$imagePath/arrow.png";
+  static const String arrowUp = "$imagePath/arrowUp.png";
 }
 
 class IconsManager {

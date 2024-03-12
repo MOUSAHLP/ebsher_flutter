@@ -20,7 +20,6 @@ class ExpandedHeader extends StatelessWidget {
 
   final VendorModel vendor;
 
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -30,27 +29,22 @@ class ExpandedHeader extends StatelessWidget {
       child: Stack(
         children: [
           InkWell(
-            onTap: (){
+            onTap: () {
               showDialog(
                 context: context,
                 builder: (BuildContext context) {
                   return AlertDialog(
                     backgroundColor: Colors.transparent,
-                    content:  CachedImage(
-
-                      imageUrl: vendor.image??vendor.logo,
-
-fit: BoxFit.cover,
-
-
+                    content: CachedImage(
+                      imageUrl: vendor.image,
+                      fit: BoxFit.cover,
                     ),
-
                   );
                 },
               );
             },
             child: CachedImage(
-              imageUrl: vendor.image??vendor.logo,
+              imageUrl: vendor.image,
               height: 1.sw,
               width: 1.sw,
             ),
@@ -105,7 +99,7 @@ fit: BoxFit.cover,
           ),
           BlocBuilder<FavoritesListBloc, FavoritesListState>(
             builder: (context, state) {
-              return   Positioned.directional(
+              return Positioned.directional(
                 bottom: 5,
                 start: 30,
                 textDirection: Directionality.of(context),
@@ -117,11 +111,13 @@ fit: BoxFit.cover,
                       padding: const EdgeInsets.only(right: 4),
                       child: FavoriteHeart(
                         id: vendor.id!,
-                        isToggled: context.read<FavoritesListBloc>().isFavoriteRestaurant(vendor.id!),
+                        isToggled: context
+                            .read<FavoritesListBloc>()
+                            .isFavoriteRestaurant(vendor.id!),
                         onTap: () {
-                          context.read<FavoritesListBloc>().add(
-                              ChangeFavoriteStatusRestaurant(
-                                  vendor.id!));
+                          context
+                              .read<FavoritesListBloc>()
+                              .add(ChangeFavoriteStatusRestaurant(vendor.id!));
                         },
                       ),
                     ),
@@ -130,7 +126,6 @@ fit: BoxFit.cover,
               );
             },
           ),
-
         ],
       ),
     );

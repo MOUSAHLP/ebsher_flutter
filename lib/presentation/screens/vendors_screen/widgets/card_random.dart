@@ -27,8 +27,9 @@ class CardRandomWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     List<Widget> card = [
-      CircularCard(image: vendor.logo ?? vendor.image ?? ""),
+      CircularCard(image: vendor.logo==""||vendor.logo==null ||vendor.logo=="null"? vendor.image??"" : vendor.logo??""),
       // RectangleCard(image: vendor.logo ?? vendor.image ?? ""),
     ];
     card.shuffle();

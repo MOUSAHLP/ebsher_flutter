@@ -1,8 +1,6 @@
-import 'package:absher/bloc/location_bloc/location_event.dart';
 import 'package:absher/core/app_router/app_router.dart';
 import 'package:absher/presentation/resources/assets_manager.dart';
 import 'package:absher/presentation/resources/color_manager.dart';
-import 'package:absher/presentation/resources/font_app.dart';
 import 'package:absher/presentation/resources/style_app.dart';
 import 'package:absher/presentation/screens/vendors_screen/widgets/card_random.dart';
 import 'package:absher/translations.dart';
@@ -12,8 +10,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../bloc/favorites_list_bloc/favorites_list_bloc.dart';
 import '../../../../bloc/favorites_list_bloc/favorites_list_event.dart';
 import '../../../../bloc/favorites_list_bloc/favorites_list_state.dart';
-import '../../../../bloc/location_bloc/location_bloc.dart';
-import '../../../../bloc/location_bloc/location_state.dart';
 import '../../../../core/localization_string.dart';
 import '../../../../models/vendor_model.dart';
 

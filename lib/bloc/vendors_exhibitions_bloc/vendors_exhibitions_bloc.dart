@@ -3,18 +3,12 @@ import 'package:absher/bloc/vendors_exhibitions_bloc/vendors_exhibitions_event.d
 import 'package:absher/bloc/vendors_exhibitions_bloc/vendors_exhibitions_state.dart';
 import 'package:absher/core/app_enums.dart';
 import 'package:absher/data/repos/favorite_repository.dart';
-import 'package:absher/models/city_name_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:overlay_support/overlay_support.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:flutter/material.dart';
 import '../../data/repos/exhibitions_repository.dart';
-import '../../data/repos/home_repository.dart';
 import '../../models/params/get_vendors_exhibitions_params.dart';
-import '../../models/params/get_vendors_params.dart';
 import '../../models/sub_category_item_model.dart';
-import '../../models/vendor_model.dart';
 
 class VendorsExhibitionsBloc extends Bloc<VendorsExhibitionsEvent, VendorsExhibitionsState> {
   GetVendorsExhibitionsParams appliedFilter;
@@ -22,7 +16,7 @@ class VendorsExhibitionsBloc extends Bloc<VendorsExhibitionsEvent, VendorsExhibi
   ItemScrollController vendorsInnerController = ItemScrollController();
   final ScrollController scrollController = ScrollController();
   List<SubCategoryItemModel> subCategories = [];
-  int maxCount = 10;
+  int maxCount = 4;
 
   VendorsExhibitionsBloc({required this.appliedFilter})
       : super(VendorsExhibitionsState(

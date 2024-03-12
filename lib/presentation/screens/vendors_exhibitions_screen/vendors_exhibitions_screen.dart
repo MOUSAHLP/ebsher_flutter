@@ -1,15 +1,10 @@
 
 import 'package:absher/core/app_enums.dart';
 import 'package:absher/models/params/get_vendors_exhibitions_params.dart';
-import 'package:absher/models/params/get_vendors_params.dart';
-import 'package:absher/models/sub_category_item_model.dart';
 import 'package:absher/presentation/resources/color_manager.dart';
-import 'package:absher/presentation/screens/sub_categories_screen/widgets/card_sub_category.dart';
 
 import 'package:absher/presentation/screens/vendors_screen/widgets/build_shimmer_vendors.dart';
 import 'package:absher/presentation/screens/vendors_screen/widgets/card_random.dart';
-import 'package:absher/presentation/screens/vendors_screen/widgets/search_filter/search_filters.dart';
-import 'package:absher/presentation/widgets/accessories/cached_image_provider.dart';
 import 'package:absher/presentation/widgets/custom_app_bar_screens.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -95,20 +90,14 @@ class VendorsScreenBody extends StatelessWidget {
               SizedBox(
                 height: 1.sh,
                 child: BlocBuilder<VendorsExhibitionsBloc, VendorsExhibitionsState>(
-                  // buildWhen: (prev, current) {
-                  //   return (prev.screenStates != current.screenStates) ||
-                  //       prev.appliedFilters.exhibitionsId !=
-                  //           current.appliedFilters.exhibitionsId;
-                  // },
+
                   builder: (context, state) {
-                    print('===================== VendorsScreen ======================');
-                    // print(state.cityName!.data[0].name);
 
                     return Column(
                       children: [
                         const SizedBox(height: 70),
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
                           child: Container(
                             width: size,
                             decoration: BoxDecoration(
@@ -125,7 +114,7 @@ class VendorsScreenBody extends StatelessWidget {
                             ),
                           ),
                         ),
-                        const SizedBox(height:10),
+                        const SizedBox(height:20),
                         Expanded(
                           child:
                               BlocConsumer<VendorsExhibitionsBloc, VendorsExhibitionsState>(

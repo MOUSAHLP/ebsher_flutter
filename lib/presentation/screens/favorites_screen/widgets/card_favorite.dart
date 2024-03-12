@@ -2,7 +2,6 @@ import 'package:absher/core/app_router/app_router.dart';
 import 'package:absher/core/localization_string.dart';
 import 'package:absher/presentation/resources/assets_manager.dart';
 import 'package:absher/presentation/resources/color_manager.dart';
-import 'package:absher/presentation/resources/font_app.dart';
 import 'package:absher/presentation/resources/style_app.dart';
 import 'package:absher/presentation/screens/vendor_details_screen/vendor_details_screen.dart';
 import 'package:absher/presentation/screens/vendors_screen/widgets/card_random.dart';

@@ -1,4 +1,3 @@
-import 'package:absher/core/app_validators.dart';
 import 'package:absher/data/data_resource/local_resource/data_store.dart';
 import 'package:absher/data/repos/user_repository.dart';
 import 'package:absher/models/params/forget_password_params.dart';

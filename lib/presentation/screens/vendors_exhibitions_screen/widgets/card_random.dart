@@ -1,8 +1,3 @@
-import 'package:absher/bloc/search_bloc/search_bloc.dart';
-import 'package:absher/bloc/search_bloc/search_event.dart';
-import 'package:absher/bloc/search_bloc/search_state.dart';
-import 'package:absher/bloc/vendors_list_bloc/vendors_list_bloc.dart';
-import 'package:absher/bloc/vendors_list_bloc/vendors_list_event.dart';
 import 'package:absher/core/app_router/app_router.dart';
 import 'package:absher/presentation/resources/color_manager.dart';
 import 'package:absher/presentation/resources/font_app.dart';
@@ -12,12 +7,10 @@ import 'package:absher/presentation/widgets/favorite_heart.dart';
 import 'package:absher/translations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../../../bloc/favorites_list_bloc/favorites_list_bloc.dart';
 import '../../../../bloc/favorites_list_bloc/favorites_list_event.dart';
 import '../../../../bloc/favorites_list_bloc/favorites_list_state.dart';
-import '../../../../bloc/vendors_list_bloc/vendors_list_state.dart';
 import '../../../../core/app_type/type_image.dart';
 import '../../../../core/localization_string.dart';
 

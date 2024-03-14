@@ -103,7 +103,7 @@ class VendorsScreenBody extends StatelessWidget {
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
                             ),
-                            height: size / 338,
+                            height: size / 270,
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(20),
                               child: CachedImage(

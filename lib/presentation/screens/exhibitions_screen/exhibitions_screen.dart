@@ -124,7 +124,7 @@ class _ExhibitionsBodyState extends State<ExhibitionsBody> {
                                                         .image ??
                                                     "",
                                                 fit: BoxFit.cover,
-                                                height: size / 338,
+                                                height: size / 270,
                                                 imageSize: ImageSize.mid,
                                               ),
                                             ),

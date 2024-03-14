@@ -36,7 +36,7 @@ class ExpandedHeader extends StatelessWidget {
                   return AlertDialog(
                     backgroundColor: Colors.transparent,
                     content: CachedImage(
-                      imageUrl: vendor.image,
+                      imageUrl: vendor.image==""||vendor.image==null ||vendor.image=="null"? vendor.logo??"" : vendor.image??"",
                       fit: BoxFit.cover,
                     ),
                   );
@@ -44,7 +44,8 @@ class ExpandedHeader extends StatelessWidget {
               );
             },
             child: CachedImage(
-              imageUrl: vendor.image,
+              imageUrl:  vendor.image==""||vendor.image==null ||vendor.image=="null"? vendor.logo??"" : vendor.image??"",
+
               height: 1.sw,
               width: 1.sw,
             ),

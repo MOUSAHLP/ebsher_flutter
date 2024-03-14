@@ -16,7 +16,7 @@ class VendorsExhibitionsBloc extends Bloc<VendorsExhibitionsEvent, VendorsExhibi
   ItemScrollController vendorsInnerController = ItemScrollController();
   final ScrollController scrollController = ScrollController();
   List<SubCategoryItemModel> subCategories = [];
-  int maxCount = 4;
+  int maxCount = 10;
 
   VendorsExhibitionsBloc({required this.appliedFilter})
       : super(VendorsExhibitionsState(

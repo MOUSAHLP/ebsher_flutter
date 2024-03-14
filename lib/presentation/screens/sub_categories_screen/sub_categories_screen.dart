@@ -1,5 +1,4 @@
 import 'package:absher/core/app_router/app_router.dart';
-import 'package:absher/models/advertisement_response.dart';
 import 'package:absher/presentation/screens/sub_categories_screen/widgets/build_shimmer_sub.dart';
 import 'package:absher/presentation/screens/sub_categories_screen/widgets/card_sub_category.dart';
 import 'package:absher/presentation/widgets/custom_app_bar_screens.dart';
@@ -10,7 +9,6 @@ import '../../../bloc/sub_category_bloc/sub_category_event.dart';
 import '../../../bloc/sub_category_bloc/sub_category_state.dart';
 import '../../../core/localization_string.dart';
 import '../../../core/services/services_locator.dart';
-import '../../resources/assets_manager.dart';
 import '../../widgets/ads_carousel_slider.dart';
 import '../../widgets/custom_app_background.dart';
 import '../../widgets/custom_error_screen.dart';

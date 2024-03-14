@@ -197,5 +197,12 @@
   "search": "Search",
   "description": "Description",
   "validatePasswordMsg2" : "Use 8 characters with  at least \n one uppercase ,one lowercase letter \n one number and one symbol",
-  "location_vendor": "Location"
+  "location_vendor": "Location",
+  "exhibitions": "Exhibitions",
+  "exhibition_name": "Exhibition name :",
+  "from_date": "From a date :",
+  "to_date": "To a date :",
+  "organizing_company": "Organizing company :",
+  "place": "Place :",
+  "visiting_times": "Visiting times :"
 }

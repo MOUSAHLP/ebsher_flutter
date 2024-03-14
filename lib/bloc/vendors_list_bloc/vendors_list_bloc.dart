@@ -2,7 +2,6 @@ import 'package:absher/bloc/vendors_list_bloc/vendors_list_event.dart';
 import 'package:absher/bloc/vendors_list_bloc/vendors_list_state.dart';
 import 'package:absher/core/app_enums.dart';
 import 'package:absher/data/repos/favorite_repository.dart';
-import 'package:absher/models/city_name_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:overlay_support/overlay_support.dart';
@@ -11,7 +10,6 @@ import 'package:flutter/material.dart';
 import '../../data/repos/home_repository.dart';
 import '../../models/params/get_vendors_params.dart';
 import '../../models/sub_category_item_model.dart';
-import '../../models/vendor_model.dart';
 
 class VendorsListBloc extends Bloc<VendorsListEvent, VendorsListState> {
   GetVendorsParams appliedFilter;

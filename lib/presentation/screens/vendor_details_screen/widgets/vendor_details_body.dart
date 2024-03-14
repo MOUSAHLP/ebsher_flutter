@@ -81,7 +81,7 @@ class VendorDetailsBody extends StatelessWidget {
                         ],
                       ),
                     ),
-                    if (vendor.packageId == 43)
+                    if (vendor.packageId == 43 && vendor.showOpen==false)
                       vendor.isOpen != null
                           ? IsOpenLabel(
                               isOpen: vendor.isOpen,

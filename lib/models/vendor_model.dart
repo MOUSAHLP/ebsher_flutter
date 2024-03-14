@@ -32,6 +32,7 @@ class VendorModel {
   DateTime? updatedAt;
   int? openStatus;
   bool favoriteStatus;
+  bool? showOpen;
   Category? category;
   List<Day>? days;
   List<SubCategory>? subCategories;
@@ -83,13 +84,16 @@ class VendorModel {
       this.package,
       this.shortDescription,
       this.companyProfile,
-      this.images});
+      this.images,
+      this.showOpen
+      });
 
   factory VendorModel.fromJson(Map<String, dynamic> json) {
     print("Package.fromJson");
     print(json);
     return VendorModel(
       id: json["id"],
+      showOpen: json["has_no_days"]==null?true: json["has_no_days"],
       companyProfile: json['company_profile'],
       name: LocalizationStringModel.fromJson(json, "name"),
       description: LocalizationStringModel.fromJson(json, "description"),

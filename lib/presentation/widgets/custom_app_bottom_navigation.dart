@@ -53,7 +53,6 @@ class CustomAppBottomNavigation extends StatelessWidget {
                   AppRouter.push(context, const ReelsScreen());
                 },color: state.index==3?ColorManager.softYellow: ColorManager.lightBlueColor),
               ),
-              
               Expanded(
                 child: IconBottomNavigation(imag:  IconsManager.iconUser, onTap:(){
                   sl<BottomBloc>().add(NewBottomChange(4));

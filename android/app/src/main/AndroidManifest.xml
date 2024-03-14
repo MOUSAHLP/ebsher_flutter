@@ -1,9 +1,7 @@
-<manifest  xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.peaklink.absher">
 
 
-
-    <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -17,7 +15,9 @@
         </intent>
         <intent>
             <action android:name="android.intent.action.VIEW" />
-            <data android:scheme="https" android:host="www.facebook.com"/>
+            <data
+                android:host="www.facebook.com"
+                android:scheme="https" />
         </intent>
 
 
@@ -57,16 +57,15 @@
     </queries>
 
     <application
-        android:label="أبشر"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher"
-        android:networkSecurityConfig="@xml/network_security_config"
         android:allowBackup="false"
         android:hasFragileUserData="true"
-        android:usesCleartextTraffic="false"
-        android:taskAffinity=""
+        android:icon="@mipmap/ic_launcher"
+        android:label="أبشر"
         android:launchMode="singleTask"
-        >
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:taskAffinity=""
+        android:usesCleartextTraffic="false">
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -80,17 +79,16 @@
 
         <activity
             android:name=".MainActivity"
-            android:exported="true"
-            android:launchMode="singleTask"
-            android:theme="@style/LaunchTheme"
-            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
-            android:hardwareAccelerated="true"
-            android:windowSoftInputMode="adjustResize"
-            android:taskAffinity=""
-            android:allowTaskReparenting="false"
             android:allowBackup="false"
+            android:allowTaskReparenting="false"
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+            android:exported="true"
+            android:hardwareAccelerated="true"
+            android:launchMode="singleTask"
             android:requestLegacyExternalStorage="true"
-            >
+            android:taskAffinity=""
+            android:theme="@style/LaunchTheme"
+            android:windowSoftInputMode="adjustResize">
 
             <meta-data
                 android:name="io.flutter.embedding.android.NormalTheme"
@@ -116,19 +114,19 @@
     <queries>
         <intent>
             <action android:name="android.intent.action.VIEW" />
-            <data android:scheme="https"/>
+            <data android:scheme="https" />
         </intent>
         <intent>
             <action android:name="android.intent.action.VIEW" />
-            <data android:scheme="sms"/>
+            <data android:scheme="sms" />
         </intent>
         <intent>
             <action android:name="android.intent.action.VIEW" />
-            <data android:scheme="tel"/>
+            <data android:scheme="tel" />
         </intent>
         <intent>
             <action android:name="android.intent.action.VIEW" />
-            <data android:scheme="/*/"/>
+            <data android:scheme="/*/" />
         </intent>
     </queries>
 

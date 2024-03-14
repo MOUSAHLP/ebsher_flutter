@@ -1,7 +1,6 @@
 import 'package:absher/bloc/home_bloc/home_bloc.dart';
 import 'package:absher/core/localization_string.dart';
 import 'package:absher/presentation/resources/color_manager.dart';
-import 'package:absher/presentation/resources/assets_manager.dart';
 import 'package:absher/presentation/resources/style_app.dart';
 import 'package:absher/presentation/widgets/accessories/cached_image.dart';
 import 'package:absher/translations.dart';

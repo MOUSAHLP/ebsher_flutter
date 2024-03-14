@@ -19,7 +19,7 @@ class ImageManager {
   static const String resetPasswordAsset3 =
       "$imagePath/reset_password_asset_3.png";
   static const String signUpAsset = "$imagePath/signup_asset.png";
-  static const String test = "$imagePath/test.png";
+
   static const String test1 = "$imagePath/test1.png";
   static const String profile = "$imagePath/profile.png";
 
@@ -39,6 +39,8 @@ class ImageManager {
   static const String goldenLight = "$imagePath/golden_light.png";
   static const String goldenDark = "$imagePath/golden_dark.png";
   static const String bluePackage = "$imagePath/blue_package.png";
+  static const String arrow = "$imagePath/arrow.png";
+  static const String arrowUp = "$imagePath/arrowUp.png";
 }
 
 class IconsManager {

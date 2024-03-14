@@ -17,6 +17,7 @@ import '../../../../core/localization_string.dart';
 import '../../../../models/vendor_model.dart';
 import '../../../resources/assets_manager.dart';
 import '../../../widgets/accessories/cached_image.dart';
+import 'package:intl/intl.dart' as intl;
 
 class CardRandomWidget extends StatelessWidget {
   final VendorModel vendor;
@@ -27,12 +28,13 @@ class CardRandomWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     List<Widget> card = [
-      CircularCard(image: vendor.logo==""||vendor.logo==null ||vendor.logo=="null"? vendor.image??"" : vendor.logo??""),
-      // RectangleCard(image: vendor.logo ?? vendor.image ?? ""),
+      CircularCard(image: vendor.logo ?? vendor.image ?? ""),
+      RectangleCard(image: vendor.logo ?? vendor.image ?? ""),
     ];
     card.shuffle();
+
+
 
     return GestureDetector(
       onTap: () {
@@ -133,46 +135,46 @@ class CardRandomWidget extends StatelessWidget {
                               fontSize: 9,
                             ),
                           ),
-                          // Row(
-                          //   children: [
-                          //     StaticRate(
-                          //       rate: vendor.avgRating,
-                          //     ),
-                          //     const SizedBox(
-                          //       width: 8,
-                          //     ),
-                          //     Container(
-                          //       decoration: const BoxDecoration(
-                          //         borderRadius: BorderRadiusDirectional.only(
-                          //           bottomEnd: Radius.circular(20),
-                          //           topEnd: Radius.circular(20),
-                          //         ),
-                          //         color: ColorManager.softYellow,
-                          //       ),
-                          //       child: Padding(
-                          //         padding: const EdgeInsets.symmetric(
-                          //             horizontal: 8.0),
-                          //         child: Text(
-                          //           double.tryParse(vendor.avgRating ?? '0')!
-                          //               .toStringAsFixed(1),
-                          //           style: getBoldStyle(
-                          //             color: Colors.white,
-                          //             fontSize: FontSizeApp.s12,
-                          //           )?.copyWith(
-                          //             height: 1.4,
-                          //           ),
-                          //         ),
-                          //       ),
-                          //     )
-                          //   ],
-                          // ),
+                          Row(
+                            children: [
+                              StaticRate(
+                                rate: vendor.avgRating,
+                              ),
+                              const SizedBox(
+                                width: 8,
+                              ),
+                              Container(
+                                decoration: const BoxDecoration(
+                                  borderRadius: BorderRadiusDirectional.only(
+                                    bottomEnd: Radius.circular(20),
+                                    topEnd: Radius.circular(20),
+                                  ),
+                                  color: ColorManager.softYellow,
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 8.0),
+                                  child: Text(
+                                    double.tryParse(vendor.avgRating ?? '0')!
+                                        .toStringAsFixed(1),
+                                    style: getBoldStyle(
+                                      color: Colors.white,
+                                      fontSize: FontSizeApp.s12,
+                                    )?.copyWith(
+                                      height: 1.4,
+                                    ),
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
                           const SizedBox(
                             height: 4,
                           ),
                           InfoCardWithIcon(
                             svgAsset: IconsManager.iconLocation,
                             label: 'العنوان',
-                            value: vendor.address1,
+                            value: vendor.address,
                           ),
                           const SizedBox(
                             height: 4,
@@ -180,7 +182,7 @@ class CardRandomWidget extends StatelessWidget {
                           InfoCardWithIcon(
                             svgAsset: IconsManager.iconPhone,
                             label: 'رقم الهاتف',
-                            value: vendor.phone1,
+                            value: vendor.phone,
                           ),
                         ],
                       ),
@@ -190,11 +192,10 @@ class CardRandomWidget extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          if (vendor.packageId == 43 && vendor.showOpen==false)
-
-                             IsOpenLabel(
-                              isOpen: vendor.isOpen,
-                            ),
+                         if(vendor.packageId == 43)
+                          IsOpenLabel(
+                            isOpen: vendor.isOpen,
+                          ),
                           const SizedBox(height: 20),
                           if (!fromSearch)
                             BlocBuilder<FavoritesListBloc, FavoritesListState>(
@@ -229,30 +230,30 @@ class CardRandomWidget extends StatelessWidget {
                               },
                             ),
                           const SizedBox(height: 20),
-                          // vendor.package?.colorCode == null ||
-                          //         vendor.package?.colorCode == 0
-                          //     ? SizedBox()
-                          //     : Row(
-                          //         crossAxisAlignment: CrossAxisAlignment.end,
-                          //         children: [
-                          //           Text(
-                          //             intl.NumberFormat.compact()
-                          //                 .format(vendor.visits ?? 0),
-                          //             style: getBoldStyle(
-                          //               color: ColorManager.primaryColor,
-                          //             )!
-                          //                 .copyWith(height: 1),
-                          //           ),
-                          //           const SizedBox(
-                          //             width: 4,
-                          //           ),
-                          //           const Icon(
-                          //             Icons.remove_red_eye,
-                          //             color: ColorManager.primaryColor,
-                          //             size: 16,
-                          //           ),
-                          //         ],
-                          //       ),
+                          vendor.package?.colorCode == null ||
+                                  vendor.package?.colorCode == 0
+                              ? SizedBox()
+                              : Row(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    Text(
+                                      intl.NumberFormat.compact()
+                                          .format(vendor.visits ?? 0),
+                                      style: getBoldStyle(
+                                        color: ColorManager.primaryColor,
+                                      )!
+                                          .copyWith(height: 1),
+                                    ),
+                                    const SizedBox(
+                                      width: 4,
+                                    ),
+                                    const Icon(
+                                      Icons.remove_red_eye,
+                                      color: ColorManager.primaryColor,
+                                      size: 16,
+                                    ),
+                                  ],
+                                ),
                         ],
                       ),
                     )
@@ -313,8 +314,7 @@ class InfoCardWithIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (label == null || value == null || value == "" || value == "null")
-      return const SizedBox();
+    if (label == null || value == null || value == "") return const SizedBox();
     return Row(
       children: [
         SizedBox(

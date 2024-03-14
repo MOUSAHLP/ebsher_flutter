@@ -123,7 +123,7 @@ class BaseApiClient {
     required T Function(dynamic) converter,
     CancelToken? cancelToken,
   }) async {
-    try {
+   try {
     var response = await client.get(
       url,
       queryParameters: queryParameters,
@@ -145,7 +145,8 @@ class BaseApiClient {
     } else {
       return left(response.data['message']);
     }
-    } on DioException catch (e) {
+   }
+    on DioException catch (e) {
       if (e.type == DioExceptionType.cancel) {
         return left('Cancel');
       }

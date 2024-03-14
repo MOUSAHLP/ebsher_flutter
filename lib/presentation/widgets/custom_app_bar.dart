@@ -52,89 +52,90 @@ class CustomAppBar extends StatelessWidget {
                             child: AlertDialog(
                               alignment: Alignment.topLeft,
                               content: SingleChildScrollView(
-                                  child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  InkWell(
-                                      onTap: () {
-                                        AppRouter.pop(context);
-                                      },
-                                      child: const Icon(
-                                        Icons.clear,
-                                        color: ColorManager.primaryColor,
-                                      )),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-                                  BlocBuilder<NotificationBloc,
-                                          NotificationState>(
-                                      bloc: sl<NotificationBloc>(),
-                                      builder: (context, state) {
-                                        return Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            SizedBox(
-                                                width: 20,
-                                                child: SwitchListTile(
-                                                  value: context
-                                                      .read<NotificationBloc>()
-                                                      .isEnable,
-                                                  onChanged: (v) {
-                                                    if (context
-                                                            .read<
-                                                                NotificationBloc>()
-                                                            .isEnable ==
-                                                        true) {
-                                                      sl<NotificationBloc>().add(
-                                                          SetNotificationEnable(
-                                                              0));
-                                                    } else {
-                                                      sl<NotificationBloc>().add(
-                                                          SetNotificationEnable(
-                                                              1));
-                                                    }
-                                                  },
-                                                  activeColor:
-                                                      ColorManager.primaryColor,
-                                                )),
-                                            Text(
-                                                context
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    InkWell(
+                                        onTap: () {
+                                          AppRouter.pop(context);
+                                        },
+                                        child: const Icon(
+                                          Icons.clear,
+                                          color: ColorManager.primaryColor,
+                                        )),
+                                    const SizedBox(height: 5),
+                                    BlocBuilder<NotificationBloc,
+                                            NotificationState>(
+                                        bloc: sl<NotificationBloc>(),
+                                        builder: (context, state) {
+                                          return Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              SizedBox(
+                                                  width: 20,
+                                                  child: SwitchListTile(
+                                                    value: context
                                                         .read<
                                                             NotificationBloc>()
-                                                        .isEnable
-                                                    ? AppLocalizations.of(
-                                                            context)!
-                                                        .notificationsOn
-                                                    : AppLocalizations.of(
-                                                            context)!
-                                                        .notificationsOff,
-                                                style: getMediumStyle(
-                                                    color:
-                                                        const Color(0xff707070),
-                                                    fontSize: 15)),
-                                          ],
-                                        );
-                                      }),
-                                  const Center(
-                                      child: Divider(
-                                    color: Colors.black,
-                                  )),
-                                  Center(
+                                                        .isEnable,
+                                                    onChanged: (v) {
+                                                      if (context
+                                                              .read<
+                                                                  NotificationBloc>()
+                                                              .isEnable ==
+                                                          true) {
+                                                        sl<NotificationBloc>().add(
+                                                            SetNotificationEnable(
+                                                                0));
+                                                      } else {
+                                                        sl<NotificationBloc>().add(
+                                                            SetNotificationEnable(
+                                                                1));
+                                                      }
+                                                    },
+                                                    activeColor: ColorManager
+                                                        .primaryColor,
+                                                  )),
+                                              Text(
+                                                  context
+                                                          .read<
+                                                              NotificationBloc>()
+                                                          .isEnable
+                                                      ? AppLocalizations.of(
+                                                              context)!
+                                                          .notificationsOn
+                                                      : AppLocalizations.of(
+                                                              context)!
+                                                          .notificationsOff,
+                                                  style: getMediumStyle(
+                                                      color: const Color(
+                                                          0xff707070),
+                                                      fontSize: 15)),
+                                            ],
+                                          );
+                                        }),
+                                    const Center(
+                                        child: Divider(
+                                      color: Colors.black,
+                                    )),
+                                    Center(
                                       child: GestureDetector(
-                                    onTap: () {
-                                      AppRouter.pushReplacement(
-                                          context, const NotificationScreen());
-                                    },
-                                    child: Text(
-                                      AppLocalizations.of(context)!
-                                          .showNotication,
-                                      style: getBoldStyle(
-                                          color: ColorManager.primaryColor),
-                                    ),
-                                  ))
-                                ],
-                              )),
+                                        onTap: () {
+                                          AppRouter.pushReplacement(context,
+                                              const NotificationScreen());
+                                        },
+                                        child: Text(
+                                          AppLocalizations.of(context)!
+                                              .showNotication,
+                                          style: getBoldStyle(
+                                              color: ColorManager.primaryColor),
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
                             ),
                           ),
                           dismissible: true);

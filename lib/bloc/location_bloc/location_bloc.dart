@@ -1,10 +1,10 @@
-
 import 'package:absher/bloc/location_bloc/location_event.dart';
 import 'package:absher/core/app_enums.dart';
 
 import 'package:absher/presentation/resources/assets_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -44,8 +44,9 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
           }, (r) {
             allVendors = r;
             for (VendorModel vendor in allVendors) {
-              if(vendor.category!=null) {
-                if (!allCategories.any((element) => element.id == vendor.category?.id)) {
+              if (vendor.category != null) {
+                if (!allCategories.any((element) =>
+                element.id == vendor.category?.id)) {
                   print("vvvvvvvvvvv");
                   // print(vendor.categoryId);
                   // print(vendor.category);
@@ -56,6 +57,8 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
             selectedCategories.addAll(allCategories);
             pendingCategories.addAll(selectedCategories);
             refreshSelectedVendorsList();
+            selectedCategories.clear();
+            pendingCategories.clear();
             setMarkers();
             emit(state.copyWith(
                 screenStates: ScreenStates.success,
@@ -155,7 +158,7 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
           emit(state.copyWith(
               vendorSelected: selectedVendors, index: currentIndex));
           final response =
-              await FavoriteRepository.removeFavorite(event.vendorId);
+          await FavoriteRepository.removeFavorite(event.vendorId);
           response.fold((l) {
             selectedVendors[targetedIndex].favoriteStatus = true;
             int currentIndex = state.index;
@@ -185,7 +188,7 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
   void refreshSelectedVendorsList() {
     selectedVendors.clear();
     for (VendorModel vendor in allVendors) {
-      if(vendor.category!=null) {
+      if (vendor.category != null) {
         if (selectedCategories
             .any((element) => element.id == vendor.category!.id)) {
           selectedVendors.add(vendor);
@@ -234,8 +237,8 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
           ),
           child: Image.asset(
             ImageManager.locationMap,
-            width: 100,
-            height: 100,
+            width: 10.h,
+            height: 10.h,
           )),
     );
     for (int i = 0; i < selectedVendors.length; i++) {
@@ -248,9 +251,9 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
               onTap: () {
                 add(ClickMarker(i));
               }),
-          child:selectedVendors[i].category!=null? MarkerWidget(
+          child: selectedVendors[i].category != null ? MarkerWidget(
               image: selectedVendors[i].category!.thumbnail!,
-              colors: selectedVendors[i].category!.color!):SizedBox()));
+              colors: selectedVendors[i].category!.color!) : SizedBox()));
     }
   }
 }
